@@ -1,0 +1,2971 @@
+\documentclass[a4paper,11pt, reqno]{amsart}
+
+%% Mise en page
+	\usepackage{fullpage}
+
+%% Pour AMS art
+	%\usepackage[foot]{amsaddr}% Adresses en bas (avec AMSART)
+	\calclayout % permet de centrer la page dans amsart
+
+%% Appendice
+	\usepackage[titletoc]{appendix}% Notations A, B etc dans l'appendice plutot que 1,2,3
+
+%% langue
+	\usepackage[english]{babel} %typos en anglais
+	%\usepackage[french]{babel} \frenchbsetup{StandardLists=true} %typos en français
+	
+
+%% Encodage et accents
+	\usepackage[utf8]{inputenc} %encodage utf8
+	\usepackage[T1]{fontenc} %voir les accents
+	
+%% Couleurs
+	\usepackage[dvips]{color}
+	\usepackage[dvipsnames,svgnames]{xcolor}
+
+
+%% Puces et environnements
+	\usepackage{enumitem} % Permet de faire break après un itemize ou enumerate
+	%\usepackage{enumerate} % permet de sp\'ecifier les option de enumarate, possibilit\'es A a I i or 1 %% Attention : problemes de compatibilités parfois
+	\usepackage[normalem]{ulem} % Pour souligner
+	\renewcommand{\labelitemi}{\textbullet} %Puces de itemize
+
+	
+%% Liens : les r\'ef\'erences, rappels de formules et de sections sont en couleurs
+	\usepackage[colorlinks=true,linkcolor=MidnightBlue,citecolor=OliveGreen]{hyperref}
+	
+%% Maths
+	\usepackage{amsmath,amsfonts,amssymb,amscd,stmaryrd,bbm,amsthm,mathrsfs}
+
+%% Pour les insertions de figures
+	\usepackage{graphicx} % pour includegraphics
+	\usepackage{float} % Pour specifier les options en haut d'une figure [t] ou [h]
+	\usepackage{multicol} % Plusieurs colonnes
+
+
+%% Tikz
+	%\usepackage{pgf,tikz,pgfplots}
+	%\usetikzlibrary{shapes,snakes,patterns,arrows,automata,positioning,patterns,math}
+	%\usepackage{standalone}
+	%\usepackage{ifthen,calc}
+
+
+%% Lettres de cal et bbm
+	\newcommand{\cA}{\mathcal{A}}	\renewcommand{\AA}{\mathbbm{A}} 	
+	\newcommand{\cB}{\mathcal{B}}	\newcommand{\BB}{\mathbbm{B}}
+	\newcommand{\cC}{\mathcal{C}}	\newcommand{\CC}{\mathbbm{C}}
+	\newcommand{\cD}{\mathcal{D}}	\newcommand{\DD}{\mathbbm{D}}
+	\newcommand{\cE}{\mathcal{E}}	\newcommand{\EE}{\mathbbm{E}}
+	\newcommand{\cF}{\mathcal{F}}	\newcommand{\FF}{\mathbbm{F}}
+	\newcommand{\cG}{\mathcal{G}}	\newcommand{\GG}{\mathbbm{G}}
+	\newcommand{\cH}{\mathcal{H}}	\newcommand{\HH}{\mathbbm{H}}
+	\newcommand{\cI}{\mathcal{I}}	\newcommand{\II}{\mathbbm{I}}
+	\newcommand{\cJ}{\mathcal{J}}	\newcommand{\JJ}{\mathbbm{J}}
+	\newcommand{\cK}{\mathcal{K}}	\newcommand{\KK}{\mathbbm{K}}
+	\newcommand{\cL}{\mathcal{L}}	\newcommand{\LL}{\mathbbm{L}}
+	\newcommand{\cM}{\mathcal{M}}	\newcommand{\MM}{\mathbbm{M}}
+	\newcommand{\cN}{\mathcal{N}}	\newcommand{\NN}{\mathbbm{N}}
+	\newcommand{\cO}{\mathcal{O}}	\newcommand{\OO}{\mathbbm{O}}
+	\newcommand{\cP}{\mathcal{P}}	\newcommand{\PP}{\mathbbm{P}}
+	\newcommand{\cQ}{\mathcal{Q}}	\newcommand{\QQ}{\mathbbm{Q}}
+	\newcommand{\cR}{\mathcal{R}}	\newcommand{\RR}{\mathbbm{R}}
+	\newcommand{\cS}{\mathcal{S}}	\renewcommand{\SS}{\mathbbm{S}}
+	\newcommand{\cT}{\mathcal{T}}	\newcommand{\TT}{\mathbbm{T}}
+	\newcommand{\cU}{\mathcal{U}}	\newcommand{\UU}{\mathbbm{U}}
+	\newcommand{\cV}{\mathcal{V}}	\newcommand{\VV}{\mathbbm{V}}
+	\newcommand{\cW}{\mathcal{W}}	\newcommand{\WW}{\mathbbm{W}}
+	\newcommand{\cX}{\mathcal{X}}	\newcommand{\XX}{\mathbbm{X}}
+	\newcommand{\cY}{\mathcal{Y}}	\newcommand{\YY}{\mathbbm{Y}}
+	\newcommand{\cZ}{\mathcal{Z}}	\newcommand{\ZZ}{\mathbbm{Z}}
+
+%% Gras et Gothique
+	\newcommand{\bA}{\mathbf{A}}	\newcommand{\fA}{\mathfrak{A}}
+	\newcommand{\bB}{\mathbf{B}}	\newcommand{\fB}{\mathfrak{B}}
+	\newcommand{\bC}{\mathbf{C}}	\newcommand{\fC}{\mathfrak{C}}
+	\newcommand{\bD}{\mathbf{D}}	\newcommand{\fD}{\mathfrak{D}}
+	\newcommand{\bE}{\mathbf{E}}	\newcommand{\fE}{\mathfrak{E}}
+	\newcommand{\bF}{\mathbf{F}}	\newcommand{\fF}{\mathfrak{F}}
+	\newcommand{\bG}{\mathbf{G}}	\newcommand{\fG}{\mathfrak{G}}
+	\newcommand{\bH}{\mathbf{H}}	\newcommand{\fH}{\mathfrak{H}}
+	\newcommand{\bI}{\mathbf{I}}	\newcommand{\fI}{\mathfrak{I}}
+	\newcommand{\bJ}{\mathbf{J}}	\newcommand{\fJ}{\mathfrak{J}}
+	\newcommand{\bK}{\mathbf{K}}	\newcommand{\fK}{\mathfrak{K}}
+	\newcommand{\bL}{\mathbf{L}}	\newcommand{\fL}{\mathfrak{L}}
+	\newcommand{\bM}{\mathbf{M}}	\newcommand{\fM}{\mathfrak{M}}
+	\newcommand{\bN}{\mathbf{N}}	\newcommand{\fN}{\mathfrak{N}}
+	\newcommand{\bO}{\mathbf{O}}	\newcommand{\fO}{\mathfrak{O}}
+	\newcommand{\bP}{\mathbf{P}}	\newcommand{\fP}{\mathfrak{P}}
+	\newcommand{\bQ}{\mathbf{Q}}	\newcommand{\fQ}{\mathfrak{Q}}
+	\newcommand{\bR}{\mathbf{R}}	\newcommand{\fR}{\mathfrak{R}}
+	\newcommand{\bS}{\mathbf{S}}	\newcommand{\fS}{\mathfrak{S}}	
+	\newcommand{\bT}{\mathbf{T}}	\newcommand{\fT}{\mathfrak{T}}	
+	\newcommand{\bU}{\mathbf{U}}	\newcommand{\fU}{\mathfrak{U}}
+	\newcommand{\bV}{\mathbf{V}}	\newcommand{\fV}{\mathfrak{V}}
+	\newcommand{\bW}{\mathbf{W}}	\newcommand{\fW}{\mathfrak{W}}
+	\newcommand{\bX}{\mathbf{X}}	\newcommand{\fX}{\mathfrak{X}}
+	\newcommand{\bY}{\mathbf{Y}}	\newcommand{\fY}{\mathfrak{Y}}
+	\newcommand{\bZ}{\mathbf{Z}}	\newcommand{\fZ}{\mathfrak{Z}}
+	
+%% Notations mathematiques
+	\newcommand{\eps}{\varepsilon}
+	\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+	\newcommand{\ie}{{\it i.e.}}
+	\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+	\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+	\newcommand{\red}[1]{{\color{red} #1}}
+	\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+	\newcommand{\orange}[1]{{\color{orange} #1}}
+	\newcommand{\ind}{\mathbbm{1}}
+	\newcommand{\1}{\mathbbm{1}}
+	\newcommand{\indic}{\mathbbm{1}}
+	\let\div\relax
+	\DeclareMathOperator{\div}{div}
+	\newcommand{\assign}{:=}
+
+%% Environnements 
+	\theoremstyle{plain}
+		\newtheorem{theorem}{Theorem}[section]
+		\newtheorem{corollary}[theorem]{Corollary}
+		\newtheorem{lemma}[theorem]{Lemma}
+		\newtheorem{proposition}[theorem]{Proposition}
+		\newtheorem{conjecture}[theorem]{Conjecture}
+		\newtheorem{remark}[theorem]{Remark}
+
+%% Ennonces normaux
+	\theoremstyle{definition}
+		\newtheorem{definition}[theorem]{Definition}
+		\newtheorem{notation}[theorem]{Notation}
+		\newtheorem{example}[theorem]{Example}		
+		
+\begin{document}
+
+\red{Remark
+\begin{itemize}
+  \item $\cM^{+, p}_1 =\cM^+_p$
+\end{itemize}}
+
+\red{Il semblerait que dans
+{\cite{escobedoDustSelfsimilaritySmoluchowski2006}} les solutions pour
+l'{\'e}quation de Smoluchowski avec $K_{\alpha}$ soit d{\'e}j{\`a}
+{\'e}tudi{\'e}es (mais pas la convergence de Smoluchowski). Voir aussi
+{\cite{escobedoGelationCoagulationFragmentation2002}},
+{\cite{barikMassconservingSolutionsSmoluchowski2020}}.
+
+En fait ils travailles avec
+\[ K (x, y) = x^{- \alpha} y^{\beta} + x^{\beta} y^{- \alpha} \]
+$- 1 \le \alpha \le \beta < 1$ $\alpha + \beta \in [0, 2]$, ce qui
+n'est pas v{\'e}rifi{\'e} pour nous.
+
+En revanche, {\cite{fournierExistenceSelfSimilarSolutions2005}} (Equation 1.7)
+ils construisent une solution avec $K_{\alpha}$. Remarquons qu'on devrait
+pouvoir du coup {\'e}tendre nos r{\'e}sultats dans ce cas l{\`a}.
+
+Par ailleurs Norris montre tout, sans vitesse pour notre modèle}
+
+\section{Introduction}
+
+There is a nice survey on fragmentation equation
+{\cite{deaconuProbabilisticRepresentationsFragmentation2023}}, celebrated
+review {\cite{aldousDeterministicStochasticModels1999}} on Smoluchowski and
+coagulation processes.
+
+For existence results on Smoluchowski equation :
+{\cite{laurencotClassContinuousCoagulationFragmentation2000}}
+{\cite{lambExistenceUniquenessResults2004}} (and the references therein) : our
+kernel does not fulfill the conditions. One can also see
+{\cite{niethammerSelfsimilarSolutionsFat2013}}.
+
+\
+
+Work by Norris in {\cite{norrisSmoluchowskisCoagulationEquation1999}}, which
+fulfills all the conditions of our kernel. Nevertheless no speed of
+convergence, and with another language. Existence, uniqueness and convergence
+of Marcus-Lushnikov process towards Smoluchowski equation are done for the
+weak topology (we are working in Wasserstein $1$ distance). No speed and no
+other types of functionals.
+
+\
+
+For coagulation models with homogeneous rate and there link with
+Smoluchowski equation : a series of work of Fournier and coauthors
+{\cite{fournierStochasticCoalescenceHomogeneouslike2009}},
+{\cite{fournierConvergenceMarcusLushnikov2004}}
+{\cite{fournierStochasticCoalescents2006}}
+{\cite{fournierDistanceCoagulation2006}}
+{\cite{cepedaSmoluchowskisEquationRate2011a}}. Again, our kernel does not
+fulfills the conditions. But also the work
+{\cite{kyprianouUniversalityClassFragmentationcoalescence2018}} for the speed
+of convergence in the constant kernel case
+
+Nice survey work in {\cite{laurencotWeakCompactnessTechniques2015a}}
+
+\
+
+CLT : {\cite{deaconuPureJumpMarkov2002}} and
+{\cite{kolokoltsovCentralLimitTheorem2008}} speed
+{\cite{cepedaSmoluchowskisEquationRate2011a}} and
+{\cite{kyprianouUniversalityClassFragmentationcoalescence2018}}
+
+\
+
+Stragegy of the proof : Use ideas from
+{\cite{cepedaSmoluchowskisEquationRate2011a}} for the distance in
+$\RR_+^{\ast}$ to have a Wasserstein distance adapted to our kernel.
+Ideas from {\cite{norrisSmoluchowskisCoagulationEquation1999}} for existence
+and uniqueness of the Smoluchowski equation, see also
+{\cite{norrisClusterCoagulation2000}}. Ideas from
+{\cite{kolokoltsovCentralLimitTheorem2008}} to use regularity with respect to
+the initial condition of the Smoluchowski equation to compare the
+Markus-Lushnikov process and solutions of the Smoluchowski equation. We also
+use ideas of {\cite{kyprianouUniversalityClassFragmentationcoalescence2018}}
+to derive a strong rate of convergence (in $1 / \sqrt{n}$). Finally we use
+tools from {\cite{martiniKolmogorovEquationsSpaces2023}} to derive a rate of
+convergence for non-linear functional of the empirical measure of the
+Marcus-Lushnikov process.
+
+\subsection{Plans of the Paper}
+
+\subsection{Notations}
+
+Let $(E, d_E)$ and $(F, d_F)$ be two metric spaces. We say that $f : E
+\rightarrow F$ is Lipschitz continuous, and write $f \in  \text{ Lip } ((E, d_E)
+; (F, d_F))$ if
+\[ \llbracket f \rrbracket_{ \text{ Lip } ((E, d_E) ; (F, d_F))} \assign
+   \underset{\begin{array}{c}
+     x \neq y\\
+     x, y \in E
+   \end{array}}{\sup} \frac{d_F (f (x), f (y))}{d_E (x, y)} < + \infty . \]
+
+\section{Functional spaces}
+
+\subsection{A distance for the coagulation}
+
+In this part, we define a topology on $\RR_+^{\ast}$ which is well
+suited for the the kernels
+\begin{equation}
+  K_{\alpha} (x, y) = \frac{1}{x^{\alpha}} + \frac{1}{y^{\alpha}} .
+  \label{eq:def-Kalpha}
+\end{equation}
+This will allow us to consider the convergence the empirical measure of the
+coalescence process towards the Smoluchowski equation in some Wasserstein
+spaces compatible with $K_{\alpha}$. We are strongly inspired by
+{\cite{fournierDistanceCoagulation2006}}, where a smiliar distance is
+constructed.
+
+\begin{definition}
+  Let $0 < \alpha < 1$. Let us define the distance on $\RR_+^{\ast}$
+  via
+  \[ d_{\alpha} (x, y) = \left| \frac{1}{x^{\alpha}} - \frac{1}{y^{\alpha}}
+     \right| . \]
+\end{definition}
+
+\begin{proposition}
+  Let $x_0 \in \RR$ and $r > 0$, then
+  \[ B_{d_{\alpha}} (x_0, r) = \left\{\begin{array}{ll}
+       \left( (r + x_0^{- \alpha})^{- \frac{1}{\alpha}}, (- r + x_0^{-
+       \alpha})^{- \frac{1}{\alpha}} \right) &  \text{ if } r < x_0^{- \alpha}\\
+       \left( (r + x_0^{- \alpha})^{- \frac{1}{\alpha}}, + \infty \right) &
+        \text{ if } x_0^{- \alpha} \le r
+     \end{array}\right. . \]
+\end{proposition}
+
+\begin{proof}
+  Straightforward.
+\end{proof}
+
+\begin{corollary}
+  The topology generated by $d_{\alpha}$ and the one generated by $| \cdot
+  |$ coincide on $\RR_+^{\ast}$.
+\end{corollary}
+
+\begin{proof}
+  The previous proposition shows that the open balls for $d_{\alpha}$ are open
+  sets for $| \cdot |$. Now take $(a, b) \subset \RR_+^{\ast}$.
+  Consider $r = \frac{a^{- \alpha} - b^{- \alpha}}{2}$ and $x_0 = \left(
+  \frac{a^{- \alpha} + b^{- \alpha}}{2} \right)^{- \frac{1}{\alpha}}$, and
+  \[ B_{d_{\alpha}} (r, x_0) = (a, b), \]
+  which ends the proof.
+\end{proof}
+
+\begin{corollary}
+  The space $(\RR_+^{\ast}, d_{\alpha})$ is a Polish space.
+\end{corollary}
+
+\begin{proof}
+  Obviously $(\RR_+^{\ast}, | \cdot |)$ is homeomophic to
+  $(\RR, | \cdot |)$, which is a locally compact metric space and
+  countable at infinity, and thus is a Polish space. This implies that
+  $(\RR_+^{\ast}, d_{\alpha})$ is a Polish space thanks to the previous
+  Corollary.
+\end{proof}
+
+\begin{proposition}
+  \label{prop:compact-dalpha}The closed intervals $[a, b]$ are compact sets
+  for $d_{\alpha}$.
+\end{proposition}
+
+\begin{proof}
+  First, remark that is $\RR_+^{\ast} \ni x_n \xrightarrow{d_a} x \in
+  \RR_+^{\ast}$ if and only if $\left| \frac{1}{x_n^{\alpha}} -
+  \frac{1}{x^{\alpha}} \right| \rightarrow 0$ if and only if $| x_n - x |
+  \rightarrow 0$. Furthermore, remember that $[a, b] =
+  \overline{B_{d_{\alpha}}} \left( \left( \frac{a^{- \alpha} + b^{-
+  \alpha}}{2} \right)^{- \frac{1}{\alpha}}, \frac{a^{- \alpha} - b^{-
+  \alpha}}{2} \right)$. Now, take a sequence $(x_n)_{n \ge 0}$ of
+  elements of $[a, b]$. There exists a subsesquence and a point $x \in [a, b]$
+  such that $| x_{k_n} - x | \rightarrow 0$ and $d_{\alpha} (x_{k_n}, x)
+  \rightarrow 0$.
+\end{proof}
+
+\
+
+In order to work with the Wasserstein topology on finite measures on
+$(\RR_+^{\ast}, d_{\alpha})$, we need to study a little more the
+Lipschitz continuous function of this space. First, remark that
+\[ x \rightarrow \frac{1}{x^{\alpha}} \in  \text{ Lip } ((\RR_+^{\ast},
+   d_{\alpha}) ; (\RR, | \cdot |)) . \]
+
+In fact we have the following straightforward but useful property :
+
+\begin{proposition}\label{prop:lip-isometry}
+The spaces $Lip((\RR_+^*,d_\alpha);(\RR,|\cdot|))$ and $Lip((\RR_+^*,|\cdots|);(\RR,|\cdot|))$ are in bijection via the map 
+\[f \in Lip((\RR_+^*,d_\alpha);(\RR,|\cdot|)) \to \left(x \to f\left(\frac{1}{x^{\frac{1}{\alpha}}}\right)\right) \in Lip((\RR_+^*,|\cdot|);(\RR,|\cdot|)),\]
+with inverse
+\[g \in Lip((\RR_+^*,|\cdot|);(\RR,|\cdot|)) \to \left(x \to g\left(\frac{1}{x^{\alpha}}\right)\right) \in Lip((\RR_+^*,d_\alpha);(\RR,|\cdot|)).\]
+\end{proposition}
+
+\begin{proof}
+    Take $f \in Lip((\RR_+^*,d_\alpha);(\RR,|\cdot|))$, then 
+    \begin{align*}
+        \left|
+            f\left(x^{-\frac{1}{\alpha}}\right)- f\left(y^{-\frac{1}{\alpha}}\right)
+        \right| 
+        \le  &
+        \llbracket f \rrbracket_{Lip_{d_\alpha}} 
+        d_{\alpha}
+            \left(
+                x^{-\frac{1}{\alpha}},
+                y^{-\frac{1}{\alpha}}
+            \right)
+        \\ 
+        = & 
+        \llbracket f \rrbracket_{Lip_{d_\alpha}} |x-y|.
+    \end{align*}
+    The same computation holds for $f \in Lip((\RR_+^*,|\cdot|);(\RR,|\cdot|))$, one gets 
+    \[\left|
+            f\left(x^{-\alpha}\right)- f\left(y^{-\alpha}\right)
+        \right| \le \llbracket f \rrbracket_{Lip_{|\cdot |}} d_\alpha(x,y)  .\]
+        This ends the proof, using the fact that the two previously define maps are mutual inverses. 
+\end{proof}
+   
+% \begin{proposition}
+%   Take a Lipschitz continuous function $f \in  \text{ Lip } ((\RR_+^{\ast}, | \cdot |) ; (\RR, | \cdot |))$ then $f$
+%   is a locally Lipschitz continuous from $(\RR_+, d_{\alpha})$ to
+%   $(\RR, | \cdot |)$.
+% \end{proposition}
+
+% \begin{proof}
+%   take $x > y \in \RR_+^{\ast}$, then
+  
+%   \begin{align*}
+%     | f (x) - f (y) | \le & \llbracket f \rrbracket_{ \text{ Lip } ((\RR_+^{\ast}, | \cdot |) ; (\RR, | \cdot |))} | x - y
+%     |\\
+%     \le & \llbracket f \rrbracket_{ \text{ Lip } ((\RR_+^{\ast}, |
+%     \cdot |) ; (\RR, | \cdot |))} \left| \frac{1}{x^{\alpha}} -
+%     \frac{1}{y^{\alpha}} \right| \frac{| x - y |  (x y)^{\alpha} }{|
+%     x^{\alpha} - y^{\alpha} |}\\
+%     \le & \llbracket f \rrbracket_{ \text{ Lip } ((\RR_+^{\ast}, |
+%     \cdot |) ; (\RR, | \cdot |))} d_{\alpha} (x, y) | x - y |^{1 -
+%     \alpha} (x y)^{\alpha} .
+%   \end{align*}
+  
+%   Here we have used the fact that $x^{\alpha} - y^{\alpha} \ge | x - y
+%   |^{\alpha}$
+  
+%   In aparticular, for $x_0 \in \RR_+^{\ast}$ and $r = \frac{1}{2
+%   x_0^{\alpha}}$, one gets $B_{d_{\alpha}} (x_0, r) = \left( \left(
+%   \frac{2}{3} \right)^{\frac{1}{\alpha}} x_0, 2^{\frac{1}{\alpha}} x_0
+%   \right)$, and for all $x > y \in B_{d_{\alpha}} (x_0, r)$,
+%   \[ | x - y |^{1 - \alpha} (x y)^{\alpha} < \left( 2^{\frac{1}{\alpha}} -
+%      \left( \frac{2}{3} \right)^{\frac{1}{\alpha}} \right)^{1 - \alpha} x_0^{1
+%      - \alpha} 4 x_0^{2 \alpha} = 4 \left( 2^{\frac{1}{\alpha}} - \left(
+%      \frac{2}{3} \right)^{\frac{1}{\alpha}} \right)^{1 - \alpha} x_0^{1 +
+%      \alpha}, \]
+%   and for all $x_0 \in \RR_+^{\ast}$, one gets
+%   \[ \sup_{\substack{
+%        x \neq y\\
+%        x, y \in B_{d_{\alpha}} \left( x_0, \frac{1}{2 x_0^{\alpha}} \right)}} \frac{| f (x) - f (y) |}{d_{\alpha} (x, y)} \le 4
+%      \left( 2^{\frac{1}{\alpha}} - \left( \frac{2}{3}
+%      \right)^{\frac{1}{\alpha}} \right)^{1 - \alpha} x_0^{1 + \alpha}
+%      \llbracket f \rrbracket_{ \text{ Lip } ((\RR_+^{\ast}, | \cdot |) ;
+%      (\RR, | \cdot |))} \]
+%   which proves the result.
+% \end{proof}
+
+\begin{proposition}
+  Let $f \in  \text{ Lip } ((\RR_+^{\ast}, d_{\alpha}) ; (\RR, |
+  \cdot |))$ such that $f (1) = 0$. Then
+  \[ | f (x) | \le \llbracket f \rrbracket_{ \text{ Lip } ((\RR_+^{\ast}, d_{\alpha}) ; (\RR, | \cdot |))} \left( 1
+     + \frac{1}{x^{\alpha}} \right) . \]
+\end{proposition}
+
+\begin{proof}
+  The proof is a direct consequence of the definition of the distance.
+\end{proof}
+
+The following proposition will be of importance in the following, and quantify the rate of approximation of Hölder continuous functions (for $d_\alpha$) via Lipschitz continuous functions. This is a rather classical result when $d_\alpha$ is replaced by $|\cdot|$, but some arguments are necessary to state and prove it in the context of the wanted distance.
+
+\begin{lemma}\label{lemma:holder-smooth-approx}
+    Let $\kappa \in (0,1)$, $\delta>0$ and let $f\in \cC^{1-\kappa}((\RR_+^*,d_\alpha);(\RR,|\cdot|))$, that is 
+    \[\llbracket f\rrbracket_{\cC^{1-\kappa}((\RR_+^*,d_\alpha);(\RR,|\cdot|))}:=\sup_{x\neq y \in \RR_+^*} \frac{|f(x)-f(y)|}{d_{\alpha}(x,y)^{1-\kappa}} < +\infty.\]
+    There exists $f_\delta \in Lip((\RR_+^*,d_\alpha);(\RR,|\cdot|))$ such that 
+    \[\sup_{x\in \RR_+^*} |f(x)-f_\delta(x)| \lesssim \llbracket f\rrbracket_{\cC^{1-\kappa}((\RR_+^*,d_\alpha);(\RR,|\cdot|))} \delta^{1-\kappa}\]
+    and
+    \[\llbracket f_\delta \rrbracket_{Lip((\RR_+^*,d_\alpha);(\RR,|\cdot|))} \lesssim \llbracket f\rrbracket_{\cC^{1-\kappa}((\RR_+^*,d_\alpha);(\RR,|\cdot|))} \delta^{-\kappa}.\]
+\end{lemma}
+
+\begin{proof}
+    With a slight abuse of notations, we write $\cC^{1-\kappa}_{d_\alpha}=\cC^{1-\kappa}((\RR_+^*,d_\alpha);(\RR,|\cdot|))$ and $Lip_{d_\alpha}=Lip((\RR_+^*,d_\alpha);(\RR,|\cdot|))$.
+    
+    First, let us remark that if $f\in \cC^{1-\kappa}_{d_\alpha}$, then the function $g : x \to f\left(\frac{1}{x}\right)$ belongs to $\cC^{1-\kappa}((\RR_+^*,|\cdot|);(\RR,|\cdot|))$. Indeed, 
+    \[
+    |g(x)-g(y)| = \left|f\left(\frac{1}{x^{\frac{1}{\alpha}}}\right) - f\left(\frac{1}{y^{\frac1\alpha}}\right) \right| \le \llbracket f \rrbracket_{\cC^{1-\kappa}_{d_\alpha}} d_\alpha\left( \frac{1}{x^{\frac{1}{\alpha}}},\frac{1}{y^{\frac1\alpha}} \right)^{1-\kappa} = \llbracket f \rrbracket_{\cC^{1-\kappa}_{d_\alpha}} |x-y|^{1-\kappa}.
+    \] 
+    Since $f(x) =  g\left(\frac{1}{x^\alpha}\right)$
+    we have the equality $\llbracket g \rrbracket_{\cC^{1-\kappa}_{|\cdot|}} = \llbracket f \rrbracket_{\cC^{1-\kappa}_{d_\alpha}}$. Hence, it is enough to prove the result for the functions $g : \cC^{1-\kappa}_{|\cdot|}$.
+
+    Remark also that since 
+    \[|f(x+h)-f(x)| \le \llbracket f \rrbracket_{\cC^{1-\kappa}_{d_\alpha}} |\left| \frac{1}{(x+h)^\alpha} - \frac{1}{x^\alpha} \right|^{1-\kappa} \lesssim \llbracket f \rrbracket_{\cC^{1-\kappa}_{d_\alpha}} x^{-\alpha(1-\kappa)}.\]
+    This means that $f$ as a limit as $x\to +\infty$, call it $\ell$ and one also has
+    \[ |f(x) - \ell| \le \llbracket f \rrbracket_{\cC^{1-\kappa}_{d_\alpha}} x^{-\alpha(1-\kappa)}.\]
+
+    Let us define $\bar{g} : \RR \to \RR$ as follow :
+    \[\bar g(x) = 
+        \begin{cases}
+            g(|x|) & \text{for } x\neq 0 \\
+            \ell & \text{for } x=0
+        \end{cases}.
+    \] 
+    Using the previous computation, we have $\bar{g} \in \cC^{1-\kappa}((\RR,|\cdot|);(\RR,|\cdot|))$, $\llbracket \bar{g} \rrbracket_{\cC^{1-\kappa}_{|\cdot|}(\RR;\RR)} \le \llbracket f \rrbracket_{\cC^{1-\kappa}_{d_\alpha}}$ and for $x\in \RR_+^*$, $f(x) = \bar{g}(x^{-\alpha})$.
+
+    The following of the proof is then quite classical. Take $\delta>0$, $\rho_\delta : x \to \rho_\delta(x)= \frac{e^{-\frac{x^2}{2\delta^2}}}{\sqrt{2\pi \delta^2}}$ be the Gaussian density of variance $\delta^2$ and define 
+    \[\bar{g}_\delta(x) = \rho_\delta * \bar{g}(x) = \int_{\RR} \rho_\delta(x-y) \bar{g}(y) \dd y.\]
+    Notice that thanks to the Hölder continuity of $\bar{g}$, for all $x\in \RR_+^*$, 
+    \begin{align*}
+        \left|\bar{g}_\delta(x^{-\alpha}) - f(x) \right|= &\left|\bar{g}_\delta(x^{-\alpha}) - \bar{g}(x^{-\alpha}) \right|\\
+        \le & \int_{\RR} \rho_\delta(y) \left|\bar{g}(x^{-\alpha}-y) - \bar{g}(x^{-\alpha}) \right| \dd y \\
+        \le & \llbracket f \rrbracket_{\cC^{1-\kappa}_{d_\alpha}} \int_{\RR} \rho_\delta(y) y^{1-\kappa} \dd y \\
+        \le & \delta^{1-\kappa} \llbracket f \rrbracket_{\cC^{1-\kappa}_{d_\alpha}}.
+    \end{align*}
+    Last but not least one can use Paley-Littlewood decomposition in order to characterize H\"older norm, see \cite[Chapter 2]{bahouriFourierAnalysisNonlinear2011} and in particular \cite[Theorem 2.36]{bahouriFourierAnalysisNonlinear2011}, on one has 
+    \[\llbracket \bar{g}_\delta\rrbracket_{Lip((\RR,|\cdot|);(\RR,|\cdot|))} \lesssim \sup_{j\ge -1} 2^{j}\|\Delta_j \bar{g}_\delta\|_{L^\infty(\RR)} \quad \text{and}\quad \sup_{j\ge -1} 2^{j(1-\kappa)}\|\Delta_j \bar{g}\|_{L^\infty(\RR)} \lesssim \llbracket \bar{g}_\delta\rrbracket_{\cC^{1-\kappa}((\RR,|\cdot|);(\RR,|\cdot|))} \lesssim \llbracket f\rrbracket_{\cC^{1-\kappa}_{d_\alpha}}\]
+    Take $\varphi$ being smooth, non negative, with support in an annulus such that for $j\ge 1$, $\Delta_j \bar{g}_\delta = \cF^{-1}(\varphi(2^{-j}\cdot \cF(\bar{g}_\delta))$, and take $\psi$, smooth, non-negative, with support in an annulus such that $\psi_{|\mathop{supp}(\varphi)} = 1$.
+    The following computation holds : 
+    \begin{align*}
+        |\Delta_j \bar{g}_\delta(x)| = & |\cF^{-1}(\psi(2^{-j}\cdot)\cF(\bar{g}) \varphi(2^{-j}\cdot) \cF(\rho_\delta))| \\
+        = & \left|(\Delta_j \bar{g})*\left( \cF^{-1}\left(\psi(2^{-j} \cdot) e^{-\frac{\delta^2 |\cdot|^2}{2}}\right)\right)(x)\right|\\
+        \le & \|\Delta_j\bar{g}\|_{L^\infty(\RR)} \left\| \cF^{-1}\left(\psi(2^{-j} \cdot) e^{-\frac{\delta^2 |\cdot|^2}{2}}\right)\right\|_{L^1(\RR)}.
+    \end{align*}
+    Note also that thanks to a change of variables,  
+    \[\left\| \cF^{-1}\left(\psi(2^{-j} \cdot) e^{-\frac{\delta^2 |\cdot|^2}{2}}\right)\right\|_{L^1(\RR)} = \left\| \cF^{-1}\left(\psi( \cdot) e^{-\frac{ 2^{2j}\delta^2 |\cdot|^2}{2}}\right)\right\|_{L^1(\RR)}.\]
+    We also have 
+    \begin{align*}
+        \left|(1+|x|^2)\cF^{-1}\left(\psi( \cdot) e^{-\frac{2^{2j}\delta^2 |\cdot|^2}{2}}\right)(x)\right|
+        = & \left|  \int_{\RR} \psi(\xi) \left(1-\frac{\partial^2 }{\partial \xi^2}\right)e^{i\xi x} e^{-\frac{2^{2j}\delta^2 \xi^2}{2}} \dd \xi\right| \\
+        =& \left|  \int_{\RR} e^{i\xi x} \left(1-\frac{\partial^2}{\partial\xi^2}\right) \left(\psi(\cdot) e^{-\frac{2^{2j}\delta^2 |\cdot|^2}{2}} \right)(\xi) \dd \xi\right| \\
+        \lesssim & (1+\delta 2^j+(\delta 2^j)^2) e^{-c\delta^2 2^{2j}} \\
+        \lesssim & 2^{-j\kappa} \delta^{-\kappa}.
+    \end{align*}
+    This means that 
+    \[\left\| \cF^{-1}\left(\psi(2^{-j} \cdot) e^{-\frac{\delta^2 |\cdot|^2}{2}}\right)\right\|_{L^1(\RR)} \lesssim 2^{-\kappa j} \delta^{-\kappa}\]
+    Using the fact that $\|\Delta_j \bar{g}\|_{L^\infty(\RR)} \lesssim 2^{-(1-\kappa )j} \llbracket f \rrbracket_{\cC^{1-\kappa}_{d_\alpha}}$, one gets that 
+    \[\sup_j 2^{j}\|\Delta_j \bar{g}_\delta\|_{L^\infty} \lesssim \delta^{-\kappa} \llbracket f \rrbracket_{\cC^{1-\kappa}_{d_\alpha}}.\]
+    By defining $f_\delta = \bar{g}_\delta(x^{-\alpha})$, we have the wanted result. 
+\end{proof}
+
+% \begin{remark}\label{rem:equiv-sup}
+%     Using the same techniques of proof as before, for a given $f\in Lip_{d_\alpha}$ with $f(0)  = 1$, for any $\delta>0$, there exists a function $g_\delta' : \RR_+^* \to \RR$ such that if we define 
+%     \[f_\delta(x) = \int_1^{x^-\alpha} g'_\delta(y) \dd y, \]
+%     one has
+%     \[\sup_{x\in\RR_+^*} |f(x)-f_\delta(x)| \lesssim \delta \quad \text{and} \quad \llbracket f_\delta \rrbracket_{Lip_{d_\alpha}} \le \llbracket  f \rrbracket_{Lip_{d_\alpha}}.\]
+% \end{remark}
+
+\subsection{Topology on space of measures}
+
+\subsubsection{Signed measure on metric space}
+
+We refer to {\cite{bogachevMeasureTheory2007}}, Chapter 3, 7 and 8 and
+{\cite{follandRealAnalysisModern2007}} Chapter 7 for complete details on
+finite signed measure metric spaces.
+
+\begin{definition}
+  Let $(E, d_E)$ be a non empty polish space. A Signed measure on $E$ is a
+  $\sigma$-additive functional $\mu$ from $\cB (E)$ the set of Borel
+  sets on $E$ in $\RR$ such that $\mu (\emptyset) = 0$ and $| \mu (A) |
+  < + \infty$ for all $A \in \cB (E)$. We denote this space by
+  $\cM (E, d_E)$.
+\end{definition}
+
+\begin{proposition}[Hahn-Jordan decomposition]\label{prop:hahn-jordan}
+  Let $\mu \in \cM (E, d_E)$, there exists two non-negative finite
+  measure $\mu_+, \mu_-$ such that $ \text{ supp } \mu_+ \cap  \text{ supp } \mu_- =
+  \emptyset$ and $ \text{ supp } \mu_+ \cup  \text{ supp } \mu_- = E$, and
+  furthermore,
+  \[ \mu = \mu_+ - \mu_- . \]
+\end{proposition}
+
+\begin{definition}
+  Let $\mu \in \cM (E, d_E)$ and define the total variation of $\mu$
+  as
+  \[ | \mu | = \mu_+ + \mu_- \]
+  and the total variation norm as
+  \[ \| \mu \| = (\mu_+ + \mu_-) (E) . \]
+\end{definition}
+
+Finally le us remind the Riesz-Markov-Kakutani representation theorem
+$\cM (E, d_E)$.
+
+\begin{theorem}\label{theorem:M-as-topologocal-dual}
+  Let $(E, d_E)$ be a non empty polish space. Let $C_0 (E ; \RR)$ be
+  the set of all continuous function $f$ vanishing at infinity, namely for all
+  $\eps > 0$ there exists a compact set $K \subset E$ such that $| f
+  (x) | < \eps$ for $x \notin K$. We endowed $C_0 (E ; \RR)$
+  with the sup-norm topology, which makes it a complete vector space and
+  denotes by $C_0 (E ; \RR)^{\ast}$ its topological dual. Let $\mu \in
+  \cM (E, d_E)$ and define $T_{\mu} \in C_0 (E ; \RR)^{\ast}$
+  via
+  \[ T_{\mu} f = \int_E f (x) \mu (\dd x) . \]
+  Then $\mu \rightarrow T_{\mu}$ is a isometric isomorphism from $(\cM
+  (E, d_E), \| \cdot \|)$ to $C_0 (E ; \RR)^{\ast}$. In particular
+  $(\cM (E, d_E), \| \cdot \|)$ is a complete vector space and
+  \[ \| \mu \| = \underset{\begin{array}{c}
+       f \in C_0 (E ; \RR)\\
+       \| f \|_{\infty, E} \le 1
+     \end{array}}{\sup} | \langle f, \mu \rangle | . \]
+\end{theorem}
+
+\subsubsection{Wasserstein space of finite measures on general metric space}
+
+We need to define the Wasserstein-1 topology on the space of \emph{finite}
+measure. To do so we rely on {\cite{martiniKolmogorovEquationsSpaces2023}} and
+Appendix $B$ of {\cite{claisseMeanFieldGames2023b}}.
+
+\begin{definition}
+  Let $\cM_1^+ (E, d_E)$ be the set of finite non-negative measures on
+  a non empty polish space $(E, d_E)$ such that there exists $x_0 \in E$ (and
+  thus for all $x_0 \in E$) with
+  \[ \int_E d_E (x, x_0) \mu (\dd x) < + \infty . \]
+\end{definition}
+
+Let $\partial$ be a cimetery point and define $\bar{E} = E \cup \{ \partial
+\}$. By defining $d_{\bar{E}} (x, \partial) = d_E (x, x_0) + 1$ we can extend
+the definition of $d_{\bar{E}}$ on $\bar{E}$, such that $(\bar{E},
+d_{\bar{E}})$ is still a Polish space.
+
+\begin{definition}
+  Let $m > 0$,
+  \[ \cM_{1, m}^+ (\bar{E}, d_{\bar{E}}) = \{ \mu \in \cM_1^+
+     (\bar{E}) ; \mu (X) = m \} \]
+  and for $\mu, \nu \in \cM_{1, m}^+ (\bar{E}, d_{\bar{E}})$
+  \[ W_{1, m} (\mu, \nu) \assign \inf_{\pi \in \Pi (\mu, \nu)} \int_{\bar{X}
+     \times \bar{X}} d_{\bar{E}} (x, y) \pi (\dd x, \dd y), \]
+  where $\Pi (\nu, \mu)$ denotes the collection of all non-negative measures
+  on $\bar{E} \times \bar{E}$ with marginals $\mu$ and $\nu$.
+\end{definition}
+
+Let $\mu, \nu \in \cM_1^+ (E, d_E)$ and $m \ge \mu (E) \vee \nu
+(E)$, and define
+\begin{equation}
+  \bar{\mu}_m = \mu (\cdot \cap E) + (m - \mu (E)) \delta_{\partial}
+  (\cdot), \quad \bar{\nu}_m = \nu (\cdot \cap E) + (m - \nu (E))
+  \delta_{\partial} (\cdot) \label{eq:defmum}
+\end{equation}
+and
+\[ W_1 (\mu, \nu) = W_{1, m} (\bar{\mu}_m, \bar{\nu}_m) . \]
+We have the following Kantorovitch-Rubinstein duality :
+
+\begin{lemma}
+  \label{lemma:monge-kanto}
+  For all $\mu, \nu \in \cM_1^+ (E, d_E)$,
+  \[ W_1 (\mu , \nu) = \left( \underset{\substack{
+       \varphi \in  \text{ Lip } ((E, d_E) ; (\RR, | \cdot |))\\
+       \varphi (x_0) = 0
+}}{\sup} \langle \varphi, \mu - \nu \rangle \right) + | \langle
+     1, \mu - \nu \rangle |, \]
+  thus $W_1$ does not depend of the choice of $m$.
+\end{lemma}
+
+\begin{lemma}
+  \label{lemma:CV-Wasserstein-linear}The space $(\cM_1^+ (E, d_E),
+  W_1)$ is a Polish space and a sequence $(\mu_n)_{n \in \NN}$ in
+  $\cM_1 (E, d_E)$ converges to $\mu \in \cM_1^+ (E, d_E)$ if
+  and only if for all $\varphi \in C ((E, d_E) ; \RR)$ such that
+  there exists $C > 0$ with $| \varphi (x) | \le C (1 + d_E (x, x_0))$,
+  we have
+  \[ \langle \varphi, \mu_n \rangle \rightarrow \langle \varphi, \mu \rangle .
+  \]
+\end{lemma}
+
+\subsubsection{Wasserstein space of measures on $(\RR_+^{\ast},
+d_{\alpha})$}
+
+Since we are interested to the metric space $E =\RR_+^{\ast}$ with $d_E
+= d_{\alpha}$, we will specify some fact on $\cM_1^+
+(\RR_+^{\ast}, d_{\alpha})$.
+
+\begin{proposition}
+  \label{prop:equivalence-M1}Let $\mu \in \cM_1^+
+  (\RR_+^{\ast}, d_{\alpha})$, if and only if $\mu$ is a non-negative
+  measure on $\RR_+^{\ast}$ such that
+  \[ \langle 1, \mu \rangle < + \infty \quad  \text{ and } \quad \langle x^{-
+     \alpha}, \mu \rangle < + \infty . \]
+\end{proposition}
+
+\begin{proof}
+  Suppose first that $\mu \in \cM_1^+ (R^{\ast}_+, d_{\alpha})$, $\mu$
+  is non-negative and $\langle 1, \mu \rangle < + \infty$ and $\langle
+  d_{\alpha} ( \cdot, 1), \mu \rangle < + \infty$. But
+  \[ \int_{\RR^{\ast}_+} \frac{1}{x^{\alpha}} \mu (\dd x) \le
+     \int_{\RR^{\ast}_+} \left( \left| \frac{1}{x^{\alpha}} - 1 \right|
+     + 1 \right) \mu (\dd x) = \langle d_{\alpha} (\cdot, 1),
+     \mu \rangle + \langle 1, \mu \rangle < + \infty . \]
+  On the other side, if $\mu$ is obviously a finite non-negative measure.
+  Furthermore,
+  \[ \langle d_{\alpha} ( \cdot, 1), \mu \rangle \le \langle
+     1, \mu \rangle + \langle x^{- \alpha}, \mu \rangle, \]
+  which ends the proof.
+\end{proof}
+
+As mentioned before, the introduction of the distance $d_\alpha$ is strongly inspired by \cite{cepedaSmoluchowskisEquationRate2011a}. Let us give a bit more context. In \cite[Definition 2.2]{cepedaSmoluchowskisEquationRate2011a}, a distance between two finite non negative measures is defined as follow : for $\mu,\nu \in \cM^+_{1}$, 
+\[d(\mu,\nu) = \int_{0}^{+\infty} x^{-(\alpha + 1)} \left| \mu((0,x])- \nu((0,x])\right|\dd x.\]
+In fact, this distance is nearly the Wasserstein distance $W_1$. we have the following fact :
+\begin{proposition}
+    Let $\mu,\nu \in \cM^+_1$, then
+    \[
+    W_1(\mu, \nu)= \alpha d(\mu,\nu) + |\langle1, \mu-\nu \rangle|.
+    \]
+\end{proposition}
+
+\begin{proof}
+First, let us define for all $x\in\RR_+^*$,
+\[g'(x) = sign\left(\mu\left(\left(0,x^{-\frac{1}{\alpha}}\right]\right) - \nu\left(\left(0,x^{-\frac{1}{\alpha}}\right]\right)\right),\]
+and
+\[g(x) = \int_1^x g'(y) \dd y \quad \text{and} \quad f(x) = g(x^{-\alpha}).\]
+Obviously $g \in Lip_{|\cdot|}$ with $g(1) = 0$ and $\llbracket g \rrbracket_{Lip_{|\cdot|}}   \le 1$.
+Furthermore, 
+\begin{align*}
+    \langle f , \mu-\nu\rangle = & \int_0^{+\infty} \int_0^{x^{-\alpha}} g'(y) \dd y \big(\mu(\dd x)- \nu(\dd x) \big) \\
+    = & \int_0^{+\infty} g'(y) \int_0^{y^{-\frac{1}{\alpha}}}  \big(\mu(\dd x)-\nu(\dd x) \big) \dd y \\
+    = & \alpha\int_0^{+\infty} y^{-(1+\alpha)} g'(y^{-\alpha}) \int_0^{y} \big(\mu(\dd x)-\nu(\dd x) \big) \dd y \\
+    = & \alpha\int_0^{+\infty} y^{-(1+\alpha)} \big|\mu((0,y])-\nu((0,y]) \big| \dd y \\
+    = & \alpha d(\mu,\nu).
+\end{align*}
+Thanks to Proposition \ref{prop:lip-isometry}, 
+\[\sup_{\substack{\llbracket h\rrbracket_{Lip_{d_\alpha}} = 1 \\  h(1) = 0 }} \langle h, \mu - \nu \rangle \le \alpha d(\mu,\nu).\]
+Furthermore, since $f\in Lip_{d_\alpha}$ and $f(1) = 0$, 
+\[\alpha d(\mu,\nu) = \langle f \mu - \nu \rangle \le \sup_{\substack{\llbracket h\rrbracket_{Lip_{d_\alpha}} = 1 \\  h(1) = 0 }} \langle h, \mu - \nu \rangle.\]
+This proves the wanted result thanks to Lemma \ref{lemma:monge-kanto}.
+\end{proof}
+
+Due to our hypothesis, we will have a lack of Lipschitz continuity, but rather Hölder continuity. The following proposition explain how this fact interact with the $W_1$.
+
+\begin{proposition}
+    Let $\mu,\nu \in \cM_1^+$ and $K>0$ such that $W_1(\mu,\nu) \le K$. Let $0<\kappa<1$ and suppose that $g\in \cC^{1-\kappa}((\RR_+^*,d_\alpha);\RR)$. Then
+    \[|\langle f,\mu-\nu\rangle| \lesssim  W_1(\mu,\nu)^{1-\kappa}\left(\llbracket f\rrbracket_{\cC^{1-\kappa}_{d_\alpha}}\langle 1 , \mu + \nu \rangle^{\kappa}+|f(1)|W_1(\mu,\nu)^\kappa\right).\]
+\end{proposition}
+
+\begin{proof}
+    Remark that by considering $g=sgn(f(1)) f - |f(1)|$  one gets
+    \[|\langle f,\mu-\nu\rangle| \le |\langle g,\mu-\nu\rangle| + |f(1)| |\langle 1,\mu-\nu\rangle| \le |\langle g,\mu-\nu\rangle| + |f(1)| ,W_1(\mu,\nu)\]
+    and we can suppose that $f(1)=0$ since $\llbracket f \rrbracket_{\cC^{1-\kappa}} = \llbracket g \rrbracket_{\cC^{1-\kappa}}$.
+    
+    Using Lemma \ref{lemma:holder-smooth-approx}, for $\delta>0$, there exists $f_\delta \in Lip_{d_\alpha}$ such that $\llbracket f_\delta\rrbracket_{\cC^{1-\kappa}_{d_\alpha}}\lesssim \llbracket f\rrbracket_{\cC^{1-\kappa}_{d_\alpha}}$, $\llbracket f_\delta\rrbracket_{Lip} \lesssim \delta^{-\kappa} \llbracket f\rrbracket_{\cC^{1-\kappa}_{d_\alpha}}$ and $\sup_{x\in\RR_+^*} |f_\delta(x)-f(x)| \lesssim \llbracket f\rrbracket_{\cC^{1-\kappa}_{d_\alpha}} \delta^{1-\kappa}$.
+
+    We have in this setting
+    \begin{align*}
+        |\langle f,\mu-\nu\rangle| \le & 
+            |\langle f-f_\delta,\mu-\nu\rangle| + |\langle f_\delta,\mu-\nu\rangle| \\
+            \lesssim & \llbracket f\rrbracket_{\cC^{1-\kappa}_{d_\alpha}}  \langle 1, \mu + \nu \rangle \delta^{1-\kappa} + \llbracket f\rrbracket_{\cC^{1-\kappa}_{d_\alpha}} \delta^{-\kappa} W_1(\mu,\nu).
+    \end{align*}
+    One may chose $\delta = \frac{W_{1}(\mu,\nu)}{\langle 1, \mu + \nu \rangle}$, and one gets
+    \[|\langle f,\mu-\nu\rangle| \lesssim \llbracket f\rrbracket_{\cC^{1-\kappa}_{d_\alpha}} W_1(\mu,\nu)^{1-\kappa} \langle 1, \mu + \nu \rangle^\kappa,\]
+    which is the wanted result. 
+\end{proof}
+
+\subsubsection{Compact sets for Wasserstein and total variation topologies}
+
+In the following we will strongly need compacity in $\cM_1^+
+(\RR^{\ast}_+, d_{\alpha})$. We follow
+{\cite{cardaliaguetNotesMeanField}}, Lemma 5.7 and
+{\cite{claisseMeanFieldGames2023b}} Lemma B.3. to prove the following compacity criteria :
+
+\begin{lemma}
+  \label{lemma:compacity-wasserstein}Let $p > 1$. If $\cK \subset
+  \cM_1^+ (\RR_+^{\ast}, d_{\alpha})$ satisfies
+  \begin{equation}
+    \underset{\mu \in \cK}{\sup} \left( \int_{\RR_+^*} \left( 1 +
+    \frac{1}{x^{\alpha p}} + x \right) \mu (\dd x) \right) < + \infty,
+    \label{eq:compacity-condition}
+  \end{equation}
+  then $\cK$ is relatively compact in $\cM_1^+
+  (\RR_+^{\ast})$ and for any $\nu\in\overline{\cK}^{W_1}$ the closure of $\cK$,
+  \[\left( \int_{\RR_+^*} \left( 1 +
+    \frac{1}{x^{\alpha p}} + x \right) \nu (\dd x) \right) < + \infty.\]
+\end{lemma}
+
+\begin{proof}
+  Take $m \ge 0$ large enough such that for all $\mu \in \cK$,
+  $\mu (\RR_+^{\ast}) \le m$ (which exists thanks to the $1$ in
+  Equation \eqref{eq:compacity-condition}, hence $\cK \subset
+  \cM_{1, m}^+ (\overline{\RR_+^{\ast}})$, where as previously
+  for any element $\mu \in \cK$ we extend it by $\bar{\mu}_m \in
+  \cM_{1, m}^+ (\overline{\RR_+^{\ast}})$ as defined in
+  Equation \eqref{eq:defmum}.
+  
+  Furthermore, in that setting, take $R > 1$ and we have
+  
+  \begin{align*}
+    \mu ([R^{- 1}, R]^c) = & \bar{\mu}_m ([R^{- 1}, R]^c)\\
+    = & \int_0^{R^{- 1}} 1 \mu (\dd x) + \int_R^{+ \infty} 1 \mu (\dd
+    x)\\
+    = & \int_0^{R^{- 1}} \frac{R^{\alpha p}}{R^{\alpha p}} \mu (\dd x) +
+    \int_R^{+ \infty} \frac{R}{R} \mu (\dd x)\\
+    \le & \frac{1}{R^{\alpha p}} \int_0^{R^{- 1}} x^{- \alpha p} \mu
+    (\dd x) + \frac{1}{R} \int_R^{+ \infty} x \mu (\dd x)\\
+    \lesssim & \left( \frac{1}{R^{\alpha p}} + \frac{1}{R} \right)
+    \underset{\mu \in \cK}{\sup} \left( \int_{\RR_+^*} (1 + x^{- \alpha p} +
+    x) \mu (\dd x) \right) .
+  \end{align*}
+  
+  Hence, for all $\eps > 0$, a constant $R_0$ exists such that for all
+  $R > R_0$,
+  \[ \underset{\mu \in \cK}{\sup} ([R^{- 1}, R]^c) < \eps \]
+  and $\cK$ is tight thanks to Proposition \ref{prop:compact-dalpha}.
+  Thanks to Prohorov theorem, for any sequence $(\mu_n)_n$ of $\cK$, a
+  measure $\mu \in \cM_1^+ (\RR_+^{\ast})$ and a subsequence
+  (also denoted by $(\mu_n)_n$) exist such that for all bounded continuous
+  function $\varphi$,
+  \[ \langle \varphi, \mu_n \rangle \rightarrow \langle \varphi, \mu \rangle .
+  \]
+  Furthermore, we also have
+  \[ \int_{\RR_+^*} \left( 1 + \frac{1}{x^{\alpha p}} + x \right) \mu
+     (\dd x) \le K < + \infty, 
+    \]
+     which is the last point of the lemma. 
+  Indeed, take
+  \begin{equation} \label{eq:definition-phidelta}
+  \varphi_{\delta} (x) = \frac{2}{\delta} \left( x - \frac{\delta}{2}
+     \right) \mathbbm{1}_{\left[ \frac{\delta}{2}, \delta \right]} (x) +
+     \mathbbm{1}_{[\delta, \delta^{- 1}]} (x) + \delta \left( \frac{2}{\delta}
+     - x \right) \mathbbm{1}_{[\delta^{- 1}, 2 \delta^{- 1}]} (x).
+    \end{equation}
+  Remark that for all $x \in \RR_+^{\ast}$, $(\varphi_{\delta}
+  (x))_{\delta}$ is non decreasing. Hence, thanks to monotone convergence
+  theorem,
+  \[ \int_{\RR^{\ast}_+} \varphi_{\delta} (x) \left( 1 +
+     \frac{1}{x^{\alpha p}} + x \right) \mu (\dd x) \to_{\delta
+     \rightarrow 0} \int_{\RR^{\ast}_+} \left( 1 + \frac{1}{x^{\alpha
+     p}} + x \right) \mu (\dd x) . \]
+  Furthermore, for fixed $\delta > 0$, $x \rightarrow \varphi_{\delta} (x)
+  \left( 1 + \frac{1}{x^{\alpha p}} + x \right)$ is a continuous bounded
+  function from $(\RR_+^{\ast}, d_{\alpha})$ to $\RR_+$. Hence
+  \[ \int_{\RR^{\ast}_+} \varphi_{\delta} (x) \left( 1 +
+     \frac{1}{x^{\alpha p}} + x \right) \mu_n (\dd x) \to_{n
+     \rightarrow + \infty} \int_{\RR^{\ast}_+} \varphi_{\delta} (x)
+     \left( 1 + \frac{1}{x^{\alpha p}} + x \right) \mu (\dd x) . \]
+  Since $0 \le \varphi_{\delta} (x) \le 1$, we get that for all
+  $\delta > 0$ and all $n \ge 0$,
+  \[ 0 \le \int_{\RR^{\ast}_+} \varphi_{\delta} (x) \left( 1 +
+     \frac{1}{x^{\alpha p}} + x \right) \mu_n (\dd x) \le K, \]
+  letting $\delta \rightarrow 0$ we get the claim.
+  
+  Let $\eps > 0$ and $R$ as before. Let $\mu^R_n = \1_{[R^{-
+  1}, R]} \mu_n$ and $\mu^R = \1_{[R^{- 1}, R]} \mu$. Remark first
+  that for $\llbracket f \rrbracket_{ \text{ Lip } } \le 1$ with $f (1) =
+  0$, one gets
+  
+  \begin{align*}
+    | \langle f, \mu_n^R - \mu_n \rangle | = & \left| \int f (x)
+    \1_{[R^{- 1}, R]^c} (x) \mu_n (\dd x) \right|\\
+    \le & \left| \int d_{\alpha} (x, 1) \1_{[R^{- 1}, R]^c} (x)
+    \mu_n (\dd x) \right|\\
+    \le & \left| \int d_{\alpha} (x, 1)^p \mu_n (\dd x)
+    \right|^{\frac{1}{p}} \left| \int \1_{[R^{- 1}, R]^c} (x) \mu_n
+    (\dd x) \right|^{\frac{1}{q}},
+  \end{align*}
+  
+  where $\frac{1}{p} + \frac{1}{q} = 1$.
+  \[ | \langle 1, \mu_n^R - \mu_n \rangle | = \left| \int \1_{[R^{-
+     1}, R]^c} (x) \mu_n (\dd x) \right| \]
+  putting all together and using the tightness, one gets that there exists
+  $R_0 > 0$, such that for all $n \ge 0$,
+  \[ W_1 (\mu_n^R, \mu_n) \le \eps . \]
+  and the same holds for $\mu^R$ and $\mu$.
+  
+  Finally, take a continuous function $f : \RR_+^{\ast} \rightarrow
+  \RR$ such that $| f (x) | \lesssim 1 + d_{\alpha} (x, 1)$, and take
+  $f_R$ a continuous and bounded function with support in $[(2 R)^{- 1}, 2 R]$
+  such that $f_R = f$ on $[R^{- 1}, R]$. We have
+  
+  \begin{align*}
+    \langle f, \mu_n^R - \mu^R \rangle = & \langle f_R, \mu_n - \mu \rangle
+    \to_{n \rightarrow + \infty} 0.
+  \end{align*}
+  
+  By Lemma \ref{lemma:CV-Wasserstein-linear}, $\mu_n^R \rightarrow \mu^R$ for
+  $W_1$. Take $R$ as before, and take $n_0 > 0$ such that $W_1 (\mu_n^R,
+  \mu^R) < \eps$ for $n \ge n_0$. We get
+  \[ W_1 (\mu_n, \mu) \le W_1 (\mu_n^R, \mu_n) + W_1 (\mu_n^R, \mu^R) +
+     W_1 (\mu^R, \mu) \le 3 \eps \]
+  and the result is proved.
+\end{proof}
+
+Thanks to the previous result, it is natural to define the following sets :
+
+\begin{definition}
+  Let $p > 1$ and $\alpha > 0$ and $K > 0$ let us define
+  \[ \cK^{+, K}_p \assign \left\{ \mu \in \cM_1^+
+     (\RR_+^{\ast}, d_{\alpha}) : \int_{\RR_+} (1 + x^{- \alpha
+     p} + x) \mu (\dd x) < K \right\}, \]
+     and for $c>0$, 
+     \[\cE^{+,K}_c = \assign \left\{ \mu \in \cM^+(\RR_+^{\ast}, d_{\alpha}) :  
+      \int_{\RR_+} (x + \exp(c x^{- \alpha
+     } ) \mu (\dd x) < K \right\}.\]
+\end{definition}
+
+The following Lemma is a direct consequence of Lemma \ref{lemma:compacity-wasserstein}.
+\begin{theorem}\label{theorem:compacity-wasserstein}
+    Let $p>1$, $c>0$ and $K>0$. The sets $\cK^{+,K}_p$ and $\cE^{+,K}_c$ are compact sets of $(\cM^+_1(\RR_+^*,d_\alpha),W_1)$.
+\end{theorem}
+
+\begin{proof}
+Lemma \ref{lemma:compacity-wasserstein}, for all $K >
+0$, $\cK^{+, K}_p$ is a relatively compact set of $\cM_1^+$, which is also close thanks to the second part of the same Lemma, hence it is compact. Furthermore, remark that for any $\tilde{c}<c$
+\[x+1+x^{-2\alpha} \le \left(1+\frac{2}{c^2}\right)\left(x+ e^{c x^{-\alpha}}\right),\]
+meaning that $\cE^{+,K}_c \subset \cK^{+,K(1+2c^{-2})}_2$ and thus is also relatively compact. 
+One only has to prove that $\cE^{+,K}_c$ is closed to conclude.
+
+This follows easily using the same techniques as in the proof of Lemma \ref{lemma:compacity-wasserstein}. Take $\varphi_{\delta}$ as defined in Equation \ref{eq:definition-phidelta}, take $(\mu_n)_{n\ge 0}$ a sequence of $\cE^{+,K}_c$ which converges to a measure $\mu\in \cM^+$. Remark that for $0<\delta\le 1$
+\[x \to \varphi_\delta(x) e^{cx^{-\alpha}} \] 
+is continuous from $(\RR_+^*,d_\alpha)$ to $\RR$ and satisfies the conditions of Lemma \ref{lemma:CV-Wasserstein-linear}, hence 
+\begin{multline*}
+    K\ge \int_0^{+\infty} (x+\exp(cx^{-\alpha}))  \mu_n(\dd x) \ge \int_0^{+\infty} \varphi_{\delta}(x)(x+\exp(cx^{-\alpha}))  \mu_n(\dd x) \\ \underset{n \to +\infty}{\to} \int_0^{+\infty} \varphi_{\delta}(x)(x+\exp(cx^{-\alpha}))  \mu(\dd x) \underset{\delta \to 0}{\to} \int_0^{+\infty} (x+\exp(cx^{-\alpha}))  \mu(\dd x),
+\end{multline*}
+where the last convergence holds thanks to the monotone convergence theorem.
+We've just prove that $\mu \in \cE^{+,K}_c$, which ends the proof.
+\end{proof}
+
+In view of the rest of the paper, especially in the setting where we want to use this machinery, it is necessary to define the corresponding spaces for signed measures. 
+
+\begin{definition}
+  Let us define for $p \ge 1$ and $c,K > 0$,
+  \[ \cM_1 = \{ \mu \in \cM (\RR_+^{\ast}, d_{\alpha})
+     : | \mu | \in \cM_1^+ \}, \quad \cK_p^K = \{ \mu \in
+     \cM (\RR_+^{\ast}, d_{\alpha}) : | \mu | \in
+     \cK_p^{+, K} \}  \]
+  and for $c>0$,
+  \[ \cE_c^{K} = \{ \mu \in \cM (\RR_+^{\ast},
+     d_{\alpha}) : | \mu | \in \cK_c^{+,K} \}. \]
+\end{definition}
+
+\begin{proposition}
+  For any $p \ge 1$ and $c,K > 0$ the sets $\cK_p^K$ and $\cE^{K}_c$ are closed
+  $\| \cdot \|$.
+\end{proposition}
+
+\begin{proof}
+  Let $(\mu_n)_{n \ge 0}$ be a sequence of elements of $\cK_p^K$ (respectively $\cE^K_c$)
+  which converge toward $\mu \in \cM$ for the total variation norm $\|
+  \cdot \|$. Take $\varphi_{\delta}$ as in Equation \eqref{eq:definition-phidelta}, then for all $\delta > 0$ the functions
+  \[ x \rightarrow \varphi_{\delta} (x) (x + x^{- \alpha p} + 1) \quad \text{and} \quad  x \rightarrow \varphi_{\delta} (x) (x + exp^{cx^{-\alpha}})\]
+  belong to $ C_0
+     ((\RR_+^{\ast}, d_{\alpha}) ; \RR_+) $.
+  Hence,
+  \[ \int_{\RR^{\ast}_+} \varphi_{\delta} (x) (x + x^{- \alpha p} + 1)
+     \mu_n (\dd x) \to_{n \rightarrow + \infty}
+     \int_{\RR^{\ast}_+} \varphi_{\delta} (x) (x + x^{- \alpha p} + 1)
+     \mu (\dd x), \]
+ and the same holds when replacing $(x+x^{-\alpha p} +1)$ by $(x + \exp(cx^{-\alpha}))$.
+ 
+  Remark also that for any measurable $A \subset \RR_+^{\ast}$,
+  \[ | \mu_n | (A) \le | \mu_n - \mu | (A) + | \mu | (A) \quad
+      \text{ and } \quad | \mu | (A) \le | \mu_n - \mu | (A) + | \mu_n |
+     (A) \]
+  hence,
+  \[ \big| | \mu_n | (A) - | \mu | (A) \big| \le | \mu_n - \mu | (A) \le
+     \| \mu_n - \mu \| . \]
+  Taking the supremum on $A$ and using {\cite{bogachevMeasureTheory2007}},
+  (3.1.4),
+  \[ \| | \mu_n | - | \mu | \| \le 2 \| \mu_n - \mu \| . \]
+  and since $\varphi_{\delta} \le 1 $,
+  \[ K \ge \left| \int_{\RR^{\ast}_+} \varphi_{\delta} (x) (x +
+     x^{- \alpha p} + 1) | \mu_n | (\dd x) \right| \to_{n
+     \rightarrow + \infty} \int_{\RR^{\ast}_+} \varphi_{\delta} (x)
+     (x + x^{- \alpha p} + 1) | \mu | (\dd x) \]
+  and by letting $\delta \rightarrow 0$, thanks to the monotone theorem, $\mu \in \cK_p^K$. The same techniques holds for $x+e^{cx^{-\alpha}}$ instead of $(x+x^{-\alpha p} +1)$ , which ends
+  the proof.
+\end{proof}
+
+\subsubsection{Compacity for signed measures}
+
+Finally, we will need some compacity in the space of signed measure. We rely here on the weak-* topology generated by the space of Lipschitz continuous function. Subsequently, we also give an alternative formulation of the Wasserstein distance. Let us endow the space $Lip\big((\RR_+^*,d_\alpha);(\RR,|\cdot|)\big)$ with the norm 
+\[\|f\|_{Lip_{d_\alpha}} = \llbracket f \rrbracket_{Lip((\RR,d_\alpha);(\RR,|\cdot|))} \vee |f(1)|.\]
+
+Let us denote by 
+\[Lip^*_{d_\alpha} = Lip((\RR_+^*,d_\alpha);\RR)^*\]
+the topological dual of the space of Lipschitz continuous functions, with  norm
+\[ \|T\|_{Lip^*_{d_\alpha}} = \sup_{\|f\|_{Lip_{d_\alpha}}\le 1} T(f). \]
+
+\begin{proposition}\label{proposition:dual}
+The space $\cM_1$ is a subspace of $Lip_{d_\alpha}^*$, when identifying the points $\mu \in \cM_1$ with their corresponding linear form $T_\mu$ (as define in Theorem \ref{theorem:M-as-topologocal-dual}), and given for any $f\in Lip_{d_\alpha}$ by $T_\mu(f) = \langle f,\mu \rangle$.
+\end{proposition}
+
+\begin{proof}
+    Let $\mu \in \cM_1^+$. Let us remind that it means that  
+    \[\int_{\RR_+^* } (1 + x + x^{-\alpha}) |\mu|(\dd x) < + \infty.\]
+    Let $f\in Lip_{d_\alpha}$. Remark that for all $x\in \RR_+^*$, $|f(x)| \le \llbracket f \rrbracket_{Lip_{d_\alpha}} (x^{-\alpha} + 1) + |f(1)|\le 2 \|f\|_{Lip_{d_\alpha}}(x^{-\alpha} + 1)$. This leads to the following inequalities :
+    \[|T_mu(f)| \le 2\|f\|_{Lip_{d_\alpha}} \int_{\RR_+^*}( 1 + x^{-\alpha} )\mu(\dd x).\]
+    This implies that 
+    \[\|T_\mu\|_{Lip_{d_\alpha}} \le 2 \int_{\RR_+^*}( 1+x^{-\alpha})\mu(\dd x)<+\infty,\]
+    which is the claim.
+\end{proof}
+
+Furthermore, we have the following proposition, which allows to link the Wasserstein distance on positive signed measures and the $\|\cdot\|_{Lip_{d_\alpha}^*}$ norm.
+
+\begin{proposition}
+    Let us define for $T\in Lip_{d_\alpha}^*$ the following quantity :
+    \[\|T\|_{W_1} = \sup_{\substack{g\in Lip_{d_\alpha}\\g(1)=0}} T(g) + |T(1)|,\]
+    where $1$ stands for the constant function equal to $1$. Then $\|\cdot\|_{Lip_{d_\alpha}^*}$ and $\|\cdot\|_{W_1}$ are equivalent norms. 
+\end{proposition}
+
+\begin{proof}
+Suppose that $T \in Lip_{d_\alpha}^*$. We have 
+
+\begin{align*}
+T(f) = & T(f-f(1))+f(1)T(1) \\
+\le & \llbracket f \rrbracket_{Lip_{d_\alpha}} \sup_{\substack{\llbracket g\rrbracket_{Lip_{d_\alpha}} \le 1 \\ g(1) = 0}} T(g)  + |f(1)| |T(1)| \\
+\le & \|f\|_{Lip_{d_{\alpha}}} \|T\|_{W_1}.
+\end{align*}
+Taking the supremum for $\|f\|_{Lip_{d_{\alpha}}} \le 1$, we have 
+$\|T\|_{Lip^*_{d_\alpha}} \le  \|T\|_{W_1}$.
+
+Remark that $1\in Lip_{d_\alpha}$ and $\|1\|_{Lip_{d_\alpha}} = 1$, meaning that for any $T\in Lip_{d_\alpha}^*$,
+$|T(1)| \le \|T\|_{Lip^*_{d_\alpha}}$.
+Take $g\in Lip_{d_\alpha}$ with $\llbracket g\rrbracket_{Lip_{d_\alpha}} \le 1$ and $g(0) = 0$. This implies that $\|g\|_{Lip_{d_\alpha}} \le 1$, and we have
+\[T(g) + |T(1)| \le 2\|T\|_{Lip^*_{d_\alpha}}.\]
+taking the supremum on $g$, we have that $\|\cdot\|_{W_1}\le 2\|\cdot\|_{Lip^*_{d_\alpha}}$, which proves the result. 
+\end{proof}
+
+A straightforward but rather important corollary is the following :
+\begin{corollary}
+    On $\cM^+_1$, $d_{W_1}$ and $(\mu,\nu)\to\|\mu-\nu\|_{Lip_{d_\alpha}^*}$ are equivalent distances.      
+\end{corollary}
+
+\begin{proof}
+    The proof is a direct consequence of the previous Proposition about the equivalence of norms and the Mong-Kantorovitch duality (Lemma \ref{lemma:monge-kanto}).
+\end{proof}
+
+\begin{proposition}
+    Les $p>1$ and $c,K >0$. The spaces $\cK^K_p$ and $\cE^{K}_c$ are compact in  $Lip^*_{d_\alpha}$ for the weak-* topology. Namely, for any sequence $(\mu_n)_{n\in \NN}$ of $\cK^K_p$ (respectively $\cE^K_c$), a subsequence (also denoted by $(\mu_n)_{n\in \NN}$) and a $\mu \in \cK^K_p$ (respectively $\mu \in \cC^{K}_c$) exist such that for all $f\in Lip_{d_\alpha}$, 
+    \[\langle f,\mu_n \rangle \underset{n\to + \infty}{\longrightarrow} \langle f, \mu \rangle.\]
+\end{proposition}
+
+\begin{proof}
+    Let us remark that for all $n\in \NN$, $\mu_n = \mu_n^+ - \mu_n^-$, where this decomposition is unique and given by Proposition \ref{prop:hahn-jordan}.
+    Note that $\mu_n^+$ and $\mu_n^-$ also belongs to $\cM^{+,K}_{p}$ (respectively $\cE^{+,K}_{c}$. It implies that there is two measures $\mu^+,\mu^- \in \cK^{+,K}_p$ (respectively in $\cE^{+,K}_c$) and subsequences of $(\mu_n^+)_{n\ge 0}$ and $(\mu_n^-)_{n\ge 0}$ (again denoted abusively by $(\mu_n^+)_{n\ge 0}$ and $(\mu_n^-)_{n\ge 0}$) such that 
+    \[W_(\mu^+_n,\mu^+) \to 0 \quad \text{and} \quad W_(\mu^-_n,\mu^-)\to 0.\]
+    Since $\mathop{supp} \mu_n^+\cap \mathop{supp} \mu^-_n = \emptyset$, so does $\mathop{supp}\mu^+$ and $\mathop{supp}\mu^-$. Let us define $\mu= \mu^+ - \mu^-$. We obviously have $\mu \in \cK^K_p$ (respectively $\cE^K_c$.
+    
+    Furthermore for any $f\in Lip_{d_\alpha}$, one gets 
+    \begin{equation*}
+        |\langle f, \mu_n - \mu \rangle | \le |\langle f, \mu_n^+ - \mu^+ \rangle |+|\langle f, \mu_n^- - \mu^- \rangle | 
+         \lesssim \|f\|_{Lip_{d_\alpha}} \big( W_1(\mu_n^+\mu^+)+ W_1(\mu_n^-\mu^-) \big).
+    \end{equation*}
+    This implies that 
+    \[\|\mu_n - \mu\|_{Lip^*_{d_\alpha}} \lesssim W_1(\mu_n^+\mu^+)+ W_1(\mu_n^-\mu^-) \to_{n\to +\infty} 0. \]
+    This ends the proof when reminding that the convergence for the norm of the dual space implies the weak-* convergence. 
+\end{proof}
+
+\begin{remark}
+    We actualy proved something stronger, that $\cK^K_c$ and $\cE^K_c$ are compact sets of $Lip_{d\alpha}^*$.
+\end{remark}
+
+\red{Question : est-il possible de voir $T$ comme une forme linéaire continue de $C^0_b$ ? Peut-être  : 
+Let $\varphi_\delta$ as define in Equation \eqref{eq:definition-phidelta}. 
+
+ Je sais pas, pas forcément. Par exemple, dans le cas des fonction continues sur $\RR$, $T_\eps$ 
+ \[T_\eps = \frac1\eps \int_0^\eps f(x) \dd x\]
+ est définie pour toute fonction continue. Remarquons également que si $\|f\|_{C^1} = \|f\|_{\infty}+\|f'\|_{\infty}$, alors $T \in (C^1_b)^*$. Remarque also that  
+ \[T_\eps \to \]
+}
+
+{\color{blue} Pas forcément pertinent}
+
+Finally, the last result of this section combines Arzela Ascoli theorem and the previouses compacity criterion.
+
+\begin{proposition}
+    Let $(E,d)$ be a metric space, $0<\kappa\le1$ let $\cK \subset C\big((E,d); (\cM_1,\|\cdot\|_{Lip^*_{d_\alpha}})\big)$. Suppose that a constant $K>0$ and a constant $p>1$ exists (respectively $c>0$ exists) such that
+    \begin{itemize}
+        \item For all $f\in \cK$ and all $x\in E$, $f(x) \in \cK^{K}_p$ (respectively $\cE^K_c$).
+        \item For all $f\in \cK$, 
+        \[\sup_{x\neq y \in E} \frac{\|f(x)-f(y)\|_{Lip^*_{d_\alpha}}}{d(x,y)^\kappa} \le K.\]
+    \end{itemize}
+    Then $\cK$ is relatively compact on $C\big((E,d); (\cM_1,\|\cdot\|_{Lip^*_{d_\alpha}})\big)$ endowed with the topology of uniform convergence on all compact sets. 
+\end{proposition}
+
+\begin{proof}
+    The proof is just a consequence of the compacity 
+\end{proof}
+
+\subsection{Linear derivatives in the Wasserstein space of non-negative finite
+measures}
+
+\
+
+\begin{definition}
+  Let $(E, d_E)$ be a Polish space and $F : (\cM^+_1 (E, d_E), W_1)
+  \rightarrow \RR$ be a continuous function. We say that $F$ admit a
+  flat derivative, also known as linear functional derivative if there exists
+  a function
+  \[ \frac{\delta F}{\delta m} \in C (\cM_1^+ \times E ; \RR)
+  \]
+  sucht that
+  \begin{enumerate}
+      \item For all $\nu,\mu\in \cM_1^+$, $z\to \sup_{\lambda \in [0,1]} \left|\frac{\delta F}{\delta m} (\lambda (\mu- \nu) + \nu;z)\right| \in L^1(\mu)\cap L^1(\nu)$,
+      \item For all $\nu,\mu\in \cM_1^+$
+      \[ F (\mu) - F (\nu) = \int_0^1 \int_E \frac{\delta F}{\delta m} (\ell (\mu
+     - \nu) + \nu ;  z) (\mu - \nu) (\dd z) \dd
+     \ell . \]
+  \end{enumerate}
+  We write $F \in C^1 (\cM_1^+ ; \RR)$.  
+\end{definition}
+
+\begin{remark}
+  The justification of the previous Definition is as follows. If $(E,d)$ is as previously, even though  $Lip
+  \big(E,d); \RR\big)$ endowed with the norm $\|f\|_{Lip}  = \llbracket f \rrbracket_{Lip}\vee |f(x_0)|$  is  not a relfexive space, we would like to think that
+  \[ \big(Lip\big((E,d); \RR\big)^{\ast}\big)^{\ast} =(\cM_1)^{\ast} \approx  Lip\big((E,d); \RR\big). \]
+  In this setting, if $F$ is Fr{\'e}chet differentiable, then $D F (\mu) \in
+  \cM_1^{\ast}$ and one would like to have a ``gradient'', namely to
+  have a function, $\frac{\delta F}{\delta m} (\mu) \in Lip \big((E,d); \RR)$
+  such that for all $\mu, \nu \in \cM_+$
+  \[ F (\mu) - F (\nu) = D F (\mu) \cdot (\mu - \nu) + o (\| \mu - \nu \|) =
+     \left\langle \frac{\delta F}{\delta m} (\mu), (\mu - \nu) \right\rangle +
+     o (\| \mu - \nu \|) . \]
+  We cannot hope that such a gradient exists, and even more that it is regular. Nevertheless, the previous definition of flat derivative to such functions.   
+\end{remark}
+
+It appears that
+  whenever $\frac{\delta F}{\delta m}$ exists, it is possible to see it as a
+  directional derivative, as the following proposition shows.
+
+\begin{proposition}
+  Suppose that $F \in C^1 (\cM_1^+ ; \RR)$, then
+  \[ \frac{\delta F}{\delta m} (\mu; z) = \lim_{\eps\to 0} \frac{F (\mu + \eps
+     \delta_z) - F (\mu)}{\eps} . \]
+  \begin{proof}
+    The proof is an obvious consequence of the definition. Remark first that
+    
+    \begin{align*}
+      \frac{F (\mu + \eps \delta_z) - F (\mu)}{\eps} = &
+      \int_0^1 \int_E \frac{\delta F}{\delta m} (\eps \ell \delta_z +
+      \mu ; \widetilde{z}) \delta_z (\dd \tilde{z}) \dd \ell\\
+      = & \int_0^1 \frac{\delta F}{\delta m} (\eps \ell \delta_z + \mu
+      ; z) \dd \ell .
+    \end{align*}
+    
+    Furthermore remind that $\frac{\delta F}{\delta m}$ is continuous. It implies that for $z\in E$, $t \in [0,1]\to \frac{\delta F}{\delta m}(t\delta_z + \mu;z) - \frac{\delta F}{\delta m}(\mu;z)$ is continuous in $t=0$ and null in $0$. Let $\delta>0$ and $\kappa>0$ such that for all $t\le \kappa$, 
+    \[\left|\frac{\delta F}{\delta m}(t\delta_z + \mu;z) - \frac{\delta F}{\delta m}(\mu;z)\right| \le \delta.\]
+    Take $\eps\le\kappa$, then for all $\ell \in [0,1]$, $\ell \eps \le \kappa$ and 
+    \[\left|\int_0^1 \frac{\delta F}{\delta m} (\eps \ell \delta_z + \mu
+      ; z) - \frac{\delta F}{\delta m} ( \mu
+      ; z) \dd \ell \right| \le \delta.\]
+      Hence
+    \[\left|\frac{F (\mu + \eps \delta_z) - F (\mu)}{\eps} - \frac{\delta F}{\delta m} ( \mu
+      ; z)\right| \le \delta,\]
+      and the results follows by sending $\eps\to 0$.
+  \end{proof}
+\end{proposition}
+
+
+\begin{definition}
+  Let $\varphi \in C ((\cM^+_1, W_1) ; (\cM^+_1, W_1))$ be a
+  continuous function. We say that $\varphi$ admits a weak flat derivative if there
+  exists a function $\frac{\delta \varphi}{\delta m} \in C (\cM^+_1
+  \times E ; \cM_1)$ such that for all $f \in C_b (E ; \RR)$,
+  $\mu \rightarrow \langle f, \varphi (\mu) \rangle \in C^1 (\cM^+_1 ;
+  \RR)$ and we have
+  \[ \frac{\delta (\langle f, \varphi \rangle)}{\delta m} (\mu ; z) =
+     \left\langle f, \frac{\delta \varphi}{\delta m} (\mu ; z) \right\rangle .
+  \]
+  We write $\varphi \in C^1 (\cM_1^+ ; \cM_1^+)$.
+\end{definition}
+
+\begin{remark}
+  In that setting
+  \[ \int_E \left\langle f, \frac{\delta \varphi}{\delta m} (\mu ; z)
+     \right\rangle \nu (\dd z) = \left\langle f, \int_E \frac{\delta
+     \varphi}{\delta m} (\mu ; z) \nu (\dd z) \right\rangle, \]
+  which is a direct consequence of the \red{boundedness} of $\frac{\delta
+  \varphi}{\delta m}$ in $z$ and Fubini theorem.
+  \red{Il y a possiblement un problème ici. En effet, il faudrait définir ce que veux dire 
+  \[\int_{E} \frac{\delta \varphi}{ \delta m}(\mu;z)\nu(\dd z).\]
+  One can use the notion of Böchner integral \blue{reference needed} (it would be easier in $(\cM,\|\cdot\|_{VT})$. Nevertheless, remind that $W_1(\mu,\nu) \equiv \|\mu - \nu\|_{Lip^*}$, which is a Banach space. Furthermore, since for all $f\in Lip$,
+  \[z\to\sup_{\lambda \in [0,1]}\left|\left\langle f , \frac{\delta \varphi}{\delta m}(\lambda (\mu-\nu) + \nu;z)\right\rangle \in L^1(\nu),\right|\]
+  in particular 
+  \[z\to \left\langle f , \frac{\delta \varphi}{\delta m}(\mu;z)\right\rangle \in L^1(\nu).\]}
+\end{remark}
+
+We can know state and prove the following chain rule formula :
+
+\begin{lemma}
+  \label{lemma:chain-rule}Suppose that $\varphi \in \varphi \in C^1
+  (\cM_1^+ ; \cM_1^+)$ and $F \in C^1 (\cM^+_1 ;
+  \RR)$. Suppose furthermore that for all $y \in E$, $\mu \rightarrow
+  \frac{\delta F}{\delta m} (\mu ; y)$ and $\mu \rightarrow \frac{\delta
+  \varphi}{\delta m} (\mu ; z)$ are uniformely continuous. Then $F \circ
+  \varphi \in C^1 (\cM^+_1 ; \RR)$
+  \[ \frac{\delta (F \circ \varphi)}{\delta m} (\mu ; z) = \left\langle
+     \frac{\delta F}{\delta m} (\varphi (\mu)) ; \frac{\delta \varphi}{\delta
+     m} (\mu ; z) \right\rangle . \]
+\end{lemma}
+
+\begin{proof}
+  Let $n \ge 1$, remark that $F (\varphi (\mu)) - F (\varphi (\nu))$
+  
+  \begin{align*}
+    = & \sum_{k = 0}^{n - 1} F \left( \varphi \left( \frac{k + 1}{n} (\mu -
+    \nu) + \nu \right) \right) - F \left( \varphi \left( \frac{k}{n} (\mu -
+    \nu) + \nu \right) \right)\\
+    = & \sum_{k = 0}^{n - 1} F \left( \int_0^1 \int_E \frac{\delta
+    \varphi}{\delta m} \left( \frac{r + k}{n} (\mu - \nu) + \nu ; y \right)
+    \frac{(\mu - \nu)}{n} (\dd y) \dd r + \varphi \left( \frac{k}{n}
+    (\mu - \nu) + \nu \right) \right)\\
+    & \qquad - F \left( \varphi \left( \frac{k}{n} (\mu - \nu) + \nu \right)
+    \right)\\
+    = & \sum_{k = 0}^{n - 1} \int_0^1 \int_E F_{n, k} (\ell, z) \left(
+    \int_0^1 \int_E \frac{\delta \varphi}{\delta m} \left( \frac{r_2 + k}{n}
+    (\mu - \nu) + \nu ; y_2 \right) \frac{(\mu - \nu)}{n} (\dd y_2) \dd
+    r_2 \right) (\dd z) \dd \ell,
+  \end{align*}
+  
+  where
+  
+  \begin{multline*}
+    F_{n, k} (\ell, z)\\
+    = \frac{\delta F}{\delta m} \left( \ell \left( \int_0^1 \int_E
+    \frac{\delta \varphi}{\delta m} \left( \frac{r_1 + k}{n} (\mu - \nu) + \nu
+    ; y_1 \right) \frac{(\mu - \nu)}{n} (\dd y_1) \dd r_1 \right) +
+    \varphi \left( \frac{k}{n} (\mu - \nu) + \nu \right) ; z \right) .
+  \end{multline*}
+  
+  Remark that since $\frac{\delta \varphi}{\delta m}$ is continuous and
+  bounded in $y$, and since
+  \[ \ell \int_0^1 \frac{\delta \varphi}{\delta m} \left( \frac{r_1 + k}{n}
+     (\mu - \nu) + \nu ; y_1 \right) \frac{(\mu - \nu)}{n} (\dd y_1) \dd
+     r_1 \to_{n \rightarrow + \infty} 0 \]
+  uniformely in $\ell$, Furthermore, since $\left( \varphi \left( \frac{k}{n}
+  (\mu - \nu) + \nu \right) \right)_{0 \le k \le n - 1}$ is
+  bounded, for all $\delta > 0$, an integer $n_0 \ge 0$ exists such that
+  for all $\ell \in [0, 1]$ and all $n \ge n_0$, the $W_1$ distance
+  between
+  \[ \ell \int_0^1 \frac{\delta \varphi}{\delta m} \left( \frac{r_1 + k}{n}
+     (\mu - \nu) + \nu ; y_1 \right) \frac{(\mu - \nu)}{n} (\dd y_1) \dd
+     r_1 + \varphi \left( \frac{k}{n} (\mu - \nu) + \nu \right) \]
+  and
+  \[ \varphi \left( \frac{k}{n} (\mu - \nu) + \nu \right) \]
+  is smaller that $\delta$.
+  
+  Since for all $z \in E$, $\mu \rightarrow \frac{\delta F}{\delta m} (\mu ;
+  z)$ is uniformly continuous, for all $\eps > 0$ and all $z \in E$,
+  there exists $\delta > 0$ such that whenever $W_1 (\mu, \nu) \le
+  \delta$, $\left| \frac{\delta F}{\delta m} (\mu ; z) - \frac{\delta
+  F}{\delta m} (\nu ; z) \right| \le \eps$. Hence, for all $n
+  \ge n_0$ and all $k \in \{ 0, \cdots, n \}$ and $\ell \in [0, 1]$,
+  \[ \left| F_{n, k} (\ell ; z) - \frac{\delta F}{\delta m} \left( \varphi
+     \left( \frac{k}{n} (\mu - \nu) + \nu \right) ; z \right) \right|
+     \le \eps \]
+  Furthermore
+  
+  \begin{multline*}
+    \left| \int_E \left( \int_0^1 \int_E \frac{\delta \varphi}{\delta m}
+    \left( \frac{r_2 + k}{n} (\mu - \nu) + \nu ; y_2 \right) \frac{(\mu -
+    \nu)}{n} (\dd y_2) \dd r_2 \right) (\dd z) \right|\\
+    \le \frac{1}{n} \left( \underset{\begin{array}{c}
+      r \in [0, 1]\\
+      y \in E
+    \end{array}}{\sup} \left| \frac{\delta \varphi}{\delta m} (r \mu + (1 - r)
+    \nu ; y) \right| (E) \right) (\mu + \nu) (E) .
+  \end{multline*}
+  
+  Hence, if we define
+  
+  \begin{multline*}
+    G_n (\mu, \nu) = \sum_{k = 0}^{n - 1} \int_E \frac{\delta F}{\delta m}
+    \left( \varphi \left( \frac{k}{n} (\mu - \nu) + \nu \right) ; z \right)\\
+    \times \left( \int_0^1 \int_E \frac{\delta \varphi}{\delta m} \left(
+    \frac{r_2 + k}{n} (\mu - \nu) + \nu ; y_2 \right) \frac{(\mu - \nu)}{n}
+    (\dd y_2) \dd r_2 \right) (\dd z)
+  \end{multline*}
+  
+  And for all $n \ge n_0$,
+  \[ | F (\varphi (\mu)) - F (\varphi (\nu)) - G_n (\mu , \nu) |
+     \le \eps \left( \underset{\begin{array}{c}
+       r \in [0, 1]\\
+       y \in E
+     \end{array}}{\sup} \left| \frac{\delta \varphi}{\delta m} (r \mu + (1 -
+     r) \nu ; y) \right| (E) \right) (\mu + \nu) (E) . \]
+  Using the same techniques, one can show that there exists $n_1 \ge
+  n_0$ such that for all $n \ge n_1$,
+  \[ | G_n (\mu , \nu) - H_n (\mu, \nu) | \le \eps
+     \underset{\begin{array}{c}
+       r \in [0, 1]\\
+       y \in E
+     \end{array}}{\sup} \left| \frac{\delta F}{\delta m} (r \mu + (1 - r) \nu
+     ; z) \right| (\mu + \nu) (E), \]
+  where
+  
+  \begin{multline*}
+    H_n (\mu, \nu) = \sum_{k = 0}^{n - 1} \int_E \frac{\delta F}{\delta m}
+    \left( \varphi \left( \frac{k}{n} (\mu - \nu) + \nu \right) ; z \right)\\
+    \times \left( \int_E \frac{\delta \varphi}{\delta m} \left( \frac{k}{n}
+    (\mu - \nu) + \nu ; y_2 \right) \frac{(\mu - \nu)}{n} (\dd y_2) \right)
+    (\dd z) .
+  \end{multline*}
+  
+  Since $\frac{\delta \varphi}{\delta m}$ and $\frac{\delta F}{\delta m}$ are
+  continuous, one gets that
+  \[ \ell \rightarrow \int_E \frac{\delta F}{\delta m} (\varphi (\ell (\mu -
+     \nu) + \nu) ; y) \left( \int_E \frac{\delta \varphi}{\delta m} (\ell (\mu
+     - \nu) + \nu ; z) (\mu - \nu) (\dd z) \right) (\dd y) \]
+  is continuous, and using standard result on Riemann sum , we get that
+  \[ H_n (\mu, \nu) \rightarrow \int_0^1 \int_E \frac{\delta F}{\delta m}
+     (\varphi (\ell (\mu - \nu) + \nu) ; y) \left( \int_E \frac{\delta
+     \varphi}{\delta m} (\ell (\mu - \nu) + \nu ; z) (\mu - \nu) (\dd z)
+     \right) (\dd y) \dd \ell . \]
+  The boundedness hypothesis allows us to conclude, using Fubini theorem.
+\end{proof}
+
+\begin{lemma}
+  \label{lemma:chain-rule-flow}Suppose that $F \in C^1 (\cM^+_1 ;
+  \RR)$ and that for all $y \in E$, $\mu \rightarrow \frac{\delta
+  F}{\delta m} (\mu ; y)$. Suppose furthermore that $\mu \in C ([0, T] ;
+  \cM^+_1)$ and that ther exists $\mu' \in C ([0, T] ;
+  \cM^+_1)$ such that for all $f \in C^0_b (E ; \RR)$,
+  \[ \langle f, \mu (t) \rangle - \langle f, \mu (t) \rangle = \int_s^t
+     \langle f, \mu' (r) \rangle \dd r. \]
+  Then $F \circ \mu \in C^1 ([0, T] ; \RR)$ and
+  \[ (F \circ \mu)' (t) = \left\langle \frac{\delta F}{\delta m} (\mu (t) ;
+     \cdot), \mu' (t) \right\rangle . \]
+\end{lemma}
+
+\begin{proof}
+  We use the same (but simpler) arguments as in the previous proof. Remark
+  that for $n \ge 1$,
+  
+  \begin{align*}
+    F (\mu (t)) - F (\mu (s)) = & \sum_{k = 0}^{n - 1} F \left( \mu \left(
+    \frac{k + 1}{n} (t - s) + s \right) \right) - F \left( \mu \left(
+    \frac{k}{n} (t - s) + s \right) \right)\\
+    & \sum_{k = 0}^{n - 1} F \left( \int_0^1 \mu' \left( \frac{k + r}{n} (t -
+    s) + s \right) (t - s) \dd r + \mu \left( \frac{k}{n} (t - s) + s
+    \right) \right)\\
+    & \qquad - F \left( \mu \left( \frac{k}{n} (t - s) + s \right) \right)\\
+    = & \sum_{k = 0}^{n - 1} \int_E \frac{\delta F}{\delta m} \left( \ell
+    \int_0^1 \mu' \left( \frac{k + r}{n} (t - s) + s \right) \frac{(t - s)}{n}
+    \dd r + \mu \left( \frac{k}{n} (t - s) + s \right) \right)\\
+    & \qquad \times \left( \int_0^1 \mu' \left( \frac{k + r}{n} (t - s) + s
+    \right) \frac{(t - s)}{n} \dd r \right) (\dd z)
+  \end{align*}
+  
+  Since $\mu'$ is continuous, it is uniformely continuous on $[s, t]$ and
+  thanks to the hypothesis on $F$, the same computations show that the limit
+  as $n \rightarrow + \infty$ of the previous expression is the same as the
+  limit when $n \rightarrow + \infty$ of
+  \[ \sum_{k = 0}^{n - 1} \int_E \frac{\delta F}{\delta m} \left( \mu \left(
+     \frac{k}{n} (t - s) + s \right) \right) \left( \mu' \left( \frac{k}{n} (t
+     - s) + s \right) \frac{(t - s)}{n} \right) (\dd z) . \]
+  and we get that
+  \[ F (\mu (t)) - F (\mu (s)) = \int_s^t \left\langle \frac{\delta F}{\delta
+     m} (\mu (r) ; \cdot), \mu' (r) \right\rangle \dd r. \]
+  The result the follows using the continuity of $\frac{\delta F}{\delta m}$,
+  its boundedness in its second variable, the continuity of $\mu'$.
+\end{proof}
+
+\begin{corollary}
+  Let $L \in C (\cM_1^+ ; \cM_1^+)$ and $F \in C ([0, T]
+  \times \cM_1^+ ; \RR)$. Suppose furthermore that there exists
+  a function $\varphi \in C ([0, T] \times \cM_1^+ ; \cM_1^+)$
+  such that for
+  \begin{itemize}
+    \item For all $t \in [0, T]$, $\mu \rightarrow F (t, \mu) \in C^1
+    (\cM_1^+ ; \RR)$ and $\mu \rightarrow \varphi (t, \mu) \in
+    C (\cM_1^+ ; \cM_1^+)$ such that for all $t \in [0, T]$
+    and all $z \in E$, $\mu \rightarrow \frac{\delta F}{\delta m} (t, \mu ;
+    z)$ and $\mu \rightarrow \frac{\delta \varphi}{\delta m} (t, \mu ; z)$ are
+    uniformely continuous.
+    
+    \item For all $\mu \in \cM_1^+$ and all $t \rightarrow F (t, \mu)
+    \in C^1 (\cM_1^+ ; \RR)$
+    
+    \item For all $f \in C_b (E ; \RR_+)$,
+    \[ \langle f, \varphi (t, \mu) \rangle = \langle f, \mu \rangle + \int_0^t
+       \langle f, L (\varphi (r, \mu)) \rangle \dd r. \]
+    \item For all $s, t \in [0, T]$ such that $s + t \in [0, T]$,
+    \[ \varphi (t + s, \mu) = \varphi (t, \varphi (s, \mu)) . \]
+  \end{itemize}
+  Let us define
+  \[ u (t, \mu) = F (t, \varphi (t, \mu)) . \]
+  Then $u \in C ([0, T] \times \cM_1^+ ; \RR)$, for all $\mu
+  \in \cM_1^+$, $t \rightarrow u (t, \mu) \in C^1 ([0, T] ;
+  \RR)$, for all $t \in [0, T]$, $\mu \rightarrow u (t, \mu) \in C^1
+  (\cM_1^+ ; \RR)$ and $u$ solves the following partial
+  differential equation :
+  \[ \partial_t u (t, \mu) = \left\langle \frac{\delta u}{\delta m} (t, \mu ;
+     \cdot), L (\mu) \right\rangle, \quad u (0, \mu) = F (0, \mu) . \]
+\end{corollary}
+
+\begin{proof}
+  The continuity of $u$ is straightforward since $F$ and $\varphi$ are
+  continuous. Furthermore, using the previous Lemmas \ref{lemma:chain-rule}
+  and \ref{lemma:chain-rule-flow}, $u$ admits a linear derivative in its
+  measure variable for all time and is differentiable in time for all fixed
+  measure.
+  
+  Now let $t \in [0, T]$ and $h > 0$. Remark first that for $\mu \in
+  \cM_1^+$,
+  \[ \left\langle f, \frac{\varphi (t + h, \mu) - \varphi (t, \mu)}{h}
+     \right\rangle = \frac{1}{h} \int_t^{t + h} \langle f, L (\varphi (r,
+     \mu)) \rangle \dd r, \]
+  and by letting $h \rightarrow 0$, since $L$ is continuous and $\varphi$ is
+  continuous in time, we get that $\partial_t u (t, \mu)$ exists and
+  \[ \partial_t u (t, \mu) = L (\varphi (t, \mu)) . \]
+  Remark also that since
+  \[ \varphi (t, \varphi (s, \mu)) = \varphi (t + s, \mu) \]
+  one gets by differentiating in $s$ using the previous Lemma
+  \ref{lemma:chain-rule-flow},
+  \[ \left\langle \frac{\delta \varphi}{\delta m} (t, \varphi (s, \mu) ;
+     \cdot), \partial_s \varphi (s, \mu) \right\rangle = \partial_s \varphi
+     (t + s, \mu) = L (\varphi (t + s, \mu)) . \]
+  Taking $s = 0$, in the previous expression, one gets $\partial_s \varphi (s,
+  \mu) = L (\varphi (0, \mu)) = L (\mu)$ and
+  \[ \left\langle \frac{\delta \varphi}{\delta m} (t, \mu ; \cdot), L (\mu)
+     \right\rangle = L (\varphi (t, \mu)) . \]
+  Hence, we get, using Fubini theorem and Lemma \ref{lemma:chain-rule},
+  for all $t \in [0, T]$, $\mu \rightarrow F (t, \varphi (t, \mu)) \in C^1
+  (\cM_+^1 ; \RR)$, $\frac{\delta F (t, \varphi (t,
+  \cdot))}{\delta m} (\mu ; z) = \left\langle \frac{\delta F}{\delta m} (t,
+  \varphi (t, \mu) ; \cdot) ; \frac{\delta \varphi}{\delta m} (t, \mu ; z)
+  \right\rangle$ and,
+  
+  \begin{align*}
+    \left\langle \frac{\delta F}{\delta m} (t, \varphi (t, \mu) ; z), L
+    (\varphi (t, \mu)) \right\rangle = & \int_E \frac{\delta F}{\delta m} (t,
+    \varphi (t, \mu) ; y) \left( \int_E \frac{\delta \varphi}{\delta m} (t,
+    \mu ; z) L (\mu) (\dd z) \right) (\dd y)\\
+    = & \int_E \frac{\delta F (t, \varphi (t, \cdot))}{\delta m} (\mu, z) L
+    (\mu) (\dd z) .\\
+    = & \left\langle \frac{\delta u}{\delta m} (t, \mu ; z), L (\mu)
+    \right\rangle .
+  \end{align*}
+  
+  We also get that
+  
+  \begin{align*}
+    \frac{F (t, \varphi (t + h, \mu)) - F (t, \varphi (t, \mu))}{h} = &
+    \int_0^1 \int_E \frac{\delta F}{\delta m} (t, \ell (\varphi (t + h, \mu) -
+    \varphi (t, \mu)) + \varphi (t, \mu) ; z)\\
+    & \qquad \times \left( \frac{\varphi (t + h, \mu) - \varphi (t, \mu)}{h}
+    \right) (\dd z) \dd \ell\\
+    = & \int_0^1 \frac{1}{h} \int_t^{t + h} \int_E \frac{\delta F}{\delta m}
+    (t, \ell (\varphi (t + h, \mu) - \varphi (t, \mu)) + \varphi (t, \mu) ;
+    z)\\
+    & \qquad \times L (\varphi (r, \mu)) (\dd z) \dd r \dd \ell
+  \end{align*}
+  
+  Furthermore, since $\frac{\delta F}{\delta m}$ is continuous and bounded in
+  its second variable, and since $L$ and $t \rightarrow \varphi (t, \mu)$ are
+  continuous, one gets that the limit of the right hand side when $h
+  \rightarrow 0$ and is equal to
+  \[ \int_E \frac{\delta F}{\delta m} (t, \varphi (t, \mu) ; z) L (\varphi (t,
+     \mu)) (\dd z) \]
+  which implies that
+  \[ \partial_t u (t, \mu) = \left\langle \frac{\delta F}{\delta m} (t,
+     \varphi (t, \mu) ; \cdot), L (\varphi (t, \mu)) \right\rangle . \]
+  Putting alltogether, we have just proved that
+  \[ \partial_t u (t, \mu) = \left\langle \frac{\delta u}{\delta m} (t, \mu ;
+     \cdot) ; L (\mu) \right\rangle, \quad u (0, \mu) = F (0 , \mu), \]
+  which is the wanted result.
+\end{proof}
+
+\red{Ici, il faudrait montrer que si le flot $\varphi$, en en
+particulier se d{\'e}riv{\'e}e seconde, a de bonnes propri{\'e}t{\'e}s, en
+particulier que si
+\[ \mu \rightarrow \frac{\delta \varphi}{\delta m} (t, \mu ; z) \]
+est $\gamma$-H{\"o}lder continue et que $\mu \rightarrow \frac{\delta
+F}{\delta m} (t, \mu ; z)$ est Lipschitz continue, alors $\mu \rightarrow
+\frac{\delta u}{\delta m} (t, \mu ; z)$ est $\gamma$-H{\"o}lder continue, et
+on voudrait que ce soit {\'e}ventuellement uniforme en $t$ et $z$. {\c c}a
+semble possible, {\'e}ventuellement en demandant plus de r{\'e}gularit{\'e} en
+$z$ pour $\frac{\delta F}{\delta m} (t, \mu ; z)$. En effet
+
+\begin{align*}
+  \frac{\delta u}{\delta m} (t, \mu ; z) - \frac{\delta u}{\delta m} (t, \nu ;
+  z) = & \left\langle \frac{\delta F}{\delta m} (t, \varphi (t, \mu) ;
+  \cdot), \frac{\delta \varphi}{\delta m} (t, \mu ; z) - \frac{\delta
+  \varphi}{\delta m} (t, \nu ; z) \right\rangle\\
+  & + \left\langle \frac{\delta F}{\delta m} (t, \varphi (t, \mu) ; \cdot)
+  - \frac{\delta F}{\delta m} (t, \varphi (t, \mu) ; \cdot), \frac{\delta
+  \varphi}{\delta m} (t, \nu ; z) \right\rangle
+\end{align*}
+
+il faudrait que
+\[ y \rightarrow \frac{\delta F}{\delta m} (t, \varphi (t, \mu) ; y) \]
+soit Lipschitz, et on aurait
+
+\begin{multline*}
+  \left| \left\langle \frac{\delta F}{\delta m} (t, \varphi (t, \mu) ;
+  \cdot), \frac{\delta \varphi}{\delta m} (t, \mu ; z) - \frac{\delta
+  \varphi}{\delta m} (t, \nu ; z) \right\rangle \right|\\
+  \le \left( \left\llbracket \frac{\delta F}{\delta m} (t, \varphi (t,
+  \mu) ; \cdot) \right\rrbracket_{ \text{ Lip } } + \left| \frac{\delta
+  F}{\delta m} (t, \varphi (t, \mu) ; 1) \right| \right) W_1 \left(
+  \frac{\delta \varphi}{\delta m} (t, \mu ; z), \frac{\delta \varphi}{\delta
+  m} (t, \nu ; z) \right)
+\end{multline*}
+
+}
+
+\red{
+Plan de la preuve :
+\begin{itemize}
+  \item Existence et unicit{\'e} en temps court dans $\cE^K_c$ (Banach
+  contraction Theorem avec $\| \cdot \|_{ \text{ TV } }$)
+  
+  \item Lemme pour la positivit{\'e} des solutions de Smoluchowski
+  
+  \item Bornes a priori : les solutions sont dans $C ([0, T] ;
+  (\cE^{+, K}_c, W_1))$ pour un certain $K$ et pour le m{\^e}me $c$
+  que la condition initiale
+  
+  \item Continuit{\'e} des solutions comme un flot pour $1 > \kappa > 0$
+  quelconque
+  \[ \varphi \in C^{1, \kappa} ([0, T] \times (\cE^{+, K}_c, W_1) ;
+     (\cE^{+, K}_c, W_1)) \]
+  \item Existence et unicit{\'e} locale de la d{\'e}riv{\'e} de Fr{\'e}chet de
+  $\varphi$ dans
+  \[ D \varphi \in C ([0, T] ; \cL_c ((\cE^K_c, \| \cdot
+     \|_{ \text{ TV } }) ; (\cE^K_c, \| \cdot \|_{ \text{ TV } }))) \]
+  \item Re lemme pour la positivit{\'e} des solutions, bornes a priori.
+  
+  \item Existence et unicit{\'e} de \ $t \rightarrow \delta_{\mu} \varphi (\mu
+  ; z)$ et bornes a priori (m{\^e}me preuve que pr{\'e}c{\'e}dement)
+  
+  \item 
+\end{itemize}
+}
+
+\section{Bihari lemma and log Lipschitz equations on metric space}
+
+\begin{lemma}[Bihari's lemma]
+  Let us define for any $x \in \RR_+^{\ast}$
+  \[ l (x) = x \left( 1 + 0 \vee \log \left( \frac{1}{x} \right) \right),
+     \quad l (0) = 0. \]
+  Suppose that $y \in C ([0, T] ; \RR_+)$ and $a, b \in \RR_+$
+  are such that
+  \[ y (t) \le a + b \int_0^t l (y (s)) \dd s. \]
+  Then following bounds hold.
+  \[ y (t) \le C \left\{\begin{array}{ll}
+       a e^{b t} &  \text{ if } a \ge 1\\
+       e^{b t} \frac{1}{1 - \log (a)} &  \text{ if } e^{- (e^{b t} - 1)}
+       \le a < 1\\
+       2 a^{e^{- b t}} &  \text{ if } a < e^{- (e^{b t} - 1)}
+     \end{array}\right. . \]
+  In particular for $a = 0 $, $y (t) = 0$. 
+\end{lemma}
+
+\begin{proof}
+  Let us define for $y > 0$
+  \[ H (y) = \int_1^y \frac{1}{l (x)} \dd x = \left\{\begin{array}{ll}
+       \log (y) &  \text{ if } y \ge 1\\
+       \log \left( \frac{1}{1 - \log (y)} \right) &  \text{ if } y < 1
+     \end{array}\right. . \]
+  
+  
+  Note also that
+  \[ H^{- 1} (x) = \left\{\begin{array}{ll}
+       e^x &  \text{ if } x \ge 0\\
+       \exp (1 - e^{- x}) &  \text{ if } x < 0
+     \end{array}\right. . \]
+  Define for all $t \in [0, T]$,
+  \[ Y (t) = a + b \int_0^t l (y (s)) \dd s. \]
+  Since $l$ is increasing, we have
+  \[ Y' (t) = b l (y (t)) \le b l (Y (t)) . \]
+  We suppose first that $a > 0$, by integrating, reminding that $Y (0) = a$
+  and that $H^{- 1}$ is increasing,
+  \[ H (Y (t)) - H (a) \le b t \quad  \text{ and } \quad Y (t) \le
+     H^{- 1} (H (a) + b t) . \]
+  Now, suppose that $a \ge 1$, then
+  \[ Y (t) \le e^{\log (a) + b t} = a e^{b t} . \]
+  Suppose now that $a < 1$ and $0 \le H (a) + b t = \log \left(
+  \frac{1}{1 - \log (a)} \right) + b t$, namely $\exp (- (e^{b t} - 1))
+  \le a$, one gets
+  \[ Y (t) \le e^{b t} \frac{1}{1 - \log (a)} . \]
+  Now suppose that $a < 1$ and $a < \exp (1 - \exp (b t))$ then
+  \[ Y (t) \le \exp \left( 1 - \exp \left( - \log \left( \frac{1}{1 -
+     \log (a)} \right) - b t \right) \right) = \exp (1 - e^{- b t} (1 - \log
+     (a))) \le e^{1 - e^{- b t}} a^{e^{- b t}} \le 2 a^{e^{- b t}}
+  \]
+  which ends the proof whenever $a \neq 0$. For $a = 0$, remark that $Y' (t) =
+  b l (y (t)) \ge 0$ and $Y$ is non-decreasing. Let $t_0 = \inf (t : Y
+  (t) > 0) \wedge T$. If $t_0 < T$, let $t_0 < t_1 < T$, and $Y (t_1) > 0$
+  since $Y$ is non-decreasing, continuous and $t_0$ is the last time where $Y
+  (t_0) = 0$. One can do the same as before, and we get for $t \ge t_0$,
+  \[ Y (t) \le H^{- 1} (H (Y (t_1)) + b (t - t_1)) . \]
+  By letting $t_1 \rightarrow t_0$, one gets that $Y (t_1) \rightarrow Y (t_0)
+  = 0$, and $H (Y (t_1)) + b (t - t_1) \rightarrow - \infty$. Since $\lim_{x
+  \rightarrow X - \infty} H^{- 1} (x) = 0$, one gets that for $t \ge
+  t_0$, $Y (t) = 0$, hence $t_0 = t$ and $Y (t) = 0$ and $y (t) = 0$.
+\end{proof}
+
+\begin{theorem}
+  Suppose that $F : B \rightarrow B$ \red{Faire dans un espace
+  m{\'e}trique}
+\end{theorem}
+
+The proof is taken from
+
+\begin{proof}
+  \ d
+\end{proof}
+
+\begin{lemma}
+  Let $p \ge 2,$ and suppose that $\eta \in C ([0, T] ;
+  \cM^+_p)$. Let $K, c > 0$ and Suppose furthermore that $\mu, \nu \in
+  C ([0, T] ; \cE^{+, K}_c)$ solve the following equation :
+  \[ \langle f, \mu_t \rangle = \langle f, \mu_0 \rangle + \int_0^t
+     \int_{\RR_+^{\ast}} \left( \int_{\RR^{\ast}_+} K_{\alpha}
+     (x, y) (f (x + y) - f (x) - f (y)) \eta_t (\dd y) \right) \mu_s
+     (\dd x) \dd s. \]
+  Then
+  \[ W_1 (\mu_t, \nu_t) \le W_1 (\mu_0, \nu_0) + C \int_0^t l (W_1
+     (\mu_s, \nu_s)) \dd s, \]
+  where
+  \[ l (x) = x \left( 1 + 1 \vee \log \left( \frac{1}{x} \right) \right) \]
+  and $C$ is a constant which depends on $\eta$, $c$ and $K$.
+\end{lemma}
+
+\begin{proof}
+  Take $f \in  \text{ Lip } (\RR_+^{\ast}, d_{\alpha})$ with $\llbracket f
+  \rrbracket_{ \text{ Lip } } \le 1$ and $f (1) = 0$, $1 \ge \delta >
+  0$ and define
+  \[ F_{\delta} (t, x) = \int_{\RR^{\ast}_+} K_{\alpha} (x, y) (f (x +
+     y) - f (x) - f (y)) \eta_t (\dd y)  \text{ for } x \ge \delta \]
+  and
+  \[ F_{\alpha} (t, x) = \int_{\RR^{\ast}_+} K_{\alpha} (\delta, y) (f
+     (x + y) - f (x) - f (y)) \eta_t (\dd y)  \text{ for } x < \delta . \]
+  Remark that for $x, \tilde{x} \ge \delta$ and $y \in
+  \RR_+^{\ast}$,
+  
+  \begin{align*}
+    | x^{- \alpha} f (x + y) - \tilde{x}^{- \alpha} f (\tilde{x} + y) |
+    \le & | x^{- \alpha} - \tilde{x}^{- \alpha} | | f (x + y) | +
+    \tilde{x}^{- \alpha} | f (x + y) - f (\tilde{x} + y) |\\
+    \le & d_{\alpha} (x, \tilde{x}) \left| \frac{1}{(x + y)^{\alpha}} -
+    1 \right| + \tilde{x}^{- \alpha} | f (x + y) - f (\tilde{x} + y) |\\
+    \le & 3 \delta^{- \alpha} d_{\alpha} (x, \tilde{x}),
+  \end{align*}
+  
+  where we have used that $\left| \frac{1}{(x + y)^{\alpha}} - 1 \right|
+  \le x^{- \alpha} + 1 \le 2 \delta^{- \alpha}$ since $x \ge
+  \delta$ and $\delta \le 1$. Hence for $x, \tilde{x} \ge \delta$,
+  
+  \
+  
+  \begin{align*}
+    | F_{\delta} (t, x) - F_{\delta} (t, \tilde{x}) | \le &
+    \int_{\RR^{\ast}_+} | x^{- \alpha} f (x + y) - \tilde{x}^{- \alpha}
+    f (\tilde{x} + y) | \eta_t (\dd y) + | x^{- \alpha} f (x) -
+    \tilde{x}^{- \alpha} f (\tilde{x}) | \int_{\RR^{\ast}_+} \eta_t
+    (\dd y)\\
+    & + | x^{- \alpha} - \tilde{x}^{- \alpha} | \int_{\RR^{\ast}_+} |
+    f (y) | \eta_t (\dd y) + \int_{\RR^{\ast}_+} y^{- \alpha} | f (x
+    + y) - f (\tilde{x} + y) | \eta_t (\dd y)\\
+    & + | f (x) - f (\tilde{x}) | \int_{\RR^{\ast}_+} y^{- \alpha}
+    \eta_t (\dd y) \\
+    \le & 9 \delta^{- \alpha} d_{\alpha} (x, \tilde{x}) \left(
+    \int_{\RR_+^{\ast}} 1 + y^{- \alpha} \eta_t (\dd y) \right)\\
+    \le & 9 \delta^{- \alpha} \underset{t \in [0, T]}{\sup} \left(
+    \int_{\RR_+^{\ast}} 1 + y^{- \alpha} \eta_t (\dd y) \right)
+    d_{\alpha} (x, \tilde{x}) .
+  \end{align*}
+  
+  For $x, \tilde{x} < \delta$,
+  \[ | F_{\delta} (t, x) - F_{\delta} (t, \tilde{x}) | \le 9 \delta^{-
+     \alpha} \underset{t \in [0, T]}{\sup} \left( \int_{\RR_+^{\ast}} 1
+     + y^{- \alpha} \eta_t (\dd y) \right) d_{\alpha} (x, \tilde{x}) . \]
+  and for $\tilde{x} < \delta \le x$, remark that $d_{\alpha} (x,
+  \delta) + d_{\alpha} (\delta, \tilde{x}) = d_{\alpha} (x, \tilde{x})$ and
+  \[ | F_{\delta} (t, x) - F_{\delta} (t, \tilde{x}) | \le | F_{\delta}
+     (t, x) - F_{\delta} (t, \delta) | + | F_{\delta} (t, \delta) - F_{\delta}
+     (t, \tilde{x}) | \le 9 \delta^{- \alpha} \underset{t \in [0,
+     T]}{\sup} \left( \int_{\RR_+^{\ast}} 1 + y^{- \alpha} \eta_t
+     (\dd y) \right) d_{\alpha} (x, \tilde{x}) . \]
+  Hence, $F_{\alpha}$ is Lipschitz
+  
+  \ 
+\end{proof}
+
+
+
+
+\section{Smoluchowski equation}
+
+In this part, we focus ourselves on the Smoluchowski equation with kernel
+$K_{\alpha}$ as defined in Equation \eqref{eq:def-Kalpha}. We are strongly
+inspired by the presentation of {\cite{kolokoltsovCentralLimitTheorem2008}}
+and the method of proof of
+{\cite{norrisSmoluchowskisCoagulationEquation1999}}.
+
+Let us consider the following Smoluchowski coagulation equation, which is a
+equation in $\cM (\RR_+^{\ast})$ the space of non-negative
+finite measure of $\RR_+^{\ast}$ and may be formally written for any
+$\mu_0 \in \cM (\RR_+^{\ast})$ as
+\begin{equation}
+  \mu_t = \mu_0 + \frac{1}{2} \int_0^t \int_0^x K_{\alpha} (x, y) \mu_t (x -
+  y) \mu_t (y) \dd y \dd r. \label{eq:smoluchowsli}
+\end{equation}
+In order to give a meaning to the solutions of the previous equation, one may
+use its weak form.
+
+\begin{definition}
+  A continuous function $\mu : [0, T] \rightarrow (\cM_1^+
+  ((\RR_+^{\ast}, d_{\alpha})), W_1)$ is a solution to the Smoluchowski
+  Equation \eqref{eq:smoluchowsli} if for any $f \in C_b
+  ((\RR_+^{\ast}, d_{\alpha}) ; \RR)$,
+  \begin{equation}
+    \langle f, \mu_t \rangle = \langle f, \mu_0 \rangle + \frac{1}{2} \int_0^t
+    \int_{\RR_+^{\ast}} \int_{\RR_+^{\ast}} K_{\alpha} (x, y) (f
+    (x + y) - f (y) - f (x)) \mu_r (\dd y) \mu_r (\dd x) \dd r.
+    \label{eq:smolu-weak}
+  \end{equation}
+\end{definition}
+
+In order to prove existence, uniqueness and regularity of Smoluchowski
+equation, we will first solve it locally in time in $\cM_1$, the prove
+that the solution is necessarely non-negative, and will lie in
+$\cM_1^+$. Finally, will will prove that the solution is global in
+time.
+
+\begin{definition}
+  \label{def:Lalpha}Let us define $L_{\alpha} : \cM_1 \rightarrow
+  \cM_1$ such that for all $f \in C_b ((\RR_+, d_{\alpha}) ;
+  \RR)$,
+  \[ \langle f, L_{\alpha} (\mu) \rangle = \frac{1}{2}
+     \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+} K_{\alpha} (x, y)
+     (f (x + y) - f (x) - f (y)) \mu (\dd x) \mu (\dd y) . \]
+  And for all $f \in C_b ((\RR_+, d_{\alpha}) ; \RR)$ let us
+  define $K_{\alpha} f$ for all $(x, y) \in \RR_+^{\ast}$,
+  \[ K_{\alpha} f (x, y) = K_{\alpha} (x, y) (f (x + y) - f (x) - f (y)), \]
+  such that we have the following identity
+  \[ \langle f, L_{\alpha} (\mu) \rangle = \langle K_{\alpha} f, \mu \otimes
+     \mu \rangle . \]
+\end{definition}
+
+With the previous definition, a solution of the Smoluchowski equation is a
+continuous function from $[0, T]$ to $\cM_1$, $t \rightarrow \mu_t$
+such that
+\[ \langle f, \mu_t \rangle = \langle f, \mu_0 \rangle + \int_0^t \langle f,
+   L_{\alpha} (\mu_s) \rangle \dd s = \langle f, \mu_0 \rangle + \int_0^t
+   \langle K_{\alpha} f, \mu_s \otimes \mu_s \rangle \dd s. \]
+We have the following straightforward proposition, which allows us to write
+the previous equation.
+
+\begin{lemma}
+  \label{lemma:jensen-Kalpha}Let $p \ge q > \frac{- 1}{\alpha}$ and let
+  $\mu \in \cK^+_p$ be non zero, then
+  \[ \langle x^{- \alpha p}, \mu \rangle \ge \langle x^{- \alpha q}, \mu
+     \rangle^{\frac{\alpha p + 1}{\alpha q + 1}} \langle x, \mu \rangle^{-
+     \frac{\alpha (p - q)}{\alpha q + 1}} \]
+\end{lemma}
+
+\begin{proof}
+  First, remark that since $\mu$ is a finite non-negative measure,
+  $\tilde{\mu}$ defined for all bounded and continuous $f$ as
+  \[ \langle f, \tilde{\mu} \rangle = \int_0^{+ \infty} f (x) \frac{x \mu
+     (\dd x)}{\langle x, \mu \rangle} \]
+  is a probability measure (unless $\langle x, \mu \rangle = 0$ which would
+  imply that $\mu = 0$). We have
+  
+  \
+  
+  \begin{align*}
+    \langle x^{- \alpha p}, \mu \rangle = & \langle x, \mu \rangle \langle
+    x^{- (\alpha p + 1)}, \tilde{\mu} \rangle\\
+    = & \langle x, \mu \rangle \left\langle x^{- (\alpha q + 1) \frac{\alpha p
+    + 1}{\alpha q + 1}}, \tilde{\mu} \right\rangle .
+  \end{align*}
+  
+  Thanks to the requirement on $p$ and $q$, $\frac{\alpha p + 1}{\alpha q + 1}
+  \ge 1$ and $y \rightarrow y^{\frac{\alpha p + 1}{\alpha q + 1} }$ is a
+  convexe function. Hence
+  
+  \begin{align*}
+    \langle x^{- \alpha p}, \mu \rangle \ge & \langle x, \mu \rangle^{-
+    \frac{\alpha p + 1}{\alpha q + 1} + 1} \left\langle \frac{x}{x^{\alpha q +
+    1}}, \mu \right\rangle^{\frac{\alpha p + 1}{\alpha q + 1}}\\
+    = & \langle x, \mu \rangle^{- \frac{\alpha (p - q)}{\alpha q + 1}} \langle
+    x^{- \alpha q}, \mu \rangle^{\frac{\alpha p + 1}{\alpha q + 1}}
+  \end{align*}
+  
+  which is the wanted result. 
+\end{proof}
+
+\begin{proposition}
+  \label{prop:def-Lalpha}The operator $L_{\alpha}$ is well defined from
+  $\cM_1$ to $\cM$, furthermore if $\langle x, | \mu | \rangle
+  < + \infty$ then $\langle x, L_{\alpha} (\mu) \rangle = 0$.
+\end{proposition}
+
+\begin{proof}
+  First, remark that for any Borel set $A \in \RR_+^{\ast}$, and any
+  $x, y \in \RR_+^{\ast}$,
+  \[ - 2 \le \mathbbm{1}_A (x + y) - \mathbbm{1}_A (y) - \mathbbm{1}_A
+     (x) \le 1. \]
+  Remark also that
+  \[ \frac{1}{2} \int_{\RR_+^{\ast}} \int_{\RR_+^{\ast}}
+     K_{\alpha} (x, y) \mu (\dd x) \mu (\dd y) = \langle x^{- \alpha},
+     \mu \rangle \langle 1, \mu \rangle . \]
+  Hence, for any Borel set $A \in \RR_+^{\ast}$,
+  \[ | \langle \mathbbm{1}_A, L_{\alpha} (\mu) \rangle | \le \langle
+     x^{- \alpha}, | \mu | \rangle \langle 1, | \mu | \rangle, \]
+  where we remind that $| \mu |$ denotes the total variation of the signed
+  measure $\mu$. This last inequality guaranties that $L_{\alpha} (\mu)$ is
+  well-defined. Using the fact that for a sequence $(A_i)_{i \ge 0}$ of
+  disjoints Borel sets of $\RR_+^{\ast}$ and for all $x, y \in
+  \RR_+^{\ast}$,
+  \[ \left| \mathbbm{1}_{\bigcup_{i \ge 0} A_i} (x + y) -
+     \mathbbm{1}_{\bigcup_{i \ge 0} A_i} (x) - \mathbbm{1}_{\bigcup_{i
+     \ge 0} A_i} (y) \right| \le 2 \]
+  and
+  \[ \mathbbm{1}_{\bigcup_{i \ge 0} A_i} (x + y) -
+     \mathbbm{1}_{\bigcup_{i \ge 0} A_i} (x) - \mathbbm{1}_{\bigcup_{i
+     \ge 0} A_{i^2}} (y) = \sum_{i \ge 0} \mathbbm{1}_{A_i} (x +
+     y) - \mathbbm{1}_{A_i} (x) - \mathbbm{1}_{A_i} (y), \]
+  one gets that for $N \ge 0$,
+  \[ \left| \frac{1}{2} K_{\alpha} (x, y) \left( \sum_{i = 0}^N
+     \mathbbm{1}_{A_i} (x + y) - \mathbbm{1}_{A_i} (x) - \mathbbm{1}_{A_i} (y)
+     \right) \right| \le K_{\alpha} (x, y) \in L^1 (\mu \otimes \mu), \]
+  and thanks to the dominating convergence theorem,
+  \[ \underset{N \rightarrow + \infty}{\lim} \sum_{i = 0}^N \langle
+     \mathbbm{1}_{A_i}, L_{\alpha} (\mu) \rangle = \left\langle
+     \mathbbm{1}_{\bigcup_{i \ge 0} A_i}, L_{\alpha} (\mu) \right\rangle
+     . \]
+  Furthermore,
+  
+  \begin{align*}
+    \sum_{i = 0}^N | \langle \mathbbm{1}_{A_i}, L_{\alpha} (\mu) \rangle |
+    \le & \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+} \sum_{i
+    = 0}^N K_{\alpha} (x, y) (\mathbbm{1}_{A_i} (x + y) + \mathbbm{1}_{A_i}
+    (x) + \mathbbm{1}_{A_i} (y)) | \mu | \otimes | \mu | (\dd x, \dd
+    y)\\
+    \le & \langle x^{- \alpha}, | \mu | \rangle \langle 1, | \mu |
+    \rangle,
+  \end{align*}
+  
+  which implies that
+  \[ \left\langle \mathbbm{1}_{\bigcup_{i \ge 0} A_i}, L_{\alpha} (\mu)
+     \right\rangle = \underset{N \rightarrow + \infty}{\lim} \sum_{i = 0}^N
+     \langle \mathbbm{1}_{A_i}, L_{\alpha} (\mu) \rangle = \sum_{i \ge
+     0} \langle \mathbbm{1}_{A_i}, L_{\alpha} (\mu) \rangle, \]
+  and $L_{\alpha} (\mu)$ is a finite signed measure.
+  
+  Finally suppose that $\langle x , | \mu | \rangle < + \infty$, in Lemma
+  \ref{lemma:jensen-Kalpha} by taking $q = 1 - \frac{1}{\alpha}$ and $p = 1$,
+  \[ \langle x^{- (\alpha - 1)}, | \mu | \rangle \le \langle x^{-
+     \alpha}, | \mu | \rangle^{\frac{\alpha + 1}{\alpha}} \langle 1, | \mu |
+     \rangle^{- \frac{1}{\alpha}} < + \infty, \]
+  which implies that
+  \[ (x, y) \rightarrow \left( \frac{1}{x^{\alpha}} + \frac{1}{y^{\alpha}}
+     \right) (x + y) \in L^1 (| \mu | \otimes | \mu |), \]
+  Fubini theorem allows us to conclude that $(x \rightarrow x) \in L^1
+  (L_{\alpha} (\mu))$ and that $\langle x, L_{\alpha} (\mu) \rangle = 0$.
+\end{proof}
+
+In this section, we are interested by the well-posedness of the previous
+equation. Indeed, we will show the following Theorem:
+
+\red{
+
+\begin{theorem}
+  For all $\delta > 0$, $\alpha > 0$ and $T > 0$ there exists a unique
+  function
+  \[ \varphi : C^2 ((\cK_{2 + \delta}^+, W_1) ; C ([0, T] ;
+     (\cK_{2 + \delta}^+, W_1))) \]
+  such that for all $\mu, \nu \in \cM_{2 + \delta}$ and all $f \in
+   \text{ Lip } ((\RR_+^{\ast}, d_{\alpha}) ; \RR)$,
+  \[ \langle f, \varphi (\mu)_t \rangle = \langle f, \mu \rangle + \frac{1}{2}
+     \int_0^t \langle f, L_{\alpha} (\varphi (\mu)_r) \rangle \dd r =
+     \langle f, \mu \rangle + \frac{1}{2} \int_0^t \langle K_{\alpha} f,
+     \varphi (\mu)_r \otimes \varphi (\mu)_r \rangle \dd r, \]
+  furthermore for all $t \in [0, T]$
+  
+  \begin{align*}
+    \langle f, \varphi (\mu)_t - \varphi (\nu)_t \rangle = & \int_0^1
+    \left\langle f, \frac{\delta \varphi}{\delta m} (\ell (\mu - \nu) + \nu)
+    (z) \right\rangle (\mu - \nu) (\dd z) \dd \ell .\\
+    & \langle f, \langle \delta_{\mu} \varphi (\nu)_t, (\mu - \nu) \rangle
+    \rangle + \int_0^1 (1 - \lambda) \langle f, \langle \delta_{\mu \mu}^2
+    \varphi (\lambda (\mu - \nu) + \nu)_t, (\mu - \nu)^{\otimes 2} \rangle
+    \rangle
+  \end{align*}
+  
+  Finally, suppose that $F \in C^1 (\cM_1^{2 + \delta}, \RR)$,
+  
+  \begin{multline*}
+    F (\varphi (\mu)_t) = F (\mu) + \frac{1}{2} \int_0^t
+    \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+} K_{\alpha} (x, y)\\
+    \times (\delta_{\mu} F (\varphi (\mu)_s) (x + y) - \delta_{\mu} F (\varphi
+    (\mu)_s) (x) - \delta_{\mu} F (\varphi (\mu)_s) (y)) \varphi (\mu)_s
+    (\dd y) \varphi (\mu)_s (\dd x) .
+  \end{multline*}
+\end{theorem}}
+
+To prove the previous, we need several lemmas and definitions.
+
+\begin{definition}
+  Let $\delta, \alpha, T > 0$ and $\mu_0 \in \cM_1$, for $\mu \in C
+  ([0, T] ; \cM_1)$ let us define $\Gamma (\mu)$ for all $t \in [0,
+  T]$,
+  \[ \langle f, \Gamma (\mu)_t \rangle = \langle f, \mu_0 \rangle + \int_0^t
+     \langle f, L_{\alpha} (\mu_s) \rangle \dd s, \]
+  where $L_{\alpha}$ is defined in Definition \ref{def:Lalpha}.
+\end{definition}
+
+\begin{proposition}
+  \label{prop:gamma-well-defined}Let $K > 0$, the function $\Gamma$ is
+  well-defined from $C ([0, T] ; (\cM_1^{1, K}, \| \cdot \|))$ to $C
+  ([0, T], (\cM, \| \cdot \|))$.
+\end{proposition}
+
+\begin{proof}
+  Thanks to the continuity of $t \in [0, T] \rightarrow \mu_t \in
+  \cM_1$ and the definition of $L_{\alpha}$ (and in particular
+  Proposition \ref{prop:def-Lalpha}), for all $t \in [0, T]$, $\Gamma (\mu)$
+  is well defined as a function from $[0, T]$ to $\cM$. Furthermore,
+  for $0 \le s \le t \le T$ and for any $f \in C_0
+  ((\RR_+^{\ast}, d_{\alpha}) ; \RR)$ with $\| f \|_{\infty}
+  \le 1$,
+  
+  \begin{align*}
+    | \langle f, \Gamma (\mu)_t - \Gamma (\mu)_s \rangle | = & \left| \int_s^t
+    \langle f, L (\mu_r) \rangle \dd r \right|\\
+    \le & \int_s^t \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+}
+    K_{\alpha} (x, y) | (f (x + y) - f (x) - f (y)) | | \mu_r | (\dd x) |
+    \mu_r | (\dd y) \dd r\\
+    \le & \int_s^t \langle 1, | \mu_r | \rangle \langle x^{- \alpha}, |
+    \mu_r | \rangle \dd r
+  \end{align*}
+  
+  Note that since $\mu \in C ([0, T] ; \cM^{1, K}_1)$, for all $r \in
+  [0, T]$, $\langle 1, | \mu_r | \rangle \langle x^{- \alpha}, | \mu_r |
+  \rangle \lesssim K^2$ and
+  \[ | \langle f, \Gamma (\mu)_t \rangle - \langle f, \Gamma (\mu)_s \rangle |
+     \lesssim K^2 | t - s | . \]
+  taking the supremum on $f \in C_0 ((\RR_+^{\ast}, d_{\alpha}) ;
+  \RR)$ with $\| f \|_{\infty} \le 1$, one gets that
+  \[ \| \Gamma (\mu)_t - \Gamma (\mu)_s \| \lesssim K^2 | t - s | \]
+  and $\Gamma (\mu) \in C ([0, T] ; \cM)$.
+\end{proof}
+
+\begin{proposition}
+  \label{prop:contraction}Let $\eps > 0$ and $K > 0$ and $0 < \alpha
+  \le 1$. Define
+  \[ \cC_{\eps, K} = \{ \mu \in \cM_1^{1, K} :
+      \text{ supp } \mu \subset [\eps, + \infty) \} . \]
+  and take $\mu_0 \in \bigcup_{K > 0} \cC_{\eps, K}$ . A
+  constant $K_1 = K_1 (\mu_0) > 0$ and a time $\tau_1 (\eps) = \tau_1
+  (\mu_0, \eps)$ exists such that
+  \[ \Gamma \in  \text{ Lip } (C ([0, \tau_1 (\eps)] ;
+     (\cC_{\eps, K_1}, \| \cdot \|)) ; C ([0, \tau_1
+     (\eps)] ; (\cC_{\eps, K_1}, \| \cdot \|))) \]
+  with its Lipschitz constant smaller than $\frac{1}{2}$.
+\end{proposition}
+
+\begin{proof}
+  Remark that $\{ \mu \in \cM:  \text{ supp } \mu \subset [\eps, +
+  \infty) \}$ is closed in $(\cM, \| \cdot \|)$, hence
+  $\cC_{\eps, K}$ is also closed in this space. Furthermore,
+  remark that if $x, y \ge \eps$, then $x + y \ge
+  \eps$. Suppose that $A \subset (0, \eps)$ is measurable and
+  $ \text{ supp } \mu \subset [\eps, + \infty)$, $\langle \mathbbm{1}_A,
+  L_{\alpha} (\mu) \rangle = 0$ and $\langle \mathbbm{1}_A, \mu_0 \rangle =
+  0$. Hence, $\langle \mathbbm{1}_A, \Gamma (\mu)_t \rangle = 0$ and
+  $ \text{ supp } \Gamma (\mu)_t \subset [\eps, + \infty)$. Furthermore,
+  \[ \langle 1, | \Gamma (\mu)_t | \rangle \le \langle 1, | \mu_0 |
+     \rangle + \int_0^t \langle 1, | \mu_r | \rangle \langle x^{- \alpha}, |
+     \mu_r | \rangle \dd r \le \langle 1, | \mu_0 | \rangle + t K^2,
+  \]
+  and using the fact that $ \text{ supp } \mu_r \subset [\eps, + \infty)$,
+  which leads to $\langle x^{- \alpha}, | \mu_r | \rangle \le
+  \eps^{- \alpha} \langle 1, | \mu_r | \rangle$, Jensen inequality for
+  $y \rightarrow y^{1 - \alpha}$ and the fact that $\langle 1, | \mu_r |
+  \rangle \le K$ and that $\langle x, | \mu_r | \rangle \le K$,
+  one gets
+  
+  \begin{align*}
+    \langle x, | \Gamma (\mu)_t | \rangle \le & \langle x, | \mu_0 |
+    \rangle + 2 \int_0^t \langle x, | \mu_r | \rangle \langle x^{- \alpha}, |
+    \mu_r | \rangle + \langle x^{1 - \alpha}, | \mu_r | \rangle \langle 1, |
+    \mu_r | \rangle \dd r\\
+    \le & \langle x, | \mu_0 | \rangle + 2 t K^2 \eps^{- \alpha}
+    + 2 \int_0^t \langle x, | \mu_r | \rangle^{1 - \alpha} \langle 1, | \mu_r
+    | \rangle^{1 + \alpha} \dd r\\
+    \le & \langle x, | \mu_0 | \rangle + 2 t K^2 (1 + \eps^{-
+    \alpha}) .
+  \end{align*}
+  
+  The same argument allows us to write for a certain constant $c_{\alpha} >
+  0$,
+  \[ \langle x^{- \alpha}, | \Gamma (\mu)_t | \rangle \le \langle x^{-
+     \alpha}, | \mu_0 | \rangle + c_{\alpha} \int_0^t \langle 1, | \mu_r |
+     \rangle \langle x^{- 2 \alpha}, | \mu_r | \rangle \dd r \le
+     \langle x^{- \alpha}, | \mu_0 | \rangle + c_{\alpha} K^2 t \eps^{-
+     2 \alpha} . \]
+  Putting all together, ones gets that a constant $c_{\alpha} > 0$ exists such
+  that
+  \[ \langle 1 + x + x^{- \alpha}, | \Gamma (\mu)_t | \rangle \le
+     \langle 1 + x + x^{- \alpha}, | \mu_0 | \rangle + t c_{\alpha} K^2 (1 +
+     \eps^{- \alpha} + \eps^{- 2 \alpha}) . \]
+  One can then choose $K_0 = 2 \langle 1 + x + x^{- \alpha}, | \mu_0 |
+  \rangle$ and
+  \[ \tau_0 (\eps) = \frac{1}{4 c_{\alpha} \langle 1 + x + x^{-
+     \alpha}, | \mu_0 | \rangle (1 + \eps^{- \alpha} + \eps^{- 2
+     \alpha})}, \]
+  and we have
+  \[ \underset{t \in [0, \tau_0 (\eps)]}{\sup} \langle 1 + x + x^{-
+     \alpha}, | \Gamma (\mu)_t | \rangle \le K_0, \]
+  which proves that $\Gamma$ is a function from $C ([0, \tau_0 (\eps)],
+  (\cC_{\eps, K_0}, \| \cdot \|))$ to itself. Furthermore,
+  take $f \in C_0 ((R_+^{\ast}, d_{\alpha}) ; \RR)$, we get for $\mu
+  \in C ([0, \tau_0 (\eps)], (\cC_{\eps, K_0}, \|
+  \cdot \|))$ and $r \in [0, \tau_0 (\eps)]$,
+  
+  \begin{align*}
+    \langle f, L_{\alpha} (\mu_r) \rangle = & \frac{1}{2}
+    \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+} \left(
+    \frac{1}{x^{\alpha}} + \frac{1}{y^{\alpha}} \right) (f (x + y) - f (x) - f
+    (y)) \mu_r \otimes \mu_r (\dd x, \dd y)\\
+    = & \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+}
+    \frac{1}{x^{\alpha}} f (x + y) \mu_r \otimes \mu_r (\dd x, \dd y)\\
+    & - \int_{\RR^{\ast}_+} x^{- \alpha} f (x) \mu_r (\dd x)
+    \langle 1, \mu_r \rangle - \int_{\RR^{\ast}_+} f (x) \mu_r (\dd
+    x) \langle y^{- \alpha}, \mu_r \rangle\\
+    = & \int_{\RR^{\ast}_+} \left( \int_{\RR^{\ast}_+}
+    \frac{1}{x^{\alpha}} \theta (x) f (x + y) \mu_r (\dd x) \right) \theta
+    (y) \mu_r (\dd y)\\
+    & - \int_{\RR^{\ast}_+} x^{- \alpha} \theta (x) f (x) \mu_r
+    (\dd x) \langle 1, \mu_r \rangle - \int_{\RR^{\ast}_+} f (x)
+    \mu_r (\dd x) \langle y^{- \alpha}, \mu_r \rangle,
+  \end{align*}
+  
+  where $\theta \in C ((\RR^{\ast}_+, d_{\alpha}) ; \RR)$ with
+  $\theta = 1$ on $[\eps, \infty)$, $0 \le \theta \le 1$
+  and $\theta = 0$ on $\left( 0, \frac{\eps}{2} \right)$. Now remark
+  that
+  \[ x \rightarrow x^{- \alpha} \theta (x) f (x) \in C_0
+     ((\RR_+^{\ast}, d_{\alpha}) ; \RR) \quad  \text{ and } \quad x
+     \rightarrow f (x) \in C_0 ((\RR_+^{\ast}, d_{\alpha}) ;
+     \RR) . \]
+  Furthermore, for $y \le \frac{\eps}{2}$,
+  \[ \left( \int_{\RR^{\ast}_+} \frac{1}{x^{\alpha}} \theta (x) f (x +
+     y) \mu_r (\dd x) \right) \theta (y) = 0 \]
+  and
+  \[ \left| \left( \int_{\RR^{\ast}_+} \frac{1}{x^{\alpha}} \theta (x)
+     f (x + y) \mu_r (\dd x) \right) \theta (y) \right| \le K_0 \in
+     L^1 (\mu_r) . \]
+  Finally, let $\delta > 0$ and $A \subset \RR_+^{\ast}$ such that for
+  all $z \notin A$, $| f (z) | \le \delta$. Since $A$ is a compact set,
+  it is bounded, and a constant $a > 0$ exists such that for $z > a$, $z
+  \notin A$, and for $y > z$,
+  \[ \left| \left( \int_{\RR^{\ast}_+} \frac{1}{x^{\alpha}} \theta (x)
+     f (x + y) \mu_r (\dd x) \right) \theta (y) \right| \le K_0
+     \delta . \]
+  Hence for $z \notin \left[ \frac{\eps}{2}, a \right]$, $\left| \left(
+  \int_{\RR^{\ast}_+} \frac{1}{x^{\alpha}} \theta (x) f (x + y) \mu_r
+  (\dd x) \right) \theta (y) \right| \le K_0 \delta$ and thanks to
+  the domintated convergence theorem,
+  \[ y \rightarrow \left( \int_{\RR^{\ast}_+} \frac{1}{x^{\alpha}}
+     \theta (x) f (x + y) \mu_r (\dd x) \right) \theta (y) \in C_0
+     ((\RR_+^{\ast}, d_{\alpha}) ; \RR) . \]
+  The same argment allows us to state that
+  \[ x \rightarrow \frac{1}{x^{\alpha}} \theta (x) \left(
+     \int_{\RR^{\ast}_+} f (x + y) \theta (y) \nu_r (\dd y) \right)
+     \in C_0 ((\RR_+^{\ast}, d_{\alpha}) ; \RR) \]
+  with its sup norm bounded by $\eps^{- \alpha} K_0$.
+  
+  Now take $\tau_1 (\eps) \le \tau_0 (\eps)$ and \ $\mu,
+  \nu \in C ([0, \tau_1 (\eps)], (\cC_{\eps, K_0}, \|
+  \cdot \|))$. One gets for any $t \in [0, \tau_1 (\eps)]$
+  
+  \begin{align*}
+    | \langle f, \Gamma (\mu)_t - \Gamma (\nu)_t \rangle | \le &
+    \int_0^t | \langle f, (L_{\alpha} (\mu_r) - L_{\alpha} (\nu_r)) \rangle |
+    \dd r\\
+    \le & \int_0^t \left| \int_{\RR^{\ast}_+} \left(
+    \int_{\RR^{\ast}_+} \frac{1}{x^{\alpha}} \theta (x) f (x + y) \mu_r
+    (\dd x) \right) \theta (y) (\mu_r (\dd y) - \nu_r (\dd y))
+    \right| \dd r\\
+    & + \int_s^t \left| \int_{\RR^{\ast}_+} \frac{1}{x^{\alpha}}
+    \theta (x) \left( \int_{\RR^{\ast}_+} f (x + y) \theta (y) \nu_r
+    (\dd y) \right) (\mu_r (\dd x) - \nu_r (\dd x)) \right| \dd
+    r\\
+    & + \int_0^t \left| \int_{\RR^{\ast}_+} x^{- \alpha} \theta (x) f
+    (x) (\mu_r (\dd x) - \nu_r (\dd x)) \right| | \langle 1, \mu_r
+    \rangle | \dd r\\
+    & + \int_s^t \left| \int_{\RR^{\ast}_+} x^{- \alpha} \theta (x) f
+    (x) \nu_r (\dd x) \right| | \langle 1, \mu_r - \nu_r \rangle | \dd
+    r\\
+    & + \int_0^t \left| \int_{\RR^{\ast}_+} f (x) \mu_r (\dd x) -
+    \nu_r (\dd x) \right| | \langle y^{- \alpha}, \mu_r \rangle | \dd
+    r\\
+    & + \int_0^t \left| \int_{\RR^{\ast}_+} f (x) \nu_r (\dd x)
+    \right| \left| \int_{\RR^{\ast}_+} \theta (y) y^{- \alpha} (\mu_r -
+    \nu_r) (\dd y) \right| \dd r\\
+    \lesssim & (1 + \eps^{- \alpha} + K_0) K_0 \int_0^t \| \nu_r -
+    \mu_r \| \dd r
+  \end{align*}
+  
+  And we get that
+  \[ \underset{t \in [0, \tau_1 (\eps)]}{\sup} \| \Gamma (\mu)_t -
+     \Gamma (\nu)_t \| \lesssim \tau_1 (\eps) (1 + \eps^{-
+     \alpha}) (1 + K_0)^2 \underset{t \in [0, \tau_0 (\eps)]}{\sup} \|
+     \nu_t - \mu_t \| . \]
+  One can then chose $C \tau_1 (\eps) (1 + \eps^{- \alpha}) (1 +
+  K_0)^2 \le \frac{1}{2}$ where $C > 0$ is the constant in the previous
+  equality. A choice of $\tau_1 (\eps)$ which fulfills the two
+  conditions on $\tau_1 (\eps)$ is for example
+  \[ \tau_1 (\eps) = \frac{C_{\alpha}}{(1 + \eps^{- \alpha} +
+     \eps^{- 2})^2 (1 + 2 \langle 1 + x + x^{- \alpha}, \mu_0
+     \rangle)^2} \]
+  where $C_{\alpha}$ is a constant which only depends on $\alpha$. We can also
+  chose $K = K_0 =  2 \langle 1 + x + x^{- \alpha}, \mu_0 \rangle$, and one
+  gets the wanted result.
+\end{proof}
+
+\begin{remark}
+  \label{remark:expression-of-small-times}In the previous proof, we have just
+  shown local well-posedness of Smoluchowski equation with kernel $K_{\alpha}$
+  on a time interval $[0, \tau_1 (\eps)]$ where
+  \[ \tau_1 (\eps) = \frac{C_{\alpha}}{(1 + \eps^{- \alpha} +
+     \eps^{- 2})^2 (1 + 2 \langle 1 + x + x^{- \alpha}, \mu_0
+     \rangle)^2} \]
+  and where the solutions stay on $\cC_{\eps, K_1}$ with
+  \[ K_1 = 2 \langle 1 + x + x^{- \alpha}, \mu_0 \rangle . \]
+\end{remark}
+
+\begin{theorem}
+  \label{theorem:solution-smolu-positive}Let $p > 1$, $\mu_0 \in
+  \cM^{+, 1}_1$, $\eps > 0$ and $\mu_0^{\eps} =
+  \mathbbm{1}_{[\eps, + \infty)} \mu_0$. A constant $K_2 = K_2 (\mu_0)
+  > 0$ and a time $\tau_2 = \tau_2 (\mu_0, \eps) > 0$ exist such that
+  there is a unique function $\mu^{\eps} \in C ([0, \tau_2],
+  (\cC_{\eps, K_2}))$ such that $\mu^{\eps} = \Gamma
+  (\mu^{\eps})$. Furthermore, $\mu^{\eps}$ is a path of
+  \emph{non-negative} measures, and
+  \[ \tau_2 = \tau_2 (\eps, \langle 1 + x + x^{- \alpha}, \mu_0
+     \rangle) \quad  \text{ and } \quad K_2 = K_2 (\langle 1 + x + x^{- \alpha},
+     \mu_0 \rangle) . \]
+\end{theorem}
+
+\begin{proof}
+  First, remark that since $\mu_0 \in \cM^{+, 1}_1$, we have by
+  definition
+  \[ \langle 1 + x + x^{- \alpha}, \mu_0^{\eps} \rangle \le
+     \langle 1 + x + x^{- \alpha}, \mu_0 \rangle < + \infty, \]
+  where the previous bound does not depend on $\eps > 0$.
+  
+  Hence there exists such that $\mu_0 \in \cC_{\eps, \langle 1
+  + x + x^{- \alpha}, \mu_0 \rangle}$. Take $K_1$ and $\tau_1 (\eps)$
+  as defined in Proposition \ref{prop:contraction} (with expressions in Remark
+  \ref{remark:expression-of-small-times}), then on $C ([0, \tau_1
+  (\eps)] ; (\cC_{\eps, K_1}, \| \cdot \|))$, $\Gamma$
+  is a contraction, and since $\cC_{\eps, K_1}$ is a closed
+  subset of $(\cM, \| \cdot \|)$, $C ([0, \tau_1 (\eps)] ;
+  (\cC_{\eps, K_1}, \| \cdot \|))$ is a closed subset of $C
+  ([0, \tau_0 (\eps)] ; (\cM, \| \cdot \|))$ and a unique
+  fixed point $\mu^{\eps} \in C ([0, \tau_1 (\eps)] ;
+  (\cC_{\eps, K_1}, \| \cdot \|))$ exists.
+  
+  One needs to prove that $\mu^{\eps}$ is a path of non-negative
+  measures, using the fact that $\mu_0$ and thus $\mu_0^{\eps}$ are
+  non-negative measures. To do so, we rely on a method of proof inspired by
+  {\cite{norrisSmoluchowskisCoagulationEquation1999}}. Consider the path of
+  measures $\nu^{\eps}$ such that for all $t \in [0, \tau_1
+  (\eps)]$, $\nu^{\eps}_t \ll \mu^{\eps}_t$ and
+  \[ \frac{\dd \nu^{\eps}}{\dd \mu^{\eps}} (y) = \exp
+     \left( \int_0^t \int_{\RR^{\ast}_+} K_{\alpha} (x, y)
+     \mu_r^{\eps} (\dd x) \right) \]
+  We have, using the fact thet $\Gamma (\mu^{\eps})_t =
+  \mu^{\eps}_t$ for $t \in [0, \tau_1 (\eps)]$,
+  
+  \begin{align*}
+    \frac{\dd}{\dd t} \langle f, \nu^{\eps}_t \rangle = &
+    \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+} \frac{\dd
+    \nu^{\eps}}{\dd \mu^{\eps}} (y) K_{\alpha} (x, y) f (y)
+    \mu_t^{\eps} (\dd x) \mu^{\eps}_t (\dd y)\\
+    & + \frac{1}{2} \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+}
+    \frac{\dd \nu^{\eps}}{\dd \mu^{\eps}} (y) K_{\alpha}
+    (x, y) f (x + y) \mu_t^{\eps} (\dd x) \mu^{\eps}_t
+    (\dd y)\\
+    & - \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+} \frac{\dd
+    \nu^{\eps}}{\dd \mu^{\eps}} (y) K_{\alpha} (x, y) f (y)
+    \mu_t^{\eps} (\dd x) \mu^{\eps}_t (\dd y)\\
+    = & \frac{1}{2} \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+}
+    F_{\alpha}^{\eps} (t, x, y) f (x + y) \nu_t^{\eps} (\dd
+    x) \nu^{\eps}_t (\dd y),
+  \end{align*}
+  
+  where
+  \[ F_{\alpha}^{\eps} (t, x, y) = K_{\alpha} (x, y) \exp \left(
+     \int_0^t \int_{\RR^{\ast}_+} (K_{\alpha} (z, x + y) - K_{\alpha}
+     (z, x) - K_{\alpha} (z, y)) \mu_r^{\eps} (\dd z) \dd r
+     \right) . \]
+  
+  
+  Let us define for $\nu \in C ([0, \tau_1 (\eps)] ; (\cM_1^1,
+  \| \cdot \|))$ $\tilde{\Gamma} (\nu)$ as follow :
+  \[ \langle f, \tilde{\Gamma} (\nu)_t \rangle = \langle f,
+     \mu_0^{\eps} \rangle + \frac{1}{2} \int_0^t
+     \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+}
+     F_{\alpha}^{\eps} (t, x, y) f (x + y) \nu_r (\dd x) \nu_r
+     (\dd y) \dd r. \]
+  First remark that, thanks to its expression, for any path of
+  \emph{non-negative} measures $\nu \in C ([0, T], (\cM_1^{+, 1},
+  \| \cdot \|))$ and since $\mu_0 \in \cM^+$ is a
+  \emph{non-negative} measure, for any $t \in [0, \tau_1 (\eps)]$,
+  the measure $\tilde{\Gamma} (\nu)_t \in \cM^+$. Remark also that
+  $\tilde{\Gamma} (\nu^{\eps}) = \nu^{\eps}$.
+  
+  Using the same arguments as in the proof of Proposition
+  \ref{prop:contraction}, one could get that for a suitable time $\tau_2
+  (\eps) \le \tau_1 (\eps)$ and for $K_2 = 2 \langle 1 + x
+  + x^{- \alpha}, \mu_0 \rangle$ independent of $\eps$,
+  $\tilde{\Gamma}$ is a contraction from $C ([0, \tau_2 (\eps)],
+  (\cC_{\eps, K_2}, \| \cdot \|))$ to itself. Following the
+  same reasoning as in the previous proof, one could show that $\tau_2
+  (\eps)$ depends only on $K_2 = 2 \langle 1 + x + x^{- \alpha}, \mu_0
+  \rangle$ and $\eps$. Again, thanks to the contraction mapping
+  theorem, a unique fixed point $\tilde{\nu}^{\eps}$ for
+  $\tilde{\Gamma}$ in $C ([0, \tau_2 (\eps)],
+  (\cC_{\eps, K_2}, \| \cdot \|))$ exists. Furthermore,
+  thanks to the continuity of $\tilde{\Gamma}$,
+  \[ \tilde{\nu}^{\eps} = \underset{n \rightarrow + \infty}{\lim}
+     \tilde{\nu}^{\eps, n}, \]
+  where $\tilde{\nu}^{\eps, n + 1} = \Gamma (\tilde{\nu}^{\eps,
+  n})$ and $\tilde{\nu}^{\eps, 0}_t = \mu^{\eps}_0$ for all $t
+  \in [0, \tau_2 (\eps)]$, and since $\mu_0$ and thus
+  $\mu_0^{\eps}$ are non-negative measures, for all $n \ge 0$, \
+  $\tilde{\nu}^{\eps, n}$ are paths of non-negative measure, and thanks
+  to the properties of $\tilde{\Gamma}$, so does $\tilde{\nu}^{\eps}$.
+  
+  The previous computation shows that $\tilde{\Gamma} (\nu^{\eps}) =
+  \nu^{\eps}$ and since $\mu_0$ (and thus $\mu_0^{\eps}$) are
+  \emph{non-negative} measures, and thanks to the previous discussion,
+  $\nu^{\eps} = \tilde{\nu}^{\eps}$ for $t \in [0, \tau_2
+  (\eps)]$.
+  
+  Finally,
+  \[ \frac{\dd \mu^{\eps}_t}{\dd \nu^{\eps}} (y) = \exp
+     \left( - \int_0^t \int_{\RR^{\ast}_+} K_{\alpha} (x, y)
+     \mu_r^{\eps} (\dd x) \right) > 0 \]
+  and $\mu^{\eps}_t$ is a non-negative measure for all $t \in [0,
+  \tau_2 (\eps)]$.
+\end{proof}
+
+\begin{theorem}
+  Let $p \ge 2$ and suppose that $\mu_0 \in \cM^{+, p}_1$ and
+  define $\mu^{\eps}_0 = \mathbbm{1}_{[\eps, + \infty)} \mu_0$.
+  For any $T > 0$, there exists a unique path of non-negative measures
+  $\mu^{\eps}$ solution of the Smoluchowski equation
+  \[ \mu^{\eps}_t = \mu^{\eps}_0 + \int_0^t L_{\alpha}
+     (\mu^{\eps}_r) \dd r. \]
+  Furthermore $\mu^{\eps} \in  \text{ Lip } ([0, T] ; (\cM^{+, p,
+  \langle 1 + x + x^{- \alpha p}, \mu_0 \rangle}_1, W_1))$ and
+  \[ \llbracket \mu^{\eps} \rrbracket_{ \text{ Lip } } \le c_{\alpha,
+     p} \langle 1 + x + x^{- \alpha p}, \mu_0 \rangle^2, \]
+  for a constant $c_{\alpha, p} > 0$ independent of $\mu_0$ and $\eps$.
+  
+\end{theorem}
+
+\begin{proof}
+  Thanks to the previous theorem, there exists $\tau_2 = \tau_2 (\eps,
+  \langle 1 + x + x^{- \alpha}, \mu_0 \rangle)$ and $K_2 = K_2 (\langle 1 + x
+  + x^{- \alpha}, \mu_0 \rangle)$ such that $\mu^{\eps}$ is the unique
+  non-negative solution of the previous equation in $C ([0, \tau_2] ;
+  (\cC_{\eps, K_2}, \| \cdot \|))$. Remark first that we have
+  for all $t \le \tau_2$,
+  \[ \langle 1, \mu^{\eps}_t \rangle = \langle x, \mu^{\eps}_0
+     \rangle \le \langle x, \mu_0 \rangle . \]
+  Furthermore, one gets
+  \begin{equation}
+    \langle 1, \mu^{\eps}_t \rangle = \langle 1, \mu^{\eps}_0
+    \rangle - \frac{1}{2} \int_0^t \langle 1, \mu^{\eps}_r \rangle
+    \langle x^{- \alpha}, \mu^{\eps}_r \rangle \dd r \le
+    \langle 1, \mu^{\eps}_0 \rangle \le \langle 1, \mu_0 \rangle
+    . \label{eq:invariance-mueps1}
+  \end{equation}
+  Since for all $p \ge 1$,
+  \[ \frac{1}{x^{p \alpha}} + \frac{1}{y^{p \alpha}} \ge 2^{\alpha p +
+     1} \frac{1}{(x + y)^{\alpha p}}, \]
+  one gets that
+  
+  \begin{align*}
+    \frac{1}{x^{\alpha p}} + \frac{1}{y^{\alpha p}} - \frac{1}{(x + y)^{\alpha
+    p}} = & (1 - 2^{- (\alpha p + 1)}) \left( \frac{1}{x^{\alpha p}} +
+    \frac{1}{y^{\alpha p}} \right) + 2^{- (\alpha p + 1)} \left(
+    \frac{1}{x^{\alpha p}} + \frac{1}{y^{\alpha p}} - \frac{2^{\alpha p +
+    1}}{(x + y)^{\alpha p}} \right)\\
+    \ge & (1 - 2^{- (\alpha p + 1)}) \left( \frac{1}{x^{\alpha p}} +
+    \frac{1}{y^{\alpha p}} \right) .
+  \end{align*}
+  
+  Hence
+  
+  \begin{align*}
+    \langle x^{- \alpha p}, \mu^{\eps}_t \rangle = & \langle x^{-
+    \alpha p}, \mu^{\eps}_0 \rangle - \frac{1}{2} \int_0^t \left(
+    \frac{1}{x^{\alpha}} + \frac{1}{y^{\alpha}} \right) \left(
+    \frac{1}{x^{\alpha p}} + \frac{1}{y^{\alpha p}} - \frac{1}{(x + y)^{\alpha
+    p}} \right) \mu^{\eps}_r (\dd x) \mu^{\eps}_r (\dd
+    y)\\
+    \le & \langle x^{- \alpha p}, \mu^{\eps}_0 \rangle - \frac{(1
+    - 2^{- (\alpha p + 1)})}{2} \int_0^t \left( \frac{1}{x^{\alpha}} +
+    \frac{1}{y^{\alpha}} \right) \left( \frac{1}{x^{\alpha p}} +
+    \frac{1}{y^{\alpha p}} \right) \mu^{\eps}_r (\dd x)
+    \mu^{\eps}_r (\dd y)\\
+    \le & \langle x^{- \alpha p}, \mu^{\eps}_0 \rangle - (1 -
+    2^{- (\alpha p + 1)}) \int_0^t \langle x^{- \alpha (p + 1)},
+    \mu_r^{\eps} \rangle \langle 1, \mu_r^{\eps} \rangle +
+    \langle x^{- \alpha p}, \mu_r^{\eps} \rangle \langle x^{- \alpha},
+    \mu_r^{\eps} \rangle \dd r\\
+    \le & \langle x^{- \alpha p}, \mu_0 \rangle .
+  \end{align*}
+  
+  Finally, we get
+  \[ \langle 1 + x + x^{- \alpha}, \mu^{\eps}_{\tau_2} \rangle
+     \le \langle 1 + x + x^{- \alpha}, \mu_0 \rangle . \]
+  One can then start again the dynamic on $[\tau_2, T]$ with initial condition
+  $\mu^{\eps}_{\tau_2}$, which fulfills the same conditions as $\mu_0$.
+  The previous inequality and the previous Theorem
+  \ref{theorem:solution-smolu-positive} shows that one can uniquely define
+  $\mu^{\eps}$ on $[\tau_2, 2 \tau_2]$ as a path a non-negative
+  measures. By a direct induction, one can uniquely define $\mu^{\eps}$
+  on $[0, n \tau_2]$ for all $n \ge 0$, and thus on any interval $[0,
+  T]$.
+  
+  Now, one gets for all $s \le t \in [0, T]$,
+  
+  \begin{align*}
+    | \langle 1, \mu^{\eps}_t \rangle - \langle 1, \mu^{\eps}_s
+    \rangle | = & \frac{1}{2} \int_s^t \langle 1, \mu_r^{\eps} \rangle
+    \langle x^{- \alpha}, \mu_r^{\eps} \rangle \dd r\\
+    \le & \frac{1}{2} \langle 1, \mu_0^{\eps} \rangle \langle
+    x^{- \alpha}, \mu_0^{\eps} \rangle (t - s) .
+  \end{align*}
+  
+  Furthermore, for $f \in  \text{ Lip } ((\RR_+^{\ast}, d_{\alpha}) ;
+  \RR)$ with $f (1) = 0$ and $\llbracket f \rrbracket \le 1$, we
+  have
+  \[ | f (x + y) - f (x) - f (y) | \le \left| \frac{1}{(x + y)^{\alpha}}
+     - 1 \right| + \left| \frac{1}{x^{\alpha}} - 1 \right| + \left|
+     \frac{1}{y^{\alpha}} - 1 \right| \le 3 \left( \frac{1}{x^{\alpha}}
+     + \frac{1}{y^{\alpha}} \right) \]
+  and
+  \[ | \langle f, \mu^{\eps}_t \rangle - \langle f, \mu^{\eps}_s
+     \rangle | \le \frac{3}{2} \int_s^t \left( \frac{1}{x^{\alpha}} +
+     \frac{1}{y^{\alpha}} \right)^2 \mu^{\eps}_r (\dd x)
+     \mu^{\eps}_r (\dd y) \le 3 \int_s^t \langle 1,
+     \mu_r^{\eps} \rangle \langle x^{- 2 \alpha}, \mu_r^{\eps}
+     \rangle \dd r \]
+  and
+  \[ W_1 (\mu^{\eps}_t, \mu^{\eps}_s) = \sup \langle f,
+     \mu^{\eps}_t \rangle - \langle f, \mu^{\eps}_s \rangle + |
+     \langle 1, \mu^{\eps}_t \rangle - \langle 1, \mu^{\eps}_s
+     \rangle | \le 3 \langle 1, \mu_0 \rangle (\langle x^{- \alpha},
+     \mu_0 \rangle + \langle x^{- 2 \alpha}, \mu_0 \rangle) | t - s | . \]
+  Since $\mu_0 \in \cM_1^{+, p}$ for $p > 2$, a constant $c_{\alpha,
+  p} > 0$ exists such that $\langle x^{- \alpha} + x^{- 2 \alpha}, \mu_0
+  \rangle \le \langle x^{- \alpha p} + x + 1, \mu_0 \rangle$, and we
+  have
+  \[ W_1 (\mu^{\eps}_t, \mu^{\eps}_s) \le c_{\alpha, p} |
+     t - s | \langle 1 + x + x^{- \alpha p}, \mu_0 \rangle^2, \]
+  which is the wanted result.
+\end{proof}
+
+Using the same method of proof as Theorem
+\ref{theorem:solution-smolu-positive}, one can prove the following
+proposition, which will prove useful in the following :
+
+\begin{proposition}
+  \label{prop:positivity-smoluchowski}Suppose for $p > 1$ that $\nu_0
+  \le \mu_0 \in \cM_1^{+, p}$, which means that for any Borel
+  set $A \subset \RR_+^{\ast}$, $\nu_0 (A) \le \mu_0 (A)$. Then
+  for all $t \in [0, T]$, $\nu_t \le \mu_t$, where $(\nu_t)_t$
+  (respectively $(\mu_t)_t$) is the solution of the Smoluchowski Equation with
+  kernel $K_{\alpha}$ and initial value $\nu^{\eps}_0$ (respectively
+  $\mu_0^{\eps}$) as constructed in Theorem
+  \ref{theorem:solution-smolu-positive}.
+\end{proposition}
+
+\begin{proof}
+  Define
+  \[ \theta^{\eps}_t (x) = \exp \left( \int_0^t
+     \int_{\RR_+^{\ast}} K_{\alpha} (x, y) (\mu^{\eps}_r (\dd
+     y) + \nu^{\eps}_r (\dd y)) \dd r \right) \]
+  and consider
+  \[ h_t^{\eps} = \theta^{\eps}_t (x) (\mu^{\eps}_t -
+     \nu^{\eps}_t) . \]
+  Remark that
+  \[ \frac{\dd}{\dd t} \langle f, \mu^{\eps}_t -
+     \nu^{\eps}_t \rangle = \frac{1}{2} \int_{\RR^{\ast}_+}
+     \int_{\RR^{\ast}_+} K (x, y) (f (x + y) - f (x) - f (y))
+     (\mu^{\eps}_t + \nu^{\eps}_t) (\dd y)
+     (\mu^{\eps}_t - \nu^{\eps}_t) (\dd x) . \]
+  We have
+  
+  \begin{align*}
+    \frac{\dd}{\dd t} \langle f, h_t^{\eps} \rangle = &
+    \int_{\RR_+^{\ast}} \int_{\RR_+^{\ast}} K_{\alpha} (x, y)
+    (\mu^{\eps}_t + \nu^{\eps}_t) (\dd y)
+    \theta^{\eps}_t (x) f (x) (\mu^{\eps}_t -
+    \nu^{\eps}_t) (\dd x)\\
+    & + \frac{1}{2} \int_{\RR_+^{\ast}} \int_{\RR_+^{\ast}}
+    K_{\alpha} (x, y) \theta^{\eps}_t (x + y) f (x + y)
+    (\mu^{\eps}_t + \nu^{\eps}_t) (\dd y)
+    (\mu^{\eps}_t - \nu^{\eps}_t) (\dd x)\\
+    & - \int_{\RR_+^{\ast}} \int_{\RR_+^{\ast}} K_{\alpha} (x,
+    y) \theta^{\eps}_t (x) f (x) (\mu^{\eps}_t +
+    \nu^{\eps}_t) (\dd y) (\mu^{\eps}_t -
+    \nu^{\eps}_t) (\dd x)\\
+    = & \frac{1}{2} \int_{\RR_+^{\ast}} \int_{\RR_+^{\ast}}
+    K_{\alpha} (x, y) \frac{\theta^{\eps}_t (x +
+    y)}{\theta^{\eps}_t (x)} f (x + y) (\mu^{\eps}_t +
+    \nu^{\eps}_t) (\dd y) (\mu^{\eps}_t -
+    \nu^{\eps}_t) (\dd x) .
+  \end{align*}
+  
+  Hence, we have $H (h^{\eps}) = h^{\eps}$ where for any
+  suitable path of non-negative measures $(h_t)_t$, $H$ is defined for
+  suitable $f$ by
+  
+  \begin{multline*}
+    \langle f, H (h)_t \rangle = \langle f, \mu^{\eps}_0 -
+    \nu^{\eps}_0 \rangle + \int_0^t \int_{\RR^{\ast}_+}
+    \int_{\RR^{\ast}_+} K_{\alpha} (x, y) \frac{\theta^{\eps}_t
+    (x + y)}{\theta^{\eps}_t (x)} f (x + y) (\mu^{\eps}_t +
+    \nu^{\eps}_t) (\dd y) h_r (\dd x) \dd r.
+  \end{multline*}
+  
+  Since $\mu^{\eps}_0 - \nu^{\eps}_0$ is a non-negative measure,
+  so does $H (h)_t$ for any $t \in [0, T]$. One can then argue the the
+  previous equation has a unique solution (using the same method as in the
+  proof of Theorem \ref{theorem:solution-smolu-positive}), and
+  $h^{\eps}$ is a path of non-negative measure, and so does
+  $\mu^{\eps} - \nu^{\eps}$.
+\end{proof}
+
+\subsection{Regularity of the approximate solution with respect to the initial
+condition}
+
+\begin{theorem}
+  \label{theorem:flow-lipschitz}Let $T > 0$. Let $K > 0$, \red{$p
+  \ge 2$}, $\eps > 0$ and $\mu_0, \nu_0 \in \cM_1^{+, p,
+  K}$. Let $\mu^{\eps}, \nu^{\eps} \in  \text{ Lip } ([0, T] ;
+  \cM_1^{+, p, K})$ be the solution of the Smoluchowski equation with
+  initial condition $\mu^{\eps}_0 = \mathbbm{1}_{[\eps, +
+  \infty)} \mu_0$ (respectively $\nu^{\eps}_0 =
+  \mathbbm{1}_{[\eps, + \infty)} \nu_0$). Then
+  \[ \underset{t \in [0, T]}{\sup} W_1 (\mu^{\eps}_t,
+     \nu^{\eps}_t) \le W_1 (\mu^{\eps}_0,
+     \nu^{\eps}_0) e^{c K (1 + \eps^{- 1}) T} . \]
+\end{theorem}
+
+\begin{proof}
+  First, remark that
+  
+  \begin{align*}
+    \langle 1, \mu^{\eps}_t - \nu^{\eps}_t \rangle = & \langle
+    1, \mu^{\eps}_0 - \nu^{\eps}_0 \rangle - \frac{1}{2}
+    \int_0^t \langle 1, \mu^{\eps}_r - \nu^{\eps}_r \rangle
+    \langle x^{- \alpha}, \mu^{\eps}_r \rangle \dd r\\
+    & - \frac{1}{2} \int_0^t \langle 1, \nu^{\eps}_r \rangle \langle
+    x^{- \alpha}, \mu^{\eps}_r - \nu^{\eps}_r \rangle \dd r
+  \end{align*}
+  
+  Remark that since $x \rightarrow x^{- \alpha}$ is Lipschitz continuous from
+  $(\RR_+^{\ast}, d_{\alpha})$ to $\RR$, and using the fact from
+  the previous Theorem that $\sup_t \langle 1 + x^{- \alpha} + x,
+  \mu^{\eps}_t \rangle \le c_{p, \alpha} K$, we get that a
+  constant $c > 0$ exists, which depends on $K, \alpha, p$ such that
+  \[ | \langle 1, \mu^{\eps}_t - \nu^{\eps}_t \rangle |
+     \le | \langle 1, \mu^{\eps}_0 - \nu^{\eps}_0 \rangle
+     | + c \left( \int_0^t | \langle 1, \mu^{\eps}_r -
+     \nu^{\eps}_r \rangle | \dd r + W_1 (\mu_r^{\eps},
+     \nu_r^{\eps}) \dd r \right) . \]
+  Take $f \in  \text{ Lip } ((\RR_+^{\ast}, d_{\alpha}) ; \RR)$
+  with $\llbracket f \rrbracket_{ \text{ Lip } } \le 1$. Let us remind that
+  we have
+  
+  \begin{align*}
+    \langle f, \mu^{\eps}_t \rangle = & \langle f, \mu^{\eps}_0
+    \rangle + \int_0^t \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+}
+    x^{- \alpha} f (x + y) \mu_r^{\eps} (\dd x) \mu_r^{\eps}
+    (\dd y) \dd r\\
+    & - \int_0^t \langle x^{- \alpha}, \mu^{\eps}_r \rangle \langle f,
+    \mu_r^{\eps} \rangle \dd r\\
+    & - \int_0^t \int_{\RR^{\ast}_+} x^{- \alpha} f (x)
+    \mu_r^{\eps} (\dd x) \langle 1, \mu_r^{\eps} \rangle
+    \dd r
+  \end{align*}
+  
+  and
+  
+  \begin{align*}
+    \langle f, \mu^{\eps}_t - \nu^{\eps}_t \rangle = & \langle
+    f, \mu^{\eps}_0 - \nu_0^{\eps} \rangle +\\
+    & \int_0^t \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+} x^{-
+    \alpha} f (x + y) (\mu_r^{\eps} - \nu^{\eps}_r) (\dd x)
+    \mu_r^{\eps} (\dd y) \dd r\\
+    & + \int_0^t \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+} x^{-
+    \alpha} f (x + y) \nu_r^{\eps} (\dd x) (\mu_r^{\eps} -
+    \nu^{\eps}_r) (\dd y) \dd r\\
+    & - \int_0^t \langle x^{- \alpha}, \mu^{\eps}_r -
+    \nu^{\eps}_r \rangle \langle f, \mu_r^{\eps} \rangle \dd
+    r - \int_0^t \langle x^{- \alpha}, \nu^{\eps}_r \rangle \langle f,
+    \mu_r^{\eps} - \nu^{\eps}_r \rangle \dd r\\
+    & - \int_0^t \int_{\RR^{\ast}_+} x^{- \alpha} f (x)
+    (\mu_r^{\eps} - \nu^{\eps}_r) (\dd x) \langle 1,
+    \mu_r^{\eps} \rangle \dd r\\
+    & - \int_0^t \int_{\RR^{\ast}_+} x^{- \alpha} f (x)
+    \nu_r^{\eps} (\dd x) \langle 1, \mu_r^{\eps} -
+    \nu^{\eps}_r \rangle \dd r.
+  \end{align*}
+  
+  Note that $y \rightarrow \int_{\RR^{\ast}_+} x^{- \alpha} f (x + y)
+  \nu_r^{\eps} (\dd x)$ is Lipschitz continuous and that
+  \[ \left\llbracket \int_{\RR^{\ast}_+} x^{- \alpha} f (x + \cdot)
+     \nu_r^{\eps} (\dd x) \right\rrbracket_{ \text{ Lip } } \le
+     \langle x^{- \alpha}, \nu^{\eps}_r \rangle \le K. \]
+  Remark also that since $\mu^{\eps}_r$ and $\nu^{\eps}_r$ have
+  support included in $[\eps, + \infty)$, If \ (from Proposition
+  \ref{prop:contraction} and Theorem \ref{theorem:solution-smolu-positive}),
+  for all $y \in \RR_+^{\ast}$
+  \[ x \rightarrow x^{- \alpha} f (x) \theta (x) \quad  \text{ and } \quad x
+     \rightarrow x^{- \alpha} f (x + y) \theta (x) \theta (y) \]
+  are Lipschitz continuous on $[\eps, + \infty)$, with their Lipschitz
+  constants bounded by
+  \[ c (1 + \eps^{- \alpha}) \]
+  for some constant $c > 0$. Furthermore, again thanks to the support of the
+  measures, for $0 < \eps < 1$
+  \[ W_1 (\mu^{\eps}_r, \nu^{\eps}_r) =
+     \underset{\begin{array}{c}
+       f : \RR_+^{\ast} \rightarrow \RR  \text{ measurable } \\
+       f_{| [\eps, + \infty)} \in  \text{ Lip } (([\eps, + \infty),
+       d_{\alpha}) ; \RR)\\
+       \llbracket f \rrbracket_{ \text{ Lip } } \le 1, f (1) = 1
+     \end{array}}{\sup} \langle f, \mu^{\eps}_r - \nu^{\eps}_r
+     \rangle + | \langle 1, \mu^{\eps}_r - \nu^{\eps}_r \rangle
+     | . \]
+  The previous discussion leads to
+  
+  \begin{align*}
+    \langle f, \mu^{\eps}_t - \nu^{\eps}_t \rangle \le &
+    \langle f, \mu^{\eps}_0 - \nu_0^{\eps} \rangle + c K (1 +
+    \eps^{- \alpha}) \int_0^t W_1 (\mu^{\eps}_r,
+    \nu^{\eps}_r) \dd r
+  \end{align*}
+  
+  and putting alltogether, we get
+  \[ W_1 (\mu_t^{\eps}, \nu_t^{\eps}) \le W_1
+     (\mu_t^{\eps}, \nu_t^{\eps}) + c K (1 + \eps^{-
+     \alpha}) \int_0^t W_1 (\mu^{\eps}_r, \nu^{\eps}_r) \dd
+     r. \]
+  Gr{\"o}nwall lemma allows us to conclude. 
+\end{proof}
+
+\begin{theorem}
+  Let $z \in \RR_+^{\ast}$, \red{$p \ge 2$}, $K > 0$,
+  $\eps > 0$, $\mu_0 \in \cM^{+, p, K}_1$, $\mu_0^{\eps}
+  = \mathbbm{1}_{[\eps, + \infty)} \mu_0$ and $\mu^{\eps} \in
+   \text{ Lip } ([0, T] ; (\cM^{+, p, K}_1, W_1))$ be the unique solution
+  of the Smoluchowski equation.
+  
+  Let $z > \eps$, we are looking to the solution $A^{\eps} (z)
+  \in C ([0, T] ; \red{(\cM_1, W_1)})$ define for all bounded
+  measurable functions as
+  \[ \langle f, A^{\eps}_r (z) \rangle = f (z) + \int_0^t
+     \int_{\RR_+^{\ast}} \left( \int_{\RR_+^{\ast}} K_{\alpha}
+     (x, y) (f (x + y) - f (x) - f (y)) \mu^{\eps}_r (\dd x) \right)
+     A^{\eps}_r (z) (\dd y) \dd r \]
+  \red{There is a unique solution to the previous equation.
+  Furthermore, this solution is Lipschitz continuous in time, regular in $z$
+  (uniformely de preference)}
+\end{theorem}
+
+\begin{proof}
+  Take $f \in C_0 ((\RR_+^{\ast}, d_{\alpha}) ; \RR)$. Since
+  $\mu^{\eps}$ has support included on $[\eps, + \infty)$, as in
+  the proof of Proposition \ref{prop:contraction}, take $0 \le
+  \theta^{\eps} \le 1$ a continuous function such that
+  $\theta^{\eps} (y) = 0$ for $y < \frac{\eps}{2}$ and $\theta
+  (y) = 1$ for $y \ge \eps$. For all $t \in [0, T]$ and all $y
+  \in \RR_+^{\ast}$, and for any $(A_t)_t \in C ([0, T] ;
+  (\cC_{\eps, K}, \| \cdot \|))$, let us define
+  
+  \begin{align*}
+    \langle f, \Lambda (A)_t \rangle = & f (z) + \int_0^t
+    \int_{\RR_+^{\ast}} \left( \int_{\RR_+^{\ast}} K_{\alpha}
+    (x, y) (f (x + y) - f (x) - f (y)) \mu^{\eps}_r (\dd x) \right)
+    A_r (z) (\dd y) \dd r\\
+    = & f (z) + \int_0^t \int_{\RR_+^{\ast}} \int_{\RR_+^{\ast}}
+    K_{\alpha} (x, y) f (x + y) \mu^{\eps}_r (\dd x) A_r (z) (\dd
+    y) \dd r\\
+    & - \int_0^t \int_{\RR_+^{\ast}} \int_{\RR_+^{\ast}}
+    K_{\alpha} (x, y) f (y) \mu^{\eps}_r (\dd x) A_r (z) (\dd y)
+    \dd r\\
+    & - \int_0^t \langle 1, A_r (z) \rangle \langle x^{- \alpha} f,
+    \mu^{\eps}_r \rangle \dd r - \int_0^t \langle y^{- \alpha}, A_r
+    (z) \rangle \langle f, \mu^{\eps}_r \rangle \dd r.\\
+    = & f (z) + \int_0^t \left( \theta (y) \int_{\RR_+^{\ast}}
+    K_{\alpha} (x, y) f (x + y) \mu^{\eps}_r (\dd x) \right) A_r (z)
+    (\dd y) \dd r\\
+    & - \int_0^t \int_{\RR_+^{\ast}} \theta (y) \left(
+    \int_{\RR_+^{\ast}} K_{\alpha} (x, y) f (y) \mu^{\eps}_r
+    (\dd x) \right) A_r (z) (\dd y) \dd r\\
+    & - \int_0^t \langle 1, A_r (z) \rangle \langle x^{- \alpha} f,
+    \mu^{\eps}_r \rangle \dd r - \int_0^t \int_{\RR_+^{\ast}}
+    y^{- \alpha} \theta (y) A_r (z) (\dd y) \langle x^{- \alpha} f,
+    \mu^{\eps}_r \rangle \dd r.
+  \end{align*}
+  
+  Here we have crucially use the fact that $ \text{ supp } A_r (z) \subset
+  [\eps, + \infty)$. Using the same bounds as Proposition
+  \ref{prop:contraction}, one gets that $\Lambda$ is a contraction for on $C
+  ([0, \tau], \cC_{\eps, K}, \| \cdot \|)$ for suitable
+  $\tau$ and $K$. Indeed, $\Lambda (A)_0 = \delta_z$ and $z \ge
+  \eps$ and one gets that $\Lambda$ as a unique fixed point, as in
+  Theorem \ref{theorem:solution-smolu-positive}. Furthermore, since $\Lambda$
+  is linear, the solution exists for all time. Now, let $\eta > 0$ and let
+  $(\tilde{\mu}^{\eps}_t)_t$ be the unique solutions of the
+  smoluchowski equation with initial condition respectively
+  $\tilde{\mu}^{\eps}_0 = (\mu_0 + \eta \delta_z)^{\eps} =
+  \mu_0^{\eps} + \eta \delta_z$ and $(\mu^{\eps}_t)_t$ with
+  initial condition $\mu^{\eps}_0$. We have for $f \in C_0
+  ((\RR_+^{\ast} d_{\alpha}) ; \RR)$ with $\| f \|_{\infty}
+  \le 1$,
+  \[ \frac{\dd}{\dd t} \langle f, \tilde{\mu}^{\eps}_t -
+     \mu^{\eps}_t - \eta A^{\eps}_t (z) \rangle = \]
+  \begin{align*}
+    & \frac{1}{2} \int_{\RR_+^{\ast}} \int_{\RR_+^{\ast}}
+    K_{\alpha} (x, y) (f (x + y) - f (x) - f (y)) (\tilde{\mu}^{\eps}_t
+    + \mu^{\eps}_t) \otimes (\tilde{\mu}^{\eps}_t -
+    \mu^{\eps}_t) (\dd x, \dd y)\\
+    & - \frac{\eta}{2} \int_{\RR_+^{\ast}} \int_{\RR_+^{\ast}}
+    K_{\alpha} (x, y) (f (x + y) - f (x) - f (y)) (\tilde{\mu}^{\eps}_t
+    + \mu^{\eps}_t) \otimes (\eta A_t^{\eps} (z)) (\dd x,
+    \dd y)\\
+    & - \frac{1}{2} \eta \int_{\RR_+^{\ast}}
+    \int_{\RR_+^{\ast}} K_{\alpha} (x, y) (f (x + y) - f (x) - f (y))
+    (\tilde{\mu}^{\eps}_t - \mu^{\eps}_t) \otimes
+    A_t^{\eps} (z) (\dd x, \dd y)\\
+    = & \frac{1}{2} \int_{\RR_+^{\ast}} \int_{\RR_+^{\ast}}
+    K_{\alpha} (x, y) (f (x + y) - f (x) - f (y)) (\tilde{\mu}^{\eps}_t
+    + \mu^{\eps}_t) \otimes (\tilde{\mu}^{\eps}_t -
+    \mu^{\eps}_t - \eta A^{\eps}_t (z)) (\dd x, \dd y)\\
+    & - \frac{1}{2} \eta \int_{\RR_+^{\ast}}
+    \int_{\RR_+^{\ast}} K_{\alpha} (x, y) (f (x + y) - f (x) - f (y))
+    (\tilde{\mu}^{\eps}_t - \mu^{\eps}_t) \otimes
+    A_t^{\eps} (z) (\dd x, \dd y) .
+  \end{align*}
+  
+  Thanks to the previous Theorem \ref{theorem:flow-lipschitz} and the previous
+  computations, one has
+  \[ \| \tilde{\mu}^{\eps}_t - \mu^{\eps}_t \| \le
+     c_{\eps} \eta, \quad \| A_t^{\eps} (z) \| \le
+     c_{\eps} \]
+  and the last line is bounded by $c_{\eps} \eta^2$, where
+  $c_{\eps}$ is a constant which depends on $\eps$, but not on
+  $z \ge \eps$ neither on $\eta$ and $\mu_0$. The previous
+  computations gave, by integrating them,
+  \[ \| \tilde{\mu}^{\eps}_t - \mu^{\eps}_t - \eta
+     A^{\eps}_t (z) \| \le c_{\eps} \left( \int_0^t \|
+     \tilde{\mu}^{\eps}_r - \mu^{\eps}_r - A^{\eps}_r (z)
+     \| \dd r + \eta^2 \right), \]
+  and
+  \[ \underset{t \in [0, T]}{\sup} \| \tilde{\mu}^{\eps}_t -
+     \mu^{\eps}_t - \eta A^{\eps}_t (z) \| \le C
+     (\eps, T) \eta^2 . \]
+  This gives that, in $C ([0, T] ; (\cM, \| \cdot \|))$,
+  \[ \underset{\eta \rightarrow 0}{\lim} \frac{\tilde{\mu}^{\eps}_t -
+     \mu^{\eps}_t}{\eta} = A^{\eps}_t (z) . \]
+  Notice that $(\mu_0 + \eta \delta_z)^{\eps} = \mu_0^{\eps} +
+  \eta \delta_z \ge \mu_0^{\eps}$ in the sense of Proposition
+  \ref{prop:positivity-smoluchowski}. This leads, using this Proposition
+  \ref{prop:positivity-smoluchowski} to the fact that for any $t \in [0, T]$,
+  $\frac{\tilde{\mu}^{\eps}_t - \mu^{\eps}_t}{\eta}$ is a
+  non-negative measure, and so does $A^{\eps}_t (z)$.
+  
+  Remark then that
+  \[ \langle x, A^{\eps}_t (z) \rangle = z, \]
+  and using Lemma \ref{lemma:jensen-Kalpha} for $A^{\eps}_t (z)$ with
+  $p = 1$ and $q = 0$, one gets
+  
+  \begin{align*}
+    \frac{\dd}{\dd t} \langle 1, A_t (z) \rangle = & - \langle x^{-
+    \alpha}, \mu^{\eps}_t \rangle \langle 1, A_t (z) \rangle - \langle
+    1, \mu^{\eps}_t \rangle \langle y^{- \alpha}, A_t (z) \rangle .\\
+    \le & - \langle x^{- \alpha}, \mu^{\eps}_t \rangle \langle 1,
+    A_t (z) \rangle - z^{- \alpha} \langle 1, \mu^{\eps}_t \rangle
+    \langle 1, A_t (z) \rangle^{1 + \alpha} .
+  \end{align*}
+  
+  and
+  \[ \langle 1, A_t (z) \rangle \le 1 \]
+  and the same holds for any $p \ge 1$
+  \[ \langle y^{- \alpha p}, A_t (z) \rangle \le z^{- \alpha p} . \]
+  
+\end{proof}
+
+\red{f}Petite remarque ici : Il suffit de prendre un $f$ smooth
+(\red{Lipschitz ?)} avec un support compact (\red{Ou pas
+?)}, et de consid{\'e}rer
+\[ \langle f, A^{\eps}_r (\lambda (\mu^{\eps}_0 -
+   \nu^{\eps}_0) + \nu^{\eps}_0) (z) \rangle \]
+cela devrait avoir un support compact et {\^e}tre smooth
+(\red{Lipschitz sans support compact ?)} (pas trop difficile
+normalement \red{Potentiellement difficile mais j'y crois}) en $z$,
+et ce uniform{\'e}ment en $\eps$. Un coup de Arzela-Ascoli (Attention
+aux d{\'e}pendances normalement g{\'e}rables en $\lambda$ et en $t$) donne
+qu'il existe $F (t, \lambda, \mu_0, \nu_0)$ smooth {\`a}\quad support compact
+(\red{Lipschitz ?}) tel que
+\[ \langle f, \mu_t - \nu_t \rangle = \int_0^1 F (t, \lambda, \mu_0, \nu_0)
+   (z) (\mu_0 - \nu_0) (\dd z) \dd \lambda . \]
+On appelle alors $\varphi (\mu_0)$ cette solution, pas forc{\'e}ment unique,
+et on va s'en servir pour comparer des choses.
+
+\begin{align*}
+  \langle f, \varphi () - \nu_t \rangle & 
+\end{align*}
+
+Dans ce cas, on regard
+\[ f (t, \mu_0) = \langle f, \mu_{T - t} \rangle, \]
+and we have
+\[ f (t, \mu_0 + \eta \delta_z) - f (t, \mu_0) = \eta \int_0^1 F (T - t,
+   \lambda, \mu_0 + \eta \delta_z, \mu_0) (z) \dd \lambda \]
+et
+\[ \langle f, A_{T - t} (z) \rangle = ? \delta_{\mu} f (t, \mu_0) (z) =
+   \int_0^1 F (T - t, \lambda, \mu_0, \mu_0) (z) \dd \lambda . \]
+On voudrait
+
+\begin{multline*}
+  0 = \partial_t f (t, \mu_0) +\\
+  \frac{1}{2} \int_{\RR_+^{\ast}} \int_{\RR_+^{\ast}} K_{\alpha}
+  (x, y) (\delta_{\mu} f (t, \mu_0) (y + x) - \delta_{\mu} f (t, \mu_0) (x) -
+  \delta_{\mu} f (t, \mu_0) (y)) \mu_0 \otimes \mu_0 (\dd x, \dd y)
+\end{multline*}
+
+Remark also that
+\[ \partial_t f (t, \mu_0) = - \langle f, L_{\alpha} (\mu_{T - t}) \rangle \]
+On a
+\[ \langle f, \varphi () - \rangle = \int_0^1 F (t, \lambda, \mu_0, \nu_0)
+   (\mu_0 - \nu_0) (\dd z) \]
+Cela suffit {\`a} l'unicit{\'e}, parce que on a en consid{\'e}rant $F (T - t,
+\lambda, \mu_0, \nu_0)$
+\[ \langle f, \mu_{T - t} - \nu_{T - t} \rangle = \int_0^1 F (T - t, \lambda,
+   \mu_0, \nu_0) (\mu_0 - \nu_0) (\dd z) \dd \lambda, \]
+en prenant $t = 0$, on a alors
+\[ \langle f, \mu_T - \nu_T \rangle = \int_0^1 F (T, \lambda, \mu_0, \nu_0)
+   (\mu_0 - \nu_0) (\dd z) \dd \lambda . \]
+Et dans ce cas si $\nu_0 = \mu_0$,
+\[ \langle f, \mu_T - \nu_T \rangle = 0 \]
+et
+\[ \mu_T = \nu_T . \]
+
+
+\begin{theorem}
+  \red{Let $z \in \RR_+^{\ast}$, \red{$p \ge
+  2$}, $K > 0$, $\eps > 0$, $\mu_0, \nu_0 \in \cM^{+, p, K}_1$,
+  $\mu_0^{\eps} = \mathbbm{1}_{[\eps, + \infty)} \mu_0$,
+  $\nu_0^{\eps} = \mathbbm{1}_{[\eps, + \infty)} \nu_0$ and
+  $\mu^{\eps}, \nu^{\eps} \in  \text{ Lip } ([0, T] ;
+  (\cM^{+, p, K}_1, W_1))$ be the unique solution of Smoluchowski
+  equations with initial conditions $\mu^{\eps}_0$ and
+  $\nu^{\eps}_0$. Then for all $t \in [0, T]$,
+  \[ \langle f, \mu^{\eps}_t - \nu^{\eps}_t \rangle = \int_0^1
+     \langle f, A^{\eps}_r (\lambda (\mu^{\eps}_0 -
+     \nu^{\eps}_0) + \nu^{\eps}_0) (z) \rangle
+     (\mu^{\eps}_0 - \nu^{\eps}_0) (\dd z) . \]}
+\end{theorem}
+
+\begin{theorem}
+  \
+  
+  \begin{multline*}
+    \langle f, B^{\eps}_r (z_1, z_2) \rangle =\\
+    \int_0^t \int_{\RR_+^{\ast}} \left( \int_{\RR_+^{\ast}}
+    K_{\alpha} (x, y) (f (x + y) - f (x) - f (y)) A^{\eps}_r (z_2)
+    (\dd x) \right) A^{\eps}_r (z_1) (\dd y) \dd r\\
+    + \int_0^t \int_{\RR_+^{\ast}} \left( \int_{\RR_+^{\ast}}
+    K_{\alpha} (x, y) (f (x + y) - f (x) - f (y)) \mu^{\eps}_r (z_2)
+    (\dd x) \right) B^{\eps}_r (z_1, z_2) (\dd y) \dd r.
+  \end{multline*}
+\end{theorem}
+
+\begin{align*}
+  \langle f, A_t^{\eps} (z) \rangle = & f (z) +\\
+  & \int_0^t \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+} x^{-
+  \alpha} f (x + y) A_r^{\eps} (z) (\dd x) \mu_r^{\eps}
+  (\dd y) \dd r\\
+  & + \int_0^t \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+} x^{-
+  \alpha} f (x + y) \mu_r^{\eps} (\dd x) A^{\eps}_r (z)
+  (\dd y) \dd r\\
+  & - \int_0^t \langle x^{- \alpha}, A^{\eps}_r (z) \rangle \langle f,
+  \mu_r^{\eps} \rangle \dd r\\
+  & - \int_0^t \langle x^{- \alpha}, \mu^{\eps}_r \rangle \langle f,
+  A^{\eps}_r (z) \rangle \dd r\\
+  & - \int_0^t \int_{\RR^{\ast}_+} x^{- \alpha} f (x)
+  A^{\eps}_r (z) (\dd x) \langle 1, \mu_r^{\eps} \rangle
+  \dd r\\
+  & - \int_0^t \int_{\RR^{\ast}_+} x^{- \alpha} f (x)
+  \mu_r^{\eps} (\dd x) \langle 1, A^{\eps}_r (z) \rangle
+  \dd r.
+\end{align*}
+
+\
+
+\red{Precise bounds on the moments of $\mu^{\eps}$
+
+\begin{proof}
+  \
+  
+  One also get, since $r \rightarrow \langle 1, \mu^{\eps}_r \rangle$
+  and $r \rightarrow \langle x^{- \alpha}, \mu^{\eps}_r \rangle$ are
+  continuous, that $t \rightarrow \langle 1, \mu^{\eps}_t \rangle$ is
+  differentiable and that
+  \[ \frac{\dd}{\dd t} \langle 1, \mu^{\eps}_t \rangle = -
+     \frac{1}{2} \langle 1, \mu^{\eps}_t \rangle \langle x^{- \alpha},
+     \mu^{\eps}_t \rangle . \]
+  Using Lemma \ref{lemma:jensen-Kalpha} with $p = 1$ and $q = 0$, one gets
+  \[ \frac{\dd}{\dd t} \langle 1, \mu^{\eps}_t \rangle \le
+     \langle 1, \mu_t^{\eps} \rangle^{2 + \alpha} \langle x,
+     \mu_t^{\eps} \rangle^{- \alpha} = \frac{- 1}{2 \langle x,
+     \mu_0^{\eps} \rangle^{\alpha}} \langle 1, \mu_t^{\eps}
+     \rangle^{2 + \alpha} . \]
+  This gives that
+  \[ \langle 1, \mu^{\eps}_t \rangle \le \frac{\langle 1,
+     \mu^{\eps}_0 \rangle}{\left( 1 + \frac{(1 + \alpha) \langle 1,
+     \mu^{\eps}_0 \rangle^{1 + \alpha}}{2 \langle x,
+     \mu_0^{\eps} \rangle^{\alpha}} t \right)^{\frac{1}{1 + \alpha}}} .
+  \]
+  Finally, using the fact that
+  \[ \frac{1}{x^{\alpha}} + \frac{1}{y^{\alpha}} \ge 2^{\alpha + 1}
+     \frac{1}{(x + y)^{\alpha}}, \]
+  we have that
+  \[ \ge (2^{1 + \alpha} - 1) \frac{1}{(x + y)^{\alpha}} \]
+  \begin{align*}
+    \frac{1}{x^{\alpha}} + \frac{1}{y^{\alpha}} - \frac{1}{(x + y)^{\alpha}} =
+    & (1 - 2^{- (\alpha + 1)}) \left( \frac{1}{x^{\alpha}} +
+    \frac{1}{y^{\alpha}} \right) + 2^{- (\alpha + 1)} \left(
+    \frac{1}{x^{\alpha}} + \frac{1}{y^{\alpha}} - \frac{2^{\alpha + 1}}{(x +
+    y)^{\alpha}} \right)\\
+    \le & (1 - 2^{- (\alpha + 1)}) \left( \frac{1}{x^{\alpha}} +
+    \frac{1}{y^{\alpha}} \right)
+  \end{align*}
+  
+  and
+  
+  \begin{align*}
+    \langle x^{- \alpha}, \mu^{\eps}_t \rangle = & \langle x^{-
+    \alpha}, \mu^{\eps}_0 \rangle - \frac{1}{2} \int_0^t \left(
+    \frac{1}{x^{\alpha}} + \frac{1}{y^{\alpha}} \right) \left(
+    \frac{1}{x^{\alpha}} + \frac{1}{y^{\alpha}} - \frac{1}{(x + y)^{\alpha}}
+    \right) \mu^{\eps}_r (\dd x) \mu^{\eps}_r (\dd y)\\
+    \le & \langle x^{- \alpha}, \mu^{\eps}_0 \rangle - \frac{(1 -
+    2^{- (\alpha + 1)})}{2} \int_0^t \left( \frac{1}{x^{\alpha}} +
+    \frac{1}{y^{\alpha}} \right)^2 \mu^{\eps}_r (\dd x)
+    \mu^{\eps}_r (\dd y)\\
+    \le & \langle x^{- \alpha}, \mu^{\eps}_0 \rangle - (1 - 2^{-
+    (\alpha + 1)}) \int_0^t \langle x^{- \alpha}, \mu_r^{\eps}
+    \rangle^2 + \langle x^{- 2 \alpha}, \mu_r^{\eps} \rangle \langle 1,
+    \mu_r^{\eps} \rangle \dd r\\
+    \le & \langle x^{- \alpha}, \mu^{\eps}_0 \rangle - (1 - 2^{-
+    (\alpha + 1)}) \int_0^t \langle x^{- \alpha}, \mu_r^{\eps}
+    \rangle^2 \dd r\\
+    \le & \langle x^{- \alpha}, \mu_0 \rangle .
+  \end{align*}
+  
+  Thanks to the same argument as for $t \rightarrow \langle 1,
+  \mu_t^{\eps} \rangle$, the previous computation actually shows that
+  \[ \frac{\dd}{\dd t} \langle x^{- \alpha}, \mu^{\eps}_t
+     \rangle \le - (1 - 2^{- (\alpha + 1)}) \langle x^{- \alpha},
+     \mu_t^{\eps} \rangle^2 \]
+  and we have
+  \[ \langle x^{- \alpha}, \mu^{\eps}_t \rangle \le \frac{\langle
+     x^{- \alpha}, \mu^{\eps}_0 \rangle}{1 + (1 - 2^{- (\alpha + 1)})
+     \langle x^{- \alpha}, \mu^{\eps}_0 \rangle t} . \]
+  One can inject the previous inequality to have
+  \[ \frac{\dd}{\dd t} \langle 1, \mu_t^{\eps} \rangle \ge
+     - \frac{1}{2} \frac{\langle x^{- \alpha}, \mu^{\eps}_0 \rangle}{1
+     + (1 - 2^{- (\alpha + 1)}) \langle x^{- \alpha}, \mu^{\eps}_0
+     \rangle t} \langle 1, \mu_t^{\eps} \rangle \]
+  giving
+  
+  \begin{align*}
+    \langle 1, \mu^{\eps}_t \rangle \ge & \langle 1,
+    \mu^{\eps}_0 \rangle \exp \left( - \frac{1}{(2 - 2^{- \alpha})} \ln
+    (1 + (1 - 2^{- (\alpha + 1)}) \langle x^{- \alpha}, \mu^{\eps}_0
+    \rangle t) \right)\\
+    = & \frac{\langle 1, \mu^{\eps}_0 \rangle}{(1 + (1 - 2^{- (\alpha +
+    1)}) \langle x^{- \alpha}, \mu^{\eps}_0 \rangle t)^{\frac{1}{2 -
+    2^{- \alpha}}}} .
+  \end{align*}
+  
+  Remark finally that one gets for any $p > 1$
+  \[ \frac{1}{x^{p \alpha}} + \frac{1}{y^{p \alpha}} \ge 2^{1 + \alpha
+     p} \frac{1}{(x + y)^{p \alpha}} \]
+  and by a similar fashion as before,
+  
+  \begin{align*}
+    \frac{\dd}{\dd t} \langle x^{- \alpha p}, \mu^{\eps}_t
+    \rangle \le & - (1 - 2^{- (1 + \alpha p)}) (\langle x^{- \alpha (p +
+    1)}, \mu^{\eps}_t \rangle \langle 1, \mu^{\eps}_t \rangle +
+    \langle x^{- \alpha p}, \mu^{\eps}_t \rangle \langle x^{- \alpha},
+    \mu^{\eps}_t \rangle)\\
+    \le & - (1 - 2^{- (1 + \alpha p)}) \langle x^{- \alpha (p + 1)},
+    \mu^{\eps}_t \rangle \langle 1, \mu^{\eps}_t \rangle\\
+    \le & - (1 - 2^{- (1 + \alpha p)}) \frac{\langle 1,
+    \mu^{\eps}_0 \rangle}{(1 + (1 - 2^{- (\alpha + 1)}) \langle x^{-
+    \alpha}, \mu^{\eps}_0 \rangle t)^{\frac{1}{2 - 2^{- \alpha}}}}
+    \langle x^{- \alpha (p + 1)}, \mu^{\eps}_t \rangle
+  \end{align*}
+  
+  Hence, using Lemma \ref{lemma:jensen-Kalpha}, with $p = p + 1$ and $q = p$,
+  one gets
+  \[ \langle x^{- \alpha (p + 1)}, \mu^{\eps}_t \rangle \ge
+     \langle x^{- \alpha p}, \mu^{\eps}_t \rangle^{\frac{\alpha (p + 1)
+     + 1}{\alpha p + 1}} \langle x , \mu^{\eps}_0 \rangle^{-
+     \frac{\alpha}{\alpha p + 1}} = \langle x^{- \alpha p},
+     \mu^{\eps}_t \rangle^{1 + \frac{\alpha}{\alpha p + 1}} \langle x ,
+     \mu^{\eps}_0 \rangle^{- \frac{\alpha}{\alpha p + 1}} \]
+  and we have
+  
+  \begin{multline*}
+    \langle x^{- \alpha p}, \mu^{\eps}_0 \rangle^{-
+    \frac{\alpha}{\alpha p + 1}} - \langle x^{- \alpha p}, \mu^{\eps}_t
+    \rangle^{- \frac{\alpha}{\alpha p + 1}} \le - \frac{2 - 2^{-
+    \alpha}}{1 - 2^{- \alpha}} \left( p + \frac{1}{\alpha} \right) \frac{1 -
+    2^{- (1 + \alpha p)}}{1 - 2^{- (1 + \alpha)}} \frac{\langle 1,
+    \mu^{\eps}_0 \rangle}{\langle x^{- \alpha}, \mu^{\eps}_0
+    \rangle}\\
+    \times (1 + (1 - 2^{- (\alpha + 1)}) \langle x^{- \alpha},
+    \mu^{\eps}_0 \rangle t)^{\frac{1 - 2^{- \alpha}}{2 - 2^{- \alpha}}}
+  \end{multline*}
+  
+  leading to the existence of a constant $c_{\alpha, p}$ such that
+  \[ \langle x^{- \alpha p}, \mu^{\eps}_t \rangle \le \langle
+     x^{- \alpha p}, \mu^{\eps}_0 \rangle \left( 1 + c_{\alpha, p}
+     \frac{\langle 1, \mu^{\eps}_0 \rangle \langle x^{- \alpha p},
+     \mu^{\eps}_0 \rangle^{\frac{\alpha}{\alpha p + 1}}}{\langle x^{-
+     \alpha}, \mu^{\eps}_0 \rangle^{\frac{1}{2 - 2^{- \alpha}}}}
+     {t^{\frac{1 - 2^{- \alpha}}{2 - 2^{- \alpha}}}}  \right)^{- \left( p +
+     \frac{1}{\alpha} \right)} . \]
+  where we have used Lemma \ref{lemma:jensen-Kalpha} with $p = 1$ and $q = -
+  1$.
+\end{proof}}
+
+\
+
+\red{\red{ATTENTION ERREUR ICI}Now, let $K > 0$ and
+considere that $\mu_0, \mu_t \in \cM^{2 + \delta, K}_1$. In order to
+prove that $\Gamma$ is a function from $C^0 ([0, \tau] ; \cM^{2 +
+\delta, K}_1)$ to itself for a certain $\tau \le T$, one has to prove
+that it defines non-negative measures, and that the continuity in time holds.
+Remark that for any Borel set $A \subset \RR_+^{\ast}$, one has
+\[ \langle \mathbbm{1}_A, \Gamma (\mu)_t \rangle = \mu_0 (A) + \int_0^t
+   \langle \mathbbm{1}_A, L_{\alpha} (\mu_s) \rangle \dd s. \]
+Remark also that
+\[ \langle \mathbbm{1}_A, L_{\alpha} (\mu_s) \rangle \ge - 2 \langle 1,
+   \mu_s \rangle \langle x^{- \alpha}, \mu_s \rangle \]
+Remark also that if $\mu \in C^0 ([0, \tau] ; \cM^{2 + \delta, K}_1)$,
+then a constant $c_{\delta} > 0$ exists such that
+\[ \langle x^{- \alpha}, \mu_s \rangle \le c_{\delta} K \quad
+    \text{ and } \quad \langle 1, \mu_s \rangle \le K, \]
+meaning that
+\[ \langle \mathbbm{1}_A, \Gamma (\mu)_t \rangle \ge \mu_0 (A) - 2
+   c_{\delta} K^2 T. \]
+It is then enough to take $\tau = \frac{\mu_0 (A)}{2 c_{\delta} K^2}$ to have
+the non negativity of $\Gamma$.
+
+\red{FIN ERREUR ICI}
+
+Now, let us prove that $\Gamma (\mu)_t \in \cM_1$ for all $t \in [0,
+\tau]$. Indeed, one has first that
+\[ \langle 1, \Gamma (\mu)_t \rangle = \langle 1, \mu_0 \rangle - \int_0^t
+   \langle 1, \mu_s \rangle \langle x^{- \alpha}, \mu_s \rangle \dd s
+   \le \langle 1, \mu_0 \rangle . \]
+Furthermore,
+\[ \langle x^{- \alpha}, \Gamma (\mu)_t \rangle = \langle x^{- \alpha}, \mu_0
+   \rangle - \int_0^t \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+}
+   K_{\alpha} (x, y) \left( \frac{1}{x^{\alpha}} + \frac{1}{y^{\alpha}} -
+   \frac{1}{(x + y)^{\alpha}} \right) \mu_s (\dd x) \mu_s (\dd y) . \]
+Remark that for all $x, y > 0$,
+\begin{equation}
+  \frac{1}{x^{\alpha}} + \frac{1}{y^{\alpha}} \ge \frac{2^{\alpha +
+  1}}{(x + y)^{\alpha}} \label{eq:bound-xyalpha},
+\end{equation}
+hence
+\[ \langle x^{- \alpha}, \Gamma (\mu)_t \rangle \le \langle x^{-
+   \alpha}, \mu_0 \rangle \]
+and $\Gamma (\mu)_t \in \cM_1$ thanks to Proposition
+\ref{prop:equivalence-M1}.
+
+Take $s \le t$,
+\[ | \langle 1, \Gamma (\mu)_t \rangle - \langle 1, \Gamma (\mu)_s \rangle |
+   \le \int_s^t \langle 1, \mu_s \rangle \langle x^{- \alpha}, \mu_s
+   \rangle \dd s \le | t - s | K^2 . \]
+Furthermore, for any $f \in  \text{ Lip } ((\RR_+^{\ast}, d_{\alpha}) ;
+\RR)$ with $f (1) = 0$ and $\llbracket f \rrbracket_{ \text{ Lip } }
+\le 1$, one gets
+\[ | f (x + y) - f (x) - f (y) | \le \left| \frac{1}{(x + y)^{\alpha}} -
+   1 \right| + \left| \frac{1}{x^{\alpha}} - 1 \right| + \left|
+   \frac{1}{y^{\alpha}} - 1 \right| \le 3 \left( \frac{1}{x^{\alpha}} +
+   \frac{1}{y^{\alpha}} + 1 \right) . \]
+This gives that
+
+\begin{align*}
+  | \langle f, \Gamma (\mu)_t \rangle - \langle f, \Gamma (\mu)_s \rangle | =
+  & \left| \int_s^t \langle f, L_{\alpha} (\mu_r) \rangle \dd r \right|\\
+  \lesssim & \int_s^t \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+}
+  \left( \frac{1}{x^{\alpha}} + \frac{1}{y^{\alpha}} + 1 \right) \left(
+  \frac{1}{x^{\alpha}} + \frac{1}{y^{\alpha}} \right) \mu_r (\dd x) \mu_r
+  (\dd y) \dd r\\
+  \lesssim & \int_s^t \int_{\RR^{\ast}_+} \int_{\RR^{\ast}_+}
+  \left( \frac{1}{x^{2 \alpha}} + \frac{1}{y^{2 \alpha}} + 1 \right) \mu_r
+  (\dd x) \mu_r (\dd y) \dd r\\
+  \lesssim_{\delta} & (t - s) K^2 .
+\end{align*}
+
+We have just proved that, taking the supremum on $f$,
+\[ W_1 (\Gamma (\mu)_t, \Gamma (\mu)_s) \le (t - s) K^2, \]
+which guaranties the continuity. Finally remark that
+\[ \langle 1, \Gamma (\mu)_t \rangle = \langle 1, \mu_0 \rangle - \int_s^t
+   \langle 1, \mu_s \rangle \langle x^{- \alpha}, \mu_s \rangle \dd s
+   \le \langle 1, \mu_0 \rangle . \]
+One also gets that $\langle x, L_{\alpha} (\mu_s) \rangle = 0$ and $\langle x,
+\Gamma (\mu)_t \rangle = \langle x, \mu_0 \rangle$. Finally}
+
+
+\bibliographystyle{plain}
+\bibliography{CV_smoluchowski}
+
+\end{document}

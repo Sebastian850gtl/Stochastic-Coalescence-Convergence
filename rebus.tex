@@ -1,0 +1,351 @@
+\begin{lemma}
+    For all $T > 0$
+    \begin{align*}
+        \sup\limits_{t \in [0,T]} W_1\left(\varphi_t(\mu),\varphi_t(\tilde{\mu}) \right) \leq W_1(\mu,\tilde{\mu})
+    \end{align*}
+\end{lemma}
+The main idea of this proof is to use the appearance of exponential moments to make Lipschitz functions appear. For the sake of readability we give a technical proposition below involving a function that appears in the proof.
+\begin{proposition}\label{prop:technical-lip-G}
+    Let $f$ be a Lipschitz function such that $Lip(f) \leq 1$ and $|f| \leq \psi_1$, for all $t \geq 0$ let $G_tf : \RRP\times \RRP \to \RR^+$ defined by:
+    \begin{align*}
+        G_tf(x,y) = K_\alpha (x,y)f(x+y)\exp{\left(\int_0^t\int_{\RRP}\left[ K_\alpha(x+y,z) - K_\alpha(x,z) -K_\alpha(y,z)\right] \mu_s(\dd z) \dd s\right)}. \
+    \end{align*}
+    and $\tilde{G}_tf$ defined by:
+    \begin{align*}
+        \tilde{G}_tf(x,y) = K_\alpha (x,y)f(x+y)\exp{\left(\int_0^t\int_{\RRP}\left[ K_\alpha(x+y,z) - K_\alpha(x,z) -K_\alpha(y,z)\right] \tilde{\mu}_s(\dd z) \dd s\right)}. \
+    \end{align*}
+    The following holds for all $t > 0$.
+    \begin{itemize}
+        \item For all $1 \geq \varepsilon > 0$, there exists a constant $C$ depending solely on $\alpha$ such that for all $x_1,x_2 \in \RRP$ and $y\in \RRP$:
+        \begin{align*}
+            \left|\vphantom{A^2} G_tf(x_1,y) - G_tf(x_2,y)\right| \leq C\left( y^{-\alpha} + \dfrac{(x_1)^{-\alpha\varepsilon} \vee (x_2)^{-\alpha\varepsilon}}{\left(\int_0^t \brac{1,\mu_s} \dd_s\right)^{1 - \varepsilon}}\right) d_\alpha(x_1,x_2) .
+        \end{align*}
+        \item There exists a constant $C$ depending solely on $\alpha$ such that for all $x,y \in \RRP$ we have both:
+        \begin{align*}
+            \left|\vphantom{A^2} G_tf(x,y) - \tilde{G}_tf(x,y)\right| \leq C(1 + x^{-2\alpha}y^{-\alpha} + y^{-2\alpha}x^{-\alpha}) \int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd_s
+        \end{align*}
+        and:
+        \begin{multline*}
+            \left|\vphantom{A^2} G_tf(x,y) - \tilde{G}_tf(x,y)\right|\\
+            \leq C(1 + x^{-\alpha} + y^{-\alpha})  \left(\dfrac{1}{\left(\int_0^t \brac{1,\mu_s} \dd _s\right)^2} \vee \dfrac{1}{\left(\int_0^t \brac{1,\tilde{\mu}_s} \dd _s\right)^2} \right) \int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd_s\ .
+        \end{multline*}
+    \end{itemize}
+\end{proposition}
+\begin{remark}
+    One could ask why in the first point we give a result with a $\varepsilon > 0$ this is because the Lipschitz constant of $x \mapsto G_tf(x,y)$ appears in a place where we would like to do a Gronwall lemma. However $\int_0^t \brac{1,\mu_s} \dd s = t\brac{1,\mu} + o(t)$ and therefore is not integrable on any time interval $[0,T]$. This why we need this $\varepsilon$. \red{A bouger ?}
+\end{remark}
+\begin{proof}
+    For this proof we introduce the notation for $x,y,z \in \RRP$:
+    \begin{align*}
+        \mathbf{K}_\alpha(x,y,z) = K_\alpha(x+y,z) - K_\alpha(x,z) -K_\alpha(y,z)
+    \end{align*}
+    First let us remind that :
+    \begin{align*}
+        \mathbf{K}_\alpha(x,y,z) &= -z^{-\alpha} + (x+y)^{-\alpha} - x^{-\alpha} - y^{-\alpha}\\
+        &\leq -z^{-\alpha} - C_\alpha(x^{-\alpha} + y^{-\alpha}) \leq 0,
+    \end{align*}
+    where $C_\alpha = 1-2^{-1-\alpha}$.
+    
+    $(i)$ Now we can treat the first bound assume that $x_1 \geq x_2$:
+    
+        \[G_tf(x_1,y) - G_tf(x_2,y) = \mathbf{A} + \mathbf{B} + \mathbf{C},\]
+    where
+    \begin{align*}
+        \mathbf{A} &= \left[K_\alpha(x_1,y) - K_\alpha(x_2,y)\right]f(x_1 + y) e^{\int_0^t\int_{\RRP} \mathbf{K}_\alpha(x_1,y,z)\mu_s(\dd z) \dd s} \\
+        \mathbf{B} &= \left[f(x_1 + y) - f(x_2 + y)\right] K_\alpha(x_2,y)e^{\int_0^t\int_{\RRP} \mathbf{K}_\alpha(x_1,y,z)\mu_s(\dd z) \dd s} \\
+        \mathbf{C} &= \left[e^{\int_0^t\int_{\RRP}\mathbf{K}_\alpha(x_1,y,z)\mu_s(\dd z) \dd s} -e^{\int_0^t\int_{\RRP} \mathbf{K}_\alpha(x_2,y,z)\mu_s(\dd z) \dd s}\right] K_\alpha(x_2,y)f(x_2+y)\ .
+    \end{align*}
+    We start with term $\mathbf{A}$ since $\left|K_\alpha(x_1,y) - K_\alpha(x_2,y) \right|= d_\alpha(x_1,x_2)$ it comes:
+    \begin{align*}
+       |\mathbf{A}| \leq d_\alpha(x_1,x_2) (x_1 + y)^{-\alpha} \leq d_\alpha(x_1,x_2) y^{-\alpha} \ . 
+    \end{align*}
+    For term $\mathbf{B}$ we have:
+    \begin{multline*}
+        \mathbf{B} = \left[f(x_1 + y) - f(x_2 + y)\right] \left[ K_\alpha(x_2,y) - K_\alpha(x_1,y)\right]e^{\int_0^t\int_{\RRP} \mathbf{K}_\alpha(x_1,y,z)\mu_s(\dd z) \dd s} \\
+        + \left[f(x_1 + y) - f(x_2 + y)\right]K_\alpha(x_1,y)e^{\int_0^t\int_{\RRP} \mathbf{K}_\alpha(x_1,y,z)\mu_s(\dd z) \dd s}\ .
+    \end{multline*}
+    We can bound it as such:
+    \begin{align*}
+        |\mathbf{B}| \leq 2y^{-\alpha} d_\alpha(x_1,x_2) +d_\alpha(x_1+y,x_2+y) \left(x_1^{-\alpha} + y^{-\alpha}\right)e^{\int_0^t\int_{\RRP} \mathbf{K}_\alpha(x_1,y,z)\mu_s(\dd z) \dd s}\ .
+    \end{align*}
+    Using that $d_\alpha(x_1+y,x_2+y) \leq d_\alpha(x_1,x_2)$ and $\mathbf{K}_\alpha \leq 0$ we get:
+    \begin{align*}
+        |\mathbf{B}| \leq  d_\alpha(x_1,x_2) \left(Cy^{-\alpha} + x_1^{-\alpha}e^{\int_0^t\int_{\RRP} \mathbf{K}_\alpha(x_1,y,z)\mu_s(\dd z) \dd s} \right)\ .
+    \end{align*}
+    The second term on RHS of the previous inequality is the one that might cause trouble, we have:
+    \begin{align*}
+        x_1^{-\alpha}e^{\int_0^t\int_{\RRP} \mathbf{K}_\alpha(x_1,y,z)\mu_s(\dd z) \dd s} 
+        &\leq x_1^{-\alpha}e^{-x_1^{-\alpha}C_\alpha\int_0^t\brac{1,\mu_s} \dd s} \\
+        &=x_1^{-\alpha \varepsilon} x_1^{-\alpha(1-\varepsilon)}e^{-x_1^{-\alpha}C_\alpha\int_0^t\brac{1,\mu_s} \dd s} 
+    \end{align*}
+    Now we have for all $\gamma > 0, c> 0,x\geq 0$ that $x^{\gamma}e^{-cx} \leq \left(\frac{\gamma}{c}\right)^\gamma$ applying this inequality to $\gamma = 1 - \varepsilon $ gets us :
+    \begin{align*}
+        x_1^{-\alpha}e^{\int_0^t\int_{\RRP} \mathbf{K}_\alpha(x_1,y,z)\mu_s(\dd z) \dd s}   \leq C x_1^{-\alpha \varepsilon} \dfrac{1}{\left(\int_0^t\brac{1,\mu_s} \dd s\right)^{1 - \varepsilon}},
+    \end{align*}
+    and in the end we get for $\mathbf{B}$ since we assumed that $x_1 \leq x_2$:
+    \begin{align*}
+        |\mathbf{B}| \leq C d_\alpha(x_1,x_2) \left(y^{-\alpha} + \dfrac{(x_1)^{-\alpha \varepsilon} \vee (x_2)^{-\alpha \varepsilon}}{\left(\int_0^t\brac{1,\mu_s} \dd s\right)^{1 - \varepsilon}} \right)\ .
+    \end{align*}
+    We treat $\mathbf{C}$ we have :
+    \begin{multline*}
+        |\mathbf{C}|\leq \int_0^t\int_{\RRP} \left|\mathbf{K}_\alpha(x_1,y,z) - \mathbf{K}_\alpha(x_2,y,z) \right| \mu_s(\dd z) \dd s \\
+        \times \left(e^{\int_0^t \mathbf{K}_\alpha(x_2,y,z) \mu_s(\dd z) \dd s} \vee e^{\int_0^t \mathbf{K}_\alpha(x_1,y,z) \mu_s(\dd z) \dd s}\right)K_\alpha(x_2,y)\left|\vphantom{A^2} f(x_2+y)\right|\ .
+    \end{multline*}
+    Notice that 
+    \begin{align*}
+        \left|\mathbf{K}_\alpha(x_2,y,z) - \mathbf{K}_\alpha(x_1,y,z)\right| &= \left|(x_1 + y)^{-\alpha} -  (x_2 + y)^{-\alpha} + x_2^{-\alpha} -x_1^{-\alpha}\right|\\
+        &\leq 2d_\alpha(x_1,x_2)\ ,
+    \end{align*}
+    and that $K_\alpha(x_2,y)\left|\vphantom{A^2} f(x_2+y)\right|\leq 2(x_2y)^{-\alpha}$, we deduce:
+    \begin{align*}
+        |\mathbf{C}|\leq C d_\alpha(x_1,x_2)\int_0^t \brac{1,\mu_s} \dd s \left(e^{\int_0^t \mathbf{K}_\alpha(x_2,y,z) \mu_s(\dd z) \dd s} \vee e^{\int_0^t \mathbf{K}_\alpha(x_1,y,z) \mu_s(\dd z) \dd s}\right)(x_2y)^{-\alpha}
+    \end{align*}
+    The function $x\mapsto \mathbf{K}_\alpha(x,y,z)$ is non-decreasing, we assumed that $x_1 \leq  x_2$ and thus $\mathbf{K}_\alpha(x_1,y,z) \leq\mathbf{K}_\alpha(x_2,y,z) $  for all $y,z \in \RRP$, it comes:
+    \begin{align*}
+        |\mathbf{C}| &\leq C d_\alpha(x_1,x_2) \int_0^t \brac{1,\mu_s} \dd s e^{\int_0^t \mathbf{K}_\alpha(x_2,y,z) \mu_s(\dd z) \dd s}y^{-\alpha} x_2^{-\alpha} \\
+        &\leq C d_\alpha(x_1,x_2)\int_0^t \brac{1,\mu_s} \dd sy^{-\alpha} x_2^{-\alpha}e^{-x_2^{-\alpha}C_\alpha\int_0^t \brac{1,\mu_s} \dd s}\\
+        &\leq Cy^{-\alpha} d_\alpha(x_1,x_2)\ .
+    \end{align*}
+    
+    
+    $(ii)$ Let us move to the second we have:
+    \begin{multline*}
+        \left|\vphantom{A^2} G_tf(x,y) - \tilde{G}_tf(x,y)\right|\\
+        \leq K_\alpha(x,y)\left|f(x+y)\right| \left|e^{\int_0^t\int_{\RRP}\mathbf{K}_\alpha(x,y,z),\mu_s(\dd z) \dd s} - e^{\int_0^t\int_{\RRP}\mathbf{K}_\alpha(x,y,z)\tilde{\mu}_s(\dd z) \dd s}\right| \\
+        \leq 2x^{-\alpha} y^{-\alpha}\left(e^{\int_0^t\int_{\RRP}\mathbf{K}_\alpha(x,y,z),\mu_s(\dd z) \dd s}\vee e^{\int_0^t\int_{\RRP}\mathbf{K}_\alpha(x,y,z),\tilde{\mu}_s(\dd z) \dd s}  \right)\\
+        \times \int_0^t \left|\brac{\vphantom{A^2}\mathbf{K}_\alpha(x,y,\cdot),\mu_s - \tilde{\mu_s}}  \right| \dd s
+    \end{multline*}
+    We can bound the term inside the time integral by the Wasserstein distance:
+    \begin{align*}
+        \brac{\vphantom{A^2}\mathbf{K}_\alpha(x,y,\cdot),\mu_s - \tilde{\mu_s}} \leq C(1 + x^{-\alpha} + y^{-\alpha})W_1(\mu_s,\tilde{\mu}_s)
+    \end{align*}
+    where $C$ only depends on $\alpha$ therefore if we simply use that $\mathbf{K}_\alpha$ is non-positive we have:
+    \begin{align*}
+        \left|\vphantom{A^2} G_tf(x,y) - \tilde{G}_tf(x,y)\right| \leq C(1 + x^{-2\alpha}y^{-\alpha} + y^{-2\alpha}x^{-\alpha}) \int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd_s\ .
+    \end{align*}
+    And if we use \eqref{eq:proof:trick-exponential-bound} we have \red{A supprimer ?}:
+    \begin{multline*}
+        \left|\vphantom{A^2} G_tf(x,y) - \tilde{G}_tf(x,y)\right|\\
+        \leq C(1 + x^{-\alpha} + y^{-\alpha})  \left(\dfrac{1}{\left(\int_0^t \brac{1,\mu_s} \dd _s\right)^2} \vee \dfrac{1}{\left(\int_0^t \brac{1,\tilde{\mu}_s} \dd _s\right)^2} \right) \int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd_s\ .
+    \end{multline*}
+\end{proof}
+
+We now prove the Lemma \ref{lem:Lip-smol-TV}. The proof consists of introducing two measures that will be easier to study than $\Proc{\varphi_t(\mu)}$ and $\Proc{\varphi_t(\tilde{\mu})}$, see Step $2$.
+\begin{proof}
+    For lighter notations we denote by $\mu_t := \varphi_t(\mu)$ and $\tilde{\mu}_t := \varphi_t(\tilde{\mu})$.
+    
+    Step $1$: We show that for all $t \geq 0$, 
+    \begin{align*}
+        \left| \vphantom{A^2}\brac{1,\mu_t - \tilde{\mu}_t} \right| \leq \left| \vphantom{A^2}\brac{1,\mu - \tilde{\mu}} \right| + \int_0^t \brac{1,\mu_s + \tilde{\mu}_s}W_1\left(\vphantom{A^2}\tilde{\mu}_s,\mu_s\right) \dd s\ .
+    \end{align*}
+    We have:
+    \begin{align*}
+        \brac{1,\mu_t - \tilde{\mu}_t} = \brac{1,\mu - \tilde{\mu}} - \int_0^t \brac{K_\alpha,\left(\mu_s + \tilde{\mu}_s\right)\otimes \left(\mu_s - \tilde{\mu}_s\right)}\dd s.
+    \end{align*}
+    The function $x \mapsto \int_{\RRP} K_\alpha(x,y)\left(\mu_t + \tilde{\mu}_t\right)(\dd y)$ is Lipschitz, indeed for all $x_1,x_2 \in \RRP$:
+    \begin{align*}
+        \left|\int_{\RRP} K_\alpha(x_1,y)\left(\mu_t + \tilde{\mu}_t\right)(\dd y) - \int_{\RRP} K_\alpha(x_2,y)\left(\mu_t + \tilde{\mu}_t\right)(\dd y)\right| \leq d_\alpha(x_1,x_2) \brac{1,\mu_t + \tilde{\mu}_t}\ .
+    \end{align*}
+    Therefore
+    \begin{align*}
+        \brac{1,\mu_t - \tilde{\mu}_t} \leq \brac{1,\mu - \tilde{\mu}} + \int_0^t \brac{1,\mu_s + \tilde{\mu}_s}W_1\left(\vphantom{A^2}\tilde{\mu}_s,\mu_s\right) \dd s\ ,
+    \end{align*}
+    proving the claim of the first step.
+
+    Step $2$: We introduce the functions:
+    \begin{align*}
+        h_t(x) = \exp{\left(\int_0^t \int_{\RRP}K_\alpha(x,y) \mu_s(\dd y)\dd s \right)},\quad \tilde{h}_t(x) = \exp{\left(\int_0^t \int_{\RRP}K_\alpha(x,y)\tilde{\mu}_s(\dd y)\dd s \right)},
+    \end{align*}
+    and show that: for all $f$ Lipschitz with $Lip(f) \leq 1$ and $f(x) \leq x^{-\alpha}$, $\brac{f,\mu_t-\tilde{\mu}_t} \leq 2W_1(h_t\mu_t,\tilde{h}\tilde{\mu}_t)$. We start with some estimates. We have for all $x_1,x_2 \in \RRP$:
+    \begin{align*}
+        \left| \left(h_t(x_1)\right)^{-1} - \left(h_t(x_2)\right)^{-1}\right| &= \left| e^{-\int_0^t \int_{\RRP}K_\alpha(x_1,y) \mu_s(\dd y)\dd s } - e^{-\int_0^t \int_{\RRP}K_\alpha(x_2,y) \mu_s(\dd y)\dd s }\right| \\
+        &\leq d_\alpha(x_1,x_2) \int_0^t \brac{1,\mu_s} \dd s e^{-(x_1^{-\alpha} \wedge x_2^{-\alpha})\int_0^t \brac{1,\mu_s} \dd s}\ .
+    \end{align*}
+    And for all $x \in \RRP$:
+    \begin{align*}
+        \left| \left(h_t(x)\right)^{-1} - \left(\tilde{h}_t(x)\right)^{-1}\right| 
+        &= \left| e^{-\int_0^t \int_{\RRP}K_\alpha(x,y) \mu_s(\dd y)\dd s } - e^{-\int_0^t \int_{\RRP}K_\alpha(x,y) \tilde{\mu}_s(\dd y)\dd s }\right| \\
+        &\leq \left|\int_0^t \brac{K_\alpha(x,\cdot),\mu_s - \tilde{\mu}_s} \dd s\right|  \\
+        &\leq (1 + x^{-\alpha})\int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd s.
+    \end{align*}
+    Proving the desired inequality we have:
+    \begin{align*}
+        \brac{f,\mu_t-\tilde{\mu}_t} &= \brac{f,(h_t)^{-1} h_t\mu_t} - \brac{f,(\tilde{h}_t)^{-1} \tilde{h}_t\tilde{\mu}_t} \\
+        &= \dfrac12\brac{f(h_t)^{-1} + f(\tilde{h}_t)^{-1}, h_t\mu_t - \tilde{h}_t\tilde{\mu}_t} + \dfrac12\brac{f(h_t)^{-1} - f(\tilde{h}_t)^{-1},h_t\mu_t + \tilde{h}_t\tilde{\mu}_t}.
+    \end{align*}
+    The function $f(h_t)^{-1}$ is Lipschitz indeed using our estimates on $h_t$ we have for all $x_1,x_2 \in \RRP$:
+    \begin{align*}
+        \left| f(h_t)^{-1}(x_1) - f(h_t)^{-1}(x_2)\right| 
+        &= \left| f(x_1)e^{-x_1^{-\alpha}\int_0^t \brac{1,\mu_s}\dd s } - f(x_2)e^{-x_2^{-\alpha}\int_0^t \brac{1,\mu_s}\dd s } \right| \\
+        &\leq d_\alpha(x_1,x_2) + \left|f(x_1)| \wedge |f(x_2) \right|\left| e^{-x_1^{-\alpha}\int_0^t \brac{1,\mu_s}\dd s } -e^{-x_2^{-\alpha}\int_0^t \brac{1,\mu_s}\dd s } \right|\ .
+    \end{align*}
+    By hypothesis on $f$ we have $|f(x)| \leq x^{-\alpha}$ and therefore:
+    \begin{multline*}
+        \left| f(h_t)^{-1}(x_1) - f(h_t)^{-1}(x_2)\right| \\\leq d_\alpha(x_1,x_2)\left(1 + \left(x_1^{-\alpha}\wedge x_2^{-\alpha} \right)e^{-(x_1^{-\alpha}\wedge x_2^{-\alpha} )\int_0^t \brac{1,\mu_s}\dd s }\int_0^t \brac{1,\mu_s}\dd s \right) \\
+        \leq 2d_\alpha(x_1,x_2),
+    \end{multline*}
+    where used the simple inequality $xe^{-cx} \leq \frac1c$. We have:
+    \begin{align*}
+        \brac{f(h_t)^{-1} + f(\tilde{h}_t)^{-1}, h_t\mu_t - \tilde{h}_t\tilde{\mu}_t} \leq 4W_1(h_t\mu_t , \tilde{h}_t\tilde{\mu}_t)\ .
+    \end{align*}
+    Now for all $x \in \RRP$ we have:
+    \begin{align*}
+        \left|f(h_t)^{-1}(x) - f(\tilde{h}_t)^{-1}(x)\right| \leq x^{-\alpha}\int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd s \ .
+    \end{align*}
+    And we have by lemma \ref{lem:exponential-moments}:
+    \begin{align*}
+        \brac{f(h_t)^{-1} - f(\tilde{h}_t)^{-1},h_t\mu_t + \tilde{h}_t\tilde{\mu}_t} &\leq \int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd s \left(\|\mu\|_{\psi_1}e^{\int_0^t \|\mu_s \|_{\psi_1}\dd s} + \|\tilde{\mu}\|_{\psi_1}e^{\int_0^t \|\tilde{\mu}_s \|_{\psi_1}\dd s}\right).
+    \end{align*}
+    Recall that $\|\mu_s \|_{\psi_1} \leq \|\mu_s \|_{\psi_1}$ for all $s \geq 0$ and therefore for all $t \in [0,T]$:
+    \begin{align*}
+        \brac{f(h_t)^{-1} - f(\tilde{h}_t)^{-1},h_t\mu_t + \tilde{h}_t\tilde{\mu}_t} \leq C(T,\|\mu\|_{\psi_1},\|\tilde{\mu}\|_{\psi_1})\int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd s\ .
+    \end{align*}
+    Finally we have:
+    \begin{align*}
+        W_1(\mu_t,\tilde{\mu}_t) \leq 2W_1(h_t\mu_t , \tilde{h}_t\tilde{\mu}_t) + C(T,\|\mu\|_{\psi_1},\|\tilde{\mu}\|_{\psi_1})\int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd s\ . 
+    \end{align*}
+    
+    Step $3$: For lighter notations let us denote $\nu_t = h_t\mu_t$ and $\tilde{\nu}_t = \tilde{h}_t\tilde{\mu}_t$. We prove that we have for all $t \geq 0$, $W_1(\nu_t , \tilde{\nu}_t) \leq C\int_0^t W_1(\mu_s,\tilde{\mu}_s)\dd s$. Let $f$ be such that $Lip(f) \leq 1$ and $|f(x)| \leq x^{-\alpha}$ we have:
+    \begin{multline*}
+        \brac{f,\nu_t -\tilde{\nu}_t} = \brac{f,\mu - \tilde{\mu}} + \dfrac12\int_0^t \int\int K_\alpha(x ,y)h_sf(x+y) \mu_s(\dd x) \mu_s (\dd y) \dd s \\
+        - \dfrac12\int_0^t \int\int K_\alpha(x ,y)\tilde{h}_sf(x+y) \tilde{\mu}_s(\dd x) \tilde{\mu}_s (\dd y) \dd s.
+    \end{multline*}
+    In order to retrieve on the RHS an expression that depends on $\nu_s$ and $\tilde{\nu}_s$ we multiply by $(h_s(y)h_s(x))^{-1}$ and $(\tilde{h}_s(x)\tilde{h}_s(y))^{-1}$ this yields:
+    \begin{multline}\label{eq:proof:lip-wass-smol-nu}
+        \brac{f,\nu_t -\tilde{\nu}_t} = \brac{f,\mu - \tilde{\mu}} + \dfrac12\int_0^t \int\int G_sf(x ,y) \nu_s(\dd x) \nu_s (\dd y) \dd s \\
+        - \dfrac12\int_0^t \int\int \tilde{G}f_s(x, y) \tilde{\nu}_s(\dd x) \tilde{\nu}_s (\dd y) \dd s,
+    \end{multline}
+    where $G_tf$ (respectively $\tilde{G}f$) is equal to:
+    \begin{multline*}
+        G_tf(x,y) \\
+        = K_\alpha (x,y)f(x+y)\exp{\left(\int_0^t\int_{\RRP}\left[ K_\alpha(x+y,z) - K_\alpha(x,z) -K_\alpha(y,z)\right] \mu_s(\dd z) \dd s\right)}\ .
+    \end{multline*}
+    Now we separate  \eqref{eq:proof:lip-wass-smol-nu} into three parts:
+    \begin{multline*}
+        \brac{f,\nu_t -\tilde{\nu}_t} = \brac{f,\mu - \tilde{\mu}} + \dfrac14\int_0^t \brac{(G_s + \tilde{G}_s)f,\left(\nu_s + \tilde{\nu}_s\right)\otimes\left(\nu_s - \tilde{\nu}_s\right) }\dd s\\
+        + \dfrac14\int_0^t \brac{(G_s - \tilde{G}_s)f, \left(\nu_s\right)^{\otimes 2} + \left(\tilde{\nu}_s\right)^{\otimes 2}}\dd s
+    \end{multline*}
+    Let us start by the third term which is easier. By point $2$ of Proposition \ref{prop:technical-lip-G} we have:
+    \begin{align*}
+        |G_tf(x,y) - \tilde{G}_tf(x,y)| \leq C (1 + x^{-2\alpha}y^{-\alpha} + y^{-2\alpha}x^{-\alpha}) \int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd s\ .
+    \end{align*}
+    Consequently 
+    \begin{align*}
+        \brac{(G_t - \tilde{G}_t)f, \left(\nu_t\right)^{\otimes 2} + \left(\tilde{\nu}_t\right)^{\otimes 2}} \leq C\int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd s \left(\|\nu_t\|_{1 + \psi_2}\|\nu_t\|_{\psi_1} + \|\tilde{\nu}_t\|_{1 + \psi_2}\|\tilde{\nu}_t\|_{\psi_1}\right)\ .
+    \end{align*}
+    Now from lemma \ref{lem:exponential-moments} we have:
+    \begin{align*}
+        \|\nu_t\|_{1 + \psi_2} \leq \|\mu\|_{1 + \psi_2}e^{t\|\mu\|_{\psi_1}}
+    \end{align*}
+    Same for $\|\tilde{\nu_t}\|_{\psi_2}$, therefore we get:
+    \begin{align*}
+        \brac{(G_t - \tilde{G}_t)f, \left(\nu_t\right)^{\otimes 2} + \left(\tilde{\nu}_t\right)^{\otimes 2}} \leq C(T,\|\mu\|_{1 + \psi_2},\|\tilde{\mu}\|_{1 + \psi_2})\int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd s\ .
+    \end{align*}
+    And,
+    \begin{align*}
+        \int_0^t \brac{(G_s - \tilde{G}_s)f, \left(\nu_s\right)^{\otimes 2} + \left(\tilde{\nu}_s\right)^{\otimes 2}}\dd s 
+        \leq C(T,\|\mu\|_{1 + \psi_2},\|\tilde{\mu}\|_{1 + \psi_2}) \int_0^t \int_0^s W_1(\mu_\tau,\tilde{\mu}_\tau) \dd \tau \dd s
+    \end{align*}
+    The function $s \mapsto \int_0^s W_1(\mu_\tau,\tilde{\mu}_\tau) \dd \tau$ beeing non increasing we get at last:
+    \begin{align*}
+        \int_0^t \brac{(G_s - \tilde{G}_s)f, \left(\nu_s\right)^{\otimes 2} + \left(\tilde{\nu}_s\right)^{\otimes 2}}\dd s\leq TC(T,\|\mu\|_{1 + \psi_2},\|\tilde{\mu}\|_{1 + \psi_2}) \int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd s\ .
+    \end{align*}
+    We know treat the more delicate second term in \eqref{eq:proof:lip-wass-smol-nu}, for all $t \in [0,T]$ we have:
+    \begin{align*}
+        \brac{(G_t + \tilde{G}_t)f,\left(\nu_t + \tilde{\nu}_t\right)\otimes\left(\nu_t - \tilde{\nu}_t\right) } = \brac{A_t,\nu_t - \tilde{\nu}_t},
+    \end{align*}
+    where for all $x \in \RRP$:
+    \begin{align*}
+        A_t(x) = \int_{\RRP} (G_t + \tilde{G}_t)f(x,y)\left(\nu_t + \tilde{\nu}_t\right)(\dd y)\ .
+    \end{align*}
+    By point $1$ of proposition \ref{prop:technical-lip-G} and taking $\varepsilon = 0$ we get that this function is Liphchitz. However its Lipschitz constant is equal to some constant times
+    \begin{align*}
+        \dfrac{1}{\int_0^t \brac{1,\mu_s} \dd s} \leq \dfrac{1}{t\brac{1,\mu}},
+    \end{align*}
+    which is not integrable close to $0$. This is a problem because we want to do a Gronwall lemma. Let us study,
+    \begin{align*}
+        A_t(x_1) - A_t(x_2) = \int_{\RRP} \left[(G_t + \tilde{G}_t)f(x_1,y) - (G_t + \tilde{G}_t)f(x_2,y)\right] \left(\nu_t + \tilde{\nu}_t\right)(\dd y)\ .
+    \end{align*}
+    By point $1$ of proposition \ref{prop:technical-lip-G} we have for all $1 \geq \varepsilon \geq 0$:
+    \begin{align*}
+        \left|G_tf(x_1,y) - G_tf(x_2,y) \vphantom{A^2}\right| \leq Cd_\alpha(x_1,x_2) \left( y^{-\alpha} + \dfrac{(x_1)^{-\alpha\varepsilon} \vee (x_2)^{-\alpha\varepsilon}}{\left(\int_0^t \brac{1,\mu_s} \dd_s\right)^{1 - \varepsilon}}\right)
+    \end{align*}
+    Since $t \mapsto \brac{1,\mu_t}$ is non-increasing we have:
+    \begin{align*}
+        \left|G_tf(x_1,y) - G_tf(x_2,y) \vphantom{A^2}\right| \leq C(\|\mu\|)d_\alpha(x_1,x_2) \left( y^{-\alpha} + \dfrac{(x_1)^{-\alpha\varepsilon} \vee (x_2)^{-\alpha\varepsilon}}{t^{1 - \varepsilon}}\right)\ .
+    \end{align*}
+    Assume that $x_1,x_2 $ are both in $[\delta,\infty)$ and we get:
+    \begin{align*}
+        \left|G_tf(x_1,y) - G_tf(x_2,y) \vphantom{A^2}\right| \leq  C(\|\mu\|)d_\alpha(x_1,x_2)\left( y^{-\alpha} + \dfrac{\delta^{-\alpha\varepsilon}}{t^{1 - \varepsilon}}\right)\ .
+    \end{align*}
+    Same goes for $\tilde{G}$ giving us that for all $x_1,x_2 \in [\delta,\infty)$:
+    \begin{align*}
+        \left|A_t(x_1) - A_t(x_2)\right| &\leq  C(\|\mu\|,\|\tilde{\mu\|})d_\alpha(x_1,x_2)\| \nu_t + \tilde{\nu}_t\|_{\psi_1} \left( 1 + \dfrac{\delta^{-\alpha\varepsilon}}{t^{1 - \varepsilon}}\right) \\
+        &\leq C(T,\|\mu\|_{1 + \psi_1},\|\tilde{\mu}\|_{1 + \psi_1})d_\alpha(x_1,x_2)\left( 1 + \dfrac{\delta^{-\alpha\varepsilon}}{t^{1 - \varepsilon}}\right)
+    \end{align*}
+    We go back to the initial term we wanted to bound:
+    \begin{align*}
+        \brac{A_t,\nu_t - \tilde{\nu}_t} =& \int_\delta^\infty A_t(x) (\nu_t - \tilde{\nu}_t)(\dd x) + \int_{(0,\delta)} A_t(x) (\nu_t - \tilde{\nu}_t)(\dd x) \\
+        \leq&C(T,\|\mu\|_{1 + \psi_1},\|\tilde{\mu}\|_{1 + \psi_1})\left( 1 + \dfrac{\delta^{-\alpha\varepsilon}}{t^{1 - \varepsilon}}\right) W_1(\nu_t,\tilde{\nu}_t)\\ &+ \int_{(0,\delta)} A_t(x) (\nu_t - \tilde{\nu}_t)(\dd x)
+    \end{align*}
+    It remains to bound the second term on the RHS:
+    \begin{align*}
+        \int_{(0,\delta)} A_t(x) (\nu_t - \tilde{\nu}_t)(\dd x) \leq \int_{(0,\delta)} A_t(x) (\nu_t + \tilde{\nu}_t)(\dd x)
+    \end{align*}
+    Now for all $x ,y> 0$, $G_tf(x,y) \leq x^ {-\alpha} y^{-\alpha}$ and therefore
+    \begin{align*}
+        A_t(x) &\leq  x^{-\alpha}\| \nu_t +\tilde{\nu}_t\|_{1 + \psi_1} \\
+        &\leq C(T,\|\mu\|_{1 + \psi_1},\|\tilde{\mu}\|_{1 + \psi_1}) x^{-\alpha}\ .
+    \end{align*}
+    So
+    \begin{align*}
+        \int_{(0,\delta)} A_t(x) (\nu_t - \tilde{\nu}_t)(\dd x) &\leq C(T,\|\mu\|_{1 + \psi_1},\|\tilde{\mu}\|_{1 + \psi_1})\int_{(0,\delta)} x^{-\alpha} (\nu_t + \tilde{\nu}_t)(\dd x) \\
+        &\leq C(T,\|\mu\|_{1 + \psi_1},\|\tilde{\mu}\|_{1 + \psi_1})e^{- c \delta^{-\alpha}}\int_{(0,\delta)} x^{-\alpha}e^{ c x^{-\alpha}} (\nu_t + \tilde{\nu}_t)(\dd x) \\
+        &\leq C(T,\|\mu\|_{1 + e^{2c}},\|\tilde{\mu}\|_{1 + e^{2c}})e^{- c \delta^{-\alpha}}
+    \end{align*}
+    where we used lemma \red{Le lemme pour les exponentielles}. And therefore we have for all $1 \geq \varepsilon >  0$ and $\delta > 0$:
+    \begin{align*}
+        \brac{A_t,\nu_t - \tilde{\nu}_t} \leq& C(T,\|\mu\|_{1 + \psi_1},\|\tilde{\mu}\|_{1 + \psi_1})\left( 1 + \dfrac{\delta^{-\alpha\varepsilon}}{t^{1 - \varepsilon}}\right) W_1(\nu_t,\tilde{\nu}_t) \\
+        &+ C(T,\|\mu\|_{1 + e^{2c}},\|\tilde{\mu}\|_{1 + e^{2c}})e^{- c \delta^{-\alpha}}\ .
+    \end{align*}
+    Now take $e^{- c \delta^{-\alpha}} = W_1(\nu_t,\tilde{\nu}_t)\wedge 1$ i.e $\delta^{-\alpha} = -\frac{1}{c}\log(W_1(\nu_t,\tilde{\nu}_t)\wedge 1)$ and bound both constants by a single one
+    \begin{align*}
+        \brac{A_t,\nu_t - \tilde{\nu}_t} &\leq C(T,\|\mu\|_{e^{2c}},\|\tilde{\mu}\|_{e^{2c}},c)\left[\left( 1 + \dfrac{\delta^{-\alpha\varepsilon}}{t^{1 - \varepsilon}}\right) W_1(\nu_t,\tilde{\nu}_t) + e^{- c \delta^{-\alpha}}\right] \\
+        &\leq C(T,\|\mu\|_{e^{2c}},\|\tilde{\mu}\|_{e^{2c}},c)\left[\left( 2 + \left(-\log(W_1(\nu_t,\tilde{\nu}_t)\wedge 1)\right)^\varepsilon t^{\varepsilon -1}\right) \right]W_1(\nu_t,\tilde{\nu}_t) \\
+    \end{align*}
+    ending the bound for the second term of the RHS of \eqref{eq:proof:lip-wass-smol-nu}. At the end we find for \eqref{eq:proof:lip-wass-smol-nu} that for all $1 \geq \varepsilon > 0$:
+    \begin{multline*}
+        W_1(\nu_t, \tilde{\nu}_t) \leq W_1(\mu, \nu) + C\int_0^t \left[\left( 1 + \left(-\log(W_1(\nu_s,\tilde{\nu}_s)\wedge 1)\right)^\varepsilon s^{\varepsilon -1}\right) \right]W_1(\nu_s,\tilde{\nu}s)\dd s\\  + C\int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd s\ .
+     \end{multline*}
+     We aim to use Bihari-LaSalle inequality, for this we explicit its expression by splitting the integral below between intervals $[0,t \wedge 1]$ and $[t \wedge 1,t]$ in order to factor by the term in $s$:
+     \begin{multline*}
+         \int_0^t \left[\left( 1 + \left(-\log(W_1(\nu_s,\tilde{\nu}_s)\wedge 1)\right)^\varepsilon s^{\varepsilon -1}\right) \right]W_1(\nu_s,\tilde{\nu}_s)\dd s\\
+         \leq  \int_0^{t \wedge 1} \left[ 1 + \left(-\log(W_1(\nu_s,\tilde{\nu}_s)\wedge 1)\right)^\varepsilon\right] s^{\varepsilon -1}W_1(\nu_s,\tilde{\nu}_s)\dd s\\
+         + \int_{t \wedge 1}^t  \left[ 1 + \left(-\log(W_1(\nu_s,\tilde{\nu}_s)\wedge 1)\right)^\varepsilon\right] W_1(\nu_s,\tilde{\nu}_s)\dd s
+     \end{multline*}
+     Now we bound the expression in the bracket for an easier computations to come, for all $x \in \RRP$:
+     \begin{align*}
+         1 + \left(-\log(x\wedge 1)\right)^\varepsilon  \leq 2 (1\vee(-\log(x)))^\varepsilon
+     \end{align*}
+     Let $H : \RRP \to \RR$ be the function defined by:
+     \begin{align*}
+         H(x) = \int_{e^{-1}}^x \dfrac{1}{y(1\vee(-\log(y)))^\varepsilon}\dd y
+     \end{align*}
+     Then by Bihari-LaSalle inequality:
+     \begin{align*}
+         W_1(\nu_t, \tilde{\nu}_t) \leq H^{-1}\left( H\left(W_1(\mu, \nu) + C\int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd s\right) + C\dfrac{(t\wedge 1)^\varepsilon}{\varepsilon} + Ct-C(t\wedge 1)\right)\ .
+     \end{align*}
+     We can explicitly compute $H$, if $x \geq e^{-1}$ then, $H(x) = \log(x) + 1$. If $0< x < e^{-1}$ then:
+     \begin{align*}
+         H(x) = \int_{e^{-1}}^x \dfrac{1}{y(-\log(y)))^\varepsilon}\dd y = -\int_{1}^{-\log(x)} \dfrac{1}{z^\varepsilon}\dd z =- \dfrac{1}{1 - \varepsilon} (|\log(x)|^{1-\varepsilon} -1)\,
+     \end{align*}
+     where we did the change of variables $z = -\log(y)$. For the inverse function we have if $x \in \RR^+$, $H^{-1}(x) = e^{x - 1}$, if $x \in \RR^{-}$ then:
+     \begin{align*}
+         H^{-1}(x) = \exp\left(-(1 - (1-\varepsilon)x)^{\frac{1}{1-\varepsilon}} \right)\ .
+     \end{align*}
+     Follows distinct cases. Case $1$: If $t$ and $W_1(\mu,\nu)$ are small enough so that $W_1(\mu, \nu) + C\int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd s \leq e^{-1}$ then $H\left((W_1(\mu, \nu) + C\int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd s\right) \leq 0$. Case $1.1$: $t$ is small enough such that 
+     \[H\left((W_1(\mu, \nu) + C\int_0^t W_1(\mu_s,\tilde{\mu}_s) \dd s\right) + C\dfrac{(t\wedge 1)^\varepsilon}{\varepsilon} + Ct-C(t\wedge 1) \leq 0\ .\]
+     Consequently we work with,
+     \[ H^{-1}(x) = \exp\left(-(1 - (1-\varepsilon)x)^{\frac{1}{1-\varepsilon}} \right)\ .\]
+     \red{Ici le mieux que je peux trouver est }
+\end{proof}

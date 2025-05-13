@@ -1,0 +1,766 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage [english]{babel}
+\usepackage [utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm,dsfont}
+\usepackage{xcolor}
+\usepackage{algorithm,placeins,algpseudocode}
+\usepackage{geometry,xcolor,graphicx}
+\usepackage{eqparbox,array}
+\usepackage{float}
+\usepackage{relsize}
+\usepackage{stmaryrd} % llbracket
+\usepackage{fourier}
+%\usepackage{mathabx}
+\usepackage{tikz,bm,tikz-3dplot}
+\usetikzlibrary{patterns}
+\newcommand\blankpage{%
+    \mathbf{x}ll
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+%% Liens : les r\'ef\'erences, rappels de formules et de sections sont en couleurs
+	\usepackage[colorlinks=true,linkcolor=magenta,citecolor=magenta]{hyperref}
+    
+% Double letters
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\DD}{\mathbb{D}}
+% Cal letters
+\newcommand{\MC}{\mathcal{M}}
+\newcommand{\NC}{\mathcal{N}}
+\newcommand{\LC}{\mathcal{L}}
+\newcommand{\BC}{\mathcal{B}}
+
+% Colors
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{{\color{blue}#1}}
+
+% Algorithm commands
+\algnewcommand{\LongComment}[1]{\hfill// \begin{minipage}[t]{\eqboxwidth{COMMENT\thealgorithm}}#1\strut\end{minipage}}
+
+% Probabilities Notations
+\newcommand{\E}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\Prob}[1]{\mathbb{P}\left(#1\right)}
+\newcommand{\Proc}[1]{\left(#1\right)_{t\geq 0}}
+\newcommand{\Procd}[1]{\left(#1\right)_{n\in \NN}}
+\newcommand{\Seq}[1]{\left(#1\right)_{n\in \mathbb{N}}}
+\newcommand{\indic}[1]{\mathds{1}_{\left\lbrace#1\right\rbrace}}
+
+\newcommand{\deq}{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily d}}}{=}}}
+
+% Notations
+\newcommand{\CLT}{{\emph{CLT}}}
+\newcommand{\SC}{{\emph{SC}}}
+\newcommand{\SCE}{{\emph{SCE}}}
+\newcommand{\SCN}{\emph{SCN}}
+
+\renewcommand\labelenumi{(\roman{enumi})}
+\renewcommand\theenumi\labelenumi
+\usepackage{todonotes}
+\newcommand{\remi}[2][inline]{\todo[#1]{\small\texttt{R\'emi}: #2}}
+
+
+%Useful commands
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+% Theorem
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+% Title
+\geometry{hscale = 0.75, vscale = 0.75,centering}
+\title{}      % renseigne le titre
+\author{
+   Sebastian Baudelet
+} 
+\title{SC convergence}
+\date{}
+\pagestyle{headings}  
+\begin{document}
+\maketitle
+\section{Notations}
+\begin{definition}
+    Let $\alpha > 0$. Let us define the distance on $\RR^{*,+}$ by :
+    \begin{align*}
+        d_\alpha(x,y) = \left|\dfrac{1}{x^{\alpha}} - \dfrac{1}{y^{\alpha}}\right|.
+    \end{align*}
+\end{definition}
+Let $(E,d_E)$ be a Polish space, we denote by $\MC(E,d_E)$, $\MC^+(E,d_E)$  the space of respectively signed measures and positive measures on $(E,d_E)$.
+\begin{definition}
+    A measure $\mu$ on $(E,d_E)$ is said to be finite if there exists $x_0$ (and thus for all $x_0$) such that:
+    \begin{align*}
+        \int_E d_E(x,x_0) \mu(dx) < \infty
+    \end{align*}
+    We denote the space of positive finite measures on $(E,d_E)$ by $\MC_1^+\left(E,d_E\right)$.
+\end{definition}
+We now add a distance on the space $\MC_1^+\left(E,d_E\right)$. 
+
+We define the linear derivative of functions defined on a set of measures.
+\begin{definition}
+    Let $(E,d_E)$ be a polish space equipped with its Borel set. We say that a function $F : \MC(E) \to \RR$ has a linear derivative if there exists a function $\delta_\mu F : \MC(E)\times E \to \RR$ such that for any $\mu,\nu \in \MC(E)$:
+    \begin{align*}
+        F(\mu) - F(\nu) &= \int_0^1  \langle \delta_\mu F\left(\nu + \lambda(\mu -\nu),.\right), \mu - \nu\rangle d\lambda\\
+        &= \int_0^1  \int_E \delta_\mu F\left(\nu + \lambda(\mu -\nu),x\right) \left(\mu - \nu\right)(dx)  d\lambda.
+    \end{align*}
+\end{definition}
+
+\begin{definition}
+    Let $(E,d_E)$ be a polish space equipped with its Borel set. We say that a function $\psi : \MC(E) \to \MC(E)$ has a linear derivative if there exists a function $\delta_\mu \psi : \MC(E)\times E \to \MC(E)$ such that for any $\mu,\nu \in \MC(E)$:
+    \begin{align*}
+        \psi(\mu) - \psi(\nu) &= \int_0^1  \int_E \delta_\mu \psi\left(\nu + \lambda(\mu -\nu),x\right) \left(\mu - \nu\right)(dx)  d\lambda.
+    \end{align*}
+\end{definition}
+
+\section{The Smoluchovski coagulation equation}
+A kernel is a bi variate symmetric positive function on $(\RR^{*,+})^2$. It represents the rate at which particles of mass $x$ and $y$ coalesce. Since we always compare objects defined for the same kernel we will omit it from our notations.
+\begin{definition}
+    We call solution to the Smoluchovski coagulation equation \SCE a measured value function $\Proc{\nu_t}$ verifying for all $f \in C_b(\RR:\RR)$:
+    \begin{align*}
+        \dfrac{d}{dt}\langle f,\nu_t \rangle &= \int_{\RR^+, \RR^+} 
+        K(x,y)\left[f(x+y) - f(x) - f(y)\right] \nu_t(dx)\nu_t(dy)\\
+        &= \langle Kf , \nu_t \otimes \nu_t\rangle.
+    \end{align*}
+    where $Kf(x,y) = K(x,y)\left(f(x+y) - f(x) - f(y) \right)$.
+\end{definition}
+\begin{definition}
+    We define the Smoluchovski coagulation operator for all $F \in \RR^+ \times C^1(\MC_1^+\left(\RR^{*,+} \right):\RR)$ as:
+    \begin{align*}
+        \LC F(\mu) = \langle K\delta_\mu F(\mu,.) , \mu\otimes \mu\rangle.
+    \end{align*}
+\end{definition}
+\begin{proposition}
+    Let $\nu_t$ be a solution of the Smoluchovski coagulation equation For all $F \in \RR^+ \times C^1(\MC_1^+\left(\RR^{*,+} \right):\RR)$ we have:
+    \begin{align*}
+        \dfrac{d}{dt} F(t, \nu_t) = \partial_t F(t, \nu_t) + \LC F(t,\nu_t).
+    \end{align*}
+\end{proposition}
+The next proposition gives an equation verified by the first two flat derivatives of the solution of the Smoluchovski coagulation equation with respect to its initial value.
+\begin{proposition}\label{prop:smol_derivative_equations}
+    Let us denote by $\varphi(t,\mu)$ the solution of the Smoluchovski coagulation equation started from $\mu \in \MC_1^+\left(\RR^{*,+}\right)$ we have for all $f \in C_b(\RR:\RR)$, $a\in \RR^{*,+}$:
+    \begin{equation}\label{eq:smol_first_derivative}
+        \left\langle f, \delta_\mu \varphi(\mu,t,a)\right\rangle
+        = f(a) + 2\int_0^t \left\langle Kf, \delta_\mu \varphi(\mu,s,a) \otimes \varphi(s,\mu)\right\rangle\dd s.
+    \end{equation}
+    And for the second flat derivative for all $a,b \in \RR^{+,*}$:
+    \begin{equation}\label{eq:smol_first_derivative}
+        \left\langle f, \delta^2_\mu \varphi(\mu,t,a,b)\right\rangle
+        = 2\int_0^t \left\langle Kf, \delta^2_\mu \varphi(\mu,s,a,b) \otimes \varphi(s,\mu) + \delta_\mu \varphi(\mu,s,a)\otimes  \delta_\mu \varphi(\mu,s,b)\right\rangle \dd s.
+    \end{equation}
+\end{proposition}
+\subsection{Bounds on the solution and its flat derivative}
+
+
+\begin{lemma}
+    Let $\varphi\left(t,\mu \right)$ be the solution of the Smoluchovski coagulation equation for the kernel $K_\alpha$ started from the measure $\mu$. For all $t\geq 0$:
+    \begin{align*}
+        \left\langle x^{-\alpha}, \varphi\left(t,\mu\right) \right\rangle &\leq \dfrac{\left\langle x^{-\alpha}, \mu \right\rangle}{1 + C_\alpha\left\langle x^{-\alpha}, \mu \right\rangle t },
+    \end{align*}
+    where $C_\alpha = 4-2^{1-\alpha}$.
+\end{lemma}
+\begin{proof}
+    The function $x \mapsto x^{-\alpha}$ is convex on $\RR^{+,*}$, so:
+    \begin{align*}
+        \left(\dfrac{x + y}{2}\right)^{-\alpha} \leq \dfrac{1}{2}  \left(x^{-\alpha} + y^{-\alpha}\right) \implies 
+        \left(x + y\right)^{-\alpha} - x^{-\alpha} - y^{-\alpha} \leq \dfrac{C_\alpha}{4} \left( x^{-\alpha} + y^{-\alpha}\right).
+    \end{align*}
+    Now from the Smoluchovski coagulation equation we have:
+    \begin{align*}
+        \dfrac{\dd}{\dd t} \left\langle x^{-\alpha},\varphi\left(t,\mu\right)\right\rangle &= \int_{\RR^{+,*}\times \RR^{+,*}} K_\alpha(x,y) \left((x + y)^{-\alpha}- x^{-\alpha} - y^{-\alpha} \right) \varphi\left(t,\mu\right)^{\otimes 2}(\dd x, \dd y).
+    \end{align*}
+    Now by positivity of $\varphi$ we have:
+    \begin{align*}
+        \dfrac{\dd}{\dd t} \left\langle x^{-\alpha},\varphi\left(t,\mu\right)\right\rangle &\leq -\dfrac{C_\alpha}{2}\int_{\RR^{+,*}\times \RR^{+,*}} \left(x^{-\alpha} + y^{-\alpha} \right)^2 \varphi\left(t,\mu\right)^{\otimes 2}(\dd x, \dd y)
+        \\
+        &= -\dfrac{C_\alpha}{2} \left\langle x^{-\alpha}, \varphi\left(t,\mu\right)\right\rangle^2 - \dfrac{C_\alpha}{2}\left\langle x^{-2\alpha}, \varphi\left(t,\mu\right)\right\rangle \left\langle 1, \varphi\left(t,\mu\right)\right\rangle.
+    \end{align*}
+   Since $\varphi$ is positive, the measure $\frac{\varphi\left(t,\mu\right)}{\left\langle 1, \varphi\left(t,\mu\right)\right\rangle}$ is a probability measure. By convexity of the square function and Jensen's inequality:
+   \begin{align*}
+       \left\langle 1, \varphi\left(t,\mu\right)\right\rangle\left\langle x^{-2\alpha}, \varphi\left(t,\mu\right)\right\rangle \geq \left\langle x^{-\alpha}, \varphi\left(t,\mu\right)\right\rangle^2.
+   \end{align*}
+   Therefore:
+    \begin{align*}
+        \dfrac{\dd}{\dd t} \left\langle x^{-\alpha},\varphi\left(t,\mu\right)\right\rangle &\leq C_\alpha \left\langle x^{-\alpha}, \varphi\left(t,\mu\right)\right\rangle^2.
+    \end{align*}
+    Finally we conclude with lemma \ref{lem:inequality_ODE_square}:
+    \begin{align*}
+        \left\langle x^{-\alpha},\varphi\left(t,\mu\right)\right\rangle \leq \dfrac{\left\langle x^{-\alpha}, \mu \right\rangle}{1 + C_\alpha\left\langle x^{-\alpha}, \mu \right\rangle t },
+    \end{align*}
+    giving us the desired result.
+\end{proof}
+The next lemma gives another bound that we will use later.
+
+\red{Ce n'est pas juste car la dérivée n'est pas positive}. The lemma below presents bounds for the flat derivative of $\varphi(t,.)$.
+\begin{lemma}
+Let $\varphi\left(t,\mu\right)$ be the solution of the Smoluchovski coagulation equation started from the measure $\mu$. For all $a \in \RR^{+,*}$:
+    \begin{align*}
+        \left\langle 1, \delta_\mu\varphi\left(t,\mu,a\right) \right\rangle &\leq \dfrac{1}{\left(1 + 2(1 + \alpha)\left\langle x, \mu \right\rangle^{-\alpha} \left\langle 1, \mu \right\rangle^{1 + \alpha} t \right)^{\frac{1}{1 + \alpha}}}.
+    \end{align*}
+\end{lemma}
+\begin{proof}
+    Recall that $\varphi$ and $\delta_\mu \varphi$ are positive. From the Smoluchovski coaguation equation we have:
+    \begin{align*}
+        \dfrac{\dd}{\dd t} \left\langle 1, \delta_\mu\varphi\left(t,\mu,a\right)\right\rangle
+        &= -2\left\langle x^{-\alpha} , \varphi\left(t,\mu\right)\right\rangle \left\langle 1, \delta_\mu\varphi\left(t,\mu,a\right)\right\rangle
+        - 2\left\langle 1 , \varphi\left(t,\mu\right)\right\rangle \left\langle x^{-\alpha}, \delta_\mu\varphi\left(t,\mu,a\right)\right\rangle \\
+        &\leq -2\left\langle x^{-\alpha} , \varphi\left(t,\mu\right)\right\rangle \left\langle 1, \delta_\mu\varphi\left(t,\mu,a\right)\right\rangle.
+    \end{align*}
+    By the Gronwall lemma:
+    \begin{equation}\label{eq:proof_bounf_smol_d1_gronwall}
+        \left\langle 1, \delta_\mu\varphi\left(t,\mu,a\right)\right\rangle \leq \exp{\left(-2\int_0^t \left\langle x^{-\alpha} , \varphi\left(s,\mu\right)\right\rangle ds\right)}.
+    \end{equation}
+    Observe that from the Smoluchovski coagulation equation we have:
+    \begin{align*}
+        \dfrac{\dd}{\dd t} \left\langle 1, \varphi\left(t,\mu\right)\right\rangle &= -2\left\langle x^{-\alpha} , \varphi\left(t,\mu\right)\right\rangle \left\langle 1 , \varphi\left(t,\mu\right)\right\rangle.
+    \end{align*}
+    Since for all $t \geq 0$ , $\left\langle 1 , \varphi\left(t,\mu\right)\right\rangle > 0$ we have:
+    \begin{align*}
+        -2\int_0^t \left\langle x^{-\alpha} , \varphi\left(s,\mu\right)\right\rangle ds &= \int_0^t \dfrac{\frac{\dd}{\dd t} \left\langle 1, \varphi\left(s,\mu\right)\right\rangle}{\left\langle 1, \varphi\left(s,\mu\right)\right\rangle} ds\\
+        &= \log\left(\left\langle 1, \varphi\left(t,\mu\right)\right\rangle \right) - \log\left( \left\langle 1, \mu\right\rangle\right) .
+    \end{align*}
+    Therefore after using \eqref{eq:proof_bounf_smol_d1_gronwall} we have:
+    \begin{align*}
+        \left\langle 1, \delta_\mu\varphi\left(t,\mu,a\right)\right\rangle \leq \dfrac{\left\langle 1, \varphi\left(t,\mu\right)\right\rangle}{\left\langle 1, \mu\right\rangle}.
+    \end{align*}
+    Finally we use the estimate from lemma \ref{lem:bound_smol_1} to conclude.
+\end{proof}
+
+The final lemma of this section bounds $1$ against the second order derivative of the solution to the Smoluchovski coagulation equation.
+
+\begin{lemma}
+    Let $\varphi\left(t,\mu\right)$ be the solution of the Smoluchovski coagulation equation started from the measure $\mu$. For all $a,b \in \RR^{+,*}$:
+    \begin{align*}
+        \left\langle 1, \delta^2_\mu\varphi\left(t,\mu,a,b\right) \right\rangle &\leq \dfrac{1}{\left(1 + 2(1 + \alpha)\left\langle x, \mu \right\rangle^{-\alpha} \left\langle 1, \mu \right\rangle^{1 + \alpha} t \right)^{\frac{1}{2 + 2\alpha}}}.
+    \end{align*}
+\end{lemma}
+\subsection{Second flat derivative}
+The main challenge with this derivative is that it is not necessarily positive and therefore we cannot directly use the same compactness argument as for the solution of \SCE and its derivative. However we can decompose it in its positive and negative part in the $ODE$ and treat each one independently. This possible thanks to the linearity of the equation.
+
+Let $\nu_t^+,\nu_t^-$ be two measures defined by, $\nu_0^+ = \nu_0^- = 0$ and the equations:
+\begin{align*}
+    \dfrac{\dd }{\dd t} \left\langle f,\nu_t^+\right\rangle &= \left\langle Kf,\varphi(t,\mu)\otimes\nu_t^+ \right\rangle + \int_{\left(\RR^{+,*}\right)^2} K(x,y)f(x+y)\delta_\mu(t,\mu)^{\otimes 2}(\dd x,\dd y) \\
+    \dfrac{\dd }{\dd t} \left\langle f,\nu_t^-\right\rangle &= \left\langle Kf,\varphi(t,\mu)\otimes\nu_t^- \right\rangle + \int_{\left(\RR^{+,*}\right)^2} K(x,y)\left(f(x) + f(y) \right)\delta_\mu(t,\mu)^{\otimes 2}(\dd x,\dd y).
+\end{align*}
+\begin{proposition}
+    This set of equation has a unique solution $\nu_t^+,\nu_t^-$, both positive measures. Furthermore we have the following relation:
+    \begin{align*}
+        \delta^2_\mu \varphi(t,\mu) = \nu_t^+ - \nu_t^- .
+    \end{align*}
+\end{proposition}
+\begin{remark}
+    We do not have necessarily that $\nu_t^+ = \delta^2_\mu \varphi(t,\mu)^+$ (and respectively $\nu_t^- = \varphi(t,\mu)^-$) simply because there is no reason for the supports of $\nu^+$ and $\nu^-$ to be disjoint. 
+\end{remark}
+The previous remark motivates the next corollary.
+\begin{corollary}
+    The two solutions of the previous equations give an easy way to bound the absolute value of the second derivaitve:
+    \begin{align*}
+        \left|\delta^2_\mu \varphi(t,\mu)  \right| \leq \nu_t^+ + \nu_t^-.
+    \end{align*}
+\end{corollary}
+In order to bound the second derivative of $\varphi$ we use the previous corollary. 
+\begin{lemma}
+    We have for all $t\geq 0$ \red{ICI}
+\end{lemma}
+
+\section{Stochastic Coalescence}
+The Stochastic Coalescence is a process representing and ensemble of coalescing particles. Assume we have initially $N$ particles with masses $x_{1,0},\cdots,x_{N,0}$. We sample $N(N-1)/2$ exponential random variables:
+\begin{align*}
+    \left\lbrace T_{i,j} \sim \mathcal{E}\left(K(x_{i,0},x_{j,0})\right), 1 \leq i < j \leq N \right\rbrace.
+\end{align*}
+Each exponential law represents the time taken by the chosen couple to coalesce. The first coalescence to happen is the fastest one, in other words the minimum of the previous set that we denote $T_1$. The couple to coalesce is given by indices $i_1,j_1$ such that:
+\begin{align*}
+    T_{i_1,j_1} = T_1 = \min\limits_{1 \leq i < j \leq N} T_{i,j}.
+\end{align*}
+By property of exponential laws $T_1$ is itself exponential of parameter:
+\begin{align*}
+    \sum\limits_{1 \leq i < j \leq N}K(x_{i,0},x_{j,0}).
+\end{align*}
+At time $T_1$, $N-1$ particles remain and the process is at state $x_{1,0},\cdots , x_{i_1,0}+x_{j_1,0},\cdots$. We repeat this operation until there is a single mass left.
+
+We choose to represent this process by a sum of Dirac masses, so that if there is $N_t$ particles the process is:
+\begin{align*}
+    M_t = \sum\limits_{i = 1}^{N_t} \delta_{X_{i}(t)}.
+\end{align*}
+
+We give a formal definition taken from \cite{fournier2006some,fournier2009stochastic}.
+\begin{definition}
+    Let $K$ be a kernel, $\mu^N$ a finite sum of Dirac masses. We call Stochastic Coalescence (\SC) process the solution of the following $SDE$:
+    \begin{multline*}
+        M_t = \mu^N + \int_0^t \int_0^\infty \int_{i <j }  \indic{z \leq K(X_{i}(s-),X_{i}(s-))} \indic{j \leq N_{s-}} \\ \times \left(\delta_{X_{i}(s-) + X_{j}(s-)} - \delta_{X_{i}(s-)} - \delta_{X_{j}(s-)}\right)\mathcal{N}(ds,dz,d(i,j)).
+    \end{multline*}
+    where $N_t = \langle 1 , M_t\rangle$.
+\end{definition}
+
+\red{Il y a une question de définition pour un noyau quelconque. Par contre si le nombre de masses initiale est fini, et que le noyau est bornée supérieurement (namely $X_{(N)}(0) = \min_{i\in\{1,\cdots,N\}} X_i(0)$ et $X_{(1)}(0)=\max_{i\in\{1,\cdots,N\}} X_i(0)$
+\[0<k_{c,C} \le \inf_{c\le x,y\le C} K(x,y) \le \sup_{c\le x,y  \le C}K(x,y) \le K_{c,C} < +\infty,\]
+dans ce cas on doit pouvoir coupler avec SC(constant) et constant = $k_{X_{(N)}(0),X_{(1)}(0)}$ et $K_{X_{(N)}(0),X_{(1)}(0)}$. 
+}
+
+\red{On pourrait peut-être appeler  $\mathcal{L}^S$ pour Smoluchowski et $\LC^{SC}$ pour la coalescence stochactique}
+
+\begin{proposition}
+    The process $\Proc{M_t}$ is a Markov process with values in sum of Dirac masses measures and infinitesimal generator:
+    \begin{align*}
+        \LC_{SC} F\left(\mu := \sum\limits_{k = 1}^n\delta_{x_k} \right) = \sum\limits_{1\le i <j \le n} K(x_i,x_j) \left[F\left(\mu + \delta_{x_i + x_j} - \delta_{x_i} -\delta_{x_j}\right) - F(\mu)\right].
+    \end{align*}
+    which can be rewritten:
+    \begin{multline*}
+        \LC_{SC} F(\mu) = \int_{\RR^+ \times \RR^+} K(x,y)\left[ F\left(\mu + \delta_{x+y} - \delta_x - \delta_y \right) - F(\mu) \right]\mu(dx)\mu(dy) \\
+        -\int_{\RR^+} K(x,x)\left[ F\left(\mu + \delta_{2x} - 2\delta_x \right) - F(\mu) \right]\mu(dx).
+    \end{multline*}
+\end{proposition}
+\begin{remark}
+    The second expression can be conveniently extended to any \red{FINITE, cf \[\mathcal{M}^{+,1}_1 = \left\{\mu \in \MC^+\, : \, \int_{\mathbb{R}_+^*} (1 + x + x^{-\alpha})\mu(\dd x) <+\infty\right\}\]} measure in $\MC^+(\RR^+)$.
+\end{remark}
+
+We are interested in initial measures of the type:
+\begin{align*}
+    \mu_0^N = \sum\limits_{i = 1}^N \delta_{X_i}.
+\end{align*}
+Where $\Seq{X_n}$ is a sequence of independent random variables. We want to show the following limit in some sense that will be cleared later:
+\begin{align*}
+   (M^N_t)_{t\ge 0} := \frac{1}{N} \Proc{M_{N^{-1}t}} \xrightarrow[N \to \infty]{} \Proc{\nu_t} 
+\end{align*}
+where $\Proc{\nu_t} $ is the solution of the Smoluchowski Coagulation equation started from:
+\begin{align*}
+    \mu_0 = \lim\limits_{N \to \infty} \dfrac{1}{N}\mu_0^N.
+\end{align*}
+\begin{proposition}
+    The process $\Proc{M^N_{t}}$ has infinitesimal generator:
+    \begin{multline*}
+        \LC^N F(\mu) = N\int_{\RR^+ \times \RR^+} K(x,y)\left[ F\left(\mu + \frac{1}{N}\left(\delta_{x+y} - \delta_x - \delta_y\right) \right) - F(\mu) \right]\mu(dx)\mu(dy) \\
+        -\int_{\RR^+} K(x,x)\left[ F\left(\mu + \frac{1}{N}\left(\delta_{2x} - 2\delta_x\right) \right) - F(\mu) \right]\mu(dx).
+    \end{multline*}
+\end{proposition}
+\begin{proof}
+    \red{TODO}
+\end{proof}
+
+\begin{remark}
+    When the initial measure consists of a sum of integer Dirac masses this process corresponds to the Marcus-Lushnikov process named from its discoverer and the first to prove results on it \cite{marcus1968stochastic,lushnikov1978coagulation}. 
+\end{remark}
+When we consider a differentiable functional $F$ the previous expression can be expressed in terms of the linear derivative of $F$
+\begin{proposition}\label{prop:SC_gen_differentiable}
+    Consider a functional $F \in C^1(\MC_1^+\left(\RR^{*,+} \right):\RR)$ we have for all integers $N$:
+    \begin{multline*}
+        \LC^N F(\mu) = \int_0^1 \int_{\RR^+ \times \RR^+} K(x,y)\left\langle  \delta_\mu F\left(\mu + \frac{\lambda}{N}\left(\delta_{x + y} - \delta_x - \delta_y \right),.\right),\delta_{x+y} - \delta_x - \delta_y\right\rangle\mu(dx)\mu(dy)d\lambda \\
+        -\dfrac{1}{N}\int_0^1\int_{\RR^+} K(x,x)\left\langle  \delta_\mu F\left(\mu + \frac{\lambda}{N}\left(\delta_{2x} - 2\delta_x \right),.\right),\delta_{2x} - 2\delta_x \right\rangle\mu(dx)d\lambda.
+    \end{multline*}
+\end{proposition}
+\begin{proof}
+    \red{TODO}
+\end{proof}
+
+\subsection{Some bounds}
+We present bounds that will be important in our final theorem.
+\red{The following lemma is a bound for the expected value of the $-\alpha$ moment of the solution of the stochastic coalescence starting from empirical measure. The proof uses carefully the convexity of $x\to x^{-\alpha}$, the non-negativity of of the stochastic coalescence and ...}
+
+\begin{lemma}
+    Let $\Phi(t,\mu^N)$ be the Stochastic Coalescent started from the atomic measure 
+    \begin{align*}
+        \mu^N = \dfrac{1}{N}\sum\limits_{k = 1}^N \delta_{x_{k,0}}
+    \end{align*}
+    with kernel $K_\alpha$ we have:
+    \begin{align*}
+        \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle} \leq \dfrac{S_0^{-\alpha}}{N} + \dfrac{\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}}{1 + C_\alpha \left(\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}\right)t},
+    \end{align*}
+    where $S_0 := \sum\limits_{i = 1}^N x_{i,0} = N\langle x,\mu^N\rangle$ and $C_\alpha = 2 - 2^{-\alpha}$.
+\end{lemma}
+\begin{proof}
+    Let us denote $F : \mu \mapsto \langle x^{-\alpha},\mu \rangle$.
+    \begin{align*}
+        \dfrac{d}{dt} \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle} 
+        =& \E{\LC^N F\left( \Phi(t,\mu^N)\right)}\\
+        =& \E{\left\langle K_\alpha x^{-\alpha}, \Phi(t,\mu^N)^{\otimes 2}\right\rangle} 
+        \\&- \frac{1}{N}\E{\int_{\RR^+} K_\alpha(x,x) (2x)^{-\alpha} - 2x^{-\alpha}\Phi(t,\mu^N)(dx)}\\
+        =& \E{\left\langle Kx^{-\alpha}, \Phi(t,\mu^N)^{\otimes 2}\right\rangle} 
+        + \dfrac{2C_\alpha}{N}\E{\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle}
+    \end{align*}
+    We treat the first term of the left hand side equation:
+    \begin{align*}
+        \E{\left\langle K_\alpha x^{-\alpha}, \Phi(t,\mu^N)^{\otimes 2}\right\rangle} 
+        &= \E{\int_{(\RR^+)^2} K_\alpha(x,y) \left((x+y)^{-\alpha} - x^{-\alpha} -y^{-\alpha}\right) \Phi(t,\mu^N)(dx)\Phi(t,\mu^N)(dy)}.
+    \end{align*}
+    By convexity of the function $x \mapsto x^{-\alpha}$ we have for all $x,y \in \RR^{+,*}$:
+    \begin{align*}
+        (x+y)^{-\alpha} - x^{-\alpha} -y^{-\alpha} \leq -\frac{C_\alpha}{2}\left(x^{-\alpha} + y^{-\alpha}\right).
+    \end{align*}
+    So
+    \begin{multline*}
+        \E{\left\langle K_\alpha x^{-\alpha}, \Phi(t,\mu^N)^{\otimes 2}\right\rangle} 
+        \leq - \frac{C_\alpha}{2}\E{\int_{(\RR^+)^2} (K_\alpha(x,y))^2  \Phi(t,\mu^N)(dx)\Phi(t,\mu^N)(dy)}\\
+        = - C_\alpha\left(\E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle^2}\vphantom{\dfrac{A}{B}} \right.\\
+        \left.\vphantom{\dfrac{A}{B}}+ \E{\left\langle 1,\Phi(t,\mu^N)\right\rangle\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle}\right).
+    \end{multline*}
+    We have the following ODE:
+    \begin{multline*}
+         \dfrac{d}{dt} \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle} \leq -C_\alpha\E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle^2} 
+         \\- C_\alpha \E{\left(\left\langle 1,\Phi(t,\mu^N)\right\rangle - \dfrac{2}{N}\right)\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle}.
+    \end{multline*}
+    We show that for all $t\geq 0$ almost surely:
+    \begin{equation}\label{eq:proofboundmagic}
+        \left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle^2 + \left(\left\langle 1,\Phi(t,\mu^N)\right\rangle - \dfrac{2}{N}\right)\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle
+        \geq \left(\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle- \dfrac{S_0^{-\alpha}}{N}\right)^2.
+    \end{equation}
+    We will now use a couple of arguments from the Stochastic coalescence process. First the random variable $\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle$ is almost surely positive for all $t\geq 0$ as each mass is positive. Second the random variable $N_t := N\times\left\langle 1,\Phi(t,\mu^N)\right\rangle$ is the amount of clusters present at time $t$. As such it belongs almost surely to $\lbrace 1,\cdots,N\rbrace$. 
+    
+    When $N_t = 1$ there is only a single cluster left of mass $S_0$ and therefore:
+    \begin{align*}
+        \left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle = \dfrac{S_0^{-\alpha}}{N} \quad,\quad \left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle = \dfrac{S_0^{-2\alpha}}{N}.
+    \end{align*}
+    Replacing this expressions in both sides of \eqref{eq:proofboundmagic} shows both sides equal to zero proving the inequality when $N_t = 1$.
+    
+    When $N_t \neq 1$ it is a.s larger or equal to $2$ and
+    \begin{align*}
+        \left(\left\langle 1,\Phi(t,\mu^N)\right\rangle - \dfrac{2}{N}\right)\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle \geq 0 \text{ as}.
+    \end{align*}
+    Furthermore since $\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle$ is almost surely non-increasing in time and tends to $\dfrac{S_0^{-\alpha}}{N}$ as $t\to \infty$ we have for all $t\geq 0$:
+    \begin{align*}
+        \left(\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle\right)^2 \geq \left(\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle - \dfrac{S_0^{-\alpha}}{N}\right)^2 \text{ as},
+    \end{align*}
+    and therefore proving also inequality \eqref{eq:proofboundmagic}. 
+
+    So finally we have the following ODE:
+    \begin{align*}
+        \dfrac{\dd}{\dd t} \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle- \dfrac{S_0^{-\alpha}}{N}} \leq -C_\alpha\E{\left(\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle - \dfrac{S_0^{-\alpha}}{N}\right)^2}.
+    \end{align*}
+    And by Jensen:
+   \begin{align*}
+        \dfrac{\dd}{\dd t} \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle- \dfrac{S_0^{-\alpha}}{N}} \leq -C_\alpha\E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle - \dfrac{S_0^{-\alpha}}{N}}^2.
+    \end{align*}
+    After solving a simple ODE we get the desired bound from lemma \ref{lem:inequality_ODE_square}:
+    \begin{align*}
+        \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle} \leq \dfrac{S_0^{-\alpha}}{N} + \dfrac{\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}}{1 + C_\alpha \left(\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}\right)t}.
+    \end{align*}
+\end{proof}
+
+
+\section{Comparing $\SC$ and \SCE}
+For establishing our mains results we want to compare the Stochastic Coalescence process and the solution of the Smoluchovski coagulation equation. First some notations. We denote by $\varphi(t,\mu)$, $\Phi(t,\mu)$ respectively the solution of \SCE and the \SCN process started from $\mu^N$ an atomic measure.
+Our main theorems are based on the same relation used in \cite{kolokoltsov2010central}:
+\begin{align}\label{eq:semi-group-relation}
+\E{F(\Phi(t,\mu^N))} - F(\varphi\left(t,\mu\right)) = \int_0^t \E{\left(\LC^N - \LC\right)F\circ \varphi(s,.)\left(\Phi(t-s,\mu^N)\right)}\dd s.
+\end{align}
+\begin{remark}
+    Inside the expectancy $F\circ \varphi(s,.)$ is the function defining for a fixed $s \geq 0$ by $\mu \mapsto F\left(\varphi(s,\mu)\right)$. Therefore we read the expression inside the expectancy as the operator $\LC^N - \LC$ applied to function $F\circ \varphi(s,.)$ yielding a function from $\MC(\RR^+) \to \RR $, the latter evaluated in the measure $\Phi(t-s,\mu^N)$.
+\end{remark}
+The relation \eqref{eq:semi-group-relation} is a transcription of section \ref{section:semi_groups}.
+\subsection{Hypothesis}
+We have two different kind of hypothesis. We consider the functional norm on $C_b\left(\RR^n:\RR\right)$ :
+\begin{align*}
+    \| f\|_{\infty} = \sup\limits_{x \in \RR^n} |f(x)|.
+\end{align*}
+
+($A_1$) A functional $F : \MC_1^+(\RR^+,d)\times \RR^n \to \RR$ is said to be Lipchitz if there exists a constant $C$ such that for all $\mu,\nu$:
+\begin{align*}
+    \|F(\mu,.) - F(\nu,.)\|_{\infty} \leq C W_1(\mu,\nu).
+\end{align*}
+\red{ Ici, tu regarde $\delta_\mu F \in Lip(\MC^+_1;L^\infty(\mathbb{R}_+^*;\mathbb{R}))$ si c'est bien fait, tu peux écire par exemple
+\[\llbracket \delta_\mu F\rrbracket_{Lip} \]}
+If $n = 1$ we simply take the absolute value of the difference.
+
+($A_2$) A functional $F : \MC_1^+(\RR^+,d)\times \RR^n \to \RR$ is bounded if it is uniformly bounded for all its variables in other words if:
+\begin{align*}
+    \sup\limits_{\mu \in \MC_1^+(\RR^+,d)}\|F(\mu,.) \|_{\infty} < \infty. 
+\end{align*}
+In this case we denote this supremum simply by $\|F\|_{\infty}$.
+
+\subsection{Theorems}
+Let $\alpha \geq 0$, we consider the Kernel:
+\begin{align*}
+    K_\alpha(x,y) = x^{-\alpha} + y^{-\alpha}.
+\end{align*}
+\red{Attention, bien différencier $K$ et $K_\alpha$ (dans les hypothèses des théorèmes par exemple}
+\begin{theorem}
+    Assume $F$ is two times differentiable with uniformly bounded derivatives. Then for all $t\geq 0$:
+    \begin{align*}
+        \E{F(\Phi(t,\mu^N))} - \E{F(\varphi\left(t,\mu^N\right))} \leq \frac{3}{N}\left(\langle 1,\mu^N \rangle \frac{3}{2}\|\delta_\mu^2 F\|_{\infty} +  \langle x^{-\alpha},\mu^N \rangle C_\alpha\frac{t}{1 + t}\|\delta_\mu F\|_{\infty}\right)
+    \end{align*}
+\end{theorem}
+This theorem is partly based on the lemma.
+\begin{lemma}\label{lem:bounds_diff_gen}
+For all $\mu \in \MC^+_1 \left( \RR^{+,*},d_\alpha\right)$:
+\begin{align*}
+    \left| \left(\LC^N - \LC\right)F(\mu) \right| \leq \frac{9}{2N}\|\delta_\mu^2 F\|_{\infty}\langle K,\mu\otimes\mu\rangle + \frac{3}{N}\|\delta_\mu F\|_{\infty}\int_{\RR^+} K(x,x)\mu(\dd x)
+\end{align*}
+\end{lemma}For all our proofs we decompose the expression of $\LC^N$ in \ref{prop:SC_gen_differentiable} in two parts:
+\begin{align*}
+        \LC^N F(\mu) &= \LC_1^N F(\mu) + \LC_2^N F(\mu).
+\end{align*}
+With
+\begin{align*}
+        \LC_1^N F(\mu) &= \int_0^1 \int_{\RR^+ \times \RR^+} K(x,y)\left\langle  \delta_\mu F\left(\mu + \frac{\lambda}{N}\left(\delta_{x + y} - \delta_x - \delta_y \right),.\right),\delta_{x+y} - \delta_x - \delta_y\right\rangle\mu(\dd x)\mu(\dd y)d\lambda \\
+        \LC_2^N F(\mu) &= -\dfrac{1}{N}\int_0^1\int_{\RR^+} K(x,x)\left\langle  \delta_\mu F\left(\mu + \frac{\lambda}{N}\left(\delta_{2x} - 2\delta_x \right),.\right),\delta_{2x} - 2\delta_x \right\rangle\mu(\dd x)\dd\lambda.
+\end{align*}
+\begin{proof}
+    The first term we compare with the \SCE operator:
+    \begin{multline*}
+        \LC_1^N F(\mu) - \LC F(\mu) \\
+        = \int_0^1 \int_{\RR^+ \times \RR^+} K(x,y)\left[ \left\langle  \delta_\mu F\left(\mu + \frac{\lambda}{N}\left(\delta_{x + y} - \delta_x - \delta_y \right),.\right),\delta_{x+y} - \delta_x - \delta_y\right\rangle  \right.\\
+        -\left.\vphantom{\left\langle  \delta_\mu F\left(\mu + \frac{\lambda}{N}\left(\delta_{x + y} - \delta_x - \delta_y \right),.\right),\delta_{x+y} - \delta_x - \delta_y\right\rangle}
+        \left\langle  \delta_\mu F\left(\mu,.\right),\delta_{x+y} - \delta_x - \delta_y\right\rangle\right]\mu(\dd x)\mu(\dd y)\dd\lambda .
+    \end{multline*}
+    Since $F$ is two times differentiable we have for all $\mu,\nu \in \MC^+_1\left(\RR^{+,*},d_\alpha\right) , x \in \RR^+$:
+    \begin{align*}
+        \delta_\mu F\left(\mu,x \right) - \delta_\mu F\left(\nu,x \right)
+        = \int_0^1 \left\langle\delta^2_\mu F\left(\nu + \rho\left(\mu - \nu \right),x,. \right),\mu - \nu  \right\rangle \dd\rho .
+    \end{align*}
+    And therefore
+    \begin{multline*}
+        \LC_1^N F(\mu) - \LC F(\mu) 
+        = \frac{1}{N}\int_0^1 \int_0^1 \int_{\RR^+ \times \RR^+} K(x,y) \\
+        \lambda\left\langle  \delta^2_\mu F\left(\mu + \frac{\rho\lambda}{N}\left(\delta_{x + y} - \delta_x - \delta_y \right),\cdot,\cdot\right),\left(\delta_{x+y} - \delta_x - \delta_y\right)^{\otimes 2}\right\rangle \mu(\dd x)\mu(\dd y)\dd \lambda \dd \rho 
+    \end{multline*}
+    So that
+    \begin{align*}
+        \left| \LC_1^N F(\mu) - \LC F(\mu) \right| 
+        &\leq \frac{9}{2N}\|\delta_\mu^2 F\|_{\infty} \int_{\RR^+ \times \RR^+} K(x,y)\mu(\dd x)\mu(\dd y)\\
+        &= \frac{9}{2N}\|\delta_\mu^2 F\|_{\infty}\langle K,\mu\otimes\mu\rangle.
+    \end{align*}
+    The second term can be simply bounded by:
+    \begin{align*}
+        \left|\LC_2^N F(\mu) \right| \leq \frac{3}{N}\|\delta_\mu F\|_{\infty}\int_{\RR^+} K(x,y)\mu(\dd x).
+    \end{align*}
+    Thus yielding the result.
+\end{proof}
+
+\begin{proof}[Proof of the Theorem]
+ We start from expression \eqref{eq:semi-group-relation}:
+ \begin{align*}
+\E{F(\Phi(t,\mu^N))} - \E{F(\varphi\left(t,\mu\right))} = \int_0^t \E{\left(\LC^N - \LC\right)F(\varphi(s,\Phi(t-s,\mu^N)))}\dd s.
+\end{align*}
+Using the previous Lemma \ref{lem:bounds_diff_gen} we get:
+\begin{align*}
+    \left|\vphantom{\dfrac{A}{A}} \E{F(\Phi(t,\mu^N))} - \E{F(\varphi\left(t,\mu\right))}\right| \leq&  \frac{9}{2N}\|\delta_\mu^2 F\|_{\infty}\int_0^t \E{ \langle Kx^{-\alpha} , \varphi(s,\Phi(t-s,\mu^N))^{\otimes 2}}\dd s\\
+    &+ \frac{3}{N}\|\delta_\mu F\|_{\infty}\int_0^t\E{\int_{\RR^+} K(x,x)\varphi(s,\Phi(t-s,\mu^N))(\dd x)}.
+\end{align*}
+Let us handle the second term:
+\begin{align*}
+    \E{\int_{\RR^+} K(x,x)\varphi(s,\Phi(t-s,\mu^N))(\dd x)} 
+    &=  2\E{\langle x^{-\alpha}, \varphi(s,\Phi(t-s,\mu^N))\rangle}.
+\end{align*}
+By Lemmas \ref{lem:flow_linear_control}  and \ref{lem:bounds_diff_gen}we have:
+\begin{align*}
+    \E{\langle x^{-\alpha}, \varphi(s,\Phi(t-s,\mu^N))\rangle} \leq \dfrac{S_0^{-\alpha}}{N} + \dfrac{\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}}{1 + C_\alpha \left(\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}\right)t}
+\end{align*}
+So that finally the second term can be bounded by:
+\begin{multline*}
+    \frac{6}{N}\|\delta_\mu F\|_{\infty}\int_0^t\E{\langle x^{-\alpha}, \varphi(s,\Phi(t-s,\mu^N))\rangle}ds \leq \frac{6}{N}\|\delta_\mu F\|_{\infty} \left( t\dfrac{S_0^{-\alpha}}{N} + \dfrac{t\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}}{1 + C_\alpha \left(\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}\right)t}\right).
+\end{multline*}
+\end{proof}
+
+The latter theorem has weaker hypotheses.
+\begin{theorem}
+    Assume $\alpha < 1$, $F$ is differentiable and, its linear derivative is uniformly bounded and Lipchitz in $\MC^{+}_{1}\left(\RR^{+,*},d_\alpha\right)$. Then for all $t\geq 0$:
+    \begin{align*}
+        \E{F(\Phi(t,\mu^N))} - \E{F(\varphi\left(t,\mu^N\right))} \leq C_\alpha\frac{3}{N}\langle x^{-\alpha},\mu^N \rangle \left(3 Lip\left(\delta_\mu F\right) + \frac{t}{1 + t}\|\delta_\mu F\|_{\infty}\right)
+    \end{align*}
+\end{theorem}
+
+
+\begin{lemma}
+    Assume that 
+\end{lemma}
+\appendix
+\section{Semi-Groups}\label{section:semi_groups}
+
+Let $\Proc{T_t}$ and $\Proc{\Tilde{T}_t}$ be two semi groups on a normed vector space $E$ of respective infinitesimal generators $L$ and $\tilde{L}$. Assume that $L$ is bounded in the sense that there exists a constant $C$ such that for all $F \in E$ 
+\begin{align*}
+    \| L F\|_E \leq C \|F\|_E.
+\end{align*}
+Then we have the following relation for all $F \in E$:
+\begin{equation}\label{eq:semi-group_relation2}
+    \left(T_t - \tilde{T}_t\right)F = \int_0^t T_s \left( L - \tilde{L} \right) \tilde{T}_{t-s}F \dd s.
+\end{equation}
+\begin{proof}
+    We denote:
+    \begin{align*}
+        B_t &:= \int_0^t T_s L \tilde{T}_{t-s}F \dd s\\
+        C_t &:= \int_0^t T_s \tilde{L} \tilde{T}_{t-s}F \dd s.
+    \end{align*}
+    We start by expanding $\tilde{T}_{t-s}$ in $B_t$, we need in order for the following to hold the assumption on the boundness of $L$ implying the boundness of $T_t$ for all $t\geq 0$. We have:
+    \begin{align*}
+        B_t &= \int_0^t T_s LF \dd s + \int_0^t\int_0^{t-s} T_s L \tilde{L} \tilde{T}_h F \dd h \dd s\\
+        &= T_tF - F +  \int_0^t\int_0^{t-s} T_s L \tilde{L} \tilde{T}_h F \dd h \dd s.
+     \end{align*}
+     We reduced the first integral by noticing the integral expression of $T_tF - F$. Now we expand $T_s$ in $C_t$:
+     \begin{align*}
+        C_t &= \int_0^t \tilde{L} \tilde{T}_{t-s}F \dd s +
+        \int_0^t \int_0^s T_h L\tilde{L} \tilde{T}_{t-s}F \dd h \dd s\\
+        &= \tilde{T}_t F - F + \int_0^t \int_0^s T_h L\tilde{L} \tilde{T}_{t-s}F \dd h \dd s.
+     \end{align*}
+     Finally after a simple change of variable we get:
+     \begin{align*}
+         \int_0^t \int_0^s T_h L\tilde{L} \tilde{T}_{t-s}F \dd h \dd s = \int_0^t\int_0^{t-s} T_s L \tilde{L} \tilde{T}_h F \dd h \dd s.
+     \end{align*}
+     And therefore:
+     \begin{align*}
+         B_t - C_t = T_t F - \tilde{T}_t F
+     \end{align*}
+     proving equality \eqref{eq:semi-group_relation2}
+\end{proof}
+
+\section{Inequalities in ODE}
+
+\begin{lemma}\label{lem:inequality_ODE_square}
+    Let $u \in C^1\left(\RR^+ : \RR \right)$ a function such that,
+    \begin{align*}
+        u' \leq -a u^2
+    \end{align*}
+    where $a > 0$ and $u(0) > 0$. Then we have for all $t\geq 0$:
+    \begin{align*}
+        u(t) \leq \dfrac{u(0)}{1 + au(0)t}.
+    \end{align*}
+\end{lemma}
+\begin{proof}
+    We start by dividing the time in two parts, let
+    \begin{align*}
+        T^* = \sup\left\lbrace t \geq 0, u(t) > 0 \right\rbrace.
+    \end{align*}
+    We know by continuity of $u$ and because $u(0) > 0$ that $T^*$ > 0. Furthermore the equation shows that $u' \leq 0$ and therefore for all $t \geq T^*$, $u(t) \leq 0$ this proves the result on $[T^*,\infty)$ since the right hand-side is always positive. For all $t \in [0,T^*)$, $u(t) > 0$ we use the inequality separating variables:
+    \begin{align*}
+        \dfrac{u'}{u^2} \leq -a, 
+    \end{align*}
+    integrating gives:
+    \begin{align*}
+        \dfrac{1}{u(0)} - \dfrac{1}{u(t)} \leq -at.
+    \end{align*}
+    Finally giving us the desired inequality.
+\end{proof}
+\section{Resultats auxiliaires}
+\begin{lemma}
+    Let $\varphi\left(t,\mu\right)$ be the solution of the Smoluchovski coagulation equation for the kernel $K_\alpha$ started from the atomic measure:
+    \begin{align*}
+        \mu^N = \dfrac{1}{N}\sum\limits_{i = 1}^N x_{i,0}.
+    \end{align*}
+    $(i)$ For all $0 < \gamma \leq 1$ :
+    \begin{align*}
+        \left\langle x^\gamma, \varphi\left(t,\mu\right) \right\rangle &\leq \left\langle x^\gamma, \mu^N \right\rangle,
+    \end{align*}
+    $(ii)$ For all $\gamma \leq 0$:
+    \begin{align*}
+        \left\langle x^\gamma, \varphi\left(t,\mu\right) \right\rangle &\leq \dfrac{\left\langle x^\gamma, \mu^N \right\rangle}{1 + C_\gamma\left\langle x^{\gamma}, \mu^N \right\rangle t } ,
+    \end{align*}
+    where $C_\gamma = 2 - 2^{\gamma}$.
+\end{lemma}
+
+On the proof we will start by the second point which in our opinion illustrates better why we separate the cases as above regarding the values of $\gamma$.
+\begin{proof}
+    $(ii)$ The main ingredient in this proof is that for all $\gamma \leq 0$ the function $x \mapsto x^\gamma$ is convex on $\RR^{+,*}$ and therefore for all $x,y \in \RR^{+,*}$:
+    \begin{align*}
+        (x + y)^\gamma - x^\gamma - y^\gamma \leq -\dfrac{C_\gamma}{2}\left(x^\gamma + y^\gamma\right).
+    \end{align*}
+    where $C_\gamma = 2 - 2^{\gamma}$. The Smoluchovski coagulation equation gives us:
+    \begin{align*}
+        \dfrac{\dd}{\dd t} \left\langle x^\gamma, \varphi\left(t,\mu\right) \right\rangle &= \int_{\RR^{+,*}\times \RR^{+,*}} K_\alpha(x,y) \left((x + y)^\gamma - x^\gamma - y^\gamma \right) \varphi\left(t,\mu\right)^{\otimes 2}(\dd x, \dd y).
+    \end{align*}
+    By positivity of $\varphi$ we have:
+    \begin{align*}
+        \dfrac{\dd}{\dd t} \left\langle x^\gamma, \varphi\left(t,\mu\right) \right\rangle &\leq -\dfrac{C_\gamma}{2}\int_{\RR^{+,*}\times \RR^{+,*}} K_\alpha(x,y) \left(x^\gamma + y^\gamma \right) \varphi\left(t,\mu\right)^{\otimes 2}(\dd x, \dd y)\\
+        &= -C_\gamma \left\langle x^\gamma, \varphi\left(t,\mu\right) \right\rangle\left\langle x^{-\alpha}, \varphi\left(t,\mu\right) \right\rangle
+        - C_\gamma \left\langle x^{\gamma-\alpha}, \varphi\left(t,\mu\right) \right\rangle\left\langle 1, \varphi\left(t,\mu\right) \right\rangle
+    \end{align*}
+    Using again the positivity of $\varphi$ and of $x \mapsto x^{\gamma - \alpha}$ on $\RR^{+,*}$ we get:
+    \begin{align*}
+        \dfrac{d}{dt} \left\langle x^\gamma, \varphi\left(t,\mu\right) \right\rangle \leq -C_\gamma \left\langle x^\gamma, \varphi\left(t,\mu\right) \right\rangle\left\langle x^{-\alpha}, \varphi\left(t,\mu\right) \right\rangle.
+    \end{align*}
+    And by Gronwall's lemma we have:
+    \begin{align*}
+        \left\langle x^\gamma, \varphi\left(t,\mu\right) \right\rangle \leq \left\langle x^\gamma, \mu^N \right\rangle \exp\left({-C_\gamma \int_0^t \left\langle x^{-\alpha}, \varphi\left(s,\mu^N\right) \right\rangle \dd s}\right).
+    \end{align*}
+    \red{Il faut une borne inf de $x^{-\alpha}$ !!!!}
+\end{proof}
+
+\red{Ancienne preuve de comparaison, ne marche pas}
+\begin{proof}
+    We remind the two following relations, for all $F$ and $\nu^N$ atomic measures we have:
+    \begin{align}
+        \E{F\left(\Phi(t,\nu^N)\right)} &= F(\nu^N) + \int_0^t \E{\LC^N F\left(\Phi(s,\nu^N)\right)}\dd s \label{eq:proof:markovsemgroup} \\
+        F\left(\varphi(t,\nu^N)\right) &=  F(\nu^N) + \int_0^t \LC\left( F\circ\varphi(s,.)\right)\left(\nu^N\right)\dd s \label{eq:proof:semigroupsmol}
+    \end{align}
+    The first one \eqref{eq:proof:markovsemgroup} comes from that $\Proc{\Phi(t,\nu^N)}$ is a Markov process of infinitesimal generator $\LC^N$ and \eqref{eq:proof:semigroupsmol} from the Smoluchovski coagulation equation. We denote:
+    \begin{align*}
+        B_t &:= \int_0^t \E{\LC^NF\circ\varphi(s,.)\left(\Phi\left(t-s,\mu^N\right)\right)}\dd s\\
+        C_t &:= \int_0^t \E{\LC F\circ\varphi(s,.)\left(\Phi\left(t-s,\mu^N\right)\right)}\dd s.
+    \end{align*}
+    We want to show that 
+    \begin{align*}
+        \E{F(\Phi(t,\mu^N))} - F(\varphi\left(t,\mu\right)) = B_t - C_t.
+    \end{align*}
+    We have by using \eqref{eq:proof:semigroupsmol} on the functional $\LC^N F$ which is also $C^1$:
+    \begin{align*}
+        B_t = \int_0^t \E{\LC^N F(\Phi(t-s,\mu^N) +  \int_0^s \LC
+         \LC^N  F\circ \varphi(h,.)\left(\Phi\left(t-s,\mu^N\right)\right)\dd h} \dd s
+    \end{align*}
+    Yielding from \eqref{eq:proof:markovsemgroup}:
+    \begin{align*}
+        B_t = \E{F\left(\Phi(t,\mu^N)\right)} - F\left(\mu^N\right) + \int_0^t \int_0^s \E{\LC
+         \LC^N  F\circ \varphi(h,.)\left(\Phi\left(t-s,\mu^N\right)\right)}\dd h \dd s
+    \end{align*}
+    For $C_t$ we start using \eqref{eq:proof:markovsemgroup} with functional 
+    \begin{align*}
+        C_t = \int_0^t \E{\LC F(\varphi(s,\mu^N) + \int_0^{t-s}\LC^N \LC  F(\varphi(s,\Phi(h,\mu^N)))\dd h} \dd s
+    \end{align*}
+    \red{Il est important de remarquer que $\LC^N$ ne nécessite qu'une fonction $C^0$ en la mesure, ce qui est donné par $\LC F$.}
+
+    \red{Ici, si je comprends bien, on fixe $s$ et on considère 
+    \[\tilde{F}(\mu) = F(\varphi(s,\mu))\]
+    et ensuite, quand on écrit $\LC \LC^N F(\varphi(s,\Phi(h,\mu^N))$ il faut comprendre
+    $(\LC \LC^N \tilde{F})(\Phi(h,\mu^N))$, et de même pour $( \LC^N \LC\tilde{F})(\Phi(h,\mu^N))$}
+    Then thanks to \eqref{eq:proof:semigroupsmol}:
+    \begin{align*}
+        C_t = F\left(\varphi(t,\nu^N)\right) -  F(\nu^N) + \int_0^t \int_0^{t-s}\E{\LC^N \LC  F(\varphi(s,\Phi(h,\mu^N)))}\dd h \dd s.
+    \end{align*}
+    Now we compute the second integral:
+    \begin{align*}
+        \int_0^t \int_0^{t-s}\E{\LC^N \LC  F(\varphi(s,\Phi(h,\mu^N)))}\dd h \dd s
+        &= \int_0^t \int_0^{t-h}\E{\LC^N \LC  F(\varphi(s,\Phi(h,\mu^N)))}\dd s \dd h \\
+        &= \int_0^t \int_0^{h}\E{\LC^N \LC  F(\varphi(s,\Phi(t-h,\mu^N)))}\dd s \dd h
+    \end{align*}
+\end{proof}
+
+\red{We give here inequalities to compare functionals of Smoluchowski versus SC. Notice that it is related to the techniques using sublinear functions of \cite{norris}  }
+
+
+\red{Lemme venant de l'ancienne formule de comparaison qui était fausse.}The following lemma uses the latter to prove an essential point that will allow us to have uniform bounds in time in our main theorems.
+
+\begin{lemma}\label{lem:flow_linear_control}
+    Let $f$ be a function such that for all $x \in \RR^+$, $f(2x)\leq 2f(x)$  and consider the linear functional $F(\mu) = \langle f,\mu \rangle$.
+    $(i)$ We have for all positive finite measure $\mu$:
+    \begin{align*}
+        \left(\LC^N - \LC\right)F(\mu) \geq 0
+    \end{align*}
+    $(ii)$ Let $\mu^N$ be an atomic measure. As a direct consequence for all $t \geq 0$:
+    \begin{align*}
+        \E{\langle f,\varphi\left(t,\mu\right)\rangle} \leq \E{\langle f, \Phi(t,\mu^N))\rangle }.
+    \end{align*}
+    $(iii)$ And furthermore for all $0\leq s \leq t$:
+    \begin{align*}
+        \E{\langle f, \varphi(s,\Phi(t-s,\mu^N)))\rangle } \leq \E{\langle f, \Phi(t,\mu^N))\rangle }.
+    \end{align*}
+\end{lemma}
+\begin{proof}
+    ($i$) Since $F$ is linear its linear derivative is simply $f$ meaning that for all $\mu$:
+    \begin{align*}
+        \delta_\mu F(\mu,.) = f.
+    \end{align*}
+    The linear derivative is constant in the measure. It simplifies greatly the expression of the \SCN generator given in proposition \ref{prop:SC_gen_differentiable}: 
+    \begin{align*}
+        \LC^NF(\mu) &=  \int_{\RR^+ \times \RR^+} K(x,y)\left\langle  f,\delta_{x+y} - \delta_x - \delta_y\right\rangle\mu(dx)\mu(dy)
+        -\dfrac{1}{N}\int_{\RR^+} K(x,x)\left\langle f,\delta_{2x} - 2\delta_x \right\rangle\mu(dx)\\
+        &= \LC F(\mu) - \dfrac{1}{N}\int_{\RR^+} K(x,x)\left\langle f,\delta_{2x} - 2\delta_x \right\rangle\mu(dx)
+    \end{align*}
+    The kernel is a positive function, see that $f(2x)\leq 2f(x)$ for all $x \in \RR^+$ implies $\left(\LC^N - \LC\right)F(\mu) \geq 0$ for all $\mu$.
+    
+    ($ii$) It is a direct application of the previous and \eqref{eq:semi-group-relation}.
+    
+    ($iii$) Apply point ($ii$) with the atomic measure $\Phi\left((t-s),\mu^N\right)$ and conclude using the fact that $\SC$ is a flow.
+\end{proof}
+\bibliographystyle{plain}
+\bibliography{mybib}
+\end{document}
+
