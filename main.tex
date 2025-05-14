@@ -566,14 +566,15 @@ It is a closed subspace of $\MC_{\phi_p}(\RRP)$ and therefore is complete for th
 \end{lemma}
 \begin{proof}
     We introduce the functional:
-     \[ \Gamma^\varepsilon : 
+    \begin{align*}
+    \Gamma^\varepsilon : 
     \left\lbrace 
     \begin{aligned}
         C\left([0,T]:\MC^{\varepsilon,M}_{\phi_p}(\RRP) \right) &\to C\left([0,T]:\MC^{\varepsilon,M}_{\phi_p}(\RRP) \right)\\
          m & \mapsto \Gamma^\varepsilon(m)
     \end{aligned}
     \right.,
-    \]
+    \end{align*}
     defined for all $f \in C_b(\RRP)$, for all $t \geq 0$ by:
     \begin{align*}
         \brac{f,\Gamma^\varepsilon(m)_t}= \brac{f,\mu^\varepsilon} + \dfrac12\int_0^t \brac{K_\alpha f,\left(m_s\right)^{\otimes 2}} \dd s.
@@ -2022,9 +2023,13 @@ We study the regularity of the latter in the Lipschitz part of the Wasserstein d
 \end{proof}
 Nouvelle version de la preuve. 
 
-In this proof we use the characterization of Lipschitz functions for $d_\alpha$ given by Proposition \ref{prop:characterisation-lip-1}, namely a function $f$ is Lipschitz with $Lip(f) \leq 1$ if and only if it is almost everywhere differentiable and its derivative enjoys the following bound: for almost every $x$, $|f'(x)| \leq \alpha x^{-1-\alpha}$.
+In this proof we use the characterization of Lipschitz functions for $d_\alpha$ given by Proposition \ref{prop:characterisation-lip-1}, namely a function $f$ is Lipschitz with $Lip(f) \leq 1$ if and only if it is almost everywhere differentiable and its derivative enjoys the following bound:
+\[
+    |f'(x)| \leq \alpha x^{-1-\alpha} \quad \text{ for almost every }x \in \RRP\ .
+\]
+
 \begin{proof}
-    We adopt the following notations, let $a \in \RR^+$ we denote by $\tilde{W}$ the value of the supremum:
+    We adopt the following notations, let $a \in {0,1}$ we denote by $\tilde{W}$ the value of the supremum:
     \begin{align*}
         \tilde{W}(\mu,\nu) = \sup\limits_{\substack{Lip(f) \leq 1, \\|f(x)| \leq a + x^{-\alpha}}} \brac{f,\mu-\nu},
     \end{align*}
@@ -2050,7 +2055,7 @@ In this proof we use the characterization of Lipschitz functions for $d_\alpha$ 
     \end{align*}
     We study the function $f (h_t)^{-1}$, it is almost everywhere differentiable. Indeed $f$ is almost everywhere differentiable because it is Lipschitz. Whereas $h_t$ is differentiable because $y \mapsto \partial_x K_\alpha(x,y) = \alpha x^{-1-\alpha}$ is a constant function and therefore $\mu_t$-integrable for all $t \in \RR^+$. The derivaitve of $g:=f (h_t)^{-1}$ is for almost every $x$:
     \begin{align*}
-        g'(x) &= \left( f'(x) + f(x)\int_0^t\partial_x K_\alpha(x,y)\mu_s(\dd y) \right)e^{-\int_0^t \int_{\RRP}K_\alpha(x,y)\mu_s(\dd y) \dd s}\\
+        g'(x) &= \left( f'(x) - f(x)\int_0^t\partial_x K_\alpha(x,y)\mu_s(\dd y) \right)e^{-\int_0^t \int_{\RRP}K_\alpha(x,y)\mu_s(\dd y) \dd s}\\
         &= \left( f'(x) + \gamma_t f(x)\alpha x^{-1-\alpha} \right)e^{-x^{-\alpha}\gamma_t - \int_0^t\|\mu_s\|_{\psi_1}\dd s}\ .
     \end{align*}
     And since $f$ is such that $Lip(f) \leq 1$ and $|f(x)| \leq a + x^{-\alpha} $, $g'$ enjoys the bound:
@@ -2070,7 +2075,7 @@ In this proof we use the characterization of Lipschitz functions for $d_\alpha$ 
     \begin{align*}
         \tilde{W}\left(h_t\delta_\mu\varphi_t(\mu;z_1) ,h_t \delta_\mu\varphi_t(\mu;z_2)\right) \leq d_\alpha(z_1,z_2) C(T)\ .
     \end{align*}
-    We denote by $m_t$ the measure $\delta_\mu\varphi_t(\mu;z_1) - \delta_\mu\varphi_t(\mu;z_2)$ . Let $f$ be such that $Lip(f) \leq 1$ and $f(x) \leq x^{-\alpha}$ we have :
+    We denote by $m_t$ the measure $\delta_\mu\varphi_t(\mu;z_1) - \delta_\mu\varphi_t(\mu;z_2)$ . Let $f$ be such that $Lip(f) \leq 1$ and $f(x) \leq a + x^{-\alpha}$ we have :
     \begin{align*}
         \brac{fh_t,m_t} = f(z_1) - f(z_2) + \int_0^t \brac{f h'_s, m_s}  \dd s + \int_0^t \brac{K_\alpha fh_s,\mu_s \otimes m_s} \dd s
     \end{align*}
@@ -2085,7 +2090,8 @@ In this proof we use the characterization of Lipschitz functions for $d_\alpha$ 
     \end{align}
     where:
     \begin{align*}
-        A_tf(x) &= \int_{\RRP}  K_\alpha(x,y) \left(h_t(x)\right)^{-1}\left[fh_s(x+y) - fh_s(y)\right]\mu_t(\dd y) \\
+        A_tf(x) 
+        &= \int_{\RRP}  K_\alpha(x,y) \left(h_t(x)\right)^{-1}\left[fh_s(x+y) - fh_s(y)\right]\mu_t(\dd y)
     \end{align*}
     Our goal is now to show that the latter function is Lipschitz, let us break it down in two parts:
     \begin{align*}
@@ -2095,22 +2101,33 @@ In this proof we use the characterization of Lipschitz functions for $d_\alpha$ 
         C_tf(x) &= \left(h_t(x)\right)^{-1}\int_{\RRP}  K_\alpha(x,y)f(y)h_t(y) \mu_t(\dd y)\\
                 &= e^{-x^{-\alpha}\gamma_t}\int_{\RRP}  K_\alpha(x,y)f(y)e^{y^{-\alpha}\gamma_t} \mu_t(\dd y)
     \end{align*}
-    We start with $C_t$ the easiest one, we have that for all $x_1,x_2$:
+    We start with $C_t$ the easiest one,
     \begin{align*}
-        C_tf(x_1) - C_tf(x_2) =& \left[e^{-x_1^{-\alpha}\gamma_t} - e^{-x_2^{-\alpha}\gamma_t}\right] \int_{\RRP}  K_\alpha(x_1,y)f(y)e^{y^{-\alpha}\gamma_t} \mu_t(\dd y) \\
-        &+ e^{-x_2^{-\alpha}\gamma_t}\int_{\RRP}  \left[ K_\alpha(x_1,y) - K_\alpha(x_2,y)\right]f(y)e^{y^{-\alpha}\gamma_t} \mu_t(\dd y)\ .
+        C_tf'(x) 
+        &=  e^{-x^{-\alpha}\gamma_t}\int_{\RRP} \left(\gamma_t \alpha x^{-1-\alpha} K_\alpha(x,y) + \partial_x K_\alpha(x,y) \right)f(y)e^{y^{-\alpha}\gamma_t} \mu_t(\dd y)  \\
+        &= \alpha x^{-1-\alpha}e^{-x^{-\alpha}\gamma_t}\int_{\RRP}(\gamma_t K_\alpha(x,y) + 1) f(y)e^{y^{-\alpha}\gamma_t} \mu_t(\dd y)
     \end{align*}
-    Recall that by lemma \ref{lem:pseudo-lip-derivative-eq} we have that for all non-increasing function $\psi$, $\|e^{x^{-\alpha}\gamma_t}\mu_t \|_{\psi} \leq \|\mu\|_{\psi}$. Assume without loss of generality that $x_1 \geq x_2$ 
+    One gets,
     \begin{align*}
-        \left|e^{-x_1^{-\alpha}\gamma_t} - e^{-x_2^{-\alpha}\gamma_t}\right| \int_{\RRP}  K_\alpha(x_1,y)f(y)e^{y^{-\alpha}\gamma_t} \mu_t(\dd y) 
-        &\leq \gamma_t d_\alpha(x_1,x_2) e^{-x_1^{-\alpha}\gamma_t} \left(x_1^{-\alpha} \| \mu\|_{\psi_1}  + \|\mu\|_{\psi_2}\right) \\
-        &\leq d_\alpha(x_1,x_2)\left( \| \mu\|_{\psi_1} + \gamma_t \|\mu\|_{\psi_2}\right)\ .
+        \alpha^{-1} x^{1+\alpha}|C_tf'(x) | 
+        &\leq e^{-x^{-\alpha}\gamma_t}\int_{\RRP}(\gamma_t K_\alpha(x,y) + 1) (y^{-\alpha} + 1)e^{y^{-\alpha}\gamma_t} \mu_t(\dd y) \\
+        &\leq \int_{\RRP}(\gamma_t y^{-\alpha} + 1) (y^{-\alpha} + 1)e^{y^{-\alpha}\gamma_t} \mu_t(\dd y)\\
+        &\leq C\gamma_t \int_{\RRP}(1 + y^{-2\alpha}) e^{y^{-\alpha}\gamma_t} \mu_t(\dd y)\\
+        &\leq C\gamma_t \|\mu\|_{1 + \psi_2}\ .
     \end{align*}
-    And we have for $C_t$:
-    \begin{align*}
-        \left|C_tf(x_1) - C_tf(x_2) \right| \leq d_\alpha(x_1,x_2)\left( 2\| \mu\|_{\psi_1} + \gamma_t \|\mu\|_{\psi_2}\right)
-    \end{align*}
-    We treat $B_t$ now, one has for all $x_1 \leq x_2$:
+    We used the Lemma \red{lemme exponentiel} for the last line. We treat $B_t$ now:
+    \begin{multline*}
+        B_tf'(x) = \int_{\RRP}\partial_x K_\alpha(x,y )f(x+y) e^{\left[(x+y)^{-\alpha}-x^{-\alpha}\right]\gamma_t }\mu_t(\dd y) \\
+        + \int_{\RRP}K_\alpha(x,y)f'(x+y) e^{\left[(x+y)^{-\alpha}-x^{-\alpha}\right]\gamma_t }\mu_t(\dd y) \\
+        + \int_{\RRP}K_\alpha(x,y)f(x+y)\alpha\gamma_t\left[x^{-1-\alpha} -(x+y)^{-1-\alpha}\right] e^{\left[(x+y)^{-\alpha}-x^{-\alpha}\right]\gamma_t }\mu_t(\dd y)
+    \end{multline*}
+    We get:
+    \begin{multline*}
+        |B_tf'(x)| \leq \int_{\RRP}\partial_x K_\alpha(x,y )\left((x+y)^{-\alpha} + 1\right) e^{\left[(x+y)^{-\alpha}-x^{-\alpha}\right]\gamma_t }\mu_t(\dd y) \\
+        + \int_{\RRP}K_\alpha(x,y)\alpha (x+y)^{-1-\alpha}e^{\left[(x+y)^{-\alpha}-x^{-\alpha}\right]\gamma_t }\mu_t(\dd y) \\
+        + \int_{\RRP}K_\alpha(x,y)\left((x+y)^{-\alpha} + 1\right)\alpha\gamma_t\left[x^{-1-\alpha} -(x+y)^{-1-\alpha}\right] e^{\left[(x+y)^{-\alpha}-x^{-\alpha}\right]\gamma_t }\mu_t(\dd y)
+    \end{multline*}
+    
     \begin{align*}
         B_tf(x_1) - B_tf(x_2) =& \int_{\RRP} \left[K_\alpha(x_1,y) - K_\alpha(x_2,y)\right]f(x_1+y) e^{\gamma_t\left[(x_1+y)^{-\alpha} - x_1^{-\alpha}\right]}\mu_t(\dd y) \\
         &+ \int_{\RRP} K_\alpha(x_2,y) \left[f(x_1+y) - f(x_2+y) \right]e^{\gamma_t\left[(x_1+y)^{-\alpha} - x_1^{-\alpha}\right]}\mu_t(\dd y)\\
