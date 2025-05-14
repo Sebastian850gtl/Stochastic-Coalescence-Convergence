@@ -44,7 +44,7 @@
 % Notations of the paper
 \newcommand{\CLT}{{\emph{CLT}}}
 \newcommand{\SC}{{\emph{SC}}}
-\newcommand{\SCE}{{\emph{SCE}}}
+\newcommand{\SCE}{\emph{SCE}}
 \newcommand{\ASCE}{{\emph{ASCE}}}
 \newcommand{\SCN}{\emph{SCN}}
 
@@ -1705,7 +1705,7 @@ Throughout this section, we assume that $\mu \in \MC^+_{\phi_2}(\RRP)$ and denot
 \end{lemma}
 This lemma is delicate because it is not assumed that $\mu$ has an exponential moment. If it was the case we could apply the bound given in proposition \ref{prop:bound_smol_exponential}. We start by considering a family of approximations that have this moment namely for $\varepsilon > 0$ consider $\Proc{\mu_t^\varepsilon}$ the solution to the $\SCE$ with initial measure:
 \begin{align*}
-    \mu^\varepsilon = \mathds{1}_{[\varepsilon,\infty)]}\mu.
+    \mu^\varepsilon = \mathds{1}_{[\varepsilon,\infty)}\mu.
 \end{align*}
 We then introduce the function,
 \begin{align*}
@@ -1817,7 +1817,7 @@ Below we prove the lemma, parts of this proof will require elements of the well-
     \begin{align*}
         \| \nu_t^{\varepsilon_p}-\nu_t^{\varepsilon_q} \|_{\psi_1} \leq \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}C(T,\|\mu\|_{1 + \psi_2})  + C\|\mu\|_{\psi_1}\int_0^t \| \nu_s^{\varepsilon_p}-\nu_s^{\varepsilon_q} \|_{\psi_1} \dd s.
     \end{align*}
-    Finally by Gronwall lemma we have that the sequence $\Seq{\Proc{\nu_t^{\varepsilon_n}}}$ is Cauchy in $C\left([0,T]:\MC^+_{\psi_1}(\RRP)\right)$ therefore it converges to a flow of measures $\Proc{\nu_t}$. We verify that $\Proc{h_t^{-1}\nu_t}$ is the solution to the $\SCE$ we have for all $\varepsilon > 0$:
+    Finally by Gronwall lemma we have that trgb(31, 23, 23)he sequence $\Seq{\Proc{\nu_t^{\varepsilon_n}}}$ is Cauchy in $C\left([0,T]:\MC^+_{\psi_1}(\RRP)\right)$ therefore it converges to a flow of measures $\Proc{\nu_t}$. We verify that $\Proc{h_t^{-1}\nu_t}$ is the solution to the $\SCE$ we have for all $\varepsilon > 0$:
     \begin{align*}
         \|h_t^{-1}\nu_t - \left(h^\varepsilon_t\right)^{-1}\nu^\varepsilon_t\|_{\psi_1} \leq \|h_t^{-1}(\nu_t -\nu^\varepsilon_t) \|_{\psi_1} + \|(h_t^{-1} - \left(h^\varepsilon_t\right)^{-1})\nu^\varepsilon_t) \|_{\psi_1}
     \end{align*}
@@ -1855,15 +1855,16 @@ Below we prove the lemma, parts of this proof will require elements of the well-
 
 In this section we give Wasserstein bounds of the solution to the $\SCE$ and its derivative. The defined Wasserstein distance is well adapted to our considered equation, it was already used and the work of Fournier,Cepeda \cite{cepedaSmoluchowskisEquationRate2011a} and \cite{fournier2004convergence,fournierDistanceCoagulation2006}. It is also fundamental to our final result as it ensures that empirical measures converges see \cite{fournier2015rate} contrary to the Total Variation distance see \cite{devroye1990no}. In all this section $\Proc{\varphi_t(\mu)}$ denotes the solution to the Smoluchowski coagulation equation started from $\mu$. 
 
-We define the Lip pseudo norm as:
+We denote by $t \mapsto \varphi_t(\mu)$ the solution to the $\SCE$ of kernel $K_\alpha$ started from $\mu$ where $\mu \in \MC_{\phi_3}^+(\RRP)$ and by $t \mapsto \delta_\mu\varphi_t(\mu;z)$ its derivative. We define the Lip pseudo norm as:
 \begin{align*}
     Lip(f) = \sup\left\lbrace \dfrac{|f(x) - f(y)|}{d_\alpha(x,y)} , (x ,y) \in \left(\RR ^+_*\right)^2,x\neq y \right\rbrace 
 \end{align*}
-Recall the definition of our distance for $\mu,\nu \in \MC_{\phi_1}^+(\RRP)$:
+Recall the definition of our distance for $\mu,\nu \in \MC_{\psi_1}^+(\RRP)$:
 \begin{align*}
-    W_{1,\psi}(\mu,\nu) = \sup\limits_{Lip(f) \leq 1, |f| \leq \psi_1} \brac{f,\mu - \nu} + \left|\vphantom{A^2} \brac{1,\mu - \nu} \right|.
+    W_{1,\psi_1}(\mu,\nu) = \sup\limits_{Lip(f) \leq 1, |f| \leq \psi_1} \brac{f,\mu - \nu} + \left|\vphantom{A^2} \brac{1,\mu - \nu} \right|.
 \end{align*}
-We denote by $t \mapsto \varphi_t(\mu)$ the solution to the $\SCE$ of kernel $K_\alpha$ started from $\mu$ where $\mu \in \MC_{\phi_3}^+(\RRP)$ and by $t \mapsto \delta_\mu\varphi_t(\mu;z)$ its derivative. We study the regularity of the latter in the Lipschitz part of the Wasserstein distance on signed measures as stated in the next Proposition.
+
+We study the regularity of the latter in the Lipschitz part of the Wasserstein distance on signed measures as stated in the next Proposition.
 \begin{proposition}\label{prop:lip-regularity-derivaitve}
     We have for all $z_1, z_2$:
     \begin{align*}
@@ -2019,30 +2020,187 @@ We denote by $t \mapsto \varphi_t(\mu)$ the solution to the $\SCE$ of kernel $K_
         \tilde{W}(\delta_\mu\varphi_t(\mu;z_1),\delta_\mu\varphi_t(\mu;z_2)) \leq d_\alpha(z_1,z_2) e^{CT(\|\mu\|_{\psi_1} +  T\|\mu\|\|\mu\|_{\psi_2})}
     \end{align*}
 \end{proof}
+Nouvelle version de la preuve. 
+
+In this proof we use the characterization of Lipschitz functions for $d_\alpha$ given by Proposition \ref{prop:characterisation-lip-1}, namely a function $f$ is Lipschitz with $Lip(f) \leq 1$ if and only if it is almost everywhere differentiable and its derivative enjoys the following bound: for almost every $x$, $|f'(x)| \leq \alpha x^{-1-\alpha}$.
+\begin{proof}
+    We adopt the following notations, let $a \in \RR^+$ we denote by $\tilde{W}$ the value of the supremum:
+    \begin{align*}
+        \tilde{W}(\mu,\nu) = \sup\limits_{\substack{Lip(f) \leq 1, \\|f(x)| \leq a + x^{-\alpha}}} \brac{f,\mu-\nu},
+    \end{align*}
+    the first presented case corresponding to $a = 0$ and the second $a = 1$. We denote $\Proc{\varphi_t(\mu)}$ by $\Proc{\mu_t}$ and by $\gamma_t = \int_0^t \brac{1,\mu_s} \dd s$ a quantity that will appear numerous times in the proof.
+
+    Recall the equation verified by the derivative of the $\SCE$, let $f\in C_b(\RRP)$ recall that for all $z \in \RRP$:
+    \begin{align*}
+        \brac{f,\delta_\mu\varphi_t(\mu;z)} = f(z) + \int_0^t \brac{K_\alpha f, \varphi_s(\mu)\otimes\delta_\mu\varphi_s(\mu;z)} \dd s\ .
+    \end{align*}
+    Let us introduce the function $h_t$ defined by:
+    \begin{align*}
+        h_t(x) &= \exp\left(\int_0^t \int_{\RRP}K_\alpha(x,y)\mu_s(\dd y) \dd s\right)\\
+        &= \exp\left(x^{-\alpha}\gamma_t\right)\exp\left( {\int_0^t\|\mu_s\|_{\psi_1}\dd s}\right)  
+    \end{align*}
+
+    Step $1$: We show that for all $t \geq 0$, 
+    \begin{align*}
+        \tilde{W}\left(\delta_\mu\varphi_t(\mu;z_1) ,\delta_\mu\varphi_t(\mu;z_2)\right) \leq \tilde{W}\left(h_t\delta_\mu\varphi_t(\mu;z_1) ,h_t \delta_\mu\varphi_t(\mu;z_2)\right)\ .
+    \end{align*}
+    Let $f$ be such that $Lip(f) \leq 1$ and for all $x \in \RRP$, $|f(x)| \leq a + x^{-\alpha}$. Notice that $h_t$ is positive, a quick computations yields:
+    \begin{align*}
+        \brac{f,\delta_\mu\varphi_t(\mu;z_1) - \delta_\mu\varphi_t(\mu;z_2)} &= \brac{f(h_t)^{-1},h_t\delta_\mu\varphi_t(\mu;z_1) - h_t\delta_\mu\varphi_t(\mu;z_2)}\ .
+    \end{align*}
+    We study the function $f (h_t)^{-1}$, it is almost everywhere differentiable. Indeed $f$ is almost everywhere differentiable because it is Lipschitz. Whereas $h_t$ is differentiable because $y \mapsto \partial_x K_\alpha(x,y) = \alpha x^{-1-\alpha}$ is a constant function and therefore $\mu_t$-integrable for all $t \in \RR^+$. The derivaitve of $g:=f (h_t)^{-1}$ is for almost every $x$:
+    \begin{align*}
+        g'(x) &= \left( f'(x) + f(x)\int_0^t\partial_x K_\alpha(x,y)\mu_s(\dd y) \right)e^{-\int_0^t \int_{\RRP}K_\alpha(x,y)\mu_s(\dd y) \dd s}\\
+        &= \left( f'(x) + \gamma_t f(x)\alpha x^{-1-\alpha} \right)e^{-x^{-\alpha}\gamma_t - \int_0^t\|\mu_s\|_{\psi_1}\dd s}\ .
+    \end{align*}
+    And since $f$ is such that $Lip(f) \leq 1$ and $|f(x)| \leq a + x^{-\alpha} $, $g'$ enjoys the bound:
+    \begin{align*}
+        \alpha^{-1} x^{1+\alpha}\left|g'(x)\right| &\leq \left(1 + \gamma_t(a + x^{-\alpha}) \right)\exp\left(-x^{-\alpha}\gamma_t\right) \\
+        &\leq \alpha x^{-1-\alpha} \left(1 + \gamma_t a \right)\ .
+    \end{align*}
+    It is easy to check that the function $x\mapsto (1 + x)e^{-x} $ is below $1$ on $\RR^+$ giving us the last inequality above.
+    The function $f(h_t)^{-1}$ is therefore Lipschitz, it is also below $x\mapsto x^{-\alpha} + a$. It comes that 
+    \begin{align*}
+        \brac{f,\delta_\mu\varphi_t(\mu;z_1) - \delta_\mu\varphi_t(\mu;z_2)} &= \brac{f(h_t)^{-1},h_t\delta_\mu\varphi_t(\mu;z_1) - h_t\delta_\mu\varphi_t(\mu;z_2)} \\
+        &\leq  \left(1 + \gamma_t a \right)\tilde{W}\left(h_t\delta_\mu\varphi_t(\mu;z_1) ,h_t \delta_\mu\varphi_t(\mu;z_2)\right)\ .
+    \end{align*}
+    By getting the to supremum value on the LHS we get the desired result of the first step.
+
+    Step $2$: We show that for all $t \geq 0$:
+    \begin{align*}
+        \tilde{W}\left(h_t\delta_\mu\varphi_t(\mu;z_1) ,h_t \delta_\mu\varphi_t(\mu;z_2)\right) \leq d_\alpha(z_1,z_2) C(T)\ .
+    \end{align*}
+    We denote by $m_t$ the measure $\delta_\mu\varphi_t(\mu;z_1) - \delta_\mu\varphi_t(\mu;z_2)$ . Let $f$ be such that $Lip(f) \leq 1$ and $f(x) \leq x^{-\alpha}$ we have :
+    \begin{align*}
+        \brac{fh_t,m_t} = f(z_1) - f(z_2) + \int_0^t \brac{f h'_s, m_s}  \dd s + \int_0^t \brac{K_\alpha fh_s,\mu_s \otimes m_s} \dd s
+    \end{align*}
+    with
+    \begin{align*}
+        \brac{f h'_s ,m_s } = \int_{\RRP}\int_{\RRP} K_\alpha(x,y)fh_s(x) m_s(\dd x)\mu_s(\dd y)
+    \end{align*}
+    And therefore 
+    \begin{align}
+        \brac{f,h_tm_t} &= f(z_1) - f(z_2) \int_0^t \int_{\RRP}\int_{\RRP} K_\alpha(x,y)\left[fh_s(x+y) - fh_s(x)\right]\mu_s(\dd x)m_s(\dd y) \dd s \nonumber \\
+        &= f(z_1) - f(z_2) + \int_0^t \brac{A_tf, h_sm_s} \dd s \label{eq:proof:wass-derivaitve}
+    \end{align}
+    where:
+    \begin{align*}
+        A_tf(x) &= \int_{\RRP}  K_\alpha(x,y) \left(h_t(x)\right)^{-1}\left[fh_s(x+y) - fh_s(y)\right]\mu_t(\dd y) \\
+    \end{align*}
+    Our goal is now to show that the latter function is Lipschitz, let us break it down in two parts:
+    \begin{align*}
+        A_tf(x) &= B_tf(x) - C_tf(x) \\
+        B_tf(x) &= \int_{\RRP}  K_\alpha(x,y) \left(h_t(x)\right)^{-1}fh_s(x+y)\mu_t(\dd y)\\
+                &= \int_{\RRP}  K_\alpha(x,y)f(x+y) e^{\left[(x+y)^{-\alpha}-x^{-\alpha}\right]\gamma_t }\mu_t(\dd y)\\
+        C_tf(x) &= \left(h_t(x)\right)^{-1}\int_{\RRP}  K_\alpha(x,y)f(y)h_t(y) \mu_t(\dd y)\\
+                &= e^{-x^{-\alpha}\gamma_t}\int_{\RRP}  K_\alpha(x,y)f(y)e^{y^{-\alpha}\gamma_t} \mu_t(\dd y)
+    \end{align*}
+    We start with $C_t$ the easiest one, we have that for all $x_1,x_2$:
+    \begin{align*}
+        C_tf(x_1) - C_tf(x_2) =& \left[e^{-x_1^{-\alpha}\gamma_t} - e^{-x_2^{-\alpha}\gamma_t}\right] \int_{\RRP}  K_\alpha(x_1,y)f(y)e^{y^{-\alpha}\gamma_t} \mu_t(\dd y) \\
+        &+ e^{-x_2^{-\alpha}\gamma_t}\int_{\RRP}  \left[ K_\alpha(x_1,y) - K_\alpha(x_2,y)\right]f(y)e^{y^{-\alpha}\gamma_t} \mu_t(\dd y)\ .
+    \end{align*}
+    Recall that by lemma \ref{lem:pseudo-lip-derivative-eq} we have that for all non-increasing function $\psi$, $\|e^{x^{-\alpha}\gamma_t}\mu_t \|_{\psi} \leq \|\mu\|_{\psi}$. Assume without loss of generality that $x_1 \geq x_2$ 
+    \begin{align*}
+        \left|e^{-x_1^{-\alpha}\gamma_t} - e^{-x_2^{-\alpha}\gamma_t}\right| \int_{\RRP}  K_\alpha(x_1,y)f(y)e^{y^{-\alpha}\gamma_t} \mu_t(\dd y) 
+        &\leq \gamma_t d_\alpha(x_1,x_2) e^{-x_1^{-\alpha}\gamma_t} \left(x_1^{-\alpha} \| \mu\|_{\psi_1}  + \|\mu\|_{\psi_2}\right) \\
+        &\leq d_\alpha(x_1,x_2)\left( \| \mu\|_{\psi_1} + \gamma_t \|\mu\|_{\psi_2}\right)\ .
+    \end{align*}
+    And we have for $C_t$:
+    \begin{align*}
+        \left|C_tf(x_1) - C_tf(x_2) \right| \leq d_\alpha(x_1,x_2)\left( 2\| \mu\|_{\psi_1} + \gamma_t \|\mu\|_{\psi_2}\right)
+    \end{align*}
+    We treat $B_t$ now, one has for all $x_1 \leq x_2$:
+    \begin{align*}
+        B_tf(x_1) - B_tf(x_2) =& \int_{\RRP} \left[K_\alpha(x_1,y) - K_\alpha(x_2,y)\right]f(x_1+y) e^{\gamma_t\left[(x_1+y)^{-\alpha} - x_1^{-\alpha}\right]}\mu_t(\dd y) \\
+        &+ \int_{\RRP} K_\alpha(x_2,y) \left[f(x_1+y) - f(x_2+y) \right]e^{\gamma_t\left[(x_1+y)^{-\alpha} - x_1^{-\alpha}\right]}\mu_t(\dd y)\\
+        &+ \int_{\RRP} K_\alpha(x_2,y) f(x_2+y) \left[e^{\gamma_t\left[(x_1+y)^{-\alpha} - x_1^{-\alpha}\right]} - e^{\gamma_t\left[(x_2+y)^{-\alpha} - x_2^{-\alpha}\right]}\right] \mu_t(\dd y)
+    \end{align*}
+    For the first term:
+    \begin{multline*}
+        \int_{\RRP} \left|K_\alpha(x_1,y) - K_\alpha(x_2,y)\right|f(x_1+y) e^{\gamma_t\left[(x_1+y)^{-\alpha} - x_1^{-\alpha}\right]}\mu_t(\dd y) \\
+        \leq d_\alpha(x_1,x_2) \int_{\RRP} (x_1 + y)^{-\alpha} e^{\gamma_t\left[(x_1+y)^{-\alpha} - x_1^{-\alpha}\right]}\mu_t(\dd y) \\
+        \leq d_\alpha(x_1,x_2) \int_{\RRP} y^{-\alpha} \mu_t(\dd y)
+        \leq d_\alpha(x_1,x_2) \|\mu\|_{\psi_1}\ .
+    \end{multline*}
+    For the second term:
+    \begin{multline*}
+        \int_{\RRP} K_\alpha(x_2,y) \left|f(x_1+y) - f(x_2+y) \right|e^{\gamma_t\left[(x_1+y)^{-\alpha} - x_1^{-\alpha}\right]}\mu_t(\dd y) \\
+        \leq \int_{\RRP} (x_2^{-\alpha } + y^{-\alpha})d_\alpha(x_1 + y,x_2 + y)e^{\gamma_t\left[(x_1+y)^{-\alpha} - x_1^{-\alpha}\right]}\mu_t(\dd y)
+    \end{multline*}
+    By lemma \ref{lem:properties-of-d-alpha} we have $y^{-\alpha}d_\alpha(x_1 + y,x_2 + y) \leq y^{-\alpha} d_\alpha(x_1,x_2)$. We assumed with no loss of generality that $x_2 \geq x_1$ and so we also have by \ref{lem:properties-of-d-alpha} that $x_2^{-\alpha}d_\alpha(x_1 + y,x_2 + y) \leq y^{-\alpha}d_\alpha(x_1,x_2)$. Therefore:
+    \begin{align*}
+        \int_{\RRP} K_\alpha(x_2,y) \left|f(x_1+y) - f(x_2+y) \right|e^{\gamma_t\left[(x_1+y)^{-\alpha} - x_1^{-\alpha}\right]}\mu_t(\dd y)\leq 2d_\alpha(x_1,x_2) \|\mu\|_{\psi_1}\ .
+    \end{align*}
+    For the third and last term, recall that we assumed that $x_2 \geq x_1$
+    \begin{multline*}
+        \int_{\RRP} K_\alpha(x_2,y) f(x_2+y) \left|e^{\gamma_t\left[(x_1+y)^{-\alpha} - x_1^{-\alpha}\right]} - e^{\gamma_t\left[(x_2+y)^{-\alpha} - x_2^{-\alpha}\right]}\right| \mu_t(\dd y) \\
+        \leq 2\gamma_t d_\alpha(x_1,x_2)\int_{\RRP} K_\alpha(x_2,y) f(x_2+y) e^{\gamma_t\left[(x_2+y)^{-\alpha} - x_2^{-\alpha}\right]}\mu_t(\dd y)
+    \end{multline*}
+    To bound the last term notice first that $K_\alpha(x_2,y) f(x_2+y) \leq 2 x_2^{-\alpha}y^{-\alpha}$. Then we will use once again $\red{Lemme sur moments exponentiels}$:
+    \begin{multline*}
+        \int_{\RRP} K_\alpha(x_2,y) f(x_2+y) e^{\gamma_t\left[(x_2+y)^{-\alpha} - x_2^{-\alpha}\right]}\mu_t(\dd y) \\
+        \leq 2x_2^{-\alpha} \int_{\RRP} y^{-\alpha} e^{\gamma_t\left[(x_2+y)^{-\alpha} - x_2^{-\alpha}- y^{-\alpha}\right]}e^{\gamma_t y^{-\alpha}}\mu_t(\dd y)\\
+        \leq \dfrac{2}{\gamma_t} \int_{\RRP} y^{-\alpha} e^{\gamma_t y^{-\alpha}}\mu_t(\dd y) \leq \dfrac{2}{\gamma_t}\|\mu\|_{\psi_1}.
+    \end{multline*}
+    And we finally get for the third term:
+    \begin{align*}
+        \int_{\RRP} K_\alpha(x_2,y) f(x_2+y) \left|e^{\gamma_t\left[(x_1+y)^{-\alpha} - x_1^{-\alpha}\right]} - e^{\gamma_t\left[(x_2+y)^{-\alpha} - x_2^{-\alpha}\right]}\right| \mu_t(\dd y) \leq 4d_\alpha(x_1,x_2)\|\mu\|_{\psi_1}\ .
+    \end{align*}
+    At the end we get for $B_t$ :
+    \begin{align*}
+        \left|B_tf(x_1) - B_tf(x_2) \right| \leq C\|\mu\|_{\psi_1}d_\alpha(x_1,x_2)\ .
+    \end{align*}
+    where $C$ is a constant with no dependence whatsoever. In conclusion we found that the previous function $A_tf$ is Lipschitz with a Lip pseudo norm smaller than $C(\|\mu\|_{\psi_1} + \gamma_t \|\mu\|_{\psi_2})$ from our original equation \eqref{eq:proof:wass-derivaitve} we have:
+    \begin{multline*}
+        \brac{fh_t,\delta_\mu\varphi_t(\mu;z_1) -\delta_\mu\varphi_t(\mu;z_2)} \\
+        = f(z_1) - f(z_2) + \int_0^t \brac{A_sf,h_s\delta_\mu\varphi_s(\mu;z_1) - h_s\delta_\mu\varphi_s(\mu;z_2)} \dd s \\
+        \leq d_\alpha(z_1,z_2) + C\int_0^t (\|\mu\|_{\psi_1} + \gamma_s \|\mu\|_{\psi_2}) \tilde{W}(h_s\delta_\mu\varphi_s(\mu;z_1),h_s\delta_\mu\varphi_s(\mu;z_2)) \dd s 
+    \end{multline*}
+    where we remind that $\gamma_t = \int_0^t \brac{1,\mu_s} \dd s \leq t\|\mu\|$. By passing to the supremum on the LHS and a use of the Gronwall lemma one gets that for all $t \in [0,T]$:
+    \begin{align*}
+        \tilde{W}(h_t\delta_\mu\varphi_t(\mu;z_1),h_t\delta_\mu\varphi_t(\mu;z_2)) \leq d_\alpha(z_1,z_2) e^{CT(\|\mu\|_{\psi_1} +  T\|\mu\|\|\mu\|_{\psi_2})}\ .
+    \end{align*}
+    Finally by step $1$:
+    \begin{align*}
+        \tilde{W}(\delta_\mu\varphi_t(\mu;z_1),\delta_\mu\varphi_t(\mu;z_2)) \leq d_\alpha(z_1,z_2) e^{CT(\|\mu\|_{\psi_1} +  T\|\mu\|\|\mu\|_{\psi_2})}
+    \end{align*}
+\end{proof}
+
 \begin{remark}
     \red{A bouger eventuellement} We actually believe that a more careful approach could allow us at least in the case of the specific kernel $K_\alpha$ to control the dependency in $T$ and find that we the Lip constant is controlled in time.
-    Notes on pourrait au lieu du Gronwall sur $h_tm_t$ faire Gronwall sur $m_t$ mais en utilisant l'équation donnée par $h_tm_t$ ça pourrait permettre de bien controler ces constantes de merde. Remarque que en réalité $W(m_t) \leq \brac{1,\mu_t} W(h_tm_t)$ !!!!
+    Notes on pourrait au lieu du Gronwall sur $h_tm_t$ faire Gronwall sur $m_t$ mais en utilisant l'équation donnée par $h_tm_t$ ça pourrait permettre de bien controler ces constantes. Remarque que en réalité $W(m_t) \leq \brac{1,\mu_t} W(h_tm_t)$ !!!!
 \end{remark}
-An immediate consequence of the previous control of the derivative is the regularity of the solution to the $\SCE$.
+An immediate remarkable consequence of the previous control of the derivative is the regularity of the solution to the $\SCE$.
 \begin{proposition}
     For all $t \in [0,T]$:
     \begin{align*}
-        W_{1,\psi_1} (\varphi_t(\mu),\varphi_t(\tilde{\mu})) \leq e^{CT(\|\mu\|_{\psi_1} + \| \tilde{\mu}\|_{\psi_1} +  T(\|\mu\|+ \|\tilde{\mu}\|)(\|\mu \|_{\psi_2} + \|\tilde{\mu}\|_{\psi_2}))} W_{1,\psi_1} (\mu,\tilde{\mu})\ .
+        W_{1,\psi_1} (\varphi_t(\mu),\varphi_t(\tilde{\mu})) \leq W_{1,\psi_1} (\mu,\tilde{\mu}) C(T,\mu,\tilde{\mu}) \ .
     \end{align*}
+    where $C$ is of the form:
+    \[
+        C(T,\mu,\tilde{\mu}) = \left( 1 + T(\|\mu\|+ \|\tilde{\mu}\|)\right)e^{CT(\|\mu\|_{\psi_1} + \| \tilde{\mu}\|_{\psi_1} +  T(\|\mu\|+ \|\tilde{\mu}\|)(\|\mu \|_{\psi_2} + \|\tilde{\mu}\|_{\psi_2}))}
+    \]
 \end{proposition}
 \begin{proof}
-    Let $f $ be such that $Lip(f) \leq 1$ and $|f| \leq \psi_1$, by definition of the flat derivative:
+    Let $f $ be such that $Lip(f) \leq 1$ and $|f| \leq \psi_1$, we have:
     \begin{align*}
-        \brac{f,\varphi_t(\mu)-\varphi_t(\tilde{\mu})} = \int_0^1 \int_{\RRP} \brac{f, \delta_\mu\varphi_t(\theta\mu + (1-\theta)\tilde{\mu};z)} \left(\mu-\tilde{\mu}\right)(\dd z)\ .
+        \brac{f,\varphi_t(\mu)-\varphi_t(\tilde{\mu})} + \left| \varphi_t(\mu)(\RRP) - \varphi_t(\tilde{\mu})(\RRP)\right|
+        &= \brac{f + a,\varphi_t(\mu)-\varphi_t(\tilde{\mu})},
     \end{align*}
-    And from Proposition \ref{prop:lip-regularity-derivaitve} the function $z \mapsto \brac{f, \delta_\mu\varphi_t(\theta\mu + (1-\theta)\tilde{\mu};z)}$ is Lipschitz with $Lip$ pseudo norm under:
+    where $a = sign(\varphi_t(\mu)(\RRP) - \varphi_t(\tilde{\mu})(\RRP))$. By definition of the flat derivaitve we have:
+    \begin{multline*}
+        \brac{f,\varphi_t(\mu)-\varphi_t(\tilde{\mu})} + \left| \varphi_t(\mu)(\RRP) - \varphi_t(\tilde{\mu})(\RRP)\right| \\
+        = \int_0^1 \int_{\RRP} \brac{f + a, \delta_\mu\varphi_t(\theta\mu + (1-\theta)\tilde{\mu};z)} \left(\mu-\tilde{\mu}\right)(\dd z)\ .
+    \end{multline*}
+    The function $f+a$ verifies $Lip(f+a) \leq 1$ and $|f(x) + a| \leq 1 + x^{-\alpha}$. Therefore from Proposition \ref{prop:lip-regularity-derivaitve} the function $z \mapsto \brac{f+a, \delta_\mu\varphi_t(\theta\mu + (1-\theta)\tilde{\mu};z)}$ is Lipschitz with $Lip$ pseudo norm under:
     \begin{align*}
-        2e^{CT(\|\theta\mu + (1-\theta)\tilde{\mu}\|_{\psi_1} +  T\|\theta\mu + (1-\theta)\tilde{\mu}\|\|\theta\mu + (1-\theta)\tilde{\mu}\|_{\psi_2})} \leq
-        2e^{CT(\|\mu\|_{\psi_1} + \| \tilde{\mu}\|_{\psi_1} +  T(\|\mu\|+ \|\tilde{\mu}\|)(\|\mu \|_{\psi_2} + \|\tilde{\mu}\|_{\psi_2}))}
+        (1 + \|\theta\mu + (1-\theta)\tilde{\mu}\|T)e^{CT(\|\theta\mu + (1-\theta)\tilde{\mu}\|_{\psi_1} +  T\|\theta\mu + (1-\theta)\tilde{\mu}\|\|\theta\mu + (1-\theta)\tilde{\mu}\|_{\psi_2})},
     \end{align*}
-    So we already got the Lipschitz part of the Wasserstein norm.
-    \red{Partie ou on compare les masses totales}
+    that is smaller than $C(T,\mu,\tilde{\mu})$ and thus ending the proof.
 \end{proof}
+
+We want now to prove the main result of this part 
 
 \subsection{Another method Coupling and augmented equations}
 We define the relevant equations, we take advantage on the use of a cemetery point to define the Wasserstein distance and the equivalence given by Proposition \ref{prop:Kantorovich-general}. In all this section let $\partial$ be a cemetery point we will work on $\bar{\XF} = \RRP \cup {\partial}$. The role of this point is to store the missing mass, we show how we can treat the solutions of the $\SCE$ with it, let $\Proc{\mu_t}$ be a solution to the $\SCE$ , let $m \geq \mu_0(\RRP)$ we define $\Proc{\bar{\mu}^m_t}$ by :
