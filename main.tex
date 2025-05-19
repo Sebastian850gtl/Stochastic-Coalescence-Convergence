@@ -2113,8 +2113,8 @@ In this proof we use the characterization of Lipschitz functions for $d_\alpha$ 
         \alpha^{-1} x^{1+\alpha}|C_tf'(x) | 
         &\leq e^{-x^{-\alpha}\gamma_t}\int_{\RRP}(\gamma_t K_\alpha(x,y) + 1) (y^{-\alpha} + 1)e^{y^{-\alpha}\gamma_t} \mu_t(\dd y) \\
         &\leq \int_{\RRP}(\gamma_t y^{-\alpha} + 1) (y^{-\alpha} + 1)e^{y^{-\alpha}\gamma_t} \mu_t(\dd y)\\
-        &\leq C\gamma_t \int_{\RRP}(1 + y^{-2\alpha}) e^{y^{-\alpha}\gamma_t} \mu_t(\dd y)\\
-        &\leq C\gamma_t \|\mu\|_{1 + \psi_2}\ .
+        &\leq C(1 + \gamma_t )\int_{\RRP}(1 + y^{-2\alpha}) e^{y^{-\alpha}\gamma_t} \mu_t(\dd y)\\
+        &\leq C(1 + \gamma_t )\|\mu\|_{1 + \psi_2}\ .
     \end{align*}
     We used the Lemma \red{lemme exponentiel} for the last line. We treat $B_t$ now:
     \begin{multline*}
@@ -2149,19 +2149,19 @@ In this proof we use the characterization of Lipschitz functions for $d_\alpha$ 
         \leq 2\alpha x^{-1-\alpha} \int_{\RRP} (y^{-\alpha} + 1)e^{\gamma_t y^{-\alpha}}\mu_t(\dd y)
         \leq 2\alpha x^{-1-\alpha} \|\mu\|_{1 + \psi_1}\ .
     \end{multline*}
-    In conclusion we found that the previous function $A_tf$ is Lipschitz with a Lip pseudo norm smaller than $C(\gamma_t \|\mu\|_{1 + \psi_2} + \|\mu\|_{1 + \psi_1})$ from our original equation \eqref{eq:proof:wass-derivaitve} we have:
+    In conclusion we found that the previous function $A_tf$ is Lipschitz with a Lip pseudo norm smaller than $C\times(1 + \gamma_t )\|\mu\|_{1 + \psi_2}$ from our original equation \eqref{eq:proof:wass-derivaitve} we have:
     \begin{multline*}
         \brac{fh_t,\delta_\mu\varphi_t(\mu;z_1) -\delta_\mu\varphi_t(\mu;z_2)} \\
         = f(z_1) - f(z_2) + \int_0^t \brac{A_sf,h_s\delta_\mu\varphi_s(\mu;z_1) - h_s\delta_\mu\varphi_s(\mu;z_2)} \dd s \\
-        \leq d_\alpha(z_1,z_2) + C\int_0^t (\|\mu\|_{1 +\psi_1} + \gamma_s \|\mu\|_{1 + \psi_2}) \tilde{W}(h_s\delta_\mu\varphi_s(\mu;z_1),h_s\delta_\mu\varphi_s(\mu;z_2)) \dd s 
+        \leq d_\alpha(z_1,z_2) + C\int_0^t (1 + \gamma_s)\|\mu\|_{1 + \psi_2} \tilde{W}(h_s\delta_\mu\varphi_s(\mu;z_1),h_s\delta_\mu\varphi_s(\mu;z_2)) \dd s 
     \end{multline*}
     where we remind that $\gamma_t = \int_0^t \brac{1,\mu_s} \dd s \leq t\|\mu\|$. By passing to the supremum on the LHS and a use of the Gronwall lemma one gets that for all $t \in [0,T]$:
     \begin{align*}
-        \tilde{W}(h_t\delta_\mu\varphi_t(\mu;z_1),h_t\delta_\mu\varphi_t(\mu;z_2)) \leq d_\alpha(z_1,z_2) e^{CT(\|\mu\|_{1 + \psi_1} +  T\|\mu\|\|\mu\|_{1 + \psi_2})}\ .
+        \tilde{W}(h_t\delta_\mu\varphi_t(\mu;z_1),h_t\delta_\mu\varphi_t(\mu;z_2)) \leq d_\alpha(z_1,z_2) e^{CT(1 +  T \brac{1,\mu})\|\mu\|_{1 + \psi_2}}\ .
     \end{align*}
     Finally by step $1$:
     \begin{align*}
-        \tilde{W}(\delta_\mu\varphi_t(\mu;z_1),\delta_\mu\varphi_t(\mu;z_2)) \leq d_\alpha(z_1,z_2)(1 + aT\|\mu\|) e^{CT(\|\mu\|_{\psi_1} +  T\|\mu\|\|\mu\|_{\psi_2})},
+        \tilde{W}(\delta_\mu\varphi_t(\mu;z_1),\delta_\mu\varphi_t(\mu;z_2)) \leq d_\alpha(z_1,z_2)(1 + aT\|\mu\|) e^{CT(1 +  T \brac{1,\mu})\|\mu\|_{1 + \psi_2}},
     \end{align*}
     thus ending the proof.
 \end{proof}
@@ -2199,16 +2199,16 @@ An immediate remarkable consequence of the previous control of the derivative is
     \end{align*}
     For the comparaison of masses part we have from the Smolochowski coagulation equation:
     \begin{align*}
-        \brac{1,\varphi_t(\mu)-\varphi_t(\tilde{\mu})} =& \brac{1,\mu-\nu} - \int_0^t \brac{K_\alpha ,\left( \varphi_s(\mu)+\varphi_s(\tilde{\mu})\right)\otimes\left(\varphi_s(\mu)-\varphi_s(\tilde{\mu})\right)}\dd s \\
-        =& \brac{1,\mu-\nu} - \int_0^t \brac{1,\varphi_s(\mu)-\varphi_s(\tilde{\mu})}\int_{\RRP} x^{-\alpha} \left(\varphi_s(\mu)+\varphi_s(\tilde{\mu})\right)(\dd x) \dd s \\
-        &- \int_0^t \brac{1,\varphi_s(\mu)+\varphi_s(\tilde{\mu})} \int_{\RRP} x^{-\alpha} \left(\varphi_s(\mu)+\varphi_s(\tilde{\mu})\right)(\dd x) \dd s\\
-        \leq& \brac{1,\mu-\nu} - \int_0^t \brac{1,\varphi_s(\mu)-\varphi_s(\tilde{\mu})}\int_{\RRP} x^{-\alpha} \left(\varphi_s(\mu) + \varphi_s(\tilde{\mu})\right)(\dd x) \dd s\\
-        &+ \int_0^t \brac{1,\varphi_s(\mu)+\varphi_s(\tilde{\mu})} W_{1,\psi_1}^L\left(\varphi_s(\mu),\varphi_s(\tilde{\mu})\right) \dd s
+        \brac{1,\varphi_t(\mu)-\varphi_t(\tilde{\mu})} =& \brac{1,\mu-\nu} - \dfrac12\int_0^t \brac{K_\alpha ,\left( \varphi_s(\mu)+\varphi_s(\tilde{\mu})\right)\otimes\left(\varphi_s(\mu)-\varphi_s(\tilde{\mu})\right)}\dd s \\
+        =& \brac{1,\mu-\nu} - \dfrac12\int_0^t \brac{1,\varphi_s(\mu)-\varphi_s(\tilde{\mu})}\int_{\RRP} x^{-\alpha} \left(\varphi_s(\mu)+\varphi_s(\tilde{\mu})\right)(\dd x) \dd s \\
+        &- \dfrac12\int_0^t \brac{1,\varphi_s(\mu)+\varphi_s(\tilde{\mu})} \int_{\RRP} x^{-\alpha} \left(\varphi_s(\mu)+\varphi_s(\tilde{\mu})\right)(\dd x) \dd s\\
+        \leq& \brac{1,\mu-\nu} - \dfrac12\int_0^t \brac{1,\varphi_s(\mu)-\varphi_s(\tilde{\mu})}\int_{\RRP} x^{-\alpha} \left(\varphi_s(\mu) + \varphi_s(\tilde{\mu})\right)(\dd x) \dd s\\
+        &+ \dfrac12\int_0^t \brac{1,\varphi_s(\mu)+\varphi_s(\tilde{\mu})} W_{1,\psi_1}^L\left(\varphi_s(\mu),\varphi_s(\tilde{\mu})\right) \dd s
     \end{align*}
     and therefore by Gronwall lemma,
     \begin{multline*}
-        \brac{1,\varphi_t(\mu)-\varphi_t(\tilde{\mu})} \leq \left(\brac{1,\mu-\nu} + \int_0^t \brac{1,\varphi_s(\mu)+\varphi_s(\tilde{\mu})} W_{1,\psi_1}^L\left(\varphi_s(\mu),\varphi_s(\tilde{\mu})\right) \dd s\right) \\
-        \times e^{-\int_0^t \int_{\RRP} x^{-\alpha} \left(\varphi_s(\mu) + \varphi_s(\tilde{\mu})\right)(\dd x) \dd s}\\
+        \brac{1,\varphi_t(\mu)-\varphi_t(\tilde{\mu})} \leq \left(\brac{1,\mu-\nu} + \dfrac12\int_0^t \brac{1,\varphi_s(\mu)+\varphi_s(\tilde{\mu})} W_{1,\psi_1}^L\left(\varphi_s(\mu),\varphi_s(\tilde{\mu})\right) \dd s\right) \\
+        \times e^{-\frac12\int_0^t \int_{\RRP} x^{-\alpha} \left(\varphi_s(\mu) + \varphi_s(\tilde{\mu})\right)(\dd x) \dd s}\\
         \leq \left| \brac{1,\mu-\nu}\right| + T\brac{1,\mu + \tilde{\mu}} C(T,\mu + \tilde{\mu})W_{1,\psi_1}^L\left(\mu,\tilde{\mu}\right)\ .
     \end{multline*}
     We find the same bound for $\brac{1,\varphi_t(\mu)-\varphi_t(\tilde{\mu})}$ and therefore:
@@ -2217,7 +2217,7 @@ An immediate remarkable consequence of the previous control of the derivative is
     \end{align*}
     And finally putting the Lipschitz and comparaison of masses part we get:
     \begin{align*}
-        W_{1,\psi_1}(\varphi_t(\mu),\varphi_t(\tilde{\mu}))\leq \left( 1 + + T\brac{1,\mu + \tilde{\mu}} \right) C(T,\mu + \tilde{\mu})W_{1,\psi_1}\left( \mu,\tilde{\mu}\right)\ .
+        W_{1,\psi_1}(\varphi_t(\mu),\varphi_t(\tilde{\mu}))\leq \left( 1 + T\brac{1,\mu + \tilde{\mu}} \right) C(T,\mu + \tilde{\mu})W_{1,\psi_1}\left( \mu,\tilde{\mu}\right)\ .
     \end{align*}
 \end{proof}
 
@@ -2246,10 +2246,10 @@ We prove now the main result of this part,
     Step $1$: We show that $W_L(m_t - \tilde{m}_t) \leq W_L(h_tm_t - \tilde{h}_t\tilde{m}_t) + d_\alpha(z_1,z_2)W_{1,\psi_1}(\mu_t,\tilde{\mu}_t)$.
 
     Let $f$ be such that $Lip(f) \leq 1$ and $|f| \leq 1 + \psi_1$ assume that at time $t$:
-    \begin{align*}
+    \begin{align}\label{proof:eq:wass-huge-assumption1}
         \int_0^t \int_{\RRP} K_\alpha(x,y) (\mu_s-\tilde{\mu}_s)(\dd x)\dd s \geq 0,
-    \end{align*}
-    In the opposite case we can simply revert the role of $\mu$ and $\tilde{\mu}$ in what follows.
+    \end{align}
+    In the opposite case we can simply swap the roles of $\mu$ and $\tilde{\mu}$ in what follows.
     \begin{align*}
         \brac{f,m_t-\tilde{m}_t} 
         &= \brac{f(h_t)^{-1}, h_t m_t} - \brac{f(\tilde{h}_t)^{-1},\tilde{h}_t\tilde{m}_t}\\
@@ -2262,17 +2262,25 @@ We prove now the main result of this part,
     \end{align*}
     For the second term we have:
     \begin{align*}
-        \brac{f(h_t)^{-1} - f(\tilde{h}_t)^{-1},\tilde{h}_t\tilde{m}_t} = \brac{f(h_t)^{-1}\tilde{h}_t - f,\delta_\mu\varphi_t(\tilde{\mu}:z_1)- \delta_\mu\varphi_t(\tilde{\mu}:z_2)}\ .
+        \brac{f(h_t)^{-1} - f(\tilde{h}_t)^{-1},\tilde{h}_t\tilde{m}_t} = \brac{f(h_t)^{-1} - f(\tilde{h}_t)^{-1},(\tilde{h}_t)^{-1}\delta_\mu\varphi_t(\tilde{\mu}:z_1)- (\tilde{h}_t)^{-1}\delta_\mu\varphi_t(\tilde{\mu}:z_2)}\ .
     \end{align*}
-    Let us study the function $f\left((h_t)^{-1}\tilde{h}_t - 1\right)$ and show that it is Lpischitz in order to use the Proposition \ref{prop:wass-derivaitve} and get the desired bound. We differentiate the latter function that we denote by $g$:
+    Let us study the function
+    \begin{align*}
+        g &:= f\left((h_t)^{-1} - (\tilde{h}_t)^{-1}\right) = f\left((h_t)^{-1}\tilde{h}_t - 1 \right)(\tilde{h}_t)^{-1}\ .
+    \end{align*}
+    and show that it is Lpischitz in order to use the Proposition \ref{prop:wass-derivaitve} and get the desired bound. We differentiate $g$:
     \begin{multline*}
-        g'(x) = f'(x) \left(e^{-\int_0^t \int_{\RRP} K_\alpha(x,y) (\mu_s-\tilde{\mu}_s)(\dd x)\dd s} - 1\right) \\
-            - f(x) \int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) (\mu_s-\tilde{\mu}_s)(\dd x)\dd s e^{-\int_0^t \int_{\RRP} K_\alpha(x,y) (\mu_s-\tilde{\mu}_s)(\dd x)\dd s}
+        g'(x) = f'(x) \left(e^{-\int_0^t \int_{\RRP} K_\alpha(x,y) (\mu_s-\tilde{\mu}_s)(\dd x)\dd s} - 1\right) e^{-\int_0^t \int_{\RRP} K_\alpha(x,y)\tilde{\mu}_s(\dd y) \dd s}\\
+            - f(x) \int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) (\mu_s-\tilde{\mu}_s)(\dd x)\dd s\times  e^{-\int_0^t \int_{\RRP} K_\alpha(x,y) \mu_s(\dd x)\dd s} \\
+            - f(x) \left(e^{-\int_0^t \int_{\RRP} K_\alpha(x,y) (\mu_s-\tilde{\mu}_s)(\dd x)\dd s} - 1\right)\\
+            \times  \int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) \tilde{\mu}_s(\dd x)\dd s \times e^{-\int_0^t \int_{\RRP} K_\alpha(x,y)\tilde{\mu}_s(\dd y) \dd s}\ .
     \end{multline*}
-    We now use our assumptions that makes the term inside the exponentials negative. We have:
+    We now use the assumption \eqref{proof:eq:wass-huge-assumption1} that makes the term inside the exponentials negative. We have:
     \begin{multline*}
         |g'(x)| \leq |f'(x)|\left|\int_0^t \int_{\RRP} K_\alpha(x,y) (\mu_s-\tilde{\mu}_s)(\dd x)\dd s\right|\\
-        + |f(x)| \left|\int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) (\mu_s-\tilde{\mu}_s)(\dd x)\dd s\right|\ .
+        + |f(x)| \left|\int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) (\mu_s-\tilde{\mu}_s)(\dd x)\dd s\right|\\
+        + |f(x)| \left|\int_0^t \int_{\RRP} K_\alpha(x,y) (\mu_s-\tilde{\mu}_s)(\dd x)\dd s\right|\\
+        \times  \int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) \tilde{\mu}_s(\dd x)\dd s \times e^{-\int_0^t \int_{\RRP} K_\alpha(x,y)\tilde{\mu}_s(\dd y) \dd s}\ .
     \end{multline*}
     Bounding the first erm:
     \begin{align*}
@@ -2282,8 +2290,8 @@ We prove now the main result of this part,
     Bounding the second term:
     \begin{multline*}
         |f(x)| \left|\int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) (\mu_s-\tilde{\mu}_s)(\dd x)\dd s\right| \\
-        \leq \alpha x^{-1-\alpha} \int_0^t \brac{1,\mu_s-\tilde{\mu}_s} \dd s \times e^{-\int_0^t \int_{\RRP} K_\alpha(x,y) (\mu_s-\tilde{\mu}_s)(\dd x)\dd s}\\
-        \leq \alpha x^{-1-\alpha} \int_0^t W_{1,\psi_1}\left(\mu_s, \tilde{\mu}_s \right) \dd s\ .
+        \leq \alpha x^{-1-\alpha}(1  + x^{-\alpha}) \int_0^t \left|\vphantom{A^2}\brac{1,\mu_s-\tilde{\mu}_s} \right|\dd s \times e^{-\int_0^t \int_{\RRP} K_\alpha(x,y) (\mu_s-\tilde{\mu}_s)(\dd x)\dd s}\\
+        \leq \alpha x^{-1-\alpha} (1  + x^{-\alpha}) \int_0^t W_{1,\psi_1}\left(\mu_s, \tilde{\mu}_s \right) \dd s\ .
     \end{multline*}
     We focus deeper on a particular term:
     \begin{multline*}
