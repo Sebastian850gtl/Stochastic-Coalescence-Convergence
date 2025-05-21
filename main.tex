@@ -2242,8 +2242,8 @@ This technical lemma contains computations that will be repeteaded in most of th
     \end{align*}
     and $\tilde{G}_tf$ similarly. The following assertions are true.
     \begin{enumerate}[label=(\roman*)]
-        \item For all $x \in \RRP$, $(1 + x^{-\alpha})\left|\partial_x \left( h_t(x)\right)^{-1} \right|\leq \alpha \left(1 + t\|\mu\| \right)x^{-1-\alpha} $.
-        \item For all $x \in \RRP$, $(1 + x^{-\alpha})\left|\left( h_t(x)\right)^{-1}-\left( \tilde{h}_t(x)\right)^{-1} \right|\leq \left(1 + t\|\mu\| \right) \int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s) \dd s$.
+        \item For all $x \in \RRP$, $(1 + x^{-\alpha})\left|\partial_x \left( h_t(x)\right)^{-1} \right|\leq \alpha x^{-1-\alpha}\left(1 + t\|\mu\| \right) $.
+        \item For all $x \in \RRP$, $\left|\left( h_t(x)\right)^{-1}-\left( \tilde{h}_t(x)\right)^{-1} \right|\leq (1 + x^{-\alpha})\int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s) \dd s$.
         \item For all $x \in \RRP$, $(1 + x^{-\alpha})\left|\partial_x \left( h_t(x)\right)^{-1}- \partial_x\left( \tilde{h}_t(x)\right)^{-1} \right|\leq \alpha \left(1 + t\|\mu\| \right)x^{-1-\alpha} \left(1 + t\|\mu\| \right) \int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s) \dd s$.
         \item For all $x,y \in \RRP$, $|G_t(x,y)| \leq (1 + x^{-\alpha})(1 + y^{-\alpha})$.
         \item For all $x,y \in \RRP$, $\left|\partial_x G_t(x,y) \right| \leq C \alpha x^{-1-\alpha}(1 + y^{-\alpha})$.
@@ -2252,7 +2252,51 @@ This technical lemma contains computations that will be repeteaded in most of th
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    
+    $(i)$ We compute:
+    \begin{align*}
+        \partial_x \left( h_t(x)\right)^{-1} = \int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) \mu_s(\dd y) \dd s e^{-\int_0^t \int_{\RRP} K_\alpha(x,y) \mu_s(\dd y) \dd s}
+    \end{align*}
+    and 
+    \begin{align*} 
+        (1 + x^{-\alpha})\left|\partial_x \left( h_t(x)\right)^{-1}\right| \leq \alpha x^{-1-\alpha} (1 + x^{-\alpha})  \int_0^t\|\mu_s\|\dd s e^{-\int_0^t \int_{\RRP} K_\alpha(x,y) \mu_s(\dd y) \dd s}
+    \end{align*}
+    Using the form of our kernel we have:
+    \begin{align*}
+        e^{-\int_0^t \int_{\RRP} K_\alpha(x,y) \mu_s(\dd y) \dd s} =  e^{-\int_0^t x^{-\alpha}\| \mu_s\| + \|\mu_s\|_{\psi_1} \dd s }\leq e^{-\int_0^t \|\mu_s\| \dd s }\ .
+    \end{align*}
+    and therefore finally using the inequality $xe^{-x} \leq 1$ and the fact that $t\mapsto \| \mu_t\|$ is non-increasing:
+    \begin{align*}
+        (1 + x^{-\alpha})\left|\partial_x \left( h_t(x)\right)^{-1}\right| \leq \alpha x^{-1-\alpha} \left(t\|\mu\| + 1\right)\ .
+    \end{align*}
+
+    $(ii)$ Computing,
+    \begin{align*}
+        \left|\left( h_t(x)\right)^{-1}-\left( \tilde{h}_t(x)\right)^{-1} \right| \leq \int_0^t \int_{\RRP} K_\alpha(x,y) \left(\mu_s - \tilde{\mu}\right)(\dd y) \dd s \left(\left( h_t(x)\right)^{-1} \vee \left( \tilde{h}_t(x)\right)^{-1} \right) 
+    \end{align*}
+    The function $y \mapsto K_\alpha(x,y)$ is Lipschitz and is below $(1 + x^{-\alpha})(1 + y^{-\alpha})$ we deduce that:
+    \begin{align*}
+        \left|\left( h_t(x)\right)^{-1}-\left( \tilde{h}_t(x)\right)^{-1} \right| \leq (1 + x^{-\alpha})\int_0^t W_{1,\psi_1} (\mu_s,\tilde{\mu}_s)\dd s\ .
+    \end{align*} 
+
+    $(iii)$ We compute the partial derivaitve:
+    \begin{align*}
+        \partial_x \left( h_t(x)\right)^{-1}- \partial_x\left( \tilde{h}_t(x)\right)^{-1} =& \int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) \mu_s(\dd y) \dd s \left( h_t(x)\right)^{-1} \\
+        &- \int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) \tilde{\mu}_s(\dd y) \dd s \left( \tilde{h}_t(x)\right)^{-1}\ .
+    \end{align*}
+    We have:
+    \begin{align*}
+        \left|\partial_x \left( h_t(x)\right)^{-1}- \partial_x\left( \tilde{h}_t(x)\right)^{-1} \right| \leq& \left|\int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) \left( \mu_s - \tilde{\mu}_s\right)(\dd y) \dd s\right| \\
+        &+ \left|\int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) \tilde{\mu}_s(\dd y) \dd s\right| \times \left|\left( h_t(x)\right)^{-1}-\left( \tilde{h}_t(x)\right)^{-1} \right|
+    \end{align*}
+    We can bound the second term using $(ii)$, as for the first term we have:
+    \begin{align*}
+        \left|\int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) \left( \mu_s - \tilde{\mu}_s\right)(\dd y) \dd s\right| 
+        &= \alpha x^{-\alpha-1} \int_0^t \left|\brac{1,\mu_s - \tilde{\mu}_s}\right| \dd s\\
+        &\leq \alpha x^{-\alpha-1}\int_0^t W_{1,\psi_1} (\mu_s,\tilde{\mu}_s)\dd s
+    \end{align*}
+    \red{a finir}
+
+    $(iv)$
 \end{proof}
 
 \begin{lemma}
