@@ -2220,9 +2220,70 @@ An immediate remarkable consequence of the previous control of the derivative is
         W_{1,\psi_1}(\varphi_t(\mu),\varphi_t(\tilde{\mu}))\leq \left( 1 + T\brac{1,\mu + \tilde{\mu}} \right) C(T,\mu + \tilde{\mu})W_{1,\psi_1}\left( \mu,\tilde{\mu}\right)\ .
     \end{align*}
 \end{proof}
+For the last result of this part we are going to need the following technical lemma. It gives some regularity properties of the $\SCE$ solutions with the Wasserstein distance associated with the distance $d_{p\alpha}$. Aforementioned Wasserstein distance is defined by:
+\begin{align*}
+    W_{1,\psi_p}(\mu,\nu) = \sup_{\substack{Lip_p(f) \leq 1 \\ |f| \leq 1 + \psi_p}} \brac{f,\mu -\nu},
+\end{align*}
+where
+\begin{align*}
+    Lip_p(f) = \sup_{x,y \in \RRP} \dfrac{\left|f(x) - f(y) \right|}{d_{p\alpha}(x,y)}\ .
+\end{align*}
 
-We prove now the main result of this part,
+This technical lemma contains computations that will be repeteaded in most of the results of this section.
+\begin{lemma}
+    Let $\Proc{\mu_t}, \Proc{\tilde{\mu}_t}$ be two solutions of the Smoluchowski coagulation equation of kernel $K_\alpha$ of initial value respectively $\mu,\tilde{\mu}$. We introduce:
+    \begin{align*}
+        h_t(x) = \exp\left(\int_0^t \int_{\RRP} K_\alpha(x,y) \mu_s(\dd y) \dd s \right)
+    \end{align*}
+    and $\tilde{h}_t$ similarly. We also introduce the functions:
+    \begin{align*}
+        G_{t}(x,y) &= K_\alpha(x,y) h_t(x+y)\left( h_t(x)\right)^{-1}\\
+         &=  K_\alpha(x,y) e^{\int_0^t \int_{\RRP} K_\alpha(x+y,z) - K_\alpha(x,z) \mu_s(\dd z) \dd s}
+    \end{align*}
+    and $\tilde{G}_tf$ similarly. The following assertions are true.
+    \begin{enumerate}[label=(\roman*)]
+        \item For all $x \in \RRP$, $(1 + x^{-\alpha})\left|\partial_x \left( h_t(x)\right)^{-1} \right|\leq \alpha \left(1 + t\|\mu\| \right)x^{-1-\alpha} $.
+        \item For all $x \in \RRP$, $(1 + x^{-\alpha})\left|\left( h_t(x)\right)^{-1}-\left( \tilde{h}_t(x)\right)^{-1} \right|\leq \left(1 + t\|\mu\| \right) \int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s) \dd s$.
+        \item For all $x \in \RRP$, $(1 + x^{-\alpha})\left|\partial_x \left( h_t(x)\right)^{-1}- \partial_x\left( \tilde{h}_t(x)\right)^{-1} \right|\leq \alpha \left(1 + t\|\mu\| \right)x^{-1-\alpha} \left(1 + t\|\mu\| \right) \int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s) \dd s$.
+        \item For all $x,y \in \RRP$, $|G_t(x,y)| \leq (1 + x^{-\alpha})(1 + y^{-\alpha})$.
+        \item For all $x,y \in \RRP$, $\left|\partial_x G_t(x,y) \right| \leq C \alpha x^{-1-\alpha}(1 + y^{-\alpha})$.
+        \item For all $x,y \in \RRP$, $\left|G_t(x,y)- \tilde{G}_t(x,y)\right| \leq C(1 + x^{-\alpha})(1 + y^{-\alpha})\int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s) \dd s $.
+        \item For all $x,y \in \RRP$, $\left|\partial_x \left(G_t(x,y)- \tilde{G}_t(x,y)\right)  \right| \leq C\alpha x^{-1-\alpha}(1 + y^{-\alpha})\int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s) \dd s $.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
 
+\begin{lemma}
+    For all $t \in [0,T]$ we have:
+    \begin{align*}
+        W_{1,\psi_2}(h_t \mu_t,\tilde{h}_t \tilde{\mu}_t) \leq W_{1,\psi_2}(\mu,\tilde{\mu}) + W_{1,\psi_1}(\mu,\tilde{\mu})\ .
+    \end{align*}
+\end{lemma}
+\begin{proof}
+    We introduce the two following functions:
+    \begin{align*}
+        G_tf(x,y) &= K_\alpha(x,y) f(x+y) h_t(x+y)\left(h_t(x)\right)^{-1}, \\
+        \tilde{G}_tf(x,y) &= K_\alpha(x,y) f(x+y) \tilde{h}_t(x+y)\left(\tilde{h}_t(x)\right)^{-1}\ .
+    \end{align*}
+    Let $f$ be such that $Lip_p(f) \leq 1$ and $|f| \leq 1 + \psi_p$ we have for all $t \geq 0$:
+    \begin{align*}
+        \brac{f,h_t\mu_t - \tilde{h}_t \tilde{\mu}_t} = \brac{f,\mu - \tilde{\mu}} + \int_0^t \brac{G_sf,\mu_s \otimes h_s\mu_s} - \brac{\tilde{G}_sf,\tilde{\mu}_s\otimes\tilde{h}_s\tilde{\mu}_s} \dd s\ .
+    \end{align*}
+    Breaking down the term to bound in three subparts,
+    \begin{subequations}
+        \begin{align}
+            \brac{G_tf,\mu_t \otimes h_t\mu_t} - \brac{\tilde{G}_tf,\tilde{\mu}_t\otimes \tilde{h}_t\tilde{\mu}_t} =& \brac{G_tf,\mu_t \otimes\left(h_t\mu_t -  \tilde{h}_t \tilde{\mu}_t\right)}\label{proof:eq:h_tmu_t-1} \\
+            &+ \brac{G_tf - \tilde{G}_tf,\mu_t \otimes \tilde{h}_t \tilde{\mu}_t}\label{proof:eq:h_tmu_t-2}\\
+            &+ \brac{\tilde{G}_tf,\left(\mu_t-\tilde{\mu}_t\right) \otimes \tilde{h}_t \tilde{\mu}_t}\label{proof:eq:h_tmu_t-3}
+        \end{align}
+        \label{proof:eq:h_tmu_t}
+    \end{subequations}
+    For \eqref{proof:eq:h_tmu_t-1} 
+\end{proof}
+
+We state and prove the main result of this part.
 \begin{proposition}
     Let $\mu,\tilde{\mu} \in \MC_{\phi_3}^+(\RRP)$, let $f$ be a Lipschitz function such that $Lip(f) \leq 1$ and $|f| \leq \psi_1$. For all $t \geq 0$, the function:
     \[
@@ -2245,7 +2306,7 @@ We prove now the main result of this part,
     \end{align*}
     Step $1$: We show that $W_L(m_t - \tilde{m}_t) \leq W_L(h_tm_t - \tilde{h}_t\tilde{m}_t) + C(T,\mu,\tilde{\mu})d_\alpha(z_1,z_2)W_{1,\psi_1}(\mu,\tilde{\mu})$.
 
-    Let $f$ be such that $Lip(f) \leq 1$ and $|f| \leq 1$ assume that at time $t$:
+    Let $f$ be such that $Lip(f) \leq 1$ and $|f| \leq 1$ assume that at time $t$: \red{Attention supoposer ça n'est pas possible pour tout x}
     \begin{align}\label{proof:eq:wass-huge-assumption1}
         \int_0^t \int_{\RRP} K_\alpha(x,y) (\mu_s-\tilde{\mu}_s)(\dd y)\dd s \geq 0,
     \end{align}
