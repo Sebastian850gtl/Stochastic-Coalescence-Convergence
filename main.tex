@@ -1147,19 +1147,19 @@ We introduce a notation for this section, we denote by $\Proc{\psi_t(m)}$ the so
 %     \end{multline*}
 %     where we used the bound given in proposition \ref{prop:bound_smol_exponential}. For the second term we will use the following:
 %     \begin{align*}
-%         \left| G^{\varepsilon_p}_s(x,y) - G^{\varepsilon_q}_s(x,y) \right| &\leq CK_\alpha(x,y)\int_0^t \|\mu_s^{\varepsilon_p}-\mu_s^{\varepsilon_q}\|_{1 + \psi_1} \dd s \\
-%         &\leq C(T,\|\mu\|_{1 + \psi_2})K_\alpha(x,y) \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}
+%         \left| G^{\varepsilon_p}_s(x,y) - G^{\varepsilon_q}_s(x,y) \right| &\leq CK_\alpha(x,y)\int_0^t \|\mu_s^{\varepsilon_p}-\mu_s^{\varepsilon_q}\|_{\psi_1} \dd s \\
+%         &\leq C(T,\|\mu\|_{\psi_2})K_\alpha(x,y) \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}
 %     \end{align*}
 %     The final bound used comes from the estimates found in the proof of the $\SCE$ well-posedness \ref{lem:well_posedness_smol_eq}. We get:
 %     \begin{multline*}
 %         \int_{\RRP}\int_{\RRP}K_\alpha(x,y)f(x+y) (G^{\varepsilon_p}_t - G^{\varepsilon_q}_t)(x,y)\nu_t^{\varepsilon_q}(\dd x)\nu_t^{\varepsilon_q}(\dd y)\\
-%         \leq \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}C(T,\|\mu\|_{1 + \psi_2})\int_{\RRP}K_\alpha(x,y)^2 f(x+y)\nu_t^{\varepsilon_q}(\dd x)\nu_t^{\varepsilon_q}(\dd y) \\
-%         \leq \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}C(T,\|\mu\|_{1 + \psi_2}) \left(\left\|\nu_t^{\varepsilon_q}\right\|_{\psi_2}\right)^2 \\
-%         \leq \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}C(T,\|\mu\|_{1 + \psi_2}) \left(\left\|\mu\right\|_{\psi_2}\right)^2.
+%         \leq \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}C(T,\|\mu\|_{\psi_2})\int_{\RRP}K_\alpha(x,y)^2 f(x+y)\nu_t^{\varepsilon_q}(\dd x)\nu_t^{\varepsilon_q}(\dd y) \\
+%         \leq \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}C(T,\|\mu\|_{\psi_2}) \left(\left\|\nu_t^{\varepsilon_q}\right\|_{\psi_2}\right)^2 \\
+%         \leq \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}C(T,\|\mu\|_{\psi_2}) \left(\left\|\mu\right\|_{\psi_2}\right)^2.
 %     \end{multline*}
 %     We used once again the bound of the previous Proposition at the last line \ref{prop:bound_smol_exponential}. Putting all bounds together we get:
 %     \begin{align*}
-%         \| \nu_t^{\varepsilon_p}-\nu_t^{\varepsilon_q} \|_{\psi_1} \leq \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}C(T,\|\mu\|_{1 + \psi_2})  + C\|\mu\|_{\psi_1}\int_0^t \| \nu_s^{\varepsilon_p}-\nu_s^{\varepsilon_q} \|_{\psi_1} \dd s.
+%         \| \nu_t^{\varepsilon_p}-\nu_t^{\varepsilon_q} \|_{\psi_1} \leq \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}C(T,\|\mu\|_{\psi_2})  + C\|\mu\|_{\psi_1}\int_0^t \| \nu_s^{\varepsilon_p}-\nu_s^{\varepsilon_q} \|_{\psi_1} \dd s.
 %     \end{align*}
 %     Finally by Gronwall lemma we have that the sequence $\Seq{\Proc{\nu_t^{\varepsilon_n}}}$ is Cauchy in $C\left([0,T]:\MC^+_{\psi_1}(\RRP)\right)$ therefore it converges to a flow of measures $\Proc{\nu_t}$. We verify that $\Proc{h_t^{-1}\nu_t}$ is the solution to the $\SCE$ we have for all $\varepsilon > 0$:
 %     \begin{align*}
@@ -1167,8 +1167,8 @@ We introduce a notation for this section, we denote by $\Proc{\psi_t(m)}$ the so
 %     \end{align*}
 %     Since $(h_t)^{-1} \leq 1$ for all $t \geq 0$ the first term vanishes as $\varepsilon$ tends to zero. For the second term on the right hand side:
 %     \begin{align*}
-%         \|(h_t^{-1} - \left(h^\varepsilon_t\right)^{-1})\nu^\varepsilon_t) \|_{\psi_1} &\leq C \int_0^t\|\mu_s - \mu_s^\varepsilon\|_{1 + \psi_1}\dd s\|\nu^\varepsilon_t \|_{1 + \psi_2} \\
-%         &\leq C(T,\|\mu\|_{1 + \psi_2})\varepsilon^{\alpha}.
+%         \|(h_t^{-1} - \left(h^\varepsilon_t\right)^{-1})\nu^\varepsilon_t) \|_{\psi_1} &\leq C \int_0^t\|\mu_s - \mu_s^\varepsilon\|_{\psi_1}\dd s\|\nu^\varepsilon_t \|_{\psi_2} \\
+%         &\leq C(T,\|\mu\|_{\psi_2})\varepsilon^{\alpha}.
 %     \end{align*}
 %     Therefore $h_t^{-1}\nu_t = \lim\limits_{\varepsilon \to 0} \left(h^{\varepsilon}_t\right)^{-1}\nu^\varepsilon_t $ however since $\left(h^{\varepsilon}_t\right)^{-1}\nu^\varepsilon_t = \mu^\varepsilon_t$ this limit is non other than $\mu_t$ the solution to the $\SCE$. We showed that:
 %     \begin{align*}
@@ -1804,19 +1804,19 @@ Below we prove the lemma, parts of this proof will require elements of the well-
     \end{multline*}
     where we used the bound given in proposition \ref{prop:bound_smol_exponential}. For the second term we will use the following:
     \begin{align*}
-        \left| G^{\varepsilon_p}_s(x,y) - G^{\varepsilon_q}_s(x,y) \right| &\leq CK_\alpha(x,y)\int_0^t \|\mu_s^{\varepsilon_p}-\mu_s^{\varepsilon_q}\|_{1 + \psi_1} \dd s \\
-        &\leq C(T,\|\mu\|_{1 + \psi_2})K_\alpha(x,y) \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}
+        \left| G^{\varepsilon_p}_s(x,y) - G^{\varepsilon_q}_s(x,y) \right| &\leq CK_\alpha(x,y)\int_0^t \|\mu_s^{\varepsilon_p}-\mu_s^{\varepsilon_q}\|_{\psi_1} \dd s \\
+        &\leq C(T,\|\mu\|_{\psi_2})K_\alpha(x,y) \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}
     \end{align*}
     The final bound used comes from the estimates found in the proof of the $\SCE$ well-posedness \ref{lem:well_posedness_smol_eq}. We get:
     \begin{multline*}
         \int_{\RRP}\int_{\RRP}K_\alpha(x,y)f(x+y) (G^{\varepsilon_p}_t - G^{\varepsilon_q}_t)(x,y)\nu_t^{\varepsilon_q}(\dd x)\nu_t^{\varepsilon_q}(\dd y)\\
-        \leq \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}C(T,\|\mu\|_{1 + \psi_2})\int_{\RRP}K_\alpha(x,y)^2 f(x+y)\nu_t^{\varepsilon_q}(\dd x)\nu_t^{\varepsilon_q}(\dd y) \\
-        \leq \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}C(T,\|\mu\|_{1 + \psi_2}) \left(\left\|\nu_t^{\varepsilon_q}\right\|_{\psi_2}\right)^2 \\
-        \leq \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}C(T,\|\mu\|_{1 + \psi_2}) \left(\left\|\mu\right\|_{\psi_2}\right)^2.
+        \leq \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}C(T,\|\mu\|_{\psi_2})\int_{\RRP}K_\alpha(x,y)^2 f(x+y)\nu_t^{\varepsilon_q}(\dd x)\nu_t^{\varepsilon_q}(\dd y) \\
+        \leq \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}C(T,\|\mu\|_{\psi_2}) \left(\left\|\nu_t^{\varepsilon_q}\right\|_{\psi_2}\right)^2 \\
+        \leq \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}C(T,\|\mu\|_{\psi_2}) \left(\left\|\mu\right\|_{\psi_2}\right)^2.
     \end{multline*}
     We used once again the bound of the previous Proposition at the last line \ref{prop:bound_smol_exponential}. Putting all bounds together we get:
     \begin{align*}
-        \| \nu_t^{\varepsilon_p}-\nu_t^{\varepsilon_q} \|_{\psi_1} \leq \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}C(T,\|\mu\|_{1 + \psi_2})  + C\|\mu\|_{\psi_1}\int_0^t \| \nu_s^{\varepsilon_p}-\nu_s^{\varepsilon_q} \|_{\psi_1} \dd s.
+        \| \nu_t^{\varepsilon_p}-\nu_t^{\varepsilon_q} \|_{\psi_1} \leq \left(\varepsilon_p \vee\varepsilon_q \right)^{\alpha}C(T,\|\mu\|_{\psi_2})  + C\|\mu\|_{\psi_1}\int_0^t \| \nu_s^{\varepsilon_p}-\nu_s^{\varepsilon_q} \|_{\psi_1} \dd s.
     \end{align*}
     Finally by Gronwall lemma we have that trgb(31, 23, 23)he sequence $\Seq{\Proc{\nu_t^{\varepsilon_n}}}$ is Cauchy in $C\left([0,T]:\MC^+_{\psi_1}(\RRP)\right)$ therefore it converges to a flow of measures $\Proc{\nu_t}$. We verify that $\Proc{h_t^{-1}\nu_t}$ is the solution to the $\SCE$ we have for all $\varepsilon > 0$:
     \begin{align*}
@@ -1824,8 +1824,8 @@ Below we prove the lemma, parts of this proof will require elements of the well-
     \end{align*}
     Since $(h_t)^{-1} \leq 1$ for all $t \geq 0$ the first term vanishes as $\varepsilon$ tends to zero. For the second term on the right hand side:
     \begin{align*}
-        \|(h_t^{-1} - \left(h^\varepsilon_t\right)^{-1})\nu^\varepsilon_t) \|_{\psi_1} &\leq C \int_0^t\|\mu_s - \mu_s^\varepsilon\|_{1 + \psi_1}\dd s\|\nu^\varepsilon_t \|_{1 + \psi_2} \\
-        &\leq C(T,\|\mu\|_{1 + \psi_2})\varepsilon^{\alpha}.
+        \|(h_t^{-1} - \left(h^\varepsilon_t\right)^{-1})\nu^\varepsilon_t) \|_{\psi_1} &\leq C \int_0^t\|\mu_s - \mu_s^\varepsilon\|_{\psi_1}\dd s\|\nu^\varepsilon_t \|_{\psi_2} \\
+        &\leq C(T,\|\mu\|_{\psi_2})\varepsilon^{\alpha}.
     \end{align*}
     Therefore $h_t^{-1}\nu_t = \lim\limits_{\varepsilon \to 0} \left(h^{\varepsilon}_t\right)^{-1}\nu^\varepsilon_t $ however since $\left(h^{\varepsilon}_t\right)^{-1}\nu^\varepsilon_t = \mu^\varepsilon_t$ this limit is non other than $\mu_t$ the solution to the $\SCE$. We showed that:
     \begin{align*}
@@ -2114,7 +2114,7 @@ In this proof we use the characterization of Lipschitz functions for $d_\alpha$ 
         &\leq e^{-x^{-\alpha}\gamma_t}\int_{\RRP}(\gamma_t K_\alpha(x,y) + 1) (y^{-\alpha} + 1)e^{y^{-\alpha}\gamma_t} \mu_t(\dd y) \\
         &\leq \int_{\RRP}(\gamma_t y^{-\alpha} + 1) (y^{-\alpha} + 1)e^{y^{-\alpha}\gamma_t} \mu_t(\dd y)\\
         &\leq C(1 + \gamma_t )\int_{\RRP}(1 + y^{-2\alpha}) e^{y^{-\alpha}\gamma_t} \mu_t(\dd y)\\
-        &\leq C(1 + \gamma_t )\|\mu\|_{1 + \psi_2}\ .
+        &\leq C(1 + \gamma_t )\|\mu\|_{\psi_2}\ .
     \end{align*}
     We used the Lemma \red{lemme exponentiel} for the last line. We treat $B_t$ now:
     \begin{multline*}
@@ -2130,7 +2130,7 @@ In this proof we use the characterization of Lipschitz functions for $d_\alpha$ 
     \end{multline*}
     For the first term:
     \begin{align*}
-        \int_{\RRP}\partial_x K_\alpha(x,y )\left((x+y)^{-\alpha} + 1\right) e^{\left[(x+y)^{-\alpha}-x^{-\alpha}\right]\gamma_t }\mu_t(\dd y) \leq \alpha x^{-1-\alpha}\|\mu\|_{1 + \psi_1}\ .
+        \int_{\RRP}\partial_x K_\alpha(x,y )\left((x+y)^{-\alpha} + 1\right) e^{\left[(x+y)^{-\alpha}-x^{-\alpha}\right]\gamma_t }\mu_t(\dd y) \leq \alpha x^{-1-\alpha}\|\mu\|_{\psi_1}\ .
     \end{align*}
     For the second term we have $K_\alpha(x,y)(x+y)^{-1-\alpha} \leq 2x^{-1-\alpha}y^{-\alpha}$ and therefore:
     \begin{align*}
@@ -2147,21 +2147,21 @@ In this proof we use the characterization of Lipschitz functions for $d_\alpha$ 
     \begin{multline*}
         \int_{\RRP}K_\alpha(x,y)\left((x+y)^{-\alpha} + 1\right)\alpha\gamma_t\left[x^{-1-\alpha} -(x+y)^{-1-\alpha}\right] e^{\left[(x+y)^{-\alpha}-x^{-\alpha}\right]\gamma_t }\mu_t(\dd y)\\
         \leq 2\alpha x^{-1-\alpha} \int_{\RRP} (y^{-\alpha} + 1)e^{\gamma_t y^{-\alpha}}\mu_t(\dd y)
-        \leq 2\alpha x^{-1-\alpha} \|\mu\|_{1 + \psi_1}\ .
+        \leq 2\alpha x^{-1-\alpha} \|\mu\|_{\psi_1}\ .
     \end{multline*}
-    In conclusion we found that the previous function $A_tf$ is Lipschitz with a Lip pseudo norm smaller than $C\times(1 + \gamma_t )\|\mu\|_{1 + \psi_2}$ from our original equation \eqref{eq:proof:wass-derivaitve} we have:
+    In conclusion we found that the previous function $A_tf$ is Lipschitz with a Lip pseudo norm smaller than $C\times(1 + \gamma_t )\|\mu\|_{\psi_2}$ from our original equation \eqref{eq:proof:wass-derivaitve} we have:
     \begin{multline*}
         \brac{fh_t,\delta_\mu\varphi_t(\mu;z_1) -\delta_\mu\varphi_t(\mu;z_2)} \\
         = f(z_1) - f(z_2) + \int_0^t \brac{A_sf,h_s\delta_\mu\varphi_s(\mu;z_1) - h_s\delta_\mu\varphi_s(\mu;z_2)} \dd s \\
-        \leq d_\alpha(z_1,z_2) + C\int_0^t (1 + \gamma_s)\|\mu\|_{1 + \psi_2} \tilde{W}(h_s\delta_\mu\varphi_s(\mu;z_1),h_s\delta_\mu\varphi_s(\mu;z_2)) \dd s 
+        \leq d_\alpha(z_1,z_2) + C\int_0^t (1 + \gamma_s)\|\mu\|_{\psi_2} \tilde{W}(h_s\delta_\mu\varphi_s(\mu;z_1),h_s\delta_\mu\varphi_s(\mu;z_2)) \dd s 
     \end{multline*}
     where we remind that $\gamma_t = \int_0^t \brac{1,\mu_s} \dd s \leq t\|\mu\|$. By passing to the supremum on the LHS and a use of the Gronwall lemma one gets that for all $t \in [0,T]$:
     \begin{align*}
-        \tilde{W}(h_t\delta_\mu\varphi_t(\mu;z_1),h_t\delta_\mu\varphi_t(\mu;z_2)) \leq d_\alpha(z_1,z_2) e^{CT(1 +  T \brac{1,\mu})\|\mu\|_{1 + \psi_2}}\ .
+        \tilde{W}(h_t\delta_\mu\varphi_t(\mu;z_1),h_t\delta_\mu\varphi_t(\mu;z_2)) \leq d_\alpha(z_1,z_2) e^{CT(1 +  T \brac{1,\mu})\|\mu\|_{\psi_2}}\ .
     \end{align*}
     Finally by step $1$:
     \begin{align*}
-        \tilde{W}(\delta_\mu\varphi_t(\mu;z_1),\delta_\mu\varphi_t(\mu;z_2)) \leq d_\alpha(z_1,z_2)(1 + aT\|\mu\|) e^{CT(1 +  T \|\mu\|)\|\mu\|_{1 + \psi_2}},
+        \tilde{W}(\delta_\mu\varphi_t(\mu;z_1),\delta_\mu\varphi_t(\mu;z_2)) \leq d_\alpha(z_1,z_2)(1 + aT\|\mu\|) e^{CT(1 +  T \|\mu\|)\|\mu\|_{\psi_2}},
     \end{align*}
     thus ending the proof.
 \end{proof}
@@ -2220,25 +2220,19 @@ An immediate remarkable consequence of the previous control of the derivative is
         W_{1,\psi_1}(\varphi_t(\mu),\varphi_t(\tilde{\mu}))\leq \left( 1 + T\brac{1,\mu + \tilde{\mu}} \right) C(T,\mu + \tilde{\mu})W_{1,\psi_1}\left( \mu,\tilde{\mu}\right)\ .
     \end{align*}
 \end{proof}
-For the last result of this part we are going to need the following technical lemma. It gives some regularity properties of the $\SCE$ solutions with the Wasserstein distance associated with the distance $d_{p\alpha}$. Aforementioned Wasserstein distance is defined by:
-\begin{align*}
-    W_{1,\psi_p}(\mu,\nu) = \sup_{\substack{Lip_p(f) \leq 1 \\ |f| \leq 1 + \psi_p}} \brac{f,\mu -\nu},
-\end{align*}
-where
-\begin{align*}
-    Lip_p(f) = \sup_{x,y \in \RRP} \dfrac{\left|f(x) - f(y) \right|}{d_{p\alpha}(x,y)}\ .
-\end{align*}
+
 
 This technical lemma contains computations that will be repeteaded in most of the results of this section.
-\begin{lemma}
+\begin{lemma}\label{lem:technical_G_h}
     Let $\Proc{\mu_t}, \Proc{\tilde{\mu}_t}$ be two solutions of the Smoluchowski coagulation equation of kernel $K_\alpha$ of initial value respectively $\mu,\tilde{\mu}$. We introduce:
     \begin{align*}
-        h_t(x) = \exp\left(\int_0^t \int_{\RRP} K_\alpha(x,y) \mu_s(\dd y) \dd s \right)
+        h_t(x) = \exp\left(\int_0^t \int_{\RRP} K_\alpha(x,y) \mu_s(\dd y) \dd s \right) 
     \end{align*}
     and $\tilde{h}_t$ similarly. We also introduce the functions:
     \begin{align*}
         G_{t}(x,y) &= K_\alpha(x,y) h_t(x+y)\left( h_t(x)\right)^{-1}\\
-         &=  K_\alpha(x,y) e^{\int_0^t \int_{\RRP} K_\alpha(x+y,z) - K_\alpha(x,z) \mu_s(\dd z) \dd s}
+         &=  K_\alpha(x,y) e^{\int_0^t \int_{\RRP} K_\alpha(x+y,z) - K_\alpha(x,z) \mu_s(\dd z) \dd s}\\
+         &=  K_\alpha(x,y) e^{\left((x+y)^{-\alpha} - x^{-\alpha}\right)\int_0^t \brac{1,\mu_s} \dd s}\ .
     \end{align*}
     and $\tilde{G}_tf$ similarly. The following assertions are true.
     \begin{enumerate}[label=(\roman*)]
@@ -2246,34 +2240,41 @@ This technical lemma contains computations that will be repeteaded in most of th
         \item For all $x \in \RRP$, $\left|\left( h_t(x)\right)^{-1}-\left( \tilde{h}_t(x)\right)^{-1} \right|\leq (1 + x^{-\alpha})\int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s) \dd s$.
         \item For all $x \in \RRP$, $(1 + x^{-\alpha})\left|\partial_x \left( h_t(x)\right)^{-1}- \partial_x\left( \tilde{h}_t(x)\right)^{-1} \right|\leq \alpha \left(1 + t\|\mu\| \right)x^{-1-\alpha} \left(1 + t\|\mu\| \right) \int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s) \dd s$.
         \item For all $x,y \in \RRP$, $|G_t(x,y)| \leq (1 + x^{-\alpha})(1 + y^{-\alpha})$.
-        \item For all $x,y \in \RRP$, $\left|\partial_x G_t(x,y) \right| \leq C \alpha x^{-1-\alpha}(1 + y^{-\alpha})$.
+        \item For all $x,y \in \RRP$, $\left|\partial_x G_t(x,y) \right| \leq C \alpha  x^{-1-\alpha}e^{y^\alpha \gamma_t}$.
         \item For all $x,y \in \RRP$, $\left|G_t(x,y)- \tilde{G}_t(x,y)\right| \leq C(1 + x^{-\alpha})(1 + y^{-\alpha})\int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s) \dd s $.
         \item For all $x,y \in \RRP$, $\left|\partial_x \left(G_t(x,y)- \tilde{G}_t(x,y)\right)  \right| \leq C\alpha x^{-1-\alpha}(1 + y^{-\alpha})\int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s) \dd s $.
     \end{enumerate}
 \end{lemma}
 \begin{proof}
+    In all this proofs the terms $\int_0^t \brac{1,\mu_s}\dd s$ and $\int_0^t \brac{1,\tilde{\mu}_s}\dd s$ are going to appear numerous times, therefore we denote them by respectively $\gamma_t$ and $\tilde{\gamma}_t$. The function $h_t$ becomes:
+    \begin{align*}
+        h_t(x) = e^{x^{-\alpha} \gamma_t} e^{\int_0^t \brac{\psi_1,\mu_s} \dd s},
+    \end{align*}
+    and $G_t$ becomes:
+    \begin{align*}
+        G_t(x,y) = K_\alpha(x,y) e^{\left((x+y)^{-\alpha} - x^{-\alpha}\right)\gamma_t}
+    \end{align*}
+
     $(i)$ We compute:
     \begin{align*}
-        \partial_x \left( h_t(x)\right)^{-1} = \int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) \mu_s(\dd y) \dd s e^{-\int_0^t \int_{\RRP} K_\alpha(x,y) \mu_s(\dd y) \dd s}
+        \partial_x \left( h_t(x)\right)^{-1} &= \int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) \mu_s(\dd y) \dd s e^{-\int_0^t \int_{\RRP} K_\alpha(x,y) \mu_s(\dd y) \dd s} \\
+        &= -\alpha x^{-1-\alpha} \gamma_t e^{-\int_0^t \int_{\RRP} K_\alpha(x,y) \mu_s(\dd y) \dd s}\ .
     \end{align*}
-    and 
+    It comes,
     \begin{align*} 
-        (1 + x^{-\alpha})\left|\partial_x \left( h_t(x)\right)^{-1}\right| \leq \alpha x^{-1-\alpha} (1 + x^{-\alpha})  \int_0^t\|\mu_s\|\dd s e^{-\int_0^t \int_{\RRP} K_\alpha(x,y) \mu_s(\dd y) \dd s}
+        (1 + x^{-\alpha})\left|\partial_x \left( h_t(x)\right)^{-1}\right| &\leq \alpha x^{-1-\alpha} (1 + x^{-\alpha})  \gamma_t e^{-x^{-\alpha} \gamma_t}\\
+        &\leq \alpha x^{-1-\alpha}(\gamma_t +1)
     \end{align*}
-    Using the form of our kernel we have:
+    where we usded the inequality $xe^{-x} \leq 1$. Since $t\mapsto \| \mu_t\|$ is non-increasing we have $\gamma_t \leq t\|\mu\|$ so:
     \begin{align*}
-        e^{-\int_0^t \int_{\RRP} K_\alpha(x,y) \mu_s(\dd y) \dd s} =  e^{-\int_0^t x^{-\alpha}\| \mu_s\| + \|\mu_s\|_{\psi_1} \dd s }\leq e^{-\int_0^t \|\mu_s\| \dd s }\ .
-    \end{align*}
-    and therefore finally using the inequality $xe^{-x} \leq 1$ and the fact that $t\mapsto \| \mu_t\|$ is non-increasing:
-    \begin{align*}
-        (1 + x^{-\alpha})\left|\partial_x \left( h_t(x)\right)^{-1}\right| \leq \alpha x^{-1-\alpha} \left(t\|\mu\| + 1\right)\ .
+        (1 + x^{-\alpha})\left|\partial_x \left( h_t(x)\right)^{-1}\right|  \leq \alpha x^{-1-\alpha} \left(t\|\mu\| + 1\right)\ .
     \end{align*}
 
     $(ii)$ Computing,
     \begin{align*}
         \left|\left( h_t(x)\right)^{-1}-\left( \tilde{h}_t(x)\right)^{-1} \right| \leq \int_0^t \int_{\RRP} K_\alpha(x,y) \left(\mu_s - \tilde{\mu}\right)(\dd y) \dd s \left(\left( h_t(x)\right)^{-1} \vee \left( \tilde{h}_t(x)\right)^{-1} \right) 
     \end{align*}
-    The function $y \mapsto K_\alpha(x,y)$ is Lipschitz and is below $(1 + x^{-\alpha})(1 + y^{-\alpha})$ we deduce that:
+    The function $y \mapsto K_\alpha(x,y)$ is Lipschitz and below $y \mapsto (1 + x^{-\alpha})(1 + y^{-\alpha})$ we deduce that:
     \begin{align*}
         \left|\left( h_t(x)\right)^{-1}-\left( \tilde{h}_t(x)\right)^{-1} \right| \leq (1 + x^{-\alpha})\int_0^t W_{1,\psi_1} (\mu_s,\tilde{\mu}_s)\dd s\ .
     \end{align*} 
@@ -2295,10 +2296,75 @@ This technical lemma contains computations that will be repeteaded in most of th
         &\leq \alpha x^{-\alpha-1}\int_0^t W_{1,\psi_1} (\mu_s,\tilde{\mu}_s)\dd s
     \end{align*}
     \red{a finir}
+    This ends the proof of the third point.
 
-    $(iv)$
+    $(iv)$ We have:
+    \begin{align*}
+        \left|G_t(x,y)\right| = K_\alpha(x,y) e^{\left((x+y)^{-\alpha} - x^{-\alpha}\right)\gamma_t}
+    \end{align*}
+    The function $x \mapsto x^{-\alpha}$ is non increasing and $\gamma_t \geq 0$ by positivity of the solution to the $\SCE$ therefore:
+    \begin{align*}
+        \left|G_t(x,y)\right| \leq K_\alpha(x,y) = x^{-\alpha} + y^{-\alpha}\ .
+    \end{align*}
+
+    $(v)$ The partial derivative of $G_t$ is:
+    \begin{multline*}
+        \partial_x G_t(x,y) = \partial_x K_\alpha(x,y) e^{\left((x+y)^{-\alpha} - x^{-\alpha}\right)\gamma_t}\\
+         + K_\alpha(x,y) \int_0^t \int_{\RRP} \partial_x K_\alpha(x+y,z) - \partial _x K_\alpha(x,z)\mu_s(\dd z)\dd s\times e^{\left((x+y)^{-\alpha} - x^{-\alpha}\right)\gamma_t}\ .
+    \end{multline*}
+    We can easily bound the first term:
+    \begin{align*}
+        \left| \partial_x K_\alpha(x,y) \right| e^{\left((x+y)^{-\alpha} - x^{-\alpha}\right)\gamma_t} \leq \alpha x^{-1-\alpha}\ .
+    \end{align*}
+    As for the second term it is bounded by:
+    \begin{multline*}
+         K_\alpha(x,y) \int_0^t \int_{\RRP} \left|\partial_x K_\alpha(x+y,z) - \partial _x K_\alpha(x,z)\right|\mu_s(\dd z)\dd s\times  e^{\left((x+y)^{-\alpha} - x^{-\alpha}\right)\gamma_t}\\
+         \leq 2 \alpha  x^{-1-\alpha} K_\alpha(x,y)\gamma_t \times e^{\left((x+y)^{-\alpha} - x^{-\alpha}\right)\gamma_t}\\
+         \leq 2 \alpha  x^{-1-\alpha} K_\alpha(x,y)\gamma_t e^{\left((x+y)^{-\alpha} - x^{-\alpha}- y^{-\alpha}\right)\gamma_t} e^{y^\alpha \gamma_t}\ .
+    \end{multline*}
+    By convexity of $x\mapsto x^{-\alpha}$ we have:
+    \begin{align*}
+        (x+y)^{-\alpha} - x^{-\alpha}- y^{-\alpha} \leq -(1-2^{-1-\alpha})(x^{-\alpha} + y^{-\alpha})
+    \end{align*}
+    So we get:
+    \begin{align*}
+        K_\alpha(x,y) \int_0^t \int_{\RRP} \left|\partial_x K_\alpha(x+y,z) - \partial _x K_\alpha(x,z)\right|\mu_s(\dd z)\dd s\times  e^{\left((x+y)^{-\alpha} - x^{-\alpha}\right)\gamma_t}\\
+        \leq C_\alpha \alpha  x^{-1-\alpha}e^{y^\alpha \gamma_t}\ .
+    \end{align*}
+    Finally:
+    \begin{align*}
+        \left|\partial_x G_t(x,y)\right| \leq C_\alpha \alpha  x^{-1-\alpha}e^{y^\alpha \gamma_t}\ .
+    \end{align*}
+
+    $(vi)$ We have:
+    \begin{align*}
+        \left|G_t(x,y)- \tilde{G}_t(x,y)\right| &= K_\alpha(x,y)\left|e^{\left((x+y)^{-\alpha} - x^{-\alpha}\right)\gamma_t} - e^{\left((x+y)^{-\alpha} - x^{-\alpha}\right)\tilde{\gamma}_t} \right|\ .
+    \end{align*}
+    Because the term inside the exponetial is negative, the function $\gamma \mapsto e^{\left((x+y)^{-\alpha} - x^{-\alpha}\right)\gamma}$ is non-decreasing therefore:
+    \begin{multline*}
+        \left|e^{\left((x+y)^{-\alpha} - x^{-\alpha}\right)\gamma_t} - e^{\left((x+y)^{-\alpha} - x^{-\alpha}\right)\tilde{\gamma}_t} \right|\\
+        \leq \left|\left((x+y)^{-\alpha} - x^{-\alpha}\right)\left(\gamma_t-\tilde{\gamma}_t \right) \right| e^{\left((x+y)^{-\alpha} - x^{-\alpha}\right)\gamma_t} \vee e^{\left((x+y)^{-\alpha} - x^{-\alpha}\right)\tilde{\gamma}_t} \\
+        \leq 2 x^{-\alpha} \left|\gamma_t-\tilde{\gamma}_t \right| e^{\left((x+y)^{-\alpha} - x^{-\alpha}\right)\left(\tilde{\gamma}_t\wedge \gamma_t\right)}
+    \end{multline*}
+    We have,
+    \begin{align*}
+        \left|\gamma_t-\tilde{\gamma}_t \right| \leq \int_0^t \left| \brac{1,\mu_s- \tilde{\mu}_s} \right| \dd s \leq \int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s) \dd s
+    \end{align*}
+    Finally we have:
+    \begin{align*}
+        \left|G_t(x,y)- \tilde{G}_t(x,y)\right| \leq x^{-\alpha} K_\alpha(x,y) \int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s) \dd s
+    \end{align*}
+    
+    $(vii)$
 \end{proof}
-
+For the last result of this part we are going to need the following technical lemma. It gives some regularity properties of the $\SCE$ solutions with the Wasserstein distance associated with the distance $d_{p\alpha}$. Aforementioned Wasserstein distance is defined by:
+\begin{align*}
+    W_{1,\psi_p}(\mu,\nu) = \sup_{\substack{Lip(d_{p\alpha};f) \leq 1 \\ |f| \leq \psi_p}} \brac{f,\mu -\nu},
+\end{align*}
+where for a distance $d$ on $\RRP$,
+\begin{align*}
+    Lip(d;f) = \sup_{x,y \in \RRP} \dfrac{\left|f(x) - f(y) \right|}{d(x,y)}\ .
+\end{align*}
 \begin{lemma}
     For all $t \in [0,T]$ we have:
     \begin{align*}
@@ -2306,25 +2372,105 @@ This technical lemma contains computations that will be repeteaded in most of th
     \end{align*}
 \end{lemma}
 \begin{proof}
-    We introduce the two following functions:
+    We introduce the functions:
     \begin{align*}
-        G_tf(x,y) &= K_\alpha(x,y) f(x+y) h_t(x+y)\left(h_t(x)\right)^{-1}, \\
-        \tilde{G}_tf(x,y) &= K_\alpha(x,y) f(x+y) \tilde{h}_t(x+y)\left(\tilde{h}_t(x)\right)^{-1}\ .
+        H_tf(x,y) &= K_\alpha(x,y) f(x+y) h_t(x+y)\left(h_t(x)\right)^{-1}, \\
+        &= f(x+y) G_t(x,y) \\
+        \tilde{H}_tf(x,y) &= K_\alpha(x,y) f(x+y) \tilde{h}_t(x+y)\left(\tilde{h}_t(x)\right)^{-1}\\
+        &= f(x+y) \tilde{G}_t(x,y)\ .
     \end{align*}
-    Let $f$ be such that $Lip_p(f) \leq 1$ and $|f| \leq 1 + \psi_p$ we have for all $t \geq 0$:
+    Let $f$ be such that $Lip(d_{\alpha p};f) \leq 1$ and $|f| \leq \psi_p$ we have for all $t \geq 0$:
     \begin{align*}
-        \brac{f,h_t\mu_t - \tilde{h}_t \tilde{\mu}_t} = \brac{f,\mu - \tilde{\mu}} + \int_0^t \brac{G_sf,\mu_s \otimes h_s\mu_s} - \brac{\tilde{G}_sf,\tilde{\mu}_s\otimes\tilde{h}_s\tilde{\mu}_s} \dd s\ .
+        \brac{f,h_t\mu_t - \tilde{h}_t \tilde{\mu}_t} = \brac{f,\mu - \tilde{\mu}} + \int_0^t \brac{H_sf,\mu_s \otimes h_s\mu_s} - \brac{\tilde{H}_sf,\tilde{\mu}_s\otimes\tilde{h}_s\tilde{\mu}_s} \dd s\ .
     \end{align*}
     Breaking down the term to bound in three subparts,
     \begin{subequations}
         \begin{align}
-            \brac{G_tf,\mu_t \otimes h_t\mu_t} - \brac{\tilde{G}_tf,\tilde{\mu}_t\otimes \tilde{h}_t\tilde{\mu}_t} =& \brac{G_tf,\mu_t \otimes\left(h_t\mu_t -  \tilde{h}_t \tilde{\mu}_t\right)}\label{proof:eq:h_tmu_t-1} \\
-            &+ \brac{G_tf - \tilde{G}_tf,\mu_t \otimes \tilde{h}_t \tilde{\mu}_t}\label{proof:eq:h_tmu_t-2}\\
-            &+ \brac{\tilde{G}_tf,\left(\mu_t-\tilde{\mu}_t\right) \otimes \tilde{h}_t \tilde{\mu}_t}\label{proof:eq:h_tmu_t-3}
+            \brac{H_tf,\mu_t \otimes h_t\mu_t} - \brac{\tilde{H}_tf,\tilde{\mu}_t\otimes \tilde{h}_t\tilde{\mu}_t} =& \brac{H_tf,\mu_t \otimes\left(h_t\mu_t -  \tilde{h}_t \tilde{\mu}_t\right)}\label{proof:eq:h_tmu_t-1} \\
+            &+ \brac{H_tf - \tilde{H}_tf,\mu_t \otimes \tilde{h}_t \tilde{\mu}_t}\label{proof:eq:h_tmu_t-2}\\
+            &+ \brac{\tilde{H}_tf,\left(\mu_t-\tilde{\mu}_t\right) \otimes \tilde{h}_t \tilde{\mu}_t}\label{proof:eq:h_tmu_t-3}
         \end{align}
         \label{proof:eq:h_tmu_t}
     \end{subequations}
-    For \eqref{proof:eq:h_tmu_t-1} 
+
+    One can write \eqref{proof:eq:h_tmu_t-1} as:
+    \begin{align*}
+        \brac{H_tf,\mu_t \otimes\left(h_t\mu_t -  \tilde{h}_t \tilde{\mu}_t\right)} = \brac{A_tf,h_t\mu_t -  \tilde{h}_t \tilde{\mu}_t},
+    \end{align*}
+    where
+    \begin{align*}
+        A_tf(x) = \int_{\RRP} H_tf(x,y) \mu_t(\dd x)\ .
+    \end{align*}
+    First we bound it, by point $(iv)$ of Lemma \ref{lem:technical_G_h}:
+    \begin{align*}
+        \left|A_tf(x)\right| &\leq \int_{\RRP} |f(x+y)|G_t(x,y)| \mu_t(\dd x)\\
+        &\leq (1 + x^{-\alpha})\int_{\RRP} (1 + (x+y)^{-p\alpha})(1 + y^{-\alpha})  \mu_t(\dd x) \\
+        &\leq C(1 + \psi_1(x)) \| \mu\|_{\psi_{p+1}}\ .
+    \end{align*}
+    To show that  $A_tf$ is Lipschitz let us study:
+    \begin{align*}
+        \partial_x H_tf(x,y) = \partial_x f(x+y) G_t(x,y) + f(x+y) \partial_x G_t(x,y)\ .
+    \end{align*}
+    Which is defined for almost every $x$ since $f$ is $d_{\alpha p}$-Lipschitz. We control this partial derivaitve like so:
+    \begin{align*}
+        \left|\partial_x H_tf(x,y) \right| \leq p\alpha (x+y)^{-1-p\alpha} \left|G_t(x,y) \right| + \left( 1 + (x+y)^{-p\alpha} \right) \left|\partial_x G_t(x,y) \right|\ .
+    \end{align*}
+    The first term can be bounded using point $(iv)$ of \ref{lem:technical_G_h}:
+    \begin{align*}
+        p\alpha (x+y)^{-1-p\alpha} \left|G_t(x,y) \right| &\leq p\alpha (x+y)^{-1-p\alpha} (1 + x^{-\alpha})(1 + y^{-\alpha}) 
+    \end{align*} 
+    Now notice that for all $a,b > 0, (x+y)^{-a - b} \leq x^{-a}y^{-b}$ therefore:
+    \begin{align*}
+        p\alpha (x+y)^{-1-p\alpha} \left|G_t(x,y) \right| 
+        &\leq p\alpha x^{-1-\alpha} \left( y^{-(p-1)\alpha} + y^{-p\alpha } \right)(1 + y^{-\alpha}) \\
+        &\leq C x^{-1-\alpha}( 1 + y^{-(p+1)\alpha})
+    \end{align*}
+    For the second term we use point $(v)$ of \ref{lem:technical_G_h}:
+    \begin{align*}
+        \left( 1 + (x+y)^{-p\alpha} \right) \left|\partial_x G_t(x,y) \right| \leq C x^{-1-\alpha}\left( 1 + (y)^{-p\alpha} \right) e^{y^{-\alpha}\gamma_t}
+    \end{align*}
+    By lemma \ref{lem:exponential-moments} and because $\mu \in \MC^+_{\psi_{p+1}}(\RRP)$ this function in the variable $y$. 
+    Therefore $A_tf$ is almost everywhere differentiable and: 
+    \begin{align*}
+        \left|\partial_x A_tf(x) \right| \leq  C x^{-1-\alpha}\int_{\RRP} e^{y^{-\alpha}\gamma_t}(1 + \psi_{p+1}(y)) \mu_t(\dd y) \leq C x^{-1-\alpha}\| \mu\|_{\psi_{p+1}}\ .
+    \end{align*}
+    Consequently term \eqref{proof:eq:h_tmu_t-1} gets the following bound:
+    \begin{align*}
+        \brac{H_tf,\mu_t \otimes\left(h_t\mu_t -  \tilde{h}_t \tilde{\mu}_t\right)} &= \brac{A_tf,h_t\mu_t -  \tilde{h}_t \tilde{\mu}_t}\\
+        &\leq C\| \mu\|_{\psi_{p+1}} W_{1,\psi_1}(h_t\mu_t, \tilde{h}_t \tilde{\mu}_t)\ .
+    \end{align*}
+
+    Onto \eqref{proof:eq:h_tmu_t-2},
+    \begin{align*}
+        \left|\brac{H_tf - \tilde{H}_tf,\mu_t \otimes \tilde{h}_t \tilde{\mu}_t}\right| &\leq \brac{\left|H_tf - \tilde{H}_tf\right|,\mu_t \otimes \tilde{h}_t \tilde{\mu}_t} 
+    \end{align*}
+    We simply have to bound:
+    \begin{align*}
+        \left|H_tf(x,y) - \tilde{H}_tf(x,y)\right| = |f(x+y)|\left|G_tf(x,y) - \tilde{G}_t(x,y)\right|
+    \end{align*}
+    By point $(vi)$ of \ref{lem:technical_G_h}:
+    \begin{align*}
+        \left|H_tf(x,y) - \tilde{H}_tf(x,y)\right| &\leq \left(1 + \psi_{p}(x + y) \right)\left(1 + \psi_{2}(x) \right)\left(1 + \psi_{1}(y) \right)\int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s)\dd s\\
+        &\leq C \left(1 + \psi_{2}(x) \right) \left(1 + \psi_{p+1}(y) \right)\int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s)\dd s\ .
+    \end{align*}
+    And by Lemma \ref{lem:exponential-moments}:
+    \begin{align*}
+        \brac{\left|H_tf - \tilde{H}_tf\right|,\mu_t \otimes \tilde{h}_t \tilde{\mu}_t}  \leq \int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s)\dd s \|\mu\|_{\psi_2}\|\tilde{\mu}\|_{\psi_p} e^{t\|\tilde{\mu}\|_{\psi_1}}\ .
+    \end{align*}
+    We conclude the bound of this term using Proposition \ref{prop:wass-sce} and finally get for $t \in [0,T]$:
+    \begin{align*}
+        \brac{\left|H_tf - \tilde{H}_tf\right|,\mu_t \otimes \tilde{h}_t \tilde{\mu}_t}  \leq C(T,\mu,\tilde{\mu})  W_{1,\psi_1}(\mu,\tilde{\mu})\ .
+    \end{align*}
+    
+    For the third term \eqref{proof:eq:h_tmu_t-3} we have:
+    \begin{align*}
+        \brac{\tilde{H}_tf,\left(\mu_t-\tilde{\mu}_t\right) \otimes \tilde{h}_t \tilde{\mu}_t} = \brac{B_tf,\mu_t-\tilde{\mu}_t},
+    \end{align*}
+    where
+    \begin{align*}
+        B_tf(y) = \int_{\RRP} \tilde{H}_tf(x,y) \tilde{h}_t(y) \tilde{\mu}_t
+    \end{align*}
+    \red{Bon il faut }
 \end{proof}
 
 We state and prove the main result of this part.
@@ -2470,9 +2616,9 @@ We state and prove the main result of this part.
     \begin{align*}
         A_tf(x) =  \left(h_t(x)\right)^{-1}\int_{\RRP} K_\alpha(x,y)\left[fh_t(x+y) - fh_t(y)\right]\mu_t(\dd y)\ .
     \end{align*}
-    We already know from the proof of Proposition \ref{prop:wass-derivaitve} that $A_tf$ is Lpischitz with constant below $\left(1 + T\|\mu\|\right)\|\mu\|_{1 + \psi_2}$ and therefore:
+    We already know from the proof of Proposition \ref{prop:wass-derivaitve} that $A_tf$ is Lpischitz with constant below $\left(1 + T\|\mu\|\right)\|\mu\|_{\psi_2}$ and therefore:
     \begin{align*}
-        \brac{G_tf,h_t\mu_t \otimes \left(h_tm_t - \tilde{h}_t\tilde{m}_t \right) } &\leq \left(1 + T\|\mu\|\right)\|\mu\|_{1 + \psi_2} W_{1,\psi_1}\left(h_tm_t -\tilde{h}_t\tilde{m}_t \right)
+        \brac{G_tf,h_t\mu_t \otimes \left(h_tm_t - \tilde{h}_t\tilde{m}_t \right) } &\leq \left(1 + T\|\mu\|\right)\|\mu\|_{\psi_2} W_{1,\psi_1}\left(h_tm_t -\tilde{h}_t\tilde{m}_t \right)
     \end{align*}
     For the term \eqref{proof:eq:wass-finale-step-2-2} we can use Proposition \ref{prop:characterisation-lip-1} :
     \begin{multline*}
@@ -2518,7 +2664,7 @@ We call this equation the Augmented Smoluchowski Coagulation equation and denote
 \begin{align*}
     \bar{d}_\alpha(x,\partial) = x^{-\alpha} + 1\ .
 \end{align*}
-The function $\psi : x \mapsto x^{-\alpha}$ verifies all the required hypothesis to define the distance $W_{1,\psi}$ on $\MC^+_{1 + \psi}(\RRP)$. Let $\Proc{\mu_t}$ and $\Proc{\nu_t}$ be two solutions of the $\SCE$ by Proposition \ref{prop:Kantorovich-general} for all $m \geq \mu_0(\RRP) \vee \nu_0(\RRP)$ we have that:
+The function $\psi : x \mapsto x^{-\alpha}$ verifies all the required hypothesis to define the distance $W_{1,\psi}$ on $\MC^+_{\psi}(\RRP)$. Let $\Proc{\mu_t}$ and $\Proc{\nu_t}$ be two solutions of the $\SCE$ by Proposition \ref{prop:Kantorovich-general} for all $m \geq \mu_0(\RRP) \vee \nu_0(\RRP)$ we have that:
 \begin{align*}
     W_{1,\psi}(\mu_t,\nu_t) = W_1\left(\bar{\mu}^m_t,\bar{\nu}^m_t \right) = \inf_{\pi \in \Pi(\bar{\mu}^m_t,\bar{\nu}^m_t)} \int_{\bar{\XF}^2} \bar{d}_\alpha(x,y) \pi(\dd x, \dd y)\ .
 \end{align*}
