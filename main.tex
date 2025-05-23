@@ -211,7 +211,7 @@ The following theorem allows for a decomposition of a signed measure with respec
     This function is called the Radon Nikodym derivative or the density of $\nu_{a}$ with respect to $\mu$.
 \end{theorem}
 
-\subsection{Topology on spaces of measures}
+\subsection{\red{Total variation} Topology on spaces of measures}
 In this section we talk about different kind of topologies on spaces of measures. We give a rather broad overview by introducing these on Polish space, we give a definition below
 \begin{definition}
     A Polish space is a topological space $\XF$ such that:
@@ -313,6 +313,8 @@ The following proposition and corollary give the major interest of working with 
     \item Weak topology
     \item Wasserstein distance
 \end{itemize}}
+
+\Section{\red{Wasserstein distance}}
 
 \subsection{Derivatives on spaces of measures}
 In this section we define the linear derivative of measures. We define them in the same fashion as in \cite{martiniKolmogorovEquationsSpaces2023} that takes inspiration from its presentation in \cite{cardaliaguet2019master,carmona2018probabilistic}.
@@ -2473,10 +2475,9 @@ where for a distance $d$ on $\RRP$,
     \begin{align*}
         \brac{\tilde{H}_tf,\left(h_t\mu_t-\tilde{h}_t\tilde{\mu}_t\right) \otimes \tilde{h}_t \tilde{\mu}_t} \leq C\| \tilde{\mu}\|_{\psi_{p+1}} W_{1,\psi_1}(h_t\mu_t, \tilde{h}_t \tilde{\mu}_t)\ .
     \end{align*} 
-
-    ****************************************
+    For term \eqref{proof:eq:h_tmu_t-3} we have:
     \begin{align*}
-        \left|\brac{H_tf - \tilde{H}_tf,\mu_t \otimes \tilde{h}_t \tilde{\mu}_t}\right| &\leq \brac{\left|H_tf - \tilde{H}_tf\right|,\mu_t \otimes \tilde{h}_t \tilde{\mu}_t} 
+        \left|\brac{H_tf - \tilde{H}_tf,h_t\mu_t \otimes \tilde{h}_t \tilde{\mu}_t}\right| &\leq \brac{\left|H_tf - \tilde{H}_tf\right|,h_t\mu_t \otimes  \tilde{h}_t \tilde{\mu}_t} 
     \end{align*}
     We simply have to bound:
     \begin{align*}
@@ -2484,7 +2485,7 @@ where for a distance $d$ on $\RRP$,
     \end{align*}
     By point $(vi)$ of \ref{lem:technical_G_h}:
     \begin{align*}
-        \left|H_tf(x,y) - \tilde{H}_tf(x,y)\right| &\leq \left(1 + \psi_{p}(x + y) \right)\left(1 + \psi_{2}(x) \right)\left(1 + \psi_{1}(y) \right)\int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s)\dd s\\
+        \left|H_tf(x,y) - \tilde{H}_tf(x,y)\right| &\leq \left(1 + \psi_{p}(x + y) \right)\left(1 + \psi_{2}(x) \right)\left(1 + \psi_{2}(y) \right)\int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s)\dd s\\
         &\leq C \left(1 + \psi_{2}(x) \right) \left(1 + \psi_{p+1}(y) \right)\int_0^t W_{1,\psi_1}(\mu_s,\tilde{\mu}_s)\dd s\ .
     \end{align*}
     And by Lemma \ref{lem:exponential-moments}:
