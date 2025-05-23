@@ -314,7 +314,7 @@ The following proposition and corollary give the major interest of working with 
     \item Wasserstein distance
 \end{itemize}}
 
-\Section{\red{Wasserstein distance}}
+\subsection{\red{Wasserstein distance}}
 
 \subsection{Derivatives on spaces of measures}
 In this section we define the linear derivative of measures. We define them in the same fashion as in \cite{martiniKolmogorovEquationsSpaces2023} that takes inspiration from its presentation in \cite{cardaliaguet2019master,carmona2018probabilistic}.
@@ -638,7 +638,7 @@ It is a closed subspace of $\MC_{\phi_p}(\RRP)$ and therefore is complete for th
     \begin{align*}
         \brac{f, \Gamma^{+,\varepsilon}(m^1)_t - \Gamma^{+,\varepsilon}(m^2)_t} \leq C \varepsilon^{-\alpha}\int_0^t \|m^1_s - m^2_s\|_{\phi_p}\|m^1_s + m^2_s\|_{\phi_p} \dd s.
     \end{align*}
-    It follows again that for $T$ sufficiently small the operator is a contraction. We now denote $\tilde{T}^{\varepsilon,M}$ the minima of all $4$ times found previously. We use again the Banach contraction theorem with initial measure $\mu$, the obtained fixed point is a positive measure on  $[0,\tilde{T}^{\varepsilon,M}]$. We previously found a unique solution to \eqref{eq:cutoff_SCE} therefore the aforementioned fixed point is $h_t\mu^\varepsilon_t$, finally implying that $\mu^\varepsilon_t$ is positive on the found time interval.
+    It follows again that for $T$ sufficiently small the operator is a contraction. We now denote $\tilde{T}^{\varepsilon,M}$ the minima of all $4$ times found previously. We use again the Banach contraction theorem with initial measure $\mu$, the obtained fixed point is a positive measure on  $[0,\tilde{T}^{\varepsilon,M}]$. We previously found a unique solution to \eqref{eq:cutoff_SCE} therefore the aforementioned fixed point is $h^\varepsilon_t\mu^\varepsilon_t$, finally implying that $\mu^\varepsilon_t$ is positive on the found time interval.
 \end{proof}
 \begin{remark}
     Extending the temporal domain of the solution is not straight-forward. The classical technique is to start the equation with initial value the solution taken at time $T^{\varepsilon,M}$. The issue is that this measure belongs to $\MC^{M}_p\left( \RRP\right)$ contrary to the initial value $\mu$ that is in $\MC^{M/2}_p\left( \RRP\right)$. Therefore each time increments will double the bound. This coupled with the dependence of $T^\varepsilon$ with respect to $M$ makes that the maximal time horizon is function of $M$. We need to control the increase in this bound if want to extend the temporal domain of our solution.
@@ -2385,18 +2385,11 @@ This technical lemma contains computations that will be repeteaded in most of th
 
 For the last result of this part we are going to need the following technical lemma. It gives some regularity properties of the $\SCE$ solutions with the Wasserstein distance associated with the distance $d_{p\alpha}$. Aforementioned Wasserstein distance is defined by:
 \begin{align*}
-    W_{1,\psi_p}(\mu,\nu) = \sup_{\substack{Lip(d_{p\alpha};f) \leq 1 \\ |f| \leq 1 + \psi_p}} \brac{f,\mu -\nu},
-\end{align*}
-
-\begin{align*}
-    W_{1,\beta}(\mu,\nu) = \sup_{\substack{Lip(d_{\beta};f) \leq 1 \\ |f(x)| \leq 1 + x^{-\beta }}} \brac{f,\mu -\nu},
-\end{align*}
-\begin{align*}
-    W_{\beta}(\mu,\nu) = \sup_{\substack{Lip(d_{\beta};f) \leq 1 \\ |f(x)| \leq 1 + x^{-\beta }}} \brac{f,\mu -\nu},
+    W_{1,\psi_p}(\mu,\nu) = \sup_{\substack{Lip_{d_{p\alpha}}(f) \leq 1 \\ |f| \leq 1 + \psi_p}} \brac{f,\mu -\nu},
 \end{align*}
 where for a distance $d$ on $\RRP$,
 \begin{align*}
-    Lip(d;f) = \sup\left\lbrace \dfrac{\left|f(x) - f(y) \right|}{d(x,y)}, (x,y) \in (\RRP)^2, x \neq y \right\rbrace \ .
+    Lip_d(f) = \sup\left\lbrace \dfrac{\left|f(x) - f(y) \right|}{d(x,y)}, (x,y) \in (\RRP)^2, x \neq y \right\rbrace \ .
 \end{align*}
 \begin{lemma}
     For all $t \in [0,T]$ we have:
