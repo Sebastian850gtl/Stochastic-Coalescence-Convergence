@@ -91,6 +91,7 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[section]{Example}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{corollary}[theorem]{Corollary}
@@ -315,7 +316,308 @@ The following proposition and corollary give the major interest of working with 
     \item Wasserstein distance
 \end{itemize}}
 
-\subsection{\red{Wasserstein distance}}
+\subsection{Wasserstein distance for signed measures}\label{section:Wasserstein}
+The goal of this section is to introduce a definition of the Wasserstein distance for positive or signed measures that are not necessarily probability measures. The classical definition for probability measures is given in Definition \ref{def:Wasserstein}. The definition of the general distance for positive measures of not necessarily same mass relies on proposition \ref{prop:Kantorovich-general} and is given in definition \ref{def:Wasserstein-general}. Finally the extension to signed measures is pretty straightforward and done below the aforementioned definition. 
+
+The Wasserstein distance between two probability measures is based on a distance defined on the underlying metric space. As such we introduce $(\XF,d)$, asking from it slightly more than being merely a metric space but that it is $\XF$ is Polish and $d$ is a distance making it complete. The relevant measure space is the space of all finite measures on $\XF$, $\mu$ such that there exists $x_0 \in \XF$ and 
+\begin{align*}
+    \int_{\XF} d(x,x_0) \mu(\dd x) < \infty\ .
+\end{align*}
+Notice that this also implies that the latter is also true for all $x_0 \in \XF$, let us call this space $\MC^+_1(\XF,d)$ for the moment namely the space of finite measures with finite first moment under $d$.
+\begin{definition}\label{def:Wasserstein}
+    Let $\mu,\nu \in \MC^+_1(\XF,d)$ be two probability measures. The set of couplings between $\mu$ and $\nu$ that we denote by $\Pi(\mu,\nu)$, is the set of probability measures $\pi$ on $\XF\times \XF$ such that for all Borel sets $A$:
+    \begin{align*}
+        \pi(A\times\XF) = \mu(A) ,\quad  \pi(\XF\times A) = \nu(A)\ ,
+    \end{align*}
+    we say that $\pi$ has marginals $\mu$ and $\nu$. The Wasserstein-$1$ distance between $\mu$ and $\nu$ is:
+    \begin{align*}
+        W_1(\mu,\nu) = \inf\limits_{\pi \in\Pi(\mu,\nu)} \int_{\XF\times \XF} d(x,y) \pi(\dd x,\dd y)\ .
+    \end{align*}
+\end{definition}
+It is straightforward to generalize this distance to positive measures with the same total mass. Indeed, let $\mu, \nu \in \MC^+_1(\XF,d)$ be such that $\mu(\XF) = \nu(\XF) = m$. Then the set of couplings between $\mu$ and $\nu$ (which are no longer probability measures when $m \neq 1$) satisfies:
+\begin{align*}
+    \Pi(\mu,\nu) = m \, \Pi\left(\frac{\mu}{m}, \frac{\nu}{m}\right)\ .
+\end{align*}
+And therefore
+\begin{align*}
+    W_1(\mu,\nu) = m\, W_1\left( \frac{\mu}{m}, \frac{\nu}{m}\right)\ .
+\end{align*}
+One key property of this distance is the Kantorovich-Rubinstein duality allowing to express this distance in terms of a supremum on Lipschitz functions, see \cite{santambrogio2015optimal} for a proof.
+\begin{theorem}[Kantorovich-Rubinstein duality]
+    Let $f$ be a continuous function from $\XF$ to $\RR$, we define the Lip pseudo norm by:
+    \begin{align*}
+        Lip(f) = \sup\limits_{x,y \in \XF} \dfrac{\left|f(x) - f(y) \right|}{d(x,y)} \ .
+    \end{align*}
+    We have:
+    \begin{align*}
+        W_1(\mu,\nu) = \sup\limits_{Lip(f) \leq 1} \brac{f,\mu - \nu}\ .
+    \end{align*}
+\end{theorem}
+\red{Tout ce qui suit fonctionne en revanche il ne semble pas judicieux de définir cette distance ainsi}Now, we define a more general distance, which will rely on one additional object: a positive function that we denote by $\phi$. This function should satisfy the following, for all $x,y \in \XF$,
+\begin{align*}
+    d(x,y) \leq \phi(x) + \phi(y), \text{ and}\quad|\phi(x) - \phi(y)| \leq d(x,y),
+\end{align*}
+that we could call a domination property and be Lipschitz. Assume furthermore that,
+\begin{align*}
+    \inf\limits_{x \in \XF} \phi(x) = 0\ .
+\end{align*}
+A function $\phi$ satisfying this condition always exists. For example, fix any point $x_0 \in \XF$ and define $\phi(x) = d(x,x_0)$. It is clear that $\phi(x_0) = 0$, then, by the triangle inequality,
+\begin{align*}
+d(x,y) &\leq d(x,x_0) + d(y,x_0) = \phi(x) + \phi(y)\ \text{ and}\\
+|\phi(x) - \phi(y)| &= |d(x,x_0) + d(y,x_0)| \leq d(x,y)\ .
+\end{align*}
+It is then clear that for all functions $\phi$ verifying this domination hypothesis
+\[
+\MC^+_1(\XF,d) = \MC^+_{1 + \phi}(\XF)\ . \red{\text{Suggestion : } \MC^+_d(\XF) \text{pour} \MC^+_1(\XF,d)}
+\]
+To define a distance for two measures not having same mass we add an extra point to $\XF$ that we call a cemetery point and denote $\delta$. Its role is to "store" the missing needed mass. We extend the definition of the distance to $\bar{\XF} = \XF\cup \lbrace\partial\rbrace$ using $\phi$, for all $x \in \XF$:
+\begin{align*}
+    \bar{d}(x,\partial) = \phi(x) + 1
+\end{align*}
+The space $\bar{\XF}$ is Polish by $\bar{d}$. Let us define the extended measures for $m\geq \mu(\XF) \vee \nu(\XF)$ :
+\begin{align*}
+    \bar{\mu}^m &= \mu + (m-\mu(\XF))\delta_{\partial}, \\
+    \bar{\nu}^m &= \nu + (m-\nu(\XF))\delta_{\partial}\ .
+\end{align*}
+Both measures are positive and have mass equal to $m$, we see in the next proposition that the Wasserstein distance between both is independent of $m$.
+\begin{proposition}\label{prop:Kantorovich-general}
+    We have:
+    \begin{align*}
+        W_1(\bar{\mu}^m,\bar{\nu}^m) = \sup\limits_{Lip(f) \leq 1, |f| \leq \phi} \brac{f,\mu - \nu} + \left|\vphantom{A^2}\mu(\XF) - \nu(\XF) \right|
+    \end{align*}
+\end{proposition}
+\begin{proof}
+    By the Kantorovich-Rubinstein duality theorem we have:
+    \begin{align*}
+        W_1(\bar{\mu}^m,\bar{\nu}^m) = \sup\limits_{Lip(f) \leq 1} \brac{f,\bar{\mu}^m - \bar{\nu}^m} \ .
+    \end{align*}
+    Step $1$: We show that:
+    \begin{align*}
+        \sup\limits_{Lip(f) \leq 1} \brac{f,\bar{\mu}^m - \bar{\nu}^m} = \sup\limits_{Lip(f) \leq 1,|f| \leq \phi} \brac{f,\bar{\mu}^m - \bar{\nu}^m}
+    \end{align*}
+    One inequality is obvious we treat the other. Let $f$ be a function such that $Lip(f) \leq 1$, let us define the truncation $f_\phi$ by:
+    \begin{align*}
+        f_\phi(x) = \min(\phi(x),\max(f(x),-\phi(x))),
+    \end{align*}
+    illustrated below in Figure \ref{fig:illustration-of-truncation}.
+    \begin{center}
+  % ========== First Main Plot ==========
+  \begin{figure}[h]
+    \centering
+    \pgfplotsset{compat=1.18}
+    \pgfmathdeclarefunction{phi}{1}{%
+    \pgfmathparse{exp(#1/2)}%
+    }
+    \pgfmathdeclarefunction{f}{1}{%
+    \pgfmathparse{1.4*phi(x)*cos(300*#1)}%
+    }
+    \pgfmathdeclarefunction{fphi}{1}{%
+    \pgfmathparse{min(phi(#1), max(f(#1), -phi(#1)))}%
+    }
+    \begin{tikzpicture}[scale=1,every node/.style={scale=1}]
+      \begin{axis}[
+        axis lines=middle,
+        axis line style={->},
+        xlabel={$x$},
+        ylabel={},
+        xtick=\empty,
+        ytick=\empty,
+        ymin=-3, ymax=3,
+        xmin=-1, xmax=2.5,
+        samples=300,
+        domain=-1:3,
+        clip=true,
+        width=\linewidth,
+        height=6cm
+      ]
+        \addplot[blue, thick]{phi(x)};
+        \addplot[blue, thick]{-phi(x)};
+        \addplot[red, dashed, thick]{f(x)};
+        \addplot[black, thick]{fphi(x)};
+        \node[blue] at (axis cs:0.6,1.7) {$\phi$};
+        \node[blue] at (axis cs:1.2,-1.5) {$-\phi$};
+        \node[red] at (axis cs:1.2,2.8) {$f$};
+        \node[black] at (axis cs:1.5,1.3) {$f_\phi$};
+      \end{axis}
+    \end{tikzpicture}
+    \caption{Illustration of the trunctation $f_\phi$}
+    \label{fig:illustration-of-truncation}
+  \end{figure}
+  % ========== 4 Case Diagrams ==========
+  \begin{figure}[ht]
+\centering
+
+\begin{subfigure}[t]{0.49\textwidth}
+    \centering
+    \begin{tikzpicture}[scale=0.82,every node/.style={scale=0.75}]
+      \draw[->] (-4.5, 0) -- (4.5, 0);
+      \foreach \x in {-3.5,-2,0, -0.75,1.2, 2,3.5} {
+        \draw[thick] (\x, -0.1) -- (\x, 0.1);
+      }
+      \node[below] at (2, 0) {$\phi(x)$};
+      \node[below] at (3.5, 0) {$\phi(y)$};
+      \node[below] at (-2, 0) {$-\phi(x)$};
+      \node[below] at (-3.5, 0) {$-\phi(y)$};
+      \node[below] at (0, 0) {$0$};
+      \node[below,red] at (-0.75, 0) {$f(x)$};
+      \node[above,blue] at (-0.75, 0) {$f_\phi(x)$};
+      \node[below,red] at (1.2, 0) {$f(y)$};
+      \node[above,blue] at (1.2, 0) {$f_\phi(y)$};
+      \draw[<->, thick, blue] (-0.75, -0.65) -- (1.2, -.65);
+    \end{tikzpicture}
+    \caption{Case 1}
+\end{subfigure}
+\begin{subfigure}[t]{0.49\textwidth}
+    \centering
+    \begin{tikzpicture}[scale=0.82,every node/.style={scale=0.75}]
+      \draw[->] (-4.5, 0) -- (4.5, 0);
+      \foreach \x in {-3.5,-2,0, -0.75, 2, 4.3,3.5} {
+        \draw[thick] (\x, -0.1) -- (\x, 0.1);
+      }
+      \node[below] at (2, 0) {$\phi(x)$};
+      \node[below] at (3.5, 0) {$\phi(y)$};
+      \node[below] at (-2, 0) {$-\phi(x)$};
+      \node[below] at (-3.5, 0) {$-\phi(y)$};
+      \node[below] at (0, 0) {$0$};
+      \node[below,red] at (-0.75, 0) {$f(x)$};
+      \node[above,blue] at (-0.75, 0) {$f_\phi(x)$};
+      \node[below,red] at (4.3, 0) {$f(y)$};
+      \node[above,blue] at (3.5, 0) {$f_\phi(y)$};
+      \draw[<->, thick, blue] (-0.75, -.65) -- (3.5, -.65);
+    \end{tikzpicture}
+    \caption{Case 2}
+\end{subfigure}
+
+\vspace{1em}
+
+\begin{subfigure}[t]{0.49\textwidth}
+    \centering
+    \begin{tikzpicture}[scale=0.82,every node/.style={scale=0.75}]
+      \draw[->] (-4.5, 0) -- (4.5, 0);
+      \foreach \x in {-3.5,-2,0, -2.75, 2, 4.3,3.5} {
+        \draw[thick] (\x, -0.1) -- (\x, 0.1);
+      }
+      \node[below] at (2, 0) {$\phi(x)$};
+      \node[below] at (3.5, 0) {$\phi(y)$};
+      \node[below] at (-2, 0) {$-\phi(x)$};
+      \node[below] at (-3.5, 0) {$-\phi(y)$};
+      \node[below] at (0, 0) {$0$};
+      \node[below,red] at (-2.75, 0) {$f(x)$};
+      \node[above,blue] at (-2, 0) {$f_\phi(x)$};
+      \node[below,red] at (4.3, 0) {$f(y)$};
+      \node[above,blue] at (3.5, 0) {$f_\phi(y)$};
+      \draw[<->, thick, blue] (-2, -.65) -- (3.5, -.65);
+    \end{tikzpicture}
+    \caption{Case 3}
+\end{subfigure}
+\begin{subfigure}[t]{0.49\textwidth}
+    \centering
+    \begin{tikzpicture}[scale=0.82,every node/.style={scale=0.75}]
+      \draw[->] (-4.5, 0) -- (4.5, 0);
+      \foreach \x in {-3.5,-2,0, -2.75, 2, -4.3,3.5} {
+        \draw[thick] (\x, -0.1) -- (\x, 0.1);
+      }
+      \node[below] at (2, 0) {$\phi(x)$};
+      \node[below] at (3.5, 0) {$\phi(y)$};
+      \node[below] at (-2, 0) {$-\phi(x)$};
+      \node[below] at (-3.5, 0) {$-\phi(y)$};
+      \node[below] at (0, 0) {$0$};
+      \node[below,red] at (-2.75, 0) {$f(x)$};
+      \node[above,blue] at (-2, 0) {$f_\phi(x)$};
+      \node[below,red] at (-4.3, 0) {$f(y)$};
+      \node[above,blue] at (-3.5, 0) {$f_\phi(y)$};
+      \draw[<->, thick, blue] (-2, -.65) -- (-3.5, -.65);
+    \end{tikzpicture}
+    \caption{Case 4}
+\end{subfigure}
+\caption{Diagrams showing that $\left|f_\phi(x) - f_\phi(y)\right| \leq \max\left(\left|f(x) - f(y)\right|,\left|\phi(x) - \phi(y)\right| \right)$ .}
+\label{fig:comparaison-lip-diagram}
+\end{figure}
+\end{center}
+    By construction $|f_\phi| \leq \phi$. This function is also Lipschitz since both $f$ and $\phi$ are Lipschitz, see the diagrams in Figure \ref{fig:comparaison-lip-diagram}.
+    We get:
+    \begin{align*}
+        \brac{f,\bar{\mu}^m - \bar{\nu}^m} = \brac{f_\phi,\bar{\mu}^m - \bar{\nu}^m} + \brac{f_\phi-f,\bar{\mu}^m - \bar{\nu}^m}\ .
+    \end{align*}
+    
+    Notice that for all $x_0 \in \XF$ replacing $f$ by $f - f(x_0)$ does not change the value of $\brac{f,\bar{\mu}^m - \bar{\nu}^m}$ and therefore we can choose an $f$ such that $f(x_0) = 0$. Let $\varepsilon > 0$ and $x_0$ be such that $\phi(x_0) \leq \varepsilon$, take a function $f$ such that $Lip(f) \leq 1$ and $f(x_0) = 0$ then 
+    \[
+    |f(x)| = |f(x) - f(x_0)| \leq d(x,x_0) \leq \phi(x) + \phi(x_0) \leq \phi(x) + \varepsilon\ .
+    \]
+    From this we can deduce:
+    \[
+    |f_\phi(x) - f(x)| = \max\left(0,|f(x)| - \phi(x) \vphantom{A^2}\right) \leq \phi(x_0) \leq \varepsilon\ .
+    \]
+    And finally:
+    \begin{align*}
+        \brac{f,\bar{\mu}^m - \bar{\nu}^m} &\leq \brac{f_\phi,\bar{\mu}^m - \bar{\nu}^m} + \varepsilon\left(\bar{\mu}^m(\XF) + \bar{\nu}^m(\XF)\right)\\
+        &\leq \sup\limits_{\substack{Lip(f) \leq 1,\\ |f| \leq \phi}} \brac{f,\bar{\mu}^m - \bar{\nu}^m} + 2m\varepsilon \ .
+    \end{align*}
+    That being true for all $\varepsilon > 0$ we get the equality allowing us to pass to the supremum value on the LHS yields the desired result.
+
+    Step $2$: We start by showing:
+    \begin{align*}
+        \sup\limits_{\substack{Lip(f) \leq 1,\\ |f| \leq \phi}} \brac{f,\bar{\mu}^m - \bar{\nu}^m} \leq \sup\limits_{\substack{Lip(f) \leq 1,\\ |f| \leq \phi}} \brac{f,\mu - \nu} + \left|\vphantom{A^2}\mu(\XF) - \nu(\XF) \right|
+    \end{align*}
+    Let us take a Lipschitz function $f$ such that $|f| \leq \phi$:
+    \begin{align*}
+        \brac{f,\bar{\mu}^m - \bar{\nu}^m} &= \brac{f,\mu - \nu} + f(\partial) \left(\mu(\XF) - \nu(\XF)\vphantom{A^2}\right)\ .
+    \end{align*}
+    We have that for all $x_0 \in \XF$:
+    \[
+    |f(\partial)| = \left|\vphantom{A^{\int_0}}f(\partial) - \phi(x_0) + \phi(x_0)\right| \leq 2\phi(x_0) + 1
+    \]
+    And therefore $|f(\partial)| \leq 1$ since we can take $x_0$ such that $\phi(x_0) \leq \varepsilon$ for all $\varepsilon > 0$ ending step $2$.
+    
+    Step $3$: We prove the reverse inequality. In the previous step we showed that for all $f$ such that $Lip(f) \leq 1$ and $|f| \leq \phi$ we had that $|f(\partial)| \leq 1$. Therefore:
+    \begin{align*}
+        \brac{f,\mu - \nu} + f(\partial) \left(\mu(\XF) - \nu(\XF)\vphantom{A^2}\right) \leq \brac{f,\mu - \nu} + \left|\mu(\XF) - \nu(\XF)\vphantom{A^2}\right|\ .
+    \end{align*}
+    We can reach part of the optimum by choosing a function $\tilde{f} = f$ on $\XF$ and such that $\tilde{f}(\partial) = sign(\mu(\XF) - \nu(\XF))$. This function is Lipschitz with the right constant, for $x \in \XF$:
+    \begin{align*}
+        \left|\tilde{f}(x) - \tilde{f}(\partial)\right| \leq  \left|\tilde{f}(x)\right| + \left|\tilde{f}(\partial)\right| \leq \phi(x) + 1\ .
+    \end{align*}
+    We have that:
+    \begin{align*}
+        \brac{f,\mu - \nu} + \left|\vphantom{A^2}\mu(\XF) - \nu(\XF) \right| &= \brac{f,\mu - \nu} + sign(\mu(\XF) - \nu(\XF))\left(\vphantom{A^2}\mu(\XF) - \nu(\XF) \right)\\
+        &=  \brac{\tilde{f},\mu - \nu} + \tilde{f}(\partial)\left(\vphantom{A^2}\mu(\XF) - \nu(\XF) \right)\\
+        &= \brac{\tilde{f},\bar{\mu}^m - \bar{\mu}^m} \\
+        &\leq \sup\limits_{\substack{Lip(f) \leq 1,\\ |f| \leq \phi}} \brac{f,\bar{\mu}^m - \bar{\mu}^m} \ .
+    \end{align*}
+    We finish this step and this proof by going to the sup on LHS.
+\end{proof}
+\begin{remark}
+A common approach to generalizing the Wasserstein distance to positive measures of distinct mass is to define:
+\begin{align*}
+    W_1(\bar{\mu}^m, \bar{\nu}^m) = \sup_{\substack{Lip(f) \leq 1\\ f(x_0) = 0}} \brac{f, \mu - \nu} + \left| \mu(\XF) - \nu(\XF) \right|,
+\end{align*}
+for some fixed base point $x_0 \in \XF$, without requiring the domination condition involving a function $\phi$ (see \textcolor{red}{REF}). In this setting, if we choose $\phi(x) = d(x, x_0)$, both definitions coincide.
+
+However, our formulation is more flexible. It allows for functions of the form $\phi(x) = \lim_{x_0 \to x_a} d(x, x_0)$, where $x_a$ may lie outside of $\XF$. For example, consider the distance that we are interested in this work \(d_\alpha(x, y) = |x^{-\alpha} - y^{-\alpha}|\) on \(\RRP\), with \(\alpha \geq 0\). Then a natural choice is \(\phi(x) = x^{-\alpha}\), which corresponds to the limit \(x_a = +\infty\), a point not contained in \(\RRP\).
+\end{remark}
+
+We emphasize that the distance $W_1(\bar{\mu}^m, \bar{\nu}^m)$ defined in the previous proposition is independent of the choice of $m$, and moreover, it defines a valid distance on the space $\MC^+_{1 + \phi}(\XF)$.
+
+\begin{definition}\label{def:Wasserstein-general}
+We define the \emph{$\phi$-Wasserstein-$1$ distance} on $\MC^+_{1 + \phi}(\XF)$, denoted $W_{1,\phi}$, as the distance introduced in the previous proposition:
+\begin{align*}
+    W_{1,\phi}(\mu, \nu) := \sup_{\substack{Lip(f) \leq 1\\ |f| \leq \phi}} \brac{f, \mu - \nu} + \left| \mu(\XF) - \nu(\XF) \right|.
+\end{align*}
+\end{definition}
+This distance can be generalized to signed measures:
+\begin{definition}\label{def:Wasserstein-general-signed}
+    We define the \emph{$\phi$-Wasserstein-$1$ distance} on $\MC_{1 + \phi}(\XF)$, denoted $W_{1,\phi}$, as:
+\begin{align*}
+    W_{1,\phi}(\mu, \nu) := \sup_{\substack{Lip(f) \leq 1\\ |f| \leq \phi}} \brac{f, \mu - \nu} + \left| \mu(\XF) - \nu(\XF) \right|.
+\end{align*}
+\end{definition}
+It is easy to check the triangular inequality. It stills shares the Wasserstein structure given that for $\mu,\nu \in \MC_{1 + \phi}(\XF)$ let $\mu^+,\mu^-$ and $\nu^+,\nu^-$ respectively the Jordan decomposition of $\mu$ and $\nu$ we have:
+\begin{align*}
+    W_{1,\phi}(\mu, \nu) = W_{1,\phi}(\mu^+ + \nu^-, \nu^+ + \mu^-)\ ,
+\end{align*}
+and this distance is therefore well-posed. One could also remark that $W_{1,\phi}(\mu,0)$ defines a norm on $\MC_{1 + \phi}(\XF)$, this is very remniscient of the the flat norm given by Villani in \cite{villani2008optimal}.
+\subsubsection{For the distance \(d_\alpha\)}
+In this case all distances are equivalent and functions have a limit in $+\infty$ \red{A completer}.
 
 \subsection{Derivatives on spaces of measures}
 In this section we define the linear derivative of measures. We define them in the same fashion as in \cite{martiniKolmogorovEquationsSpaces2023} that takes inspiration from its presentation in \cite{cardaliaguet2019master,carmona2018probabilistic}.
@@ -1392,315 +1694,63 @@ We introduce a notation for this section, we denote by $\Proc{\psi_t(m)}$ the so
 %     \red{Partie ou on compare les masses totales}
 % \end{proof}
 % \newpage
+\newpage
+\section{Wasserstein regularity of solutions and derivaitve}
+In this section we prove the Wasserstein regularity of the solutions to the Smolochowski coagulation equation equation. This section is very technical because of the peculiar shape of our kernel we cannot by direct means find a Wasserstein bound. An illustration of this is provided in Example \ref{exp:wasserstein-is-tricky}. This section is organized as follows, we give first the main results with little to no proofs in \ref{section:wass-main-results}, then we give all the proofs. The latter rely on some heavy technical lemmas that are all carried out in \ref{wass-technical}
 
-\section{Wasserstein regularity}
-In this section we prove the Wasserstein regularity of the solutions to the $\SCE$ equation. We start by defining the Wasserstein distance between two measures in $\MC_1(\XF)$ where $\XF$ is a Polish space. The particularity is that both measures may not have the same total mass. 
 
-\subsection{Wasserstein distance for signed measures}
-The goal of this section is to introduce a definition of the Wasserstein distance for positive or signed measures that are not necessarily probability measures. The classical definition for probability measures is given in Definition \ref{def:Wasserstein}. The definition of the general distance for positive measures of not necessarily same mass relies on proposition \ref{prop:Kantorovich-general} and is given in definition \ref{def:Wasserstein-general}. Finally the extension to signed measures is pretty straightforward and done below the aforementioned definition. 
+Let us briefly remind the definition the Wasserstein distance we consider, for a proper introduction and defintions see Section \ref{section:Wasserstein}.
 
-The Wasserstein distance between two probability measures is based on a distance defined on the underlying metric space. As such we introduce $(\XF,d)$, asking from it slightly more than being merely a metric space but that it is $\XF$ is Polish and $d$ is a distance making it complete. The relevant measure space is the space of all finite measures on $\XF$, $\mu$ such that there exists $x_0 \in \XF$ and 
+For $\mu,\tilde{\mu} \in \MC_{\psi_1}^+(\RRP)$ the Wasserstein distance associated with the metric $d_\alpha$ is defined as:
 \begin{align*}
-    \int_{\XF} d(x,x_0) \mu(\dd x) < \infty\ .
+    W_{\psi_1}(\mu,\tilde{\mu}) = \sup\limits_{\substack {f \in Lip_1(d_\alpha)\\ |f| \leq 1 + \psi_1}} \brac{f,\mu - \tilde{\mu}} \ .
 \end{align*}
-Notice that this also implies that the latter is also true for all $x_0 \in \XF$, let us call this space $\MC^+_1(\XF,d)$ for the moment namely the space of finite measures with finite first moment under $d$.
-\begin{definition}\label{def:Wasserstein}
-    Let $\mu,\nu \in \MC^+_1(\XF,d)$ be two probability measures. The set of couplings between $\mu$ and $\nu$ that we denote by $\Pi(\mu,\nu)$, is the set of probability measures $\pi$ on $\XF\times \XF$ such that for all Borel sets $A$:
-    \begin{align*}
-        \pi(A\times\XF) = \mu(A) ,\quad  \pi(\XF\times A) = \nu(A)\ ,
-    \end{align*}
-    we say that $\pi$ has marginals $\mu$ and $\nu$. The Wasserstein-$1$ distance between $\mu$ and $\nu$ is:
-    \begin{align*}
-        W_1(\mu,\nu) = \inf\limits_{\pi \in\Pi(\mu,\nu)} \int_{\XF\times \XF} d(x,y) \pi(\dd x,\dd y)\ .
-    \end{align*}
-\end{definition}
-It is straightforward to generalize this distance to positive measures with the same total mass. Indeed, let $\mu, \nu \in \MC^+_1(\XF,d)$ be such that $\mu(\XF) = \nu(\XF) = m$. Then the set of couplings between $\mu$ and $\nu$ (which are no longer probability measures when $m \neq 1$) satisfies:
+Recall the definition of the space of Lipschitz functions from $(\RRP,d) \to (\RR,|\cdot|)$ with constant $c$ :
 \begin{align*}
-    \Pi(\mu,\nu) = m \, \Pi\left(\frac{\mu}{m}, \frac{\nu}{m}\right)\ .
+    Lip_c(d) = \left\lbrace f: \RRP \to \RR \middle|\quad  \sup\limits_{x \neq y \in (\RRP)^2} \dfrac{\left| f(x) - f(y)\right|}{d(x,y)}\leq  c \right\rbrace \ .
 \end{align*}
-And therefore
-\begin{align*}
-    W_1(\mu,\nu) = m\, W_1\left( \frac{\mu}{m}, \frac{\nu}{m}\right)\ .
-\end{align*}
-One key property of this distance is the Kantorovich-Rubinstein duality allowing to express this distance in terms of a supremum on Lipschitz functions, see \cite{santambrogio2015optimal} for a proof.
-\begin{theorem}[Kantorovich-Rubinstein duality]
-    Let $f$ be a continuous function from $\XF$ to $\RR$, we define the Lip pseudo norm by:
-    \begin{align*}
-        Lip(f) = \sup\limits_{x,y \in \XF} \dfrac{\left|f(x) - f(y) \right|}{d(x,y)} \ .
-    \end{align*}
-    We have:
-    \begin{align*}
-        W_1(\mu,\nu) = \sup\limits_{Lip(f) \leq 1} \brac{f,\mu - \nu}\ .
-    \end{align*}
-\end{theorem}
-\red{Tout ce qui suit fonctionne en revanche il ne semble pas judicieux de définir cette distance ainsi}Now, we define a more general distance, which will rely on one additional object: a positive function that we denote by $\phi$. This function should satisfy the following, for all $x,y \in \XF$,
-\begin{align*}
-    d(x,y) \leq \phi(x) + \phi(y), \text{ and}\quad|\phi(x) - \phi(y)| \leq d(x,y),
-\end{align*}
-that we could call a domination property and be Lipschitz. Assume furthermore that,
-\begin{align*}
-    \inf\limits_{x \in \XF} \phi(x) = 0\ .
-\end{align*}
-A function $\phi$ satisfying this condition always exists. For example, fix any point $x_0 \in \XF$ and define $\phi(x) = d(x,x_0)$. It is clear that $\phi(x_0) = 0$, then, by the triangle inequality,
-\begin{align*}
-d(x,y) &\leq d(x,x_0) + d(y,x_0) = \phi(x) + \phi(y)\ \text{ and}\\
-|\phi(x) - \phi(y)| &= |d(x,x_0) + d(y,x_0)| \leq d(x,y)\ .
-\end{align*}
-It is then clear that for all functions $\phi$ verifying this domination hypothesis
-\[
-\MC^+_1(\XF,d) = \MC^+_{1 + \phi}(\XF)\ . \red{\text{Suggestion : } \MC^+_d(\XF) \text{pour} \MC^+_1(\XF,d)}
-\]
-To define a distance for two measures not having same mass we add an extra point to $\XF$ that we call a cemetery point and denote $\delta$. Its role is to "store" the missing needed mass. We extend the definition of the distance to $\bar{\XF} = \XF\cup \lbrace\partial\rbrace$ using $\phi$, for all $x \in \XF$:
-\begin{align*}
-    \bar{d}(x,\partial) = \phi(x) + 1
-\end{align*}
-The space $\bar{\XF}$ is Polish by $\bar{d}$. Let us define the extended measures for $m\geq \mu(\XF) \vee \nu(\XF)$ :
-\begin{align*}
-    \bar{\mu}^m &= \mu + (m-\mu(\XF))\delta_{\partial}, \\
-    \bar{\nu}^m &= \nu + (m-\nu(\XF))\delta_{\partial}\ .
-\end{align*}
-Both measures are positive and have mass equal to $m$, we see in the next proposition that the Wasserstein distance between both is independent of $m$.
-\begin{proposition}\label{prop:Kantorovich-general}
-    We have:
-    \begin{align*}
-        W_1(\bar{\mu}^m,\bar{\nu}^m) = \sup\limits_{Lip(f) \leq 1, |f| \leq \phi} \brac{f,\mu - \nu} + \left|\vphantom{A^2}\mu(\XF) - \nu(\XF) \right|
-    \end{align*}
-\end{proposition}
-\begin{proof}
-    By the Kantorovich-Rubinstein duality theorem we have:
-    \begin{align*}
-        W_1(\bar{\mu}^m,\bar{\nu}^m) = \sup\limits_{Lip(f) \leq 1} \brac{f,\bar{\mu}^m - \bar{\nu}^m} \ .
-    \end{align*}
-    Step $1$: We show that:
-    \begin{align*}
-        \sup\limits_{Lip(f) \leq 1} \brac{f,\bar{\mu}^m - \bar{\nu}^m} = \sup\limits_{Lip(f) \leq 1,|f| \leq \phi} \brac{f,\bar{\mu}^m - \bar{\nu}^m}
-    \end{align*}
-    One inequality is obvious we treat the other. Let $f$ be a function such that $Lip(f) \leq 1$, let us define the truncation $f_\phi$ by:
-    \begin{align*}
-        f_\phi(x) = \min(\phi(x),\max(f(x),-\phi(x))),
-    \end{align*}
-    illustrated below in Figure \ref{fig:illustration-of-truncation}.
-    \begin{center}
-  % ========== First Main Plot ==========
-  \begin{figure}[h]
-    \centering
-    \pgfplotsset{compat=1.18}
-    \pgfmathdeclarefunction{phi}{1}{%
-    \pgfmathparse{exp(#1/2)}%
-    }
-    \pgfmathdeclarefunction{f}{1}{%
-    \pgfmathparse{1.4*phi(x)*cos(300*#1)}%
-    }
-    \pgfmathdeclarefunction{fphi}{1}{%
-    \pgfmathparse{min(phi(#1), max(f(#1), -phi(#1)))}%
-    }
-    \begin{tikzpicture}[scale=1,every node/.style={scale=1}]
-      \begin{axis}[
-        axis lines=middle,
-        axis line style={->},
-        xlabel={$x$},
-        ylabel={},
-        xtick=\empty,
-        ytick=\empty,
-        ymin=-3, ymax=3,
-        xmin=-1, xmax=2.5,
-        samples=300,
-        domain=-1:3,
-        clip=true,
-        width=\linewidth,
-        height=6cm
-      ]
-        \addplot[blue, thick]{phi(x)};
-        \addplot[blue, thick]{-phi(x)};
-        \addplot[red, dashed, thick]{f(x)};
-        \addplot[black, thick]{fphi(x)};
-        \node[blue] at (axis cs:0.6,1.7) {$\phi$};
-        \node[blue] at (axis cs:1.2,-1.5) {$-\phi$};
-        \node[red] at (axis cs:1.2,2.8) {$f$};
-        \node[black] at (axis cs:1.5,1.3) {$f_\phi$};
-      \end{axis}
-    \end{tikzpicture}
-    \caption{Illustration of the trunctation $f_\phi$}
-    \label{fig:illustration-of-truncation}
-  \end{figure}
-  % ========== 4 Case Diagrams ==========
-  \begin{figure}[ht]
-\centering
 
-\begin{subfigure}[t]{0.49\textwidth}
-    \centering
-    \begin{tikzpicture}[scale=0.82,every node/.style={scale=0.75}]
-      \draw[->] (-4.5, 0) -- (4.5, 0);
-      \foreach \x in {-3.5,-2,0, -0.75,1.2, 2,3.5} {
-        \draw[thick] (\x, -0.1) -- (\x, 0.1);
-      }
-      \node[below] at (2, 0) {$\phi(x)$};
-      \node[below] at (3.5, 0) {$\phi(y)$};
-      \node[below] at (-2, 0) {$-\phi(x)$};
-      \node[below] at (-3.5, 0) {$-\phi(y)$};
-      \node[below] at (0, 0) {$0$};
-      \node[below,red] at (-0.75, 0) {$f(x)$};
-      \node[above,blue] at (-0.75, 0) {$f_\phi(x)$};
-      \node[below,red] at (1.2, 0) {$f(y)$};
-      \node[above,blue] at (1.2, 0) {$f_\phi(y)$};
-      \draw[<->, thick, blue] (-0.75, -0.65) -- (1.2, -.65);
-    \end{tikzpicture}
-    \caption{Case 1}
-\end{subfigure}
-\begin{subfigure}[t]{0.49\textwidth}
-    \centering
-    \begin{tikzpicture}[scale=0.82,every node/.style={scale=0.75}]
-      \draw[->] (-4.5, 0) -- (4.5, 0);
-      \foreach \x in {-3.5,-2,0, -0.75, 2, 4.3,3.5} {
-        \draw[thick] (\x, -0.1) -- (\x, 0.1);
-      }
-      \node[below] at (2, 0) {$\phi(x)$};
-      \node[below] at (3.5, 0) {$\phi(y)$};
-      \node[below] at (-2, 0) {$-\phi(x)$};
-      \node[below] at (-3.5, 0) {$-\phi(y)$};
-      \node[below] at (0, 0) {$0$};
-      \node[below,red] at (-0.75, 0) {$f(x)$};
-      \node[above,blue] at (-0.75, 0) {$f_\phi(x)$};
-      \node[below,red] at (4.3, 0) {$f(y)$};
-      \node[above,blue] at (3.5, 0) {$f_\phi(y)$};
-      \draw[<->, thick, blue] (-0.75, -.65) -- (3.5, -.65);
-    \end{tikzpicture}
-    \caption{Case 2}
-\end{subfigure}
+One of the key technical insights underlying our analysis is that solutions to the SCE gain exponential moments instantaneously—even if the initial data lacks them. This regularization phenomenon plays a central role in controlling the Wasserstein distance and in establishing the fine properties of the dynamics.
 
-\vspace{1em}
+\subsection{Main results}\label{section:wass-main-results}
+In this section we give the main results of this section that will be of use in the main results of this work. We give no proof with the exeption of one that is simple enough. The proofs are listed 
+Recall that for $\mu \in \MC^+_{\psi_2}(\RRP)$, $\Proc{\varphi_t(\mu)}$ denotes the solutions to the Smolochowski coagulation equation started from $\mu$ with kernel $K_\alpha$, and for $\mu \in \MC^+_{\psi_3}(\RRP)$, $\Proc{\delta_\mu\varphi_t(\mu)}$ its derivatve. 
 
-\begin{subfigure}[t]{0.49\textwidth}
-    \centering
-    \begin{tikzpicture}[scale=0.82,every node/.style={scale=0.75}]
-      \draw[->] (-4.5, 0) -- (4.5, 0);
-      \foreach \x in {-3.5,-2,0, -2.75, 2, 4.3,3.5} {
-        \draw[thick] (\x, -0.1) -- (\x, 0.1);
-      }
-      \node[below] at (2, 0) {$\phi(x)$};
-      \node[below] at (3.5, 0) {$\phi(y)$};
-      \node[below] at (-2, 0) {$-\phi(x)$};
-      \node[below] at (-3.5, 0) {$-\phi(y)$};
-      \node[below] at (0, 0) {$0$};
-      \node[below,red] at (-2.75, 0) {$f(x)$};
-      \node[above,blue] at (-2, 0) {$f_\phi(x)$};
-      \node[below,red] at (4.3, 0) {$f(y)$};
-      \node[above,blue] at (3.5, 0) {$f_\phi(y)$};
-      \draw[<->, thick, blue] (-2, -.65) -- (3.5, -.65);
-    \end{tikzpicture}
-    \caption{Case 3}
-\end{subfigure}
-\begin{subfigure}[t]{0.49\textwidth}
-    \centering
-    \begin{tikzpicture}[scale=0.82,every node/.style={scale=0.75}]
-      \draw[->] (-4.5, 0) -- (4.5, 0);
-      \foreach \x in {-3.5,-2,0, -2.75, 2, -4.3,3.5} {
-        \draw[thick] (\x, -0.1) -- (\x, 0.1);
-      }
-      \node[below] at (2, 0) {$\phi(x)$};
-      \node[below] at (3.5, 0) {$\phi(y)$};
-      \node[below] at (-2, 0) {$-\phi(x)$};
-      \node[below] at (-3.5, 0) {$-\phi(y)$};
-      \node[below] at (0, 0) {$0$};
-      \node[below,red] at (-2.75, 0) {$f(x)$};
-      \node[above,blue] at (-2, 0) {$f_\phi(x)$};
-      \node[below,red] at (-4.3, 0) {$f(y)$};
-      \node[above,blue] at (-3.5, 0) {$f_\phi(y)$};
-      \draw[<->, thick, blue] (-2, -.65) -- (-3.5, -.65);
-    \end{tikzpicture}
-    \caption{Case 4}
-\end{subfigure}
-\caption{Diagrams showing that $\left|f_\phi(x) - f_\phi(y)\right| \leq \max\left(\left|f(x) - f(y)\right|,\left|\phi(x) - \phi(y)\right| \right)$ .}
-\label{fig:comparaison-lip-diagram}
-\end{figure}
-\end{center}
-    By construction $|f_\phi| \leq \phi$. This function is also Lipschitz since both $f$ and $\phi$ are Lipschitz, see the diagrams in Figure \ref{fig:comparaison-lip-diagram}.
-    We get:
-    \begin{align*}
-        \brac{f,\bar{\mu}^m - \bar{\nu}^m} = \brac{f_\phi,\bar{\mu}^m - \bar{\nu}^m} + \brac{f_\phi-f,\bar{\mu}^m - \bar{\nu}^m}\ .
-    \end{align*}
-    
-    Notice that for all $x_0 \in \XF$ replacing $f$ by $f - f(x_0)$ does not change the value of $\brac{f,\bar{\mu}^m - \bar{\nu}^m}$ and therefore we can choose an $f$ such that $f(x_0) = 0$. Let $\varepsilon > 0$ and $x_0$ be such that $\phi(x_0) \leq \varepsilon$, take a function $f$ such that $Lip(f) \leq 1$ and $f(x_0) = 0$ then 
-    \[
-    |f(x)| = |f(x) - f(x_0)| \leq d(x,x_0) \leq \phi(x) + \phi(x_0) \leq \phi(x) + \varepsilon\ .
-    \]
-    From this we can deduce:
-    \[
-    |f_\phi(x) - f(x)| = \max\left(0,|f(x)| - \phi(x) \vphantom{A^2}\right) \leq \phi(x_0) \leq \varepsilon\ .
-    \]
-    And finally:
-    \begin{align*}
-        \brac{f,\bar{\mu}^m - \bar{\nu}^m} &\leq \brac{f_\phi,\bar{\mu}^m - \bar{\nu}^m} + \varepsilon\left(\bar{\mu}^m(\XF) + \bar{\nu}^m(\XF)\right)\\
-        &\leq \sup\limits_{\substack{Lip(f) \leq 1,\\ |f| \leq \phi}} \brac{f,\bar{\mu}^m - \bar{\nu}^m} + 2m\varepsilon \ .
-    \end{align*}
-    That being true for all $\varepsilon > 0$ we get the equality allowing us to pass to the supremum value on the LHS yields the desired result.
+\subsection{Proof srategies}
 
-    Step $2$: We start by showing:
+Now to illustrate why the remainder of the section is so technically involved.
+\begin{example}\label{exp:wasserstein-is-tricky}
+    Take $\Proc{\mu_t} , \Proc{\tilde{\mu}_t}$ two solutions of the $\SCE$ started from $\mu,\tilde{\mu}$ with a kernel
     \begin{align*}
-        \sup\limits_{\substack{Lip(f) \leq 1,\\ |f| \leq \phi}} \brac{f,\bar{\mu}^m - \bar{\nu}^m} \leq \sup\limits_{\substack{Lip(f) \leq 1,\\ |f| \leq \phi}} \brac{f,\mu - \nu} + \left|\vphantom{A^2}\mu(\XF) - \nu(\XF) \right|
+        K'_\alpha(x,y) = (x+y)^{-\alpha} \ .
     \end{align*}
-    Let us take a Lipschitz function $f$ such that $|f| \leq \phi$:
+    This kernel as opposed to $K_\alpha$ is only singular in $(0,0)$. Let us try to bound the Wasserstein distance at a given time with the initial one. Let $f \in Lip_1(d_\alpha)$ we have :
+    \begin{multline*}
+        \brac{f,\mu_t - \tilde{\mu}_t} = \brac{f,\mu - \tilde{\mu}} \\
+        + \int_0^t \int_{\RRP}\int_{\RRP} K'_\alpha(x,y) \left[f(x+y) - f(x) -f(y) \right]\left(\mu_s + \tilde{\mu}_s\right)(\dd x) \left( \mu_s - \tilde{\mu}_s\right)(\dd y)\dd s\ .
+    \end{multline*}
+    We can write:
     \begin{align*}
-        \brac{f,\bar{\mu}^m - \bar{\nu}^m} &= \brac{f,\mu - \nu} + f(\partial) \left(\mu(\XF) - \nu(\XF)\vphantom{A^2}\right)\ .
+        \brac{f,\mu_t - \tilde{\mu}_t} = \brac{f,\mu - \tilde{\mu}} + \int_0^t \brac{A_tf , \mu_s - \tilde{\mu}_s} \dd s,
     \end{align*}
-    We have that for all $x_0 \in \XF$:
-    \[
-    |f(\partial)| = \left|\vphantom{A^{\int_0}}f(\partial) - \phi(x_0) + \phi(x_0)\right| \leq 2\phi(x_0) + 1
-    \]
-    And therefore $|f(\partial)| \leq 1$ since we can take $x_0$ such that $\phi(x_0) \leq \varepsilon$ for all $\varepsilon > 0$ ending step $2$.
-    
-    Step $3$: We prove the reverse inequality. In the previous step we showed that for all $f$ such that $Lip(f) \leq 1$ and $|f| \leq \phi$ we had that $|f(\partial)| \leq 1$. Therefore:
+    where
     \begin{align*}
-        \brac{f,\mu - \nu} + f(\partial) \left(\mu(\XF) - \nu(\XF)\vphantom{A^2}\right) \leq \brac{f,\mu - \nu} + \left|\mu(\XF) - \nu(\XF)\vphantom{A^2}\right|\ .
+        A_tf(x) = \int_{\RRP} K'_\alpha(x,y) \left[f(x+y) - f(x) -f(y) \right]\left(\mu_s + \tilde{\mu}_s\right)(\dd y)\ .
     \end{align*}
-    We can reach part of the optimum by choosing a function $\tilde{f} = f$ on $\XF$ and such that $\tilde{f}(\partial) = sign(\mu(\XF) - \nu(\XF))$. This function is Lipschitz with the right constant, for $x \in \XF$:
-    \begin{align*}
-        \left|\tilde{f}(x) - \tilde{f}(\partial)\right| \leq  \left|\tilde{f}(x)\right| + \left|\tilde{f}(\partial)\right| \leq \phi(x) + 1\ .
-    \end{align*}
-    We have that:
-    \begin{align*}
-        \brac{f,\mu - \nu} + \left|\vphantom{A^2}\mu(\XF) - \nu(\XF) \right| &= \brac{f,\mu - \nu} + sign(\mu(\XF) - \nu(\XF))\left(\vphantom{A^2}\mu(\XF) - \nu(\XF) \right)\\
-        &=  \brac{\tilde{f},\mu - \nu} + \tilde{f}(\partial)\left(\vphantom{A^2}\mu(\XF) - \nu(\XF) \right)\\
-        &= \brac{\tilde{f},\bar{\mu}^m - \bar{\mu}^m} \\
-        &\leq \sup\limits_{\substack{Lip(f) \leq 1,\\ |f| \leq \phi}} \brac{f,\bar{\mu}^m - \bar{\mu}^m} \ .
-    \end{align*}
-    We finish this step and this proof by going to the sup on LHS.
-\end{proof}
-\begin{remark}
-A common approach to generalizing the Wasserstein distance to positive measures of distinct mass is to define:
+    One can check with the previous bound stated in Lemma \ref{lem:bound_smol_1} that this is Lipschitz function if $\mu,\tilde{\mu} \in \MC_{\psi_2}(\RRP)$. It works with $K'_\alpha$ because for all $x,y$, $K'_\alpha(x,y) \leq x^{-\alpha} \wedge y^{-\alpha}$. This is not true for $K_\alpha$.
+\end{example}
+
+To still recover a bound for our kernel we exploit an idea that we initally used to show that solutions of the $\SCE$ are positive. For $\Proc{\mu_t}$ the solution of the Smoluchowski coagulation equation  started from $\mu$ define $h_t$:
 \begin{align*}
-    W_1(\bar{\mu}^m, \bar{\nu}^m) = \sup_{\substack{Lip(f) \leq 1\\ f(x_0) = 0}} \brac{f, \mu - \nu} + \left| \mu(\XF) - \nu(\XF) \right|,
+    h_t(x) = \int_{\RRP} K_\alpha(x,y) \mu_t(\dd y)\ .
 \end{align*}
-for some fixed base point $x_0 \in \XF$, without requiring the domination condition involving a function $\phi$ (see \textcolor{red}{REF}). In this setting, if we choose $\phi(x) = d(x, x_0)$, both definitions coincide.
-
-However, our formulation is more flexible. It allows for functions of the form $\phi(x) = \lim_{x_0 \to x_a} d(x, x_0)$, where $x_a$ may lie outside of $\XF$. For example, consider the distance that we are interested in this work \(d_\alpha(x, y) = |x^{-\alpha} - y^{-\alpha}|\) on \(\RRP\), with \(\alpha \geq 0\). Then a natural choice is \(\phi(x) = x^{-\alpha}\), which corresponds to the limit \(x_a = +\infty\), a point not contained in \(\RRP\).
-\end{remark}
-
-We emphasize that the distance $W_1(\bar{\mu}^m, \bar{\nu}^m)$ defined in the previous proposition is independent of the choice of $m$, and moreover, it defines a valid distance on the space $\MC^+_{1 + \phi}(\XF)$.
-
-\begin{definition}\label{def:Wasserstein-general}
-We define the \emph{$\phi$-Wasserstein-$1$ distance} on $\MC^+_{1 + \phi}(\XF)$, denoted $W_{1,\phi}$, as the distance introduced in the previous proposition:
+We know that equation verified by $h_t\mu_t$ is for all $f \in C_b(\RRP)$:
 \begin{align*}
-    W_{1,\phi}(\mu, \nu) := \sup_{\substack{Lip(f) \leq 1\\ |f| \leq \phi}} \brac{f, \mu - \nu} + \left| \mu(\XF) - \nu(\XF) \right|.
+    \brac{f,h_t\mu_t} = \brac{f,\mu} + \dfrac{1}{2}\int_{\RRP} \int_{\RRP} K_\alpha(x,y) fh_t(x+y) \mu_t(\dd x) \mu_t (\dd y) \ .
 \end{align*}
-\end{definition}
-This distance can be generalized to signed measures:
-\begin{definition}\label{def:Wasserstein-general-signed}
-    We define the \emph{$\phi$-Wasserstein-$1$ distance} on $\MC_{1 + \phi}(\XF)$, denoted $W_{1,\phi}$, as:
-\begin{align*}
-    W_{1,\phi}(\mu, \nu) := \sup_{\substack{Lip(f) \leq 1\\ |f| \leq \phi}} \brac{f, \mu - \nu} + \left| \mu(\XF) - \nu(\XF) \right|.
-\end{align*}
-\end{definition}
-It is easy to check the triangular inequality. It stills shares the Wasserstein structure given that for $\mu,\nu \in \MC_{1 + \phi}(\XF)$ let $\mu^+,\mu^-$ and $\nu^+,\nu^-$ respectively the Jordan decomposition of $\mu$ and $\nu$ we have:
-\begin{align*}
-    W_{1,\phi}(\mu, \nu) = W_{1,\phi}(\mu^+ + \nu^-, \nu^+ + \mu^-)\ ,
-\end{align*}
-and this distance is therefore well-posed. One could also remark that $W_{1,\phi}(\mu,0)$ defines a norm on $\MC_{1 + \phi}(\XF)$, this is very remniscient of the the flat norm given by Villani in \cite{villani2008optimal}.
-\subsubsection{For the distance \(d_\alpha\)}
-In this case all distances are equivalent and functions have a limit in $+\infty$ \red{A completer}.
+As we will see this formulation gets rid of the difficulty we previously had however computations are tedious. 
 
-\subsection{Wasserstein regularity}
-\subsubsection{Exponential moments}
+\subsection{Exponential moments}\label{section:wass-exponential}
 The goal of this section is to prove the following lemma, which states that the solution to the Smoluchowski coagulation equation ($\SCE$) gains exponential moment over time, independently of the properties of the initial measure.
 
 Throughout this section, we assume that $\mu \in \MC^+_{\phi_2}(\RRP)$ and denote by $\Proc{\mu_t}$ the solution to the $\SCE$ started from $\mu$ and kernel $K_\alpha$.
@@ -1719,32 +1769,6 @@ We then introduce the function,
     h_t^\varepsilon(x) = \exp{\left(\int_0^t K_\alpha(x,y)\mu_s^\varepsilon(\dd y) \dd s \right)}
 \end{align*}
 and the flow of measures, $\Proc{\nu_t^\varepsilon} := \Proc{h_t^\varepsilon\mu_t^\varepsilon}$ that is well defined thanks to the cut performed on the initial measure. We will use a completeness argument for the final result.
-
-% We will need the the ordering proposition below.
-% \begin{proposition}
-%     Let $\varepsilon_1 \geq \varepsilon_2$ for all $t \geq 0$, $\mu_t^{\varepsilon_1} \leq \mu_t^{\varepsilon_2}$.
-% \end{proposition}
-% \begin{proof}
-%     The proof of this proposition is very similar to the one where we proved the positivity of the solutions to the $\SCE$. Consider the function:
-%     \begin{align*}
-%         h_t^\varepsilon(x) = \exp{\left( \int_0^t K_\alpha(x,y)\mu_t^\varepsilon(\dd y)\right)},
-%     \end{align*}
-%     and the flow of measures for all $t \geq 0$:
-%     \begin{align*}
-%         m_t = h_t^{\varepsilon_1}h_t^{\varepsilon_2}\left(\mu_t^{\varepsilon_2} - \mu_t^{\varepsilon_1}\right).
-%     \end{align*}
-%     \red{Ca pourrait marcher.}
-%     We have for all $f \in C_b(\RRP)$:
-%     \begin{align*}
-%         \brac{f, m_t} = \brac{f,\mu^{\varepsilon_2} - \mu^{\varepsilon_1}} + \int_0^t \brac{f,G_s(m_s)} \dd s
-%     \end{align*}
-%     where the operator $G_s$ is defined by :
-%     \begin{align*}
-%         \brac{f,G_t(m)} =& \dfrac12 \int_{\RRP} \int_{\RRP} K_\alpha(x,y) f(x+y)h^{\varepsilon_2}_t(x+y) \left(h^{\varepsilon_1}_t(x) \right)^{-1}\left( \mu_t ^{\varepsilon_1} + \mu_t^{\varepsilon_1} \right)(\dd x) m(\dd y)\\
-%         &+\int_{\RRP} \int_{\RRP} K_\alpha(x,y) f(x) \left(\mu_t^{\varepsilon_1} - \mu_t^{\varepsilon_2}\right)(\dd x) \mu_t^{\varepsilon_2}(\dd y)
-%     \end{align*}
-%     \red{Ici il faut definir la fonction de Norris $t \mapsto \lambda_t$}
-% \end{proof}
 
 \begin{proposition}\label{prop:bound_smol_exponential}
     Consider a non-increasing positive function $g$ and for $c \geq 0$, define the function $\phi^c : x \mapsto g(x)e^{cx^{-\alpha}}$, denote by $\Proc{\mu_t}$ the solution of the $\SCE$ started from $\mu \in \MC_{\phi^{c^*}}^+(\RRP)$, we have for all $0 \leq c  < c^*$ and $t \geq 0$ such that $\int_0^t\brac{1,\mu_s}\dd s \leq c$:
@@ -2394,8 +2418,147 @@ where for a distance $d$ on $\RRP$,
     Lip_d(f) = \sup\left\lbrace \dfrac{\left|f(x) - f(y) \right|}{d(x,y)}, (x,y) \in (\RRP)^2, x \neq y \right\rbrace \ .
 \end{align*}
 
+We give a lemma controlling the derivaitve of the $\SCE$,
+\begin{lemma}\label{lem:wass-rescaled-derivaitve}
+    Let $z_1,z_2 \in \RRP$, the following assertions hold:
+    \begin{itemize}
+        \item Assume that $\mu \in \MC_{\psi_3}(\RRP)$ for all $f \in Lip_1(d_\alpha)$:
+            \begin{align*}
+                \brac{f,h_t\delta_\mu \varphi_t(\mu;z_1) - h_t\delta_\mu \varphi_t(\mu;z_2)} \leq e^{CT\|\mu\|_{\psi_1}\left(1 + T\|\mu\|\right)} d_\alpha(z_1,z_2) \ .
+            \end{align*}
+        \item For $p \geq 1$ let $p' = \max(p+1,3)$, assume that $\mu \in \MC_{\psi_{p'}}(\RRP)$ for all $f \in Lip_1(d_{p\alpha})$:
+            \begin{align*}
+                \brac{f,h_t\delta_\mu \varphi_t(\mu;z_1) - h_t\delta_\mu \varphi_t(\mu;z_2)} \leq d_{p\alpha}(z_1,z_2) + C_2(T,\mu + \tilde{\mu}) d_\alpha(z_1,z_2),
+            \end{align*}
+            where 
+            \begin{align*}
+                C_2(T,\mu + \tilde{\mu}) = CT \|\mu\|_{\psi_p}\left(1 + T\|\mu\|\right)e^{CT\|\mu\|_{\psi_1}\left(1 + T\|\mu\|\right)}\ .
+            \end{align*}
+    \end{itemize}
+\end{lemma}
+\begin{proof}
+    We introduce the signed measure:
+    \begin{align*}
+        m_t = \delta_\mu \varphi_t(\mu;z_1) - \delta_\mu \varphi_t(\mu;z_2),
+    \end{align*}
+    and by slight abuse of notation denote $W_{\psi}(m_t) = W_{\psi}(\delta_\mu \varphi_t(\mu;z_1), \delta_\mu \varphi_t(\mu;z_2))$. We denote by $\Proc{\mu_t} = \Proc{\varphi_t(\mu)}$, We have for for all $t\geq 0$, $f \in C_b(\RRP)$:
+    \begin{multline*}
+        \brac{f,h_tm_t} = f(z_1) - f(z_2) + \int_0^t \brac{f \partial_s h_s,m_s} \dd s \\
+        + \int_0^t \int_{\RRP}\int_{\RRP}K_\alpha(x,y) \left[fh_t(x+y) - fh_t(x) - fh_t(y) \right] \mu_s(\dd x) m_s(\dd y) \dd s \\
+        = f(z_1) - f(z_2) + \int_0^t \int_{\RRP}\int_{\RRP}K_\alpha(x,y) \left[fh_t(x+y) - fh_t(x)\right] \mu_s(\dd x) m_s(\dd y) \dd s
+    \end{multline*}
+    We further introduce the functions:
+    \begin{align*}
+        H_tf(x,y) &= K_\alpha(x,y) f(x+y) h_t(x+y)\left(h_t(x)h_t(y)\right)^{-1} \\
+        &= f(x+y) G_t(x,y)\\
+        I_tf(x,y) &= K_\alpha(x,y)f(x) h_t(y)^{-1},
+    \end{align*}
+    with these notations:
+    \begin{subequations}
+    \begin{align}
+        \brac{f,h_tm_t} = f(z_1) - f(z_2) &+ \int_0^t \brac{H_sf,h_s\mu_s \otimes h_s m_s} \dd s\label{proof:eq:wass-rescaled-SCE-1}\\
+        &-\int_0^t \brac{I_sf,h_s\mu_s \otimes h_s m_s} \dd s\label{proof:eq:wass-rescaled-SCE-2}
+    \end{align}
+    \label{proof:eq:wass-rescaled-SCE}
+    \end{subequations}
+
+    One can rewrite the term in the time integral of \eqref{proof:eq:wass-rescaled-SCE-1} as:
+    \begin{align*}
+        \brac{H_tf,h_t\mu_t \otimes h_t m_t} \brac{A_t,h_t m_t}
+    \end{align*}
+    where
+    \begin{align*}
+        A_t(x) = \int_{\RRP} H_tf(x,y) h_t(y) \mu_t(\dd y)\ .
+    \end{align*}    
+    Notice that we would have to put $H_tf(y,x)$ to be really in accord with our computations so far. However $H_tf$ is symmetric so this hardly matters. This remark will be import to handle \label{proof:eq:wass-rescaled-SCE-2} as $I_tf$ is not symetric. 
+    
+    First we bound $A_t$, by point $(iv)$ of Lemma \ref{lem:technical_G_h}:
+    \begin{align*}
+        \left|A_tf(x)\right| &\leq \int_{\RRP} |f(x+y)|G_t(x,y)| h_t(y)\mu_t(\dd y)\\
+        &\leq (1 + x^{-\alpha})\int_{\RRP} (1 + (x+y)^{-p\alpha})(1 + y^{-\alpha})  \mu_t(\dd y) \\
+        &\leq C(1 + \psi_1(x)) \| \mu\|_{\psi_{p+1}}\ .
+    \end{align*}
+    To show that  $A_tf$ is Lipschitz let us study:
+    \begin{align*}
+        \partial_x H_tf(x,y) = \partial_x f(x+y) G_t(x,y) + f(x+y) \partial_x G_t(x,y)\ .
+    \end{align*}
+    Which is defined for almost every $x$ since $f$ is $d_{\alpha p}$-Lipschitz. We control this partial derivaitve like so:
+    \begin{align*}
+        \left|\partial_x H_tf(x,y) \right| \leq p\alpha (x+y)^{-1-p\alpha} \left|G_t(x,y) \right| + \left( 1 + (x+y)^{-p\alpha} \right) \left|\partial_x G_t(x,y) \right|\ .
+    \end{align*}
+    By point $(iv)$ and $(v)$ of \ref{lem:technical_G_h} we have:
+    \begin{align*}
+        \left|G_t(x,y) \right| &\leq (1 + x^{-\alpha})(1 + y^{-\alpha}) e^{-\int_0^t \brac{\psi_1,\mu_s}\dd s} \\
+        \left|\partial_x G_t(x,y) \right| &\leq  C x^{-1-\alpha} e^{-\int_0^t \brac{\psi_1,\mu_s}\dd s}\ .
+    \end{align*}
+    We get:
+    \begin{multline*}
+        \left|\partial_x H_tf(x,y) \right| \leq p\alpha (x+y)^{-1-p\alpha} (1 + x^{-\alpha})(1 + y^{-\alpha})e^{-\int_0^t \brac{\psi_1,\mu_s}\dd s} \\
+        +  \left( 1 + (x+y)^{-p\alpha} \right)C x^{-1-\alpha}e^{-\int_0^t \brac{\psi_1,\mu_s}\dd s}\ .
+    \end{multline*}
+    Now notice that for all $a,b > 0, (x+y)^{-a - b} \leq x^{-a}y^{-b}$ therefore:
+    \begin{align*}
+        \left|\partial_x H_tf(x,y) \right| \leq C x^{-1-\alpha} (1 + y^{-(p+1)\alpha})e^{-\int_0^t \brac{\psi_1,\mu_s}\dd s}\ .
+    \end{align*}
+    By Lemma \ref{lem:exponential-moments} and because $\mu \in \MC^+_{\psi_{p+1}}(\RRP)$ the map $y \mapsto \partial_x H_tf(x,y)$ is $h_t \mu_t$-integrable Therefore $A_tf$ is almost everywhere differentiable and: 
+    \begin{align*}
+        \left|\dd_x A_tf(x) \right| \leq  C x^{-1-\alpha}\int_{\RRP} (1 + \psi_{p+1}(y)) e^{y^{-\alpha \gamma_t }}\mu_t(\dd y) \leq C x^{-1-\alpha}\| \mu\|_{\psi_{p+1}}\ .
+    \end{align*}
+    Consequently:
+    \begin{align*}
+        \brac{H_tf,h_t\mu_t \otimes h_t m_t} \leq C\|\mu\|_{\psi_{p+1}} W_{\psi_1}(h_tm_t).
+    \end{align*} 
+
+    Now we bound the term inside the time integral in \eqref{proof:eq:wass-rescaled-SCE-2} one can rewrite it:
+    \begin{align*}
+        \brac{I_tf,h_t\mu_t \otimes h_t m_t} = \brac{B_tf,h_tm_t}
+    \end{align*}
+    It remains to show that $B_t$ defined by
+    \begin{align*}
+        B_tf(x) = \int_{\RRP} I_tf(y,x) h_t(y) \mu_t(\dd y)
+    \end{align*}
+    is Lipschitz and estimate its consant. First we have:
+    \begin{align*}
+        \left|B_tf(x) \right| 
+        &\leq \int_{\RRP} K_\alpha(x,y)\left|f(y) \right| e^{ y^{-\alpha} \int_0^t \brac{1,\mu_s} \dd s} \mu_t(\dd y) \\
+        &\leq C(1 + x^{-\alpha})\int_{\RRP} 1 + y^{-(p+1)\alpha} e^{y^{-\alpha}\int_0^t \brac{1,\mu_s} \dd s} \mu_t(\dd y) \\
+        &\leq C(1 + x^{-\alpha}) \|\mu\|_{p+1}\ .
+    \end{align*}
+    To show that it is Lipschitz let us study:
+    \begin{align*}
+        \partial_x I_tf(y,x) = \partial_x K_\alpha(x,y)f(y)h_t(y)^{-1} + \partial_x \left(h_t(x)\right)^{-1} K_\alpha(x,y)f(y)\ .
+    \end{align*}
+    By point $(ii)$ of Lemma \ref{lem:technical_G_h}:
+    \begin{align*}
+        \left| \partial_x \left(h_t(x)\right)^{-1} K_\alpha(x,y)f(y)\right| \leq  C x^{-1-\alpha} e^{-\int_0^t \brac{\psi_1,\mu_s}\dd s}(1 + y^{-{p + 1}\alpha}) (1 + t\|\mu\|)\ .
+    \end{align*}
+    And therefore :
+    \begin{align*}
+        \left| \partial_x I_tf(y,x)\right| \leq C x^{-1-\alpha} e^{-\int_0^t \brac{\psi_1,\mu_s}\dd s} (1 + y^{-{p + 1}\alpha}) (1 + t\|\mu\|)\ .
+    \end{align*}
+    It comes that $x \mapsto \partial_y I_tf(x,y)$ is $h_t\mu_t$-integrable and therefore $B_t$ is almost everywhere differentiable with:
+    \begin{align*}
+        \left| \dd_x B_t(x)\right| 
+        &\leq C x^{-1-\alpha} (1 + t\|\mu\|) \int_{\RRP} (1 + y^{-(p + 1)\alpha}) e^{y^{-\alpha}\int_0^t \brac{1,\mu_s} \dd s} \mu_t(\dd y) \\
+        &\leq C x^{-1-\alpha} (1 + t\|\mu\|) \|\mu\|_{\psi_{p+1}}\ .
+    \end{align*}
+    We found that:
+    \begin{align*}
+        \brac{I_tf,h_t\mu_t \otimes h_t m_t} \leq C(1 + T\|\mu\|)\|\mu\|_{\psi_{p+1}} W_{\psi_1}(h_tm_t).
+    \end{align*}
+    Finally:
+    \begin{align*}
+        \brac{f,h_tm_t} \leq d_{p\alpha}(z_1,z_2) + C(1 + T\|\mu\|)\|\mu\|_{\psi_{p+1}}\int_0^t  W_{\psi_1}(h_sm_s)\dd s,
+    \end{align*}
+    and by letting the LHS go to the supremum:
+    \begin{align*}
+        W_{\psi_p}(h_tm_t) \leq d_{p\alpha}(z_1,z_2) + C(1 + T\|\mu\|)\|\mu\|_{\psi_{p+1}}\int_0^t  W_{\psi_1}(h_sm_s)\dd s\ .
+    \end{align*}
+    If $p = 1$ then a Gronwall lemma gives us the first result. Then for $p > 1$ we can use the $\psi_1$ bound and proceed by brute force.
+\end{proof}
+
 The lemma below shows how the rescaled solutions of the $\SCE$ behave in the considered distances.
-\begin{lemma}
+\begin{lemma}\label{lem:wass-rescaled-SCE}
     Let $\Proc{\mu_t}$ and $\Proc{\tilde{\mu}_t}$ the solution to the $\SCE$ started from $\mu, \tilde{\mu}$, the following statements are true:
     \begin{itemize}
         \item Assume $\mu, \tilde{\mu} \in \MC^+_{\psi_3}(\RRP)$, for all $t \in [0,T]$ we have:
@@ -2447,39 +2610,7 @@ This lemma can be interpreted as follows: The first point shows that the solutio
     \begin{align*}
         A_tf(x) = \int_{\RRP} H_tf(x,y) h_t(y)\mu_t(\dd y)\ .
     \end{align*}
-    First we bound it, by point $(iv)$ of Lemma \ref{lem:technical_G_h}:
-    \begin{align*}
-        \left|A_tf(x)\right| &\leq \int_{\RRP} |f(x+y)|G_t(x,y)| h_t(y)\mu_t(\dd y)\\
-        &\leq (1 + x^{-\alpha})\int_{\RRP} (1 + (x+y)^{-p\alpha})(1 + y^{-\alpha})  \mu_t(\dd y) \\
-        &\leq C(1 + \psi_1(x)) \| \mu\|_{\psi_{p+1}}\ .
-    \end{align*}
-    To show that  $A_tf$ is Lipschitz let us study:
-    \begin{align*}
-        \partial_x H_tf(x,y) = \partial_x f(x+y) G_t(x,y) + f(x+y) \partial_x G_t(x,y)\ .
-    \end{align*}
-    Which is defined for almost every $x$ since $f$ is $d_{\alpha p}$-Lipschitz. We control this partial derivaitve like so:
-    \begin{align*}
-        \left|\partial_x H_tf(x,y) \right| \leq p\alpha (x+y)^{-1-p\alpha} \left|G_t(x,y) \right| + \left( 1 + (x+y)^{-p\alpha} \right) \left|\partial_x G_t(x,y) \right|\ .
-    \end{align*}
-    By point $(iv)$ and $(v)$ of \ref{lem:technical_G_h} we have:
-    \begin{align*}
-        \left|G_t(x,y) \right| &\leq (1 + x^{-\alpha})(1 + y^{-\alpha}) e^{-\int_0^t \brac{\psi_1,\mu_s}\dd s} \\
-        \left|\partial_x G_t(x,y) \right| &\leq  C x^{-1-\alpha} e^{-\int_0^t \brac{\psi_1,\mu_s}\dd s}\ .
-    \end{align*}
-    We get:
-    \begin{multline*}
-        \left|\partial_x H_tf(x,y) \right| \leq p\alpha (x+y)^{-1-p\alpha} (1 + x^{-\alpha})(1 + y^{-\alpha})e^{-\int_0^t \brac{\psi_1,\mu_s}\dd s} \\
-        +  \left( 1 + (x+y)^{-p\alpha} \right)C x^{-1-\alpha}e^{-\int_0^t \brac{\psi_1,\mu_s}\dd s}\ .
-    \end{multline*}
-    Now notice that for all $a,b > 0, (x+y)^{-a - b} \leq x^{-a}y^{-b}$ therefore:
-    \begin{align*}
-        \left|\partial_x H_tf(x,y) \right| \leq C x^{-1-\alpha} (1 + y^{-(p+1)\alpha})e^{-\int_0^t \brac{\psi_1,\mu_s}\dd s}\ .
-    \end{align*}
-    By Lemma \ref{lem:exponential-moments} and because $\mu \in \MC^+_{\psi_{p+1}}(\RRP)$ the map $y \mapsto \partial_x H_tf(x,y)$ is $h_t \mu_t$-integrable Therefore $A_tf$ is almost everywhere differentiable and: 
-    \begin{align*}
-        \left|\partial_x A_tf(x) \right| \leq  C x^{-1-\alpha}\int_{\RRP} (1 + \psi_{p+1}(y)) e^{y^{-\alpha \gamma_t }}\mu_t(\dd y) \leq C x^{-1-\alpha}\| \mu\|_{\psi_{p+1}}\ .
-    \end{align*}
-    Consequently term \eqref{proof:eq:h_tmu_t-1} gets the following bound:
+    We already saw in the proof of Lemma \ref{lem:wass-rescaled-derivaitve} that the latter in $Lip_{C\|\mu\|_{\psi_{p+1}}}(d_{\alpha})$ for all $f$ in $Lip_1(d_{p\alpha})$ and consequently term \eqref{proof:eq:h_tmu_t-1} gets the following bound:
     \begin{align*}
         \brac{H_tf,\mu_t \otimes\left(h_t\mu_t -  \tilde{h}_t \tilde{\mu}_t\right)} &= \brac{A_tf,h_t\mu_t -  \tilde{h}_t \tilde{\mu}_t}\\
         &\leq C\| \mu\|_{\psi_{p+1}} W_{\psi_1}(h_t\mu_t, \tilde{h}_t \tilde{\mu}_t)\ .
@@ -2547,28 +2678,6 @@ This lemma can be interpreted as follows: The first point shows that the solutio
     \end{align*}
 \end{proof}
 
-We start by giving a lemma controlling the derivaitve of the $\SCE$,
-\begin{lemma}
-    Let $z_1,z_2 \in \RRP$, the following assertions hold:
-    \begin{itemize}
-        \item Assume that $\mu \in \MC_{\psi_3}(\RRP)$ for all $f \in Lip_1(d_\alpha)$:
-            \begin{align*}
-                \brac{f,\delta_\mu \varphi_t(\mu;z_1) - \delta_\mu \varphi_t(\mu;z_2)} \leq C_1(T,\mu + \tilde{\mu}) d_\alpha(z_1,z_2) \ .
-            \end{align*}
-        \item For $p \geq 1$ let $p' = \max(p+1,3)$, assume that $\mu \in \MC_{\psi_{p'}}(\RRP)$ for all $f \in Lip_1(d_{p\alpha})$:
-            \begin{align*}
-                \brac{f,\delta_\mu \varphi_t(\mu;z_1) - \delta_\mu \varphi_t(\mu;z_2)} \leq d_{p\alpha}(z_1,z_2) + C_2(T,\mu + \tilde{\mu}) d_\alpha(z_1,z_2)
-            \end{align*}
-    \end{itemize}
-\end{lemma}
-\begin{proof}
-    We introduce the functions:
-    \begin{align*}
-        H_tf(x,y) &= K_\alpha(x,y) f(x+y) h_t(x+y)\left(h_t(x)h_t(y)\right)^{-1}, \\
-        &= f(x+y) G_t(x,y)\ .
-        I_tf(x,y) &= K_\alpha(x,y)
-    \end{align*}
-\end{proof}
 
 
 We state and prove the main result of this part.
