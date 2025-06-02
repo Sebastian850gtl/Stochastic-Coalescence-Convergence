@@ -1770,15 +1770,17 @@ Next, we provide a key comparison estimate between derivatives corresponding to 
     Let $\mu, \tilde{\mu} \in \MC_{\psi_3}^+(\RRP)$, and fix $T > 0$. Then there exists a constant $C(T,\mu,\tilde{\mu})$ such that:
     \begin{enumerate}
         \item For all $z \in \RRP$,
-        \[
-        W_{\psi_1}\left( \delta_\mu \varphi_t(\mu; z), \delta_\mu \varphi_t(\tilde{\mu}; z)\right) \leq (1 + \psi_1(z)+ \psi_2(z)) C(T,\mu,\tilde{\mu}).
-        \]
+        \begin{multline*}
+        W_{\psi_1}\left( \delta_\mu \varphi_t(\mu; z), \delta_\mu \varphi_t(\tilde{\mu}; z)\right)  \\
+        \leq \left(W_{\psi_1}(\mu,\tilde{\mu}) + W_{\psi_2}(\mu,\tilde{\mu})\right)(1 + \psi_1(z)+ \psi_2(z)) C(T,\mu,\tilde{\mu}).
+        \end{multline*}
         \item For all $z_1,z_2 \in \RRP$,
         \begin{multline*}
             W_{\psi_1}\left( \delta_\mu \varphi_t(\mu; z_1) - \delta_\mu \varphi_t(\mu; z_2), \delta_\mu \varphi_t(\tilde{\mu}; z_1)-\delta_\mu \varphi_t(\tilde{\mu}; z_2)\right) \\
              \leq \left(W_{\psi_1}(\mu,\tilde{\mu}) + W_{\psi_2}(\mu,\tilde{\mu})\right)\left(d_\alpha(z_1,z_2) + d_{2\alpha}(z_1,z_2)\right) C(T,\mu,\tilde{\mu}).
         \end{multline*}
     \end{enumerate}
+    The constant $C$ depends non-deacreasingly in $T$ and $\|\cdot \|_{\psi_p}$ for $p \in \lbrace 0,1,2 \rbrace$.
 \end{proposition}
 
 Finally, we present a key regularization phenomenon: the instantaneous generation of exponential moments by the solution, even if the initial measure lacks them. This result plays a crucial role in the Wasserstein analysis and is included here, as its proof is a direct corollary of Lemma~\ref{lem:exponential-moments} in Section~\ref{section:wass-exponential}.
@@ -2058,10 +2060,10 @@ and $\tilde{G}_t$ defined similarly. To be able to use Wasserstein bounds we nee
         \[ \left|\partial_{xy}G_t(x,y) \right| \leq C(xy)^{-1-\alpha} \left(1 + t\|\mu\| \right) e^{-\int_0^t \brac{\psi_1,\mu_s}\dd s}.
         \]
         \item For all $x,y \in \RRP$,
-        \[\left|G_t(x,y)- \tilde{G}_t(x,y)\right| \leq C(1 + x^{-2\alpha})(1 + y^{-2\alpha})\int_0^t W_{\psi_1}(\mu_s,\tilde{\mu}_s) \dd s .
+        \[\left|G_t(x,y)- \tilde{G}_t(x,y)\right| \leq C(1 + x^{-2\alpha} + y^{-2\alpha})\int_0^t W_{\psi_1}(\mu_s,\tilde{\mu}_s) \dd s .
         \]
         \item For all $x,y \in \RRP$, 
-        \[\left|\partial_x \left(G_t(x,y)- \tilde{G}_t(x,y)\right)  \right| \leq C\alpha x^{-1-\alpha}(1 + x^{-\alpha})(1 + y^{-2\alpha})\int_0^t W_{\psi_1}(\mu_s,\tilde{\mu}_s) \dd s.
+        \[\left|\partial_x \left(G_t(x,y)- \tilde{G}_t(x,y)\right)  \right| \leq C\alpha x^{-1-\alpha}(1 + x^{-\alpha} + y^{-\alpha})\int_0^t W_{\psi_1}(\mu_s,\tilde{\mu}_s) \dd s.
         \]
     \end{enumerate}
 \end{lemma}
@@ -2109,13 +2111,17 @@ and $\tilde{G}_t$ defined similarly. To be able to use Wasserstein bounds we nee
         \left|\partial_x \left( h_t(x)\right)^{-1}- \partial_x\left( \tilde{h}_t(x)\right)^{-1} \right| \leq& \left|\int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) \left( \mu_s - \tilde{\mu}_s\right)(\dd y) \dd s\right| \\
         &+ \left|\int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) \tilde{\mu}_s(\dd y) \dd s\right| \times \left|\left( h_t(x)\right)^{-1}-\left( \tilde{h}_t(x)\right)^{-1} \right|
     \end{align*}
-    We can bound the second term using $(ii)$, as for the first term we have:
+    Bound the second term using $(ii)$,
+    \begin{multline*}
+        \left|\int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) \tilde{\mu}_s(\dd y) \dd s\right| \times \left|\left( h_t(x)\right)^{-1}-\left( \tilde{h}_t(x)\right)^{-1} \right| \\
+        \leq \alpha x^{-1-\alpha} \gamma_t (1 + x^{-\alpha})\int_0^t W_{\psi_1}\left(\mu_s,\tilde{\mu}_s \right)\dd s.
+    \end{multline*}
+    As for the first term:
     \begin{align*}
         \left|\int_0^t \int_{\RRP} \partial_x K_\alpha(x,y) \left( \mu_s - \tilde{\mu}_s\right)(\dd y) \dd s\right| 
         &= \alpha x^{-\alpha-1} \int_0^t \left|\brac{1,\mu_s - \tilde{\mu}_s}\right| \dd s\\
         &\leq \alpha x^{-\alpha-1}\int_0^t W_{\psi_1} (\mu_s,\tilde{\mu}_s)\dd s
     \end{align*}
-    \red{detailler un peu plus.}
     This ends the proof of the third point.
 
     $(iv)$ We have:
@@ -2214,11 +2220,66 @@ and $\tilde{G}_t$ defined similarly. To be able to use Wasserstein bounds we nee
     Therefore:
     \begin{multline*}
         \left| G_t(x,y)- \tilde{G}_t(x,y) \right|\\ \leq K_\alpha(x,y)\int_0^t\left| \int_{\RRP} K_\alpha(x+y,z) - K_\alpha(x,z) -K_\alpha(y,z)\left( \mu_s - \tilde{\mu}_s\right)(\dd z) \right|\dd s \\
-        \leq K_\alpha(x,y)(x^{-\alpha} + y^{-\alpha}) \int_0^t W_{\psi_1}(\mu_s,\tilde{\mu}_s) \dd s\\
+        \leq K_\alpha(x,y)(1 + x^{-\alpha} + y^{-\alpha}) \int_0^t W_{\psi_1}(\mu_s,\tilde{\mu}_s) \dd s\\
         \leq C(1 + x^{-2\alpha} + y^{-2\alpha})\int_0^t W_{\psi_1}(\mu_s,\tilde{\mu}_s) \dd s.
     \end{multline*}
     
-    $(vii)$
+    $(viii)$ We remind that $\gamma_t = \int_0^t \brac{1,\mu_s} \dd s$. Let us denote by $\mathbf{K} : \left(\RRP\right)^3 \to \RR^+$ the function:
+    \begin{align*}
+        \mathbf{K}(x,y,z) = -\left(K_\alpha(x+y,z) - K_\alpha(x,z) -K_\alpha(y,z)\right).
+    \end{align*}
+    Note that,
+    \begin{align*}
+        \partial_x \mathbf{K}(x,y,z) = -\alpha x^{-1-\alpha}  + \alpha (x + y)^{-1-\alpha}.
+    \end{align*}
+    We have 
+    \begin{multline*}
+        \partial_x G_t(x,y)- \partial_x \tilde{G}_t(x,y) = \partial_x K_\alpha(x,y) \left( e^{-\int_0^t \int_{\RRP}\mathbf{K}(x,y,z)\mu_s(\dd z) \dd s} 
+        -  e^{-\int_0^t \int_{\RRP}\mathbf{K}(x,y,z)\tilde{\mu}_s(\dd z) \dd s} \right) \\
+        - K_\alpha(x,y) \int_0^t \int_{\RRP} \partial_x \mathbf{K}(x,y,z)\mu_s(\dd z) \dd s \times e^{-\int_0^t \int_{\RRP}\mathbf{K}(x,y,z)\mu_s(\dd z) \dd s} \\
+        + K_\alpha(x,y)\int_0^t \int_{\RRP}\partial_x \mathbf{K}(x,y,z)\tilde{\mu}_s(\dd z) \dd s e^{-\int_0^t \int_{\RRP}\mathbf{K}(x,y,z)\tilde{\mu}_s(\dd z) \dd s}.
+    \end{multline*}
+    Thanks to the inequalities found in the proof of $(vii)$ the first term satisfies:
+    \begin{multline*}
+        \left| \partial_x K_\alpha(x,y) \left( e^{-\int_0^t \int_{\RRP}\mathbf{K}(x,y,z)\mu_s(\dd z) \dd s} 
+        -  e^{-\int_0^t \int_{\RRP}\mathbf{K}(x,y,z)\tilde{\mu}_s(\dd z) \dd s} \right)\right| \\
+         \leq C x^{-1-\alpha} (1 + x^{-\alpha} + y^{-\alpha}) \int_0^t W_{\psi_1}(\mu_s,\tilde{\mu}_s) \dd s.
+    \end{multline*}
+    For the remaining terms assume that:
+    \begin{align*}
+        \int_0^t \int_{\RRP}\mathbf{K}(x,y,z)\mu_s(\dd z) \dd s \leq \int_0^t \int_{\RRP}\mathbf{K}(x,y,z)\tilde{\mu}_s(\dd z) \dd s.
+    \end{align*}
+    Then
+    \begin{multline*}
+        \left| K_\alpha(x,y) \int_0^t \int_{\RRP} \partial_x \mathbf{K}(x,y,z)\mu_s(\dd z) \dd s \right|
+        \left|e^{-\int_0^t \int_{\RRP}\mathbf{K}(x,y,z)\mu_s(\dd z) \dd s} - e^{-\int_0^t \int_{\RRP}\mathbf{K}(x,y,z)\tilde{\mu}_s(\dd z) \dd s}\right| \\
+        \leq C x^{-1-\alpha} K_\alpha(x,y) \gamma_t  \int_0^t \left| \int_{\RRP}\mathbf{K}(x,y,z)(\mu_s-\tilde{\mu}_s)(\dd z) \right| \dd s \times e^{-\int_0^t \int_{\RRP}\mathbf{K}(x,y,z)\mu_s(\dd z) \dd s}
+    \end{multline*}
+    Now recall that the convexity of $x \mapsto x^{-\alpha}$ gives $-\mathbf{K}(x,y,z) \leq - (1-2^{-1-\alpha}) K_\alpha(x,y)$ and therefore:
+    \begin{align*}
+        K_\alpha(x,y) \gamma_t e^{-\int_0^t \int_{\RRP}\mathbf{K}(x,y,z)\mu_s(\dd z) \dd s} 
+        &\leq K_\alpha(x,y) \gamma_t e^{-(1-2^{-1-\alpha}) K_\alpha(x,y)\gamma_t} \\
+        &\leq \dfrac{1}{1-2^{-1-\alpha}}.
+    \end{align*}
+    Recall also that:
+    \begin{align*}
+        \int_{\RRP}\mathbf{K}(x,y,z)(\mu_s-\tilde{\mu}_s)(\dd z) \leq W_{\psi_1}(\mu_s,\tilde{\mu}_s) (1 + x^{-\alpha} + y^{-\alpha}).
+    \end{align*}
+    We get:
+    \begin{multline*}
+        \left| K_\alpha(x,y) \int_0^t \int_{\RRP} \partial_x \mathbf{K}(x,y,z)\mu_s(\dd z) \dd s \right|
+        \left|e^{-\int_0^t \int_{\RRP}\mathbf{K}(x,y,z)\mu_s(\dd z) \dd s} - e^{-\int_0^t \int_{\RRP}\mathbf{K}(x,y,z)\tilde{\mu}_s(\dd z) \dd s}\right| \\
+        \leq C x^{-1-\alpha} (1 + x^{-\alpha} + y^{-\alpha}) \int_0^t  W_{\psi_1}(\mu_s,\tilde{\mu}_s) \dd s.
+    \end{multline*}
+    The last term to bound is:
+    \begin{multline*}
+        \left| K_\alpha(x,y) \int_0^t \int_{\RRP} \partial_x \mathbf{K}(x,y,z)\left(\mu_s - \tilde{\mu}_s \right)(\dd z) \dd s \times e^{-\int_0^t \int_{\RRP}\mathbf{K}(x,y,z)\tilde{\mu}_s(\dd z) \dd s} \right| \\
+        \leq 2\alpha x^{-1-\alpha}\left( 1 + x^{-\alpha} + y^{-\alpha}\right) \int_0^t W_{\psi_1}(\mu_s,\tilde{\mu_s}) \dd s.
+    \end{multline*}
+    Putting all bounds together we finlally get:
+    \begin{align*}
+        \left| \partial_x G_t(x,y)- \partial_x \tilde{G}_t(x,y)\right| \leq C x^{-1-\alpha} (1 + x^{-\alpha} + y^{-\alpha}) \int_0^t  W_{\psi_1}(\mu_s,\tilde{\mu}_s) \dd s.
+    \end{align*}
 \end{proof}
 We give a lemma controlling the derivative of the $\SCE$ rescaled by function $h_t$.
 \begin{lemma}\label{lem:wass-rescaled-derivative}
@@ -2746,9 +2807,9 @@ In this proof we use the characterization of Lipschitz functions for $d_\alpha$ 
     We similarly define $\tilde{H}_tf$ and $\tilde{I}_tf$. One gets for all Lipschitz functions $f \in Lip_1(d_{\alpha})$ such that $|f| \leq 1 + \psi_1$ that:
     \begin{subequations}
     \begin{align}
-        \brac{f, h_tm_t - \tilde{h}_t\tilde{m}_t} =& \brac{H_tf- I_tf ,h_t\mu_t \otimes \left(h_tm_t - \tilde{h}_t\tilde{m}_t \right) }\label{proof:eq:wass-finale-step-2-1}\\ 
-        &+ \brac{H_tf- I_tf,\left(h_t\mu_t - \tilde{h}_t\tilde{\mu}_t\right)\otimes \tilde{h}_t\tilde{m}_t}\label{proof:eq:wass-finale-step-2-2} \\ 
-        &+ \brac{H_tf-\tilde{H}_tf + \tilde{I}_tf - I_tf,\tilde{h}_t\tilde{\mu}_t\otimes \tilde{h}_t\tilde{m}_t}\label{proof:eq:wass-finale-step-2-3} 
+        \brac{f, h_tm_t - \tilde{h}_t\tilde{m}_t} =& \int_0^t \brac{H_sf- I_sf ,h_s\mu_s \otimes \left(h_sm_s - \tilde{h}_s\tilde{m}_s \right) } \dd s\label{proof:eq:wass-finale-step-2-1}\\ 
+        &+ \int_0^t\brac{H_sf- I_sf,\left(h_s\mu_s - \tilde{h}_s\tilde{\mu}_s\right)\otimes \tilde{h}_s\tilde{m}_s} \dd s\label{proof:eq:wass-finale-step-2-2} \\ 
+        &+ \int_0^t \brac{H_sf-\tilde{H}_sf + \tilde{I}_sf - I_sf,\tilde{h}_s\tilde{\mu}_s\otimes \tilde{h}_s\tilde{m}_s}\dd s\label{proof:eq:wass-finale-step-2-3} 
     \end{align}
     \label{proof:eq:wass-finale-step-2}
     \end{subequations}
@@ -2758,7 +2819,7 @@ In this proof we use the characterization of Lipschitz functions for $d_\alpha$ 
     \end{align*}
     is Lipschitz and bounded for $d_\alpha$ with constant $C(1 + \|\mu\|T)\|\mu\|_{\psi_2}$. Consequently \eqref{proof:eq:wass-finale-step-2-1} gets the bound:
     \begin{align*}
-        \brac{H_tf- I_tf ,h_t\mu_t \otimes \left(h_tm_t - \tilde{h}_t\tilde{m}_t \right) } \leq (1 + \|\mu\|T)\|\mu\|_{\psi_2}W_{\psi_1}\left(h_tm_t , \tilde{h}_t\tilde{m}_t \right).
+        \brac{H_tf- I_tf ,h_t\mu_t \otimes \left(h_tm_t - \tilde{h}_t\tilde{m}_t \right) } \leq C(1 + \|\mu\|T)\|\mu\|_{\psi_2}W_{\psi_1}\left(h_tm_t , \tilde{h}_t\tilde{m}_t \right).
     \end{align*}
     For \eqref{proof:eq:wass-finale-step-2-2}, we need to show that $H_tf - I_tf$ is Lipschitz in both variables, Proposition \ref{prop:characterization-product} tells us that it is enough to control each partial derivatives as well as the second order  derivative. We start with $H_tf$, recalling its first derivative:
     \begin{align*}
@@ -2869,7 +2930,6 @@ In this proof we use the characterization of Lipschitz functions for $d_\alpha$ 
     \begin{align*}
         \brac{H_tf - I_tf,\left(h_t\mu_t - \tilde{h}_t\tilde{\mu}_t\right)\otimes \tilde{h}_t\tilde{m}_t}  \leq C(T,\mu,\tilde{\mu})\left(W_{\psi_1}\left( \mu , \tilde{\mu}\right) + W_{\psi_2}\left( \mu , \tilde{\mu}\right)\right)W_{\psi_1}\left(m_0\right).
     \end{align*}
-
     The last term to bound is \eqref{proof:eq:wass-finale-step-2-3}:
     \begin{align*}
         \brac{H_tf-\tilde{H}_tf + \tilde{I}_tf - I_tf,\tilde{h}_t\tilde{\mu}_t\otimes \tilde{h}_t\tilde{m}_t}
@@ -2885,24 +2945,104 @@ In this proof we use the characterization of Lipschitz functions for $d_\alpha$ 
     \end{align*}
     By $(vii)$ of Lemma \ref{lem:technical_G_h} we have:
     \begin{align*}
-        \left|A_tf(y)\right| &\leq \int_0^t W_{\psi_1}(\mu_s,\tilde{\mu}_s) \dd s \times \left(1 + \psi_2(y) \right)\int_{\RRP} \left(1 + \psi_2(x) \right) \tilde{h}_t\tilde{\mu}_t(\dd x) \\
+        \left|A_tf(y)\right| 
+        &\leq \int_0^t W_{\psi_1}(\mu_s,\tilde{\mu}_s) \dd s \times \int_{\RRP} f(x+y)\left(1 + \psi_2(y) + \psi_2(x) \right) \tilde{h}_t\tilde{\mu}_t(\dd x) \\
+        &\leq \int_0^t W_{\psi_1}(\mu_s,\tilde{\mu}_s) \dd s \times \int_{\RRP} (1 + \psi_1(x+y))\left(1 + \psi_2(y) + \psi_2(x) \right) \tilde{h}_t\tilde{\mu}_t(\dd x).
+    \end{align*}
+    Unsing the monotony of $\psi_1$ we have 
+    \[(1 + \psi_1(x+y) )(1 +\psi_2(y)) \leq (1 + \psi_1(x) )(1 + \psi_2(y)) \leq C(1 + \psi_2(x))(1 + \psi_2(y)),
+    \]
+    and
+    \[(1 + \psi_1(x+y) )(1 +\psi_2(x)) \leq C(1 + \psi_2(y))(1 + \psi_2(x)).
+    \]
+    Consequently we get:
+    \begin{align*}
+        \left|A_tf(y)\right| 
         &\leq C(T,\mu,\tilde{\mu}) W_{\psi_1}\left(\mu,\tilde{\mu}\right)  \left(1 + \psi_2(y) \right) \brac{1+\psi_2,\tilde{h}_t\tilde{\mu}_t} \\
-        &\leq C(T,\mu,\tilde{\mu}) W_{\psi_1}\left(\mu,\tilde{\mu}\right)  \left(1 + \psi_2(y) \right) \|\mu\|_{\psi_2}.
+        &\leq C(T,\mu,\tilde{\mu}) W_{\psi_1}\left(\mu,\tilde{\mu}\right)  \left(1 + \psi_2(y) \right) \|\mu\|_{\psi_2},
     \end{align*}
-    where we used in order Proposition \ref{prop:wass-sce} and Lemma \ref{lem:exponential-moments}. Now we get to the derivative.
-
-
-    The rest of this step is devoted to bounding the remaining term. We proceed similarly as in the first step by showing that $A_tf - \tilde{A}_tf$ is Lpischitz with a constant controlled by $W_{\psi_1}(\mu,\tilde{\mu})$ and use Proposition \ref{prop:wass-derivative} to conclude. We differentiate the latter function:
+    where we used in order Proposition \ref{prop:wass-sce} and Lemma \ref{lem:exponential-moments}. Now we get to the derivative:
     \begin{align*}
-        A_tf'(x) - \tilde{A}_tf'(x) = B_tf(x) + C_tf(x) + D_tf(x)
+        \partial_y \left( H_tf(x,y)-\tilde{H}_tf(x,y)\right) =& \partial_y f(x+y) \left(G_t(x,y) - \tilde{G}_t(x,y) \right)\\
+         &+ f(x+y)\left( \partial_y G_t(x,y) - \partial_y \tilde{G}_t(x,y) \right).
     \end{align*}
+    The first term satisfies by point $(vii)$ of Lemma \ref{lem:technical_G_h}:
     \begin{align*}
-        B_tf(x) =& -\int_0^t \int_{\RRP}\partial_x K_\alpha(x,y) \mu_t(\dd y) A_tf(x) + \int_0^t \int_{\RRP}\partial_x K_\alpha(x,y) \tilde{\mu}_t(\dd y)\tilde{A}_tf(x) \\
-        C_tf(x) =& \left(h_t(x)\right)^{-1}\int_{\RRP}\partial_x K_\alpha(x,y)\left[fh_t(x+y)- fh_t(y)\right]\mu_t(\dd y)\\
-         & - \left(\tilde{h}_t(x)\right)^{-1}\int_{\RRP}\partial_x K_\alpha(x,y)\left[f\tilde{h}_t(x+y) - f\tilde{h}_t(y)\right]\tilde{\mu}_t(\dd y) \\
-        D_tf(x) =& \left(h_t(x)\right)^{-1}\int_{\RRP}K_\alpha(x,y) h_t(x+y)\left[f'(x+y) -\int_0^t \int_{\RRP}\partial_x K_\alpha(x,y) \mu_t(\dd y) f(x+y) \right]\mu_t(\dd y) \\
-        &- \left(\tilde{h}_t(x)\right)^{-1}\int_{\RRP}K_\alpha(x,y) \tilde{h}_t(x+y)\left[f'(x+y) -\int_0^t \int_{\RRP}\partial_x K_\alpha(x,y) \mu_t(\dd y) f(x+y) \right]\tilde{\mu}_t(\dd y)
+        \left| \partial_y f(x+y) \left(G_t(x,y) - \tilde{G}_t(x,y) \right) \right| 
+        &\leq C(x+y)^{-1-\alpha} (1 + x^{-2\alpha} + y^{-2\alpha}) \int_0^t W_{\psi_1}(\mu_s,\tilde{\mu}_s) \dd s \\
+        &\leq C( y^{-1-\alpha}( 1 + x^{-2\alpha}) + y^{-1 - 2\alpha}x^{-\alpha} ) C(T,\mu,\tilde{\mu}) W_{\psi_1}(\mu,\tilde{\mu}) \\
+        &\leq C(y^{-1-\alpha} + y^{-1 - 2\alpha})(1 + \psi_2(x)) C(T,\mu,\tilde{\mu}) W_{\psi_1}(\mu,\tilde{\mu}) .
     \end{align*}
+    The second term gets by point $(viii)$ of Lemma \ref{lem:technical_G_h}:
+    \begin{multline*}
+        f(x+y)\left( \partial_y G_t(x,y) - \partial_y \tilde{G}_t(x,y) \right) \\
+        \leq C x^{-1-\alpha} (1 + (x+y)^{-\alpha})(1 + x^{-\alpha} + y^{-\alpha}) \int_0^t W_{\psi_1}(\mu_s,\tilde{\mu}_s) \dd s \\
+        \leq C(y^{-1-\alpha} + y^{-1 - 2\alpha})(1 + \psi_2(x)) C(T,\mu,\tilde{\mu}) W_{\psi_1}(\mu,\tilde{\mu}) .
+    \end{multline*}
+    It comes that $A_tf$ is almost everywhere differentiable and by Lemma \ref{lem:exponential-moments}:
+    \begin{align*}
+        \left| A_tf'(y) \right| \leq C(T,\mu,\tilde{\mu}) W_{\psi_1}(\mu,\tilde{\mu}) (y^{-1-\alpha} + y^{-1 - 2\alpha}) \|\tilde{\mu}\|_{\psi_2}e^{CT\|\mu\|_{\psi_1}}.
+    \end{align*}
+    Therefore $A_tf$ is Lipschitz for the composite distance $d_\alpha + d_{2\alpha}$. We finally get by Lemma \ref{lem:wass-rescaled-derivative}:
+    \begin{align*}
+        \brac{H_tf - \tilde{H}_tf, \tilde{h}_t\tilde{\mu}_t\otimes \tilde{h}_t\tilde{m}_t} 
+        &= \brac{A_tf,\tilde{h}_t\tilde{m}_t} \\
+        &\leq C(T,\mu,\tilde{\mu}) W_{\psi_1}(\mu,\tilde{\mu}) \left(W_{\psi_1}(\tilde{h}_t\tilde{m}_t) + W_{\psi_2}(\tilde{h}_t\tilde{m}_t) \right)\\
+        &\leq C(T,\mu,\tilde{\mu}) W_{\psi_1}(\mu,\tilde{\mu})\left(W_{\psi_1}(m_0) + W_{\psi_2}(m_0) \right).
+    \end{align*}
+
+    Onto $B_tf$ we have first by $(ii)$ of Lemma \ref{lem:technical_G_h} and Proposition \ref{prop:wass-sce}:
+    \begin{align*}
+        \left|B_tf(y) \right| 
+        &\leq \int_{\RRP} \left| I_tf(x,y) - \tilde{I}_tf(x,y)\right| \tilde{h}_t \tilde{\mu}_t(\dd x) \\
+        &= \int_{\RRP} K_\alpha(x,y) |f(x)| \left| \left(h_t(y) \right)^{-1} - \left(\tilde{h}_t(y) \right)^{-1} \right| \tilde{h}_t \tilde{\mu}_t(\dd x) \\
+        &\leq C(T,\mu,\tilde{\mu}) W_{\psi_1}(\mu,\tilde{\mu})   (1 + \psi_2(y)).
+    \end{align*}
+    Now, to study its Lipschitz regularity:
+    \begin{align*}
+        \partial_y I_tf(x,y) - \partial_y \tilde{I}_tf(x,y) 
+        =& \partial_y K_\alpha(x,y) f(x)\left( \left(h_t(y) \right)^{-1} - \left(\tilde{h}_t(y) \right)^{-1} \right) \\
+        &+  K_\alpha(x,y) f(x)\left( \partial_y \left(h_t(y) \right)^{-1} - \partial_y \left(\tilde{h}_t(y) \right)^{-1} \right) 
+    \end{align*}
+    For the first term by $(ii)$ of Lemma \ref{lem:technical_G_h} and Proposition \ref{prop:wass-sce}:
+    \begin{align*}
+        \left| \partial_y K_\alpha(x,y) f(x)\left( \left(h_t(y) \right)^{-1} - \left(\tilde{h}_t(y) \right)^{-1} \right) \right| 
+        \leq C y^{-1-\alpha} (1 + y^{-\alpha}) (1 + x^{-2\alpha}) C(T,\mu,\tilde{\mu}) W_{\psi_1}(\mu,\tilde{\mu}) \\
+        \leq (y^{-1-\alpha} + y^{-1-2\alpha})(1 + \psi_2(x)) C(T,\mu,\tilde{\mu})  W_{\psi_1}(\mu,\tilde{\mu}).
+    \end{align*}
+    For the second term using $(iii)$ of Lemma \ref{lem:technical_G_h} and Proposition \ref{prop:wass-sce}:
+    \begin{multline*}
+        \left| K_\alpha(x,y) f(x)\left( \partial_y \left(h_t(y) \right)^{-1} - \partial_y \left(\tilde{h}_t(y) \right)^{-1} \right) \right| \\
+        \leq (y^{-1-\alpha} + y^{-1-2\alpha})(1 + \psi_2(x)) C(T,\mu,\tilde{\mu})  W_{\psi_1}(\mu,\tilde{\mu}).
+    \end{multline*}
+    We finally have:
+    \begin{align*}
+        \left| B_tf'(y)\right| \leq (y^{-1-\alpha} + y^{-1-2\alpha})C(T,\mu,\tilde{\mu})  W_{\psi_1}(\mu,\tilde{\mu}) \|\tilde{\mu}\|_{\psi_2} e^{CT\|\tilde{\mu}\|_{\psi_1}}.
+    \end{align*}
+    Therefore $B_tf$ is Lipschitz for the composite distance $d_\alpha + d_{2\alpha}$. We finally get by Lemma \ref{lem:wass-rescaled-derivative}:
+    \begin{align*}
+        \brac{I_tf - \tilde{I}_tf, \tilde{h}_t\tilde{\mu}_t\otimes \tilde{h}_t\tilde{m}_t} 
+        &= \brac{B_tf,\tilde{h}_t\tilde{m}_t} \\
+        &\leq C(T,\mu,\tilde{\mu}) W_{\psi_1}(\mu,\tilde{\mu}) \left(W_{\psi_1}(\tilde{h}_t\tilde{m}_t) + W_{\psi_2}(\tilde{h}_t\tilde{m}_t) \right)\\
+        &\leq C(T,\mu,\tilde{\mu}) W_{\psi_1}(\mu,\tilde{\mu})\left(W_{\psi_1}(m_0) + W_{\psi_2}(m_0) \right).
+    \end{align*}
+    At last the term \eqref{proof:eq:wass-finale-step-2-3} gets the bound :
+    \begin{align*}
+        \brac{H_tf - \tilde{H}_tf - I_tf + \tilde{I}_tf, \tilde{h}_t\tilde{\mu}_t\otimes \tilde{h}_t\tilde{m}_t} 
+        \leq C(T,\mu,\tilde{\mu}) W_{\psi_1}(\mu,\tilde{\mu})\left(W_{\psi_1}(m_0) + W_{\psi_2}(m_0) \right).
+    \end{align*}
+
+    Back to \eqref{proof:eq:wass-finale-step-2} we have:
+    \begin{multline*}
+        W_{\psi_1}\left(h_t m_t , \tilde{h}_t \tilde{m}_t \right) \leq C(1 + \|\mu + \tilde{\mu}\|)\|\mu + \tilde{\mu}\|_{\psi_2}\int_0^t W_{\psi_1}\left(h_s m_s , \tilde{h}_s \tilde{m}_s \right) \dd s \\
+        + C(T,\mu,\tilde{\mu})\left(W_{\psi_1}\left( \mu , \tilde{\mu}\right) + W_{\psi_2}\left( \mu , \tilde{\mu}\right)\right)\left(W_{\psi_1}(m_0) + W_{\psi_2}(m_0) \right).
+    \end{multline*}
+    Time for Gronwall, we have:
+    \begin{align*}
+        W_{\psi_1}\left(h_t m_t , \tilde{h}_t \tilde{m}_t \right) \leq C(T,\mu,\tilde{\mu})\left(W_{\psi_1}\left( \mu , \tilde{\mu}\right) + W_{\psi_2}\left( \mu , \tilde{\mu}\right)\right)\left(W_{\psi_1}(m_0) + W_{\psi_2}(m_0) \right).
+    \end{align*}
+    Finally replacing $m_0$ by either $\delta_z$ or $\delta_{z_1} - \delta_{z_2}$ gives one or the other announced bounds.
+    \red{A faire chercher la forme de $C(T,\mu,\tilde{\mu})$}
 \end{proof}
 
 \subsection{Another method Coupling and augmented equations}
