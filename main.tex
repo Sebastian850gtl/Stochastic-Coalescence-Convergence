@@ -2618,8 +2618,11 @@ This lemma can be interpreted as follows: The first point shows that the solutio
     \begin{align*}
         W_{\psi_1}\left(h_tm_t\right) \leq W_{\psi_1}\left(m_0\right) e^{CT\|\mu\|_{\psi_1}\left(1 + T\|\mu\|\right)}.
     \end{align*}
-    This is immediate thanks to Lemma \ref{lem:wass-rescaled-derivative}. Finally step $1$ gives us the result.
-
+    This is immediate thanks to Lemma \ref{lem:wass-rescaled-derivative}. Finally by step $1$:
+    \begin{align*}
+        W_{\psi_1}(m_t) \leq W_{\psi_1}(h_t m_t) \leq W_{\psi_1}\left(m_0\right) e^{CT\|\mu\|_{\psi_1}\left(1 + T\|\mu\|\right)},
+    \end{align*}
+    and by taking 
     % We denote by $m_t$ the measure $\delta_\mu\varphi_t(\mu;z_1) - \delta_\mu\varphi_t(\mu;z_2)$ . Let $f$ be such that $Lip(f) \leq 1$ and $f(x) \leq a + x^{-\alpha}$ we have :
     % \begin{align*}
     %     \brac{fh_t,m_t} = f(z_1) - f(z_2) + \int_0^t \brac{f h'_s, m_s}  \dd s + \int_0^t \brac{K_\alpha fh_s,\mu_s \otimes m_s} \dd s
