@@ -3095,7 +3095,7 @@ The intuition of this equation comes from the Stochastic counterpart, when writi
 
 \newpage
 \section{Stochastic Coalescence}
-The Stochastic Coalescence is a process representing a collection of particles characterized by a positive value called mass. Each couple of particles of mass $x,y$ has a probability of order $K(x,y)\dd t$ to merge in an interval of time $[t, t + \dd t]$ and two merging events of two distinct couples are independent. Assume we have initially $N$ particles with masses $x_{1},\cdots,x_{N}$. Consider the $N(N-1)/2$ exponential random variables:
+The Stochastic Coalescence is a process representing a collection of particles characterized by a positive value called mass. Each couple of particles of mass $x,y$ has a probability to merge in an interval of time $[t, t + \dd t]$ of first order equal to $K(x,y)\dd t$. Assume we have initially $N$ particles with masses $x_{1},\cdots,x_{N}$. Consider $N(N-1)/2$ independent exponential random variables:
 \begin{align*}
     \left\lbrace T_{i,j} \sim \mathcal{E}\left(K(x_{i},x_{j})\right), 1 \leq i < j \leq N \right\rbrace.
 \end{align*}
@@ -3103,14 +3103,14 @@ Each random variable represents the time taken by the corresponding couple to co
 \begin{align*}
     \sum\limits_{1 \leq i < j \leq N}K(x_{i},x_{j}).
 \end{align*}
-Denote by $i^*,j^*$ the couple achieving this minima, at time $T_1$, $N-1$ particles remain and the process is at state $x_{1},\cdots , x_{i^*}+x_{j^*},\cdots$. We repeat this operation until there is a single particle left with mass equal to $\sum\limits x_i$. We choose to represent this process by a sum of Dirac masses, so that if there is $N_t$ particles at time $t\geq 0$ the process is at value
+We denote by $i^*,j^*$ the couple achieving this minima, at time $T_1$, $N-1$ particles remain and the process is at state $x_{1},\cdots , x_{i^*}+x_{j^*},\cdots$. We repeat this operation until there is a single particle left with mass equal to $\sum\limits x_i$. We choose to represent this process by a sum of Dirac masses, so that if there is $N_t$ particles at time $t\geq 0$ of masses $X_{1,t},\cdots,X_{N_t,t}$ the Stochastic Coalescence process has value:
 \begin{align*}
-    M_t = \sum\limits_{i = 1}^{N_t} \delta_{X_{i}(t)}.
+    M_t = \sum\limits_{i = 1}^{N_t} \delta_{X_{i,t}}.
 \end{align*}
 
-We give a formal definition taken from \cite{fournier2006some,fournier2009stochastic}.
+We give a formal definition as an integral on a Poisson random measure taken from \cite{fournier2006some,fournier2009stochastic}. First of we denote $D\left([0,T]: \XF\right)$ the sapce of cadlàg functions from $[0,T]$ to $\XF$ where $\XF$ is Polish. We equip it with the $J_1$-Skorohod topology.
 \begin{definition}
-    Let $K$ be a kernel, $\mu^N$ a finite sum of Dirac masses. We call Stochastic Coalescence (\SC) process the solution of the following $SDE$:
+    Let $\NC$ be random Poisson measure on $\RR^+ \times \RR^+ \times \NN^2$ with intensity $\dd s \times \dd z \times d(i,j)$ Let $K$ be a kernel, $\mu^N$ a finite sum of Dirac masses. We call Stochastic Coalescence (\SC) process the solution of the following $SDE$:
     \begin{multline*}
         M_t = \mu^N + \int_0^t \int_0^\infty \int_{i <j }  \indic{z \leq K(X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}} \\ \times \left(\delta_{X_{i}(s-) + X_{j}(s-)} - \delta_{X_{i}(s-)} - \delta_{X_{j}(s-)}\right)\mathcal{N}(ds,dz,d(i,j)).
     \end{multline*}
