@@ -3108,21 +3108,21 @@ We denote by $i^*,j^*$ the couple achieving this minima, at time $T_1$, $N-1$ pa
     M_t = \sum\limits_{i = 1}^{N_t} \delta_{X_{i,t}}.
 \end{align*}
 
-We give a formal definition as an integral on a Poisson random measure taken from \cite{fournier2006some,fournier2009stochastic}. First of we denote $D\left([0,T]: \XF\right)$ the sapce of cadlàg functions from $[0,T]$ to $\XF$ where $\XF$ is Polish. We equip it with the $J_1$-Skorohod topology.
+We give a formal definition as an integral on a Poisson random measure taken from \cite{fournier2006some,fournier2009stochastic}. First of we denote $D\left([0,T]: \XF\right)$ the sapce of cadlàg functions from $[0,T]$ to $\XF$ where $\XF$ is Polish. We equip it with the $J_1$-Skorohod topology. Let us denote by $\MC_p^+(\RRP)$ the set of finite point measures on $\RRP$ namely:
+\begin{align*}
+    \MC_p^+(\RRP) = \left\lbrace \sum\limits_{i = 1}^N \delta_{x_i}\  \middle|\  N\in \NN,\  (x_1,\cdots,x_N) \in \RRP \right\rbrace. 
+\end{align*}
 \begin{definition}
-    Let $\NC$ be random Poisson measure on $\RR^+ \times \RR^+ \times \NN^2$ with intensity $\dd s \times \dd z \times d(i,j)$ Let $K$ be a kernel, $\mu^N$ a finite sum of Dirac masses. We call Stochastic Coalescence (\SC) process the solution of the following $SDE$:
+    Let $\NC$ be random Poisson measure on $\RR^+ \times \RR^+ \times \NN^2$ with intensity $\dd s \times \dd z \times d(i,j)$ where $d(i,j) = \sum\limits_{i < j} \delta_{i,j}$. Let $K$ be a kernel, $\mu^N \in \MC_p^+(\RRP)$ a finite sum of Dirac masses. We call Stochastic Coalescence (\SC) process the solution of the following $SDE$:
     \begin{multline*}
         M_t = \mu^N + \int_0^t \int_0^\infty \int_{i <j }  \indic{z \leq K(X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}} \\ \times \left(\delta_{X_{i}(s-) + X_{j}(s-)} - \delta_{X_{i}(s-)} - \delta_{X_{j}(s-)}\right)\mathcal{N}(ds,dz,d(i,j)).
     \end{multline*}
-    where $N_t = \langle 1 , M_t\rangle$.
+    where $N_t$ is the number of clusters at time $t$: $N_t = \langle 1 , M_t\rangle$.
 \end{definition}
-
-\red{Il y a une question de définition pour un noyau quelconque. Par contre si le nombre de masses initiale est fini, et que le noyau est bornée supérieurement (namely $X_{(N)}(0) = \min_{i\in\{1,\cdots,N\}} X_i(0)$ et $X_{(1)}(0)=\max_{i\in\{1,\cdots,N\}} X_i(0)$
-\[0<k_{c,C} \le \inf_{c\le x,y\le C} K(x,y) \le \sup_{c\le x,y  \le C}K(x,y) \le K_{c,C} < +\infty,\]
-dans ce cas on doit pouvoir coupler avec SC(constant) et constant = $k_{X_{(N)}(0),X_{(1)}(0)}$ et $K_{X_{(N)}(0),X_{(1)}(0)}$. 
-}
-
-\red{On pourrait peut-être appeler  $\mathcal{L}^S$ pour Smoluchowski et $\LC^{SC}$ pour la coalescence stochactique}
+The kernels considered $K_\alpha$ is finite on $\RRP$. Furthermore the masses in the Stochastic Coalescence only increase let us call $x_0$ the smallest mass in the initial data $\mu^N$. For all $t \geq 0$ and $i,j$ we have $K_\alpha(X_{i}(s-),X_{j}(s-)) \leq 2x_0^{-\alpha}$. Finally $N_t$ is non-increasing it comes that for all bounded $f$:
+\begin{align*}
+    \E{\int_0^t \int_0^\infty \int_{i <j }  \indic{z \leq K(X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}} \\ \times f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left(X_{j}(s-)\right)\mathcal{N}(ds,dz,d(i,j))} \leq 3\|f\|_{\infty}\dfrac{N(N-1)}{2} \times 2x_0^{-\alpha} < \inft.
+\end{align*}
 
 \begin{proposition}
     The process $\Proc{M_t}$ is a Markov process with values in sum of Dirac masses measures and infinitesimal generator:
