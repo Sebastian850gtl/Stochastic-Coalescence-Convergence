@@ -111,7 +111,7 @@ Pour controler des erreurs entre observables :comme on le fait: Delarue-TSE, Cha
 
 It is well known that for many kernels the \(\SCE\) is the hydrodynamic limit of the Stochastic Coalescence. Hydrodynamic in the sense that after a careful rescaling of time and as considering a large amount of clusters we have this limit for various types of kernels, \cite{norrisClusterCoagulation2000,norris1999smoluchowski,deaconuPureJumpMarkov2002,deaconu2000smoluchowski,fournierConvergenceMarcusLushnikov2004,fournierStochasticCoalescenceHomogeneouslike2009} with this one treating kernels of our type, \cite{norris1999smoluchowski}. Also some rates of convergence \cite{cepedaSmoluchowskisEquationRate2011a}.
 
-\subsection{Notations and basic definitions}
+\section{Notations,  and main results}
 Positive means $> 0$ and non-positive $\geq 0$. 
 
 The symmetric difference between two sets $A,B$ is defined by $A\Delta B = A\backslash B \cup B\backslash A$.
@@ -120,8 +120,38 @@ The notations $\brac{f,\mu}, \int f\dd \mu, \int f(x)\mu(\dd x)$ are strictly eq
 
 We call sub-multiplicative function any positive function such that for all $x \in \RR$, $\lambda \geq 1$, $f(\lambda x) \leq \lambda f(x)$. All sub-multiplicative functions are sub- additive meaning that for all $x,y \in \RR$, $f(x+y) \leq f(x) + f(y)$.
 
-\red{Definition des ensembles $\MC_{\phi}$ ici dans l'intro, et propriété de complétude dans la section Analysis in spaces of measures}
-\section{Analysis in spaces of measures}
+A kernel is a bi variate symmetric positive function on $(\RR^{*,+})^2$. It represents the rate at which particles of mass $x$ and $y$ coalesce. Since we always compare objects defined for the same kernel we will omit it from our notations. The Smoluchowski coagulation equation ($\SCE$) is an equation defined on measured value functions defined in its weak form as or all $f \in C_b(\RR:\RR)$:
+\begin{equation}\label{eq:SCE}
+    \dfrac{\dd}{\dd t}\int f(x)\mu_t (\dd x) = \dfrac12\int_{\RR^+, \RR^+} 
+        K(x,y)\left[f(x+y) - f(x) - f(y)\right] \mu_t(\dd x)\mu_t(\dd y).
+\end{equation}
+With bracket notations the equation can be written:
+\begin{align*}
+    \dfrac{d}{dt}\langle f,\mu_t \rangle = \dfrac12\langle Kf , \mu_t \otimes \mu_t\rangle.
+\end{align*}
+where $Kf(x,y) = K(x,y)\left(f(x+y) - f(x) - f(y) \right)$. We define the operator that drives this equation.
+\begin{definition}
+    We define the Smoluchowski coagulation operator for all $F \in C^1(\MC^+_1\left(\RRP\right):\RR)$ as:
+    \begin{align*}
+        \LC F(\mu) = \langle K\delta_\mu F(\mu,.) , \mu\otimes \mu\rangle.
+    \end{align*}
+\end{definition}
+The latter operator drives this equation through the result of the next proposition.
+\begin{proposition}
+    Let $\mu_t$ be a solution of the Smoluchovski coagulation equation For all $F \in \RR^+ \times C^1(\MC_1^+\left(\RR^{*,+} \right):\RR)$ we have:
+    \begin{align*}
+        \dfrac{d}{dt} F(t, \mu_t) = \partial_t F(t, \mu_t) + \LC F(t,\mu_t).
+    \end{align*}
+\end{proposition}
+The next proposition gives an equation verified by the flat derivatives of the solution of the Smoluchovski coagulation equation with respect to its initial value.
+\begin{proposition}\label{prop:smol_derivative_equation}
+    Let us denote by $\mu_t$ the solution of the Smoluchovski coagulation equation started from $\mu \in \MC_1^+\left(\RR^{*,+}\right)$. For all $t\geq 0$ ,\(\mu \mapsto \varphi(\mu,t)\) is differentiable and we have for all $f \in C_b(\RR:\RR)$, $a\in \RR^{*,+}$:
+\begin{equation}\label{eq:smol_first_derivative}
+        \left\langle f, \delta_\mu \varphi(\mu,t,a)\right\rangle
+        = f(a) + \int_0^t \left\langle Kf, \delta_\mu \varphi(\mu,s,a) \otimes \varphi(s,\mu)\right\rangle\dd s.
+    \end{equation}
+\end{proposition}
+The proof of this proposition will be done in the next section. 
 
 \begin{definition}
     We work with the following distance on $\RRP$:
@@ -129,6 +159,15 @@ We call sub-multiplicative function any positive function such that for all $x \
         d_\alpha(x,y) = | x^{-\alpha} - y^{-\alpha}|
     \end{align*}
 \end{definition}
+\begin{itemize}
+    \item \red{SC}
+    \item \red{Wass}
+    \item \red{Theorème pricipal}
+    \item \red{Assumptions}
+    \item \red{Sketch of main proof with theorem 1 avec Semigroup, theorem 2 Wasserstei rgularity}
+\end{itemize}
+\section{Analysis in spaces of measures}
+
 
 \subsection{Elements of signed measure theory}
 Even though we are ultimately interested about measures defined on subsets of $\RR$ we start by a broad picture and consider for now a general measurable space $(E,\Sigma)$.
@@ -213,7 +252,7 @@ The following theorem allows for a decomposition of a signed measure with respec
     This function is called the Radon Nikodym derivative or the density of $\nu_{a}$ with respect to $\mu$.
 \end{theorem}
 
-\subsection{\red{Total variation} Topology on spaces of measures}
+\subsection{Total variation}
 In this section we talk about different kind of topologies on spaces of measures. We give a rather broad overview by introducing these on Polish space, we give a definition below
 \begin{definition}
     A Polish space is a topological space $\XF$ such that:
@@ -668,41 +707,26 @@ We give a formulation of the chain rule.
     \red{A terminer}
 \end{proof}
 
-\section{The Smoluchovski coagulation equation}
-A kernel is a bi variate symmetric positive function on $(\RR^{*,+})^2$. It represents the rate at which particles of mass $x$ and $y$ coalesce. Since we always compare objects defined for the same kernel we will omit it from our notations. The Smoluchowski coagulation equation ($\SCE$) is an equation defined on measured value functions defined in its weak form as or all $f \in C_b(\RR:\RR)$:
-\begin{equation}\label{eq:SCE}
-    \dfrac{\dd}{\dd t}\int f(x)\mu_t (\dd x) = \dfrac12\int_{\RR^+, \RR^+} 
-        K(x,y)\left[f(x+y) - f(x) - f(y)\right] \mu_t(\dd x)\mu_t(\dd y).
-\end{equation}
-With bracket notations the equation can be written:
-\begin{align*}
-    \dfrac{d}{dt}\langle f,\mu_t \rangle = \dfrac12\langle Kf , \mu_t \otimes \mu_t\rangle.
-\end{align*}
-where $Kf(x,y) = K(x,y)\left(f(x+y) - f(x) - f(y) \right)$. We define the operator that drives this equation.
-\begin{definition}
-    We define the Smoluchowski coagulation operator for all $F \in C^1(\MC^+_1\left(\RRP\right):\RR)$ as:
-    \begin{align*}
-        \LC F(\mu) = \langle K\delta_\mu F(\mu,.) , \mu\otimes \mu\rangle.
-    \end{align*}
-\end{definition}
-The latter operator drives this equation through the result of the next proposition.
-\begin{proposition}
-    Let $\mu_t$ be a solution of the Smoluchovski coagulation equation For all $F \in \RR^+ \times C^1(\MC_1^+\left(\RR^{*,+} \right):\RR)$ we have:
-    \begin{align*}
-        \dfrac{d}{dt} F(t, \mu_t) = \partial_t F(t, \mu_t) + \LC F(t,\mu_t).
-    \end{align*}
-\end{proposition}
-The next proposition gives an equation verified by the flat derivatives of the solution of the Smoluchovski coagulation equation with respect to its initial value.
-\begin{proposition}\label{prop:smol_derivative_equation}
-    Let us denote by $\mu_t$ the solution of the Smoluchovski coagulation equation started from $\mu \in \MC_1^+\left(\RR^{*,+}\right)$. For all $t\geq 0$ ,\(\mu \mapsto \varphi(\mu,t)\) is differentiable and we have for all $f \in C_b(\RR:\RR)$, $a\in \RR^{*,+}$:
-\begin{equation}\label{eq:smol_first_derivative}
-        \left\langle f, \delta_\mu \varphi(\mu,t,a)\right\rangle
-        = f(a) + \int_0^t \left\langle Kf, \delta_\mu \varphi(\mu,s,a) \otimes \varphi(s,\mu)\right\rangle\dd s.
-    \end{equation}
-\end{proposition}
-The proof of this proposition will be done in the next section. 
+\section{The Smoluchovski coagulation equation and its derivative}
+Recall the Smolochowski coagulation equation of kernel $K_\alpha$ \eqref{eq:SCE} for all $f \in C_b(\RRP)$:
+\begin{equation*}
+   \brac{f,\mu_t}  = \brac{f,\mu} +  \dfrac12\int_0^t \brac{K_\alpha f,\mu_s^{\otimes 2}} \dd s.
+\end{equation*}
+In this section we prove that it is well-posed in the sense that for $\mu \in \MC^+_{\psi_2}(\RRP)$ it has a unique solution in:
+\[
+C\left([0,T]: \MC^+_{\psi_2}(\RRP)\right).
+\]
+Let us denote by $\Proc{\varphi_t(\mu)}$ said solution. If $\mu \in \MC^+_{\psi_3}(\RRP)$ we show that for all $t \geq 0,\ \mu \mapsto \varphi_t(\mu)$ has a flat derivaitve and it is the unique solution of equation for all $z \in \RRP,\  f \in C_b(\RRP)$:
+\begin{equation*}
+    \brac{f,\delta_\mu \varphi_t(\mu;z)} = f(z) + \int_0^t \brac{K_\alpha f, \varphi_s(\mu)\otimes \delta_\mu \varphi_s(\mu;z) } \dd s
+\end{equation*}
+in
+\[
+C\left([0,T]: \MC^+_{\psi_3}(\RRP)\right).
+\]
+
 \subsection{Some bounds}
-In this section we assume the well-posedness \red{A spécifier} of both the Smoluchovski coagulation equation as well as its first derivative. We recall that the solution of the \(\SCE\) is a positive measure. The first lemma give a result of stability of solutions of the \(\SCE\) and hold for all kernels.
+In this section we assume the well-posedness of both the Smoluchovski coagulation equation as well as its first derivative. We recall that the solution of the \(\SCE\) is a positive measure. The first lemma give a result of stability of solutions of the \(\SCE\) and hold for all kernels.
 \begin{lemma}\label{lem:sub-add-bounf-smol}
     Let $\phi$ be a sub-multiplicative function meaning that for all $\lambda \geq 1$, $\phi(\lambda x) \leq \lambda \phi(x)$; If $\mu_0 \in \MC^+_{\phi}(\RRP)$ and for all $t\in[0,T]$, $\mu_t \in \MC^+_{\phi}(\RRP)$, then for all $t\geq 0$.
 \end{lemma}
@@ -711,7 +735,12 @@ In this section we assume the well-posedness \red{A spécifier} of both the Smol
     \begin{align*}
         \|\mu_t\|_{\phi} = \brac{\phi,\mu_t} = \brac{\phi,\mu_0} + \int_0^t \brac{K\phi,\mu_s^{\otimes 2}}\dd s.
     \end{align*}
-    All sub-multiplicative function are also sub additive meaning for all $x,y \in \RRP$ \(\phi(x+y) \leq \phi(x) + \phi(y)\) and therefore
+    All sub-multiplicative function are also sub additive meaning for all $x,y \in \RRP$ \(\phi(x+y) \leq \phi(x) + \phi(y)\) indeed
+    \begin{multline*}
+        \phi(x+y) = \phi\left(x\vee y \times \dfrac{x+y}{x\vee y} \right) \leq \dfrac{x+y}{x\vee y}\phi\left(x\vee y \right) = \dfrac{x\vee y +x\wedge y}{x\vee y}\phi\left(x\vee y \right) \\
+         = \phi\left(x\vee y \right) + \dfrac{x\wedge y}{x\vee y} \phi\left(x\wedge  y \times \dfrac{x\vee  y}{x\wedge  y} \right) \leq \phi\left(x\vee y \right) +  \phi\left(x\wedge  y \right) = \phi\left(x \right) +  \phi\left(y \right).
+    \end{multline*}
+    Therefore
     \begin{align*}
         \brac{K\phi,\mu_s^{\otimes 2}} = \int_{\RRP\times \RRP} K(x,y) \left(\phi(x+y) - \phi(x) - \phi(y)\right) \mu_s(\dd x) \mu_s (\dd y) \leq 0.
     \end{align*}
@@ -3108,48 +3137,57 @@ We denote by $i^*,j^*$ the couple achieving this minima, at time $T_1$, $N-1$ pa
     M_t = \sum\limits_{i = 1}^{N_t} \delta_{X_{i,t}}.
 \end{align*}
 
-We give a formal definition as an integral on a Poisson random measure taken from \cite{fournier2006some,fournier2009stochastic}. First of we denote $D\left([0,T]: \XF\right)$ the sapce of cadlàg functions from $[0,T]$ to $\XF$ where $\XF$ is Polish. We equip it with the $J_1$-Skorohod topology. Let us denote by $\MC_p^+(\RRP)$ the set of finite point measures on $\RRP$ namely:
+We give a formal definition as an integral on a Poisson random measure taken from \cite{fournier2006some,fournierStochasticCoalescenceHomogeneouslike2009}. First of we denote $D\left([0,T]: \XF\right)$ the sapce of cadlàg functions from $[0,T]$ to $\XF$ where $\XF$ is Polish. We equip it with the $J_1$-Skorohod topology. Let us denote by $\MC_p^+(\RRP)$ the set of finite point measures on $\RRP$ namely:
 \begin{align*}
     \MC_p^+(\RRP) = \left\lbrace \sum\limits_{i = 1}^N \delta_{x_i}\  \middle|\  N\in \NN,\  (x_1,\cdots,x_N) \in \RRP \right\rbrace. 
 \end{align*}
 \begin{definition}
     Let $\NC$ be random Poisson measure on $\RR^+ \times \RR^+ \times \NN^2$ with intensity $\dd s \times \dd z \times d(i,j)$ where $d(i,j) = \sum\limits_{i < j} \delta_{i,j}$. Let $K$ be a kernel, $\mu^N \in \MC_p^+(\RRP)$ a finite sum of Dirac masses. We call Stochastic Coalescence (\SC) process the solution of the following $SDE$:
     \begin{multline*}
-        M_t = \mu^N + \int_0^t \int_0^\infty \int_{i <j }  \indic{z \leq K(X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}} \\ \times \left(\delta_{X_{i}(s-) + X_{j}(s-)} - \delta_{X_{i}(s-)} - \delta_{X_{j}(s-)}\right)\mathcal{N}(ds,dz,d(i,j)).
+        M_t = \mu^N + \int_0^t \int_0^\infty \int_{1 \leq i <j }  \indic{z \leq K(X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}} \\ \times \left(\delta_{X_{i}(s-) + X_{j}(s-)} - \delta_{X_{i}(s-)} - \delta_{X_{j}(s-)}\right)\mathcal{N}(ds,dz,d(i,j)).
     \end{multline*}
     where $N_t$ is the number of clusters at time $t$: $N_t = \langle 1 , M_t\rangle$.
 \end{definition}
 The kernels considered $K_\alpha$ is finite on $\RRP$. Furthermore the masses in the Stochastic Coalescence only increase let us call $x_0$ the smallest mass in the initial data $\mu^N$. For all $t \geq 0$ and $i,j$ we have $K_\alpha(X_{i}(s-),X_{j}(s-)) \leq 2x_0^{-\alpha}$. Finally $N_t$ is non-increasing it comes that for all bounded $f$:
-\begin{align*}
-    \E{\int_0^t \int_0^\infty \int_{i <j }  \indic{z \leq K(X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}} \\ \times f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left(X_{j}(s-)\right)\mathcal{N}(ds,dz,d(i,j))} \leq 3\|f\|_{\infty}\dfrac{N(N-1)}{2} \times 2x_0^{-\alpha} < \inft.
-\end{align*}
+\begin{multline*}
+    \mathbb{E} \left[ \int_0^t \int_0^\infty \int_{1 \leq i <j }  \indic{z \leq K(X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}}\right. \\
+    \left. \times   \left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right]\mathcal{N}(ds,dz,d(i,j)) \vphantom{\int_0^t \int_0^\infty \int_{i <j } }\right] \\
+    = \int_0^t \E{\sum\limits_{1 \leq i< j \leq N_{s-}} K(X_{i}(s-),X_{j}(s-))\left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right] } \dd s \\
+    \leq t 3\|f\|_{\infty}\dfrac{N(N-1)}{2} \times 2 x_0^{-\alpha} .
+\end{multline*}
 
 \begin{proposition}
-    The process $\Proc{M_t}$ is a Markov process with values in sum of Dirac masses measures and infinitesimal generator:
+    The process $\Proc{M_t}$  is a Markov process with values in $\MC_p^+(\RRP)$ and has infinitesimal generator:
     \begin{align*}
-        \LC_{SC} F\left(\mu := \sum\limits_{k = 1}^n\delta_{x_k} \right) = \sum\limits_{1\le i <j \le n} K(x_i,x_j) \left[F\left(\mu + \delta_{x_i + x_j} - \delta_{x_i} -\delta_{x_j}\right) - F(\mu)\right].
+        \LC F\left(\mu := \sum\limits_{k = 1}^n\delta_{x_k} \right) = \sum\limits_{1\le i <j \le n} K(x_i,x_j) \left[F\left(\mu + \delta_{x_i + x_j} - \delta_{x_i} -\delta_{x_j}\right) - F(\mu)\right].
     \end{align*}
     which can be rewritten:
     \begin{multline*}
-        \LC_{SC} F(\mu) = \int_{\RR^+ \times \RR^+} K(x,y)\left[ F\left(\mu + \delta_{x+y} - \delta_x - \delta_y \right) - F(\mu) \right]\mu(dx)\mu(dy) \\
+        \LC F(\mu) = \int_{\RR^+ \times \RR^+} K(x,y)\left[ F\left(\mu + \delta_{x+y} - \delta_x - \delta_y \right) - F(\mu) \right]\mu(dx)\mu(dy) \\
         -\int_{\RR^+} K(x,x)\left[ F\left(\mu + \delta_{2x} - 2\delta_x \right) - F(\mu) \right]\mu(dx).
     \end{multline*}
 \end{proposition}
+\begin{proof}
+    The Markov property comes from the $SDE$ formulation. Let $F$ be a map from $\MC_p^+(\RRP)$ to $\RR$, $t \geq 0$, by Ito's formula for jumping processes:
+    \begin{align*}
+        \E{F(M_t)} = F(\mu^N) + \int_0^t \E{\LC F\left(M_s\right)} \dd s.
+    \end{align*}
+\end{proof}
 \begin{remark}
-    The second expression can be conveniently extended to any \red{FINITE, cf \[\mathcal{M}^{+,1}_1 = \left\{\mu \in \MC^+\, : \, \int_{\mathbb{R}_+^*} (1 + x + x^{-\alpha})\mu(\dd x) <+\infty\right\}\]} measure in $\MC^+(\RR^+)$.
+    The second expression can be conveniently extended to any measure with finite order $-\alpha$ moment $\MC_{\psi_1}^+(\RRP)$.
 \end{remark}
 
 We are interested in initial measures of the type:
 \begin{align*}
-    \mu_0^N = \sum\limits_{i = 1}^N \delta_{X_i}.
+    \mu^N = \sum\limits_{i = 1}^N \delta_{X_i}.
 \end{align*}
 Where $\Seq{X_n}$ is a sequence of independent random variables. We want to show the following limit in some sense that will be cleared later:
 \begin{align*}
-   (M^N_t)_{t\ge 0} := \frac{1}{N} \Proc{M_{N^{-1}t}} \xrightarrow[N \to \infty]{} \Proc{\nu_t} 
+   (M^N_t)_{t\ge 0} := \frac{1}{N} \Proc{M_{N^{-1}t}} \xrightarrow[N \to \infty]{} \Proc{\mu_t} 
 \end{align*}
-where $\Proc{\nu_t} $ is the solution of the Smoluchowski Coagulation equation started from:
+where $\Proc{\mu_t} $ is the solution of the Smoluchowski Coagulation equation started from:
 \begin{align*}
-    \mu_0 = \lim\limits_{N \to \infty} \dfrac{1}{N}\mu_0^N.
+    \mu = \lim\limits_{N \to \infty} \dfrac{1}{N}\mu^N.
 \end{align*}
 \begin{proposition}
     The process $\Proc{M^N_{t}}$ has infinitesimal generator:
@@ -3159,27 +3197,33 @@ where $\Proc{\nu_t} $ is the solution of the Smoluchowski Coagulation equation s
     \end{multline*}
 \end{proposition}
 \begin{proof}
-    \red{TODO}
+    Let $t \geq 0$, $F(M^N_t) = F^N(M_{\frac{t}{N}})$ where,
+    \begin{align*}
+        F^N(\mu) = F\left(\dfrac{1}{N}\mu\right).
+    \end{align*}
+    We have:
+    \begin{align*}
+        \dfrac{\dd}{\dd t}\E{F(M^N_t)}  = \dfrac{1}{N}\E{\LC F^N\left(M_{\frac{t}{N}}\right)} =  \E{\LC^N F(M^N_t)}.
+    \end{align*}
 \end{proof}
 
 \begin{remark}
-    When the initial measure consists of a sum of integer Dirac masses this process corresponds to the Marcus-Lushnikov process named from its discoverer and the first to prove results on it \cite{marcus1968stochastic,lushnikov1978coagulation}. 
+   When the initial masses are integers, this rescaled process corresponds to the Marcus-Lushnikov process \cite{marcus1968stochastic,lushnikov1978coagulation}. It was originally made as a Stochastic approximation of the Smoluchovski Coagulation equation.
 \end{remark}
-When we consider a differentiable functional $F$ the previous expression can be expressed in terms of the linear derivative of $F$
+When $F$ has a flat derivaitve the previous expression can be expressed in terms of the linear derivative of $F$
 \begin{proposition}\label{prop:SC_gen_differentiable}
-    Consider a functional $F \in C^1(\MC_1^+\left(\RR^{*,+} \right):\RR)$ we have for all integers $N$:
+    Consider a functional $F \in C^1(\MC_{\psi_1}^+\left(\RRP \right):\RR)$ we have for all integers $N$:
     \begin{multline*}
         \LC^N F(\mu) = \int_0^1 \int_{\RR^+ \times \RR^+} K(x,y)\left\langle  \delta_\mu F\left(\mu + \frac{\lambda}{N}\left(\delta_{x + y} - \delta_x - \delta_y \right),.\right),\delta_{x+y} - \delta_x - \delta_y\right\rangle\mu(dx)\mu(dy)d\lambda \\
         -\dfrac{1}{N}\int_0^1\int_{\RR^+} K(x,x)\left\langle  \delta_\mu F\left(\mu + \frac{\lambda}{N}\left(\delta_{2x} - 2\delta_x \right),.\right),\delta_{2x} - 2\delta_x \right\rangle\mu(dx)d\lambda.
     \end{multline*}
 \end{proposition}
 \begin{proof}
-    \red{TODO}
+    Immediate by the definition of the flat derivaitve and because for all $\mu \in \MC_{\psi_1}^+\left(\RRP \right)$ and $x,y \in \RRP$, measures $\mu + \frac{1}{N}\left(\delta_{x + y} - \delta_x - \delta_y\right)$ and $\mu + \frac{1}{N}\left(\delta_{2x} - 2\delta_x \right)$ are in $\MC_{\psi_1}\left(\RRP \right)$.
 \end{proof}
 
 \subsection{Some bounds}
-We present bounds that will be important in our final theorem.
-\red{The following lemma is a bound for the expected value of the $-\alpha$ moment of the solution of the stochastic coalescence starting from empirical measure. The proof uses carefully the convexity of $x\to x^{-\alpha}$, the non-negativity of of the stochastic coalescence and ...}
+We present bounds that will be important in our final theorem. 
 
 \begin{lemma}
     Let $\Phi(t,\mu^N)$ be the Stochastic Coalescent started from the atomic measure 
@@ -3386,6 +3430,94 @@ The latter theorem has weaker hypotheses.
     \end{align*}
 \end{theorem}
 
+\begin{theorem}
+    Let $\Seq{X_n}$ be a sequence of $iid$ real random variables with law $\mu \in \MC^+_{\psi_3}(\RRP)$. Denote by $\mu^N$ the empirical measure:
+    \begin{align*}
+        \mu^N = \dfrac{1}{N} \sum\limits_{i = 1}^N \delta_{X_i}.
+    \end{align*}
+    We have for all $t \in [0,T]$:
+    \begin{align*}
+        \left| \E{F\left(\varphi_t(\mu^N)\right)} - F\left(\varphi_t(\mu)\right)\right| \leq \left\llbracket F \right\rrbracket_{W_{\psi_1}} \dfrac{C(T,\mu)}{N}.
+    \end{align*}
+\end{theorem}
+\begin{proof}
+    The function $F\circ \varphi_t$ has a linear derivative and therefore:
+    \begin{multline*}
+        \E{F\left(\varphi_t(\mu^N)\right)} - F\left(\varphi_t(\mu)\right) \\
+        = \E{\int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta}.
+    \end{multline*}
+    We split it in three parts :
+    \begin{multline*}
+        \E{F\left(\varphi_t(\mu^N)\right)} - F\left(\varphi_t(\mu)\right) \\
+        = \E{\int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right);\cdot \right)- \delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta} \\
+        + \E{\int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right) -  \delta_\mu \varphi_t\left(\mu;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta} \\
+        + \E{\int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\mu;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta}.
+    \end{multline*}
+    Note that since $\mu^N$ is an empirical measure with iid variables of law $\mu$ the third is equal to zero:
+    \begin{multline*}
+        \E{\int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\mu;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta} \\
+        = \E{\int_{\RRP}G(z) \mu^N(\dd z) } - \int_{\RRP} G(z)\mu(\dd z) = 0.
+    \end{multline*}
+
+    Let us treat the first term, by hypothesis on $F$ the function:
+    \begin{align*}
+        z \mapsto \delta_\mu F\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right);z \right)- \delta_\mu F\left(\varphi_t \left(\mu\right);z \right)
+    \end{align*}
+    is Lpischitz-bounded for $d_\alpha$ with constant below:
+    \begin{align*}
+        W_{\psi_1}\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right), \varphi_t \left(\mu \right)\right).
+    \end{align*}
+    By Proposition \ref{prop:wass-sce} there exists $C(T,\mu + \left[\mu^N,\mu \right]^\theta)$ such that a.s :
+    \begin{align*}
+        W_{\psi_1}\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right), \varphi_t \left(\mu \right)\right) \leq C(T,\mu + \left[\mu^N,\mu \right]^\theta)W_{\psi_1}\left( \left[\mu^N,\mu \right]^\theta , \mu\right).
+    \end{align*}
+    where for all $m \in \MC_{\psi_2}(\RRP)$:
+    \begin{align*}
+        C(T,m) = \left( 1 + T\|m\|\right)e^{CT\left(\|m\|_{\psi_1} + T \|m\|\|m\|_{\psi_2} \right)}.
+    \end{align*}
+    Since $\mu^N$ and $\mu$ are probability measures we have:
+    \begin{align*}
+        \left\|\mu + \left[\mu^N,\mu \right]^\theta \right\| = \brac{1, \mu + \left[\mu^N,\mu \right]^\theta} = 2.
+    \end{align*}
+    Note that $\mu + \left[\mu^N,\mu \right]^\theta = (2-\theta)\mu + \theta \mu^N \leq 2\mu + \mu^N$. We have:
+    \begin{align*}
+        C(T,\mu + \left[\mu^N,\mu \right]^\theta) \leq (1 + 2T) e^{CT\left(\brac{\psi_1,\mu + \mu^N} + T\brac{\psi_2,\mu + \mu^N}\right)}.
+    \end{align*}
+    We have also $\left[\mu^N,\mu \right]^\theta-\mu = \theta(\mu^N - \mu)$ and therefore:
+    \begin{align*}
+        W_{\psi_1}\left( \left[\mu^N,\mu \right]^\theta , \mu\right) = \theta  W_{\psi_1}\left( \mu^N , \mu\right).
+    \end{align*}
+    It finally comes that:
+    \begin{multline*}
+        \left\llbracket \delta_\mu F\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right);\cdot \right)- \delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right)  \right\rrbracket_{d_\alpha} \leq (1 + 2T) e^{CT\left(\brac{\psi_1,\mu + \mu^N} + T\brac{\psi_2,\mu + \mu^N}\right)}W_{\psi_1}\left( \mu^N , \mu\right).
+    \end{multline*}
+    Consequently by Proposition \ref{prop:wass-derivative} the function: 
+    \begin{align*}
+         z \mapsto \brac{\delta_\mu F\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right);\cdot \right)- \delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right)}.
+    \end{align*}
+    is Lipschitz-bounded for $d_\alpha$ with constant below:
+    \begin{align*}
+        e^{CT\left(\brac{\psi_1,\mu + \mu^N} + T\brac{\psi_2,\mu + \mu^N}\right)}W_{\psi_1}\left( \mu^N , \mu\right).
+    \end{align*}
+    It finally comes that 
+    \begin{multline*}
+        \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right);\cdot \right)- \delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right)} \left(\mu^N - \mu\right)(\dd z) \\
+        \leq e^{CT\left(\brac{\psi_1,\mu + \mu^N} + T\brac{\psi_2,\mu + \mu^N}\right)} \left(W_{\psi_1}\left( \mu^N , \mu\right)\right)^2.
+    \end{multline*}
+    By \red{F-G, à lire pcq pas sur de ce bound.}:
+    \begin{align*}
+        \left(W_{\psi_1}\left( \mu^N , \mu\right)\right)^2 \leq \dfrac{1}{N}.
+    \end{align*}
+    and therefore:
+    \begin{multline*}
+        \E{\int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right);\cdot \right)- \delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta} \\
+        \leq \dfrac{1}{N}\E{e^{CT\left(\brac{\psi_1,\mu + \mu^N} + T\brac{\psi_2,\mu + \mu^N}\right)}}\\
+        = \dfrac{1}{N}e^{CT\left(2\brac{\psi_1,\mu } + 2T\brac{\psi_2,\mu}\right)}.
+    \end{multline*}
+    Where in the last line we used that $\mu^N$ is an empirical measure of iid varaibles and therefore
+    \[ \E{e^{\brac{\psi_1,\mu^N}}}  = \E{ e^{\sum\limits_{i = 1}^N \psi_1(X_i)}} = \E{\prod\limits_{i = 1}^N e^{\psi_1(X_i)}} = \prod\limits_{i = 1}^N \E{e^{\psi_1(X_i)}} = e^{\brac{\psi_1,\mu}}.  \]
+\end{proof}
+
 \appendix
 
 % \section{Real ODE inequalities}
@@ -3476,7 +3608,7 @@ Let \( f : \mathbb{R} \to \mathbb{R} \) be a measurable function. The following 
     \begin{align*}
         f(x) - f(y) = \int_y^x f'(t) \dd t .
     \end{align*}
-    The reciprocal sense is call Rademacher’s theorem see \cite{evans2018measure} for a proof.\red{Vérifier.}
+    The reciprocal sense is call Rademacher’s theorem see \cite{evans2018measure} for a proof.
 \end{proof}
 Now recall that the metric $d_\alpha$ is defined by 
 \[
