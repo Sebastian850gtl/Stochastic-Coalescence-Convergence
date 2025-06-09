@@ -111,25 +111,138 @@ Pour controler des erreurs entre observables :comme on le fait: Delarue-TSE, Cha
 
 It is well known that for many kernels the \(\SCE\) is the hydrodynamic limit of the Stochastic Coalescence. Hydrodynamic in the sense that after a careful rescaling of time and as considering a large amount of clusters we have this limit for various types of kernels, \cite{norrisClusterCoagulation2000,norris1999smoluchowski,deaconuPureJumpMarkov2002,deaconu2000smoluchowski,fournierConvergenceMarcusLushnikov2004,fournierStochasticCoalescenceHomogeneouslike2009} with this one treating kernels of our type, \cite{norris1999smoluchowski}. Also some rates of convergence \cite{cepedaSmoluchowskisEquationRate2011a}.
 
-\section{Notations,  and main results}
-Positive means $> 0$ and non-positive $\geq 0$. 
 
-The symmetric difference between two sets $A,B$ is defined by $A\Delta B = A\backslash B \cup B\backslash A$.
+The Smoluchowski coagulation equation (SCE) arises as a macroscopic limit of systems of particles undergoing binary coalescence. Understanding this connection allows one to rigorously derive the deterministic SCE from an underlying stochastic model of particle interactions, and to quantify the accuracy of this approximation.
 
-The notations $\brac{f,\mu}, \int f\dd \mu, \int f(x)\mu(\dd x)$ are strictly equivalent and we may we may switch between them primarily for convenience. When all functions are integrable we reserve the right to use Fubini-Tonelli and Fubini-Lebesgues to exchange integrals.
-
-We call sub-multiplicative function any positive function such that for all $x \in \RR$, $\lambda \geq 1$, $f(\lambda x) \leq \lambda f(x)$. All sub-multiplicative functions are sub- additive meaning that for all $x,y \in \RR$, $f(x+y) \leq f(x) + f(y)$.
-
-A kernel is a bi variate symmetric positive function on $(\RR^{*,+})^2$. It represents the rate at which particles of mass $x$ and $y$ coalesce. Since we always compare objects defined for the same kernel we will omit it from our notations. The Smoluchowski coagulation equation ($\SCE$) is an equation defined on measured value functions defined in its weak form as or all $f \in C_b(\RR:\RR)$:
+The Stochastic Coalescence process provides a microscopic model for the dynamics described by the Smoluchowski equation. It consists of randomly merging particles, with coalescence rates depending on their masses. Below, we briefly outline its construction. The Stochastic Coalescence is a process representing a collection of particles characterized by a positive value called mass. Each couple of particles of mass $x,y$ has an infinitesimal probability to merge in an interval of time $[t, t + \dd t]$ proportional to to $K(x,y)\dd t$. Assume we have initially $N$ particles with masses $x_{1},\cdots,x_{N}$. Consider $N(N-1)/2$ independent exponential random variables:
+\begin{align*}
+    \left\lbrace T_{i,j} \sim \mathcal{E}\left(K(x_{i},x_{j})\right), 1 \leq i < j \leq N \right\rbrace.
+\end{align*}
+Each random variable represents the time taken by the corresponding couple to coalesce. The first coalescence to happen is the fastest one, in other words the minimum of the previous set that we denote $T_1$. By property of exponential laws $T_1$ is itself an exponential variable of parameter:
+\begin{align*}
+    \sum\limits_{1 \leq i < j \leq N}K(x_{i},x_{j}).
+\end{align*}
+We denote by $i^*,j^*$ the couple achieving this minima, at time $T_1$, $N-1$ particles remain and the process is at state $x_{1},\cdots , x_{i^*}+x_{j^*},\cdots$. We repeat this operation until there is a single particle left with mass equal to $\sum\limits x_i$. To study the evolution of the system, we encode the state at time $t$ as the empirical measure:
+\begin{align*}
+    M_t = \sum\limits_{i = 1}^{N_t} \delta_{X_{i,t}}.
+\end{align*}
+where $N_t$ is the amount of clusters present at time $t$. Let $\Seq{X_n}$ be a sequence of $iid$ random variables of law $\mu$. We are interested in the Stochastic Coalescence with initial state given by:
+\begin{align*}
+    M_0 = \sum\limits_{i = 1}^N \delta_{X_i}.
+\end{align*}
+A classical type of result is to show that a rescaled version of $\Proc{M_t}$ converges as $N$ tend to infinity toward the solution of the Smolochowski equation started from $\mu$. It is defined for all $t \geq 0$, $f \in C_b(\RR:\RR)$ by:
 \begin{equation}\label{eq:SCE}
-    \dfrac{\dd}{\dd t}\int f(x)\mu_t (\dd x) = \dfrac12\int_{\RR^+, \RR^+} 
-        K(x,y)\left[f(x+y) - f(x) - f(y)\right] \mu_t(\dd x)\mu_t(\dd y).
+    \begin{aligned}
+    \int_{\RRP} f(x)\mu_t (\dd x) =& \int_{\RRP} f(x)\mu (\dd x)\\
+     &+ \dfrac12\int_0^t \int_{\RRP}\int_{\RRP} 
+        K(x,y)\left[f(x+y) - f(x) - f(y)\right] \mu_s(\dd x)\mu_s(\dd y) \dd s.
+    \end{aligned}
+\end{equation}
+
+We decide to study the kernel for $\alpha \geq 0$:
+\begin{align*}
+    K_\alpha(x,y) = x^{-\alpha} + y^{-\alpha}.
+\end{align*}
+The result of this work is a convergence rate of obsevables. We give it informally below, the official version is in \ref{section-main-results}
+\begin{theorem}
+    For all $t \in [0,T]$:
+    \begin{align*}
+    \left|\E{F\left(M^N_t\right)} - F(\mu_t) \right| \leq  \dfrac{C(T,F,\mu)}{N} .
+    \end{align*}
+\end{theorem}
+
+The singular behavior of the kernel $K_\alpha$ motivates the use of a specific distance $d_\alpha$ adapted to this singularity. This distance reflects the dominant scaling of the kernel and plays a key role in the convergence analysis. A precise definition is given in Section~\ref{section-main-results}.
+
+\section{Definitions, assumptions and main results}\label{section-main-results}
+In this work, we describe the evolution of particle systems using measure-valued stochastic processes, and the Smoluchowski coagulation equation is formulated as an equation on measures. Elements of measure theory and the relevant topological framework for spaces of measures are introduced in Section~\ref{section:analysis-measures}. If any ambiguity arises regarding the definitions or objects used below, we refer the reader to that section for clarification.
+
+\subsection{Notations}
+We use “positive” to mean $> 0$ and “non-negative” to mean $\geq 0$.
+
+The notations $\brac{f,\mu}$, $\int f \dd \mu$, and $\int f(x)\mu(\dd x)$ are used interchangeably, depending on convenience. When all functions involved are integrable, we apply Fubini-Tonelli and Fubini-Lebesgue theorems as needed.
+
+A sub-multiplicative function is a positive function $f$ such that for all $x \in \RR$ and $\lambda \geq 1$, we have:
+\[
+f(\lambda x) \leq \lambda f(x).
+\]
+All sub-multiplicative functions are sub-additive, meaning for all $x, y \in \RR$:
+\[
+f(x+y) \leq f(x) + f(y).
+\]
+
+We denote by $\MC^+(\RRP)$ the set of finite positive measures on $\RRP$ and by $\MC(\RRP)$ the set of finite signed measures. For a measure $\mu \in \MC(\RRP)$, we denote by $|\mu| \in \MC^+(\RRP)$ its total variation measure, and by $\|\mu\|$ its total variation norm. A detailed introduction to measure spaces and the associated topologies considered in this work is given in Section~\ref{section:analysis-measures}.
+
+\subsection{Topological considerations on spaces of measures}
+
+We now introduce the spaces of measures used to state our assumptions and main results. Let $\psi$ be a continuous, positive function. We define:
+\[
+\MC_{\psi}(\RRP) = \left\lbrace \mu \in \MC(\RRP) \;\middle|\; \int_{\RRP} \psi(x)\,|\mu|(\dd x) < \infty \right\rbrace.
+\]
+A natural norm on these weighted spaces is the $\psi$-weighted total variation norm:
+\[
+\|\mu\|_{\psi} = \brac{1 + \psi, |\mu|}.
+\]
+Convergence with respect to this norm is referred to as *strong convergence*.
+
+We define, for all $p \geq 0$,
+\[
+\psi_p(x) = x^{-p\alpha}.
+\]
+Note that if $p \leq q$, then:
+\[
+1 + \psi_p(x) \leq 2(1 + \psi_q(x)),
+\]
+so that $\MC_{\psi_q}(\RRP) \subset \MC_{\psi_p}(\RRP)$.
+
+We primarily work with the spaces $\MC_{\psi_p}(\RRP)$ and $\MC^+_{\psi_p}(\RRP)$. Those spaces are to be interpreted as the space of measures with finite $p$ moment.
+
+\begin{definition}[Weak convergence in $\MC_{\psi}(\RRP)$]
+A sequence $\Seq{\mu_n}$ converges weakly in $\MC_{\psi}(\RRP)$ to $\mu$ if, for all continuous functions $f$ such that $|f| \leq 1 + \psi$, we have:
+\[
+\brac{f, \mu_n} \xrightarrow[n \to \infty]{} \brac{f, \mu}.
+\]
+\end{definition}
+
+A central tool in our analysis is a Wasserstein-type distance that metrizes the weak topology on $\MC^+_{\psi_p}(\RRP)$. First, define the distance $d_{p\alpha}$ on $\RRP$ by:
+\[
+d_{p\alpha}(x,y) = |x^{-p\alpha} - y^{-p\alpha}|.
+\]
+Let $Lip_1(d_{p\alpha})$ denote the space of functions $f:\RRP \to \RR$ such that:
+\[
+\sup_{x \neq y \in \RRP} \dfrac{|f(x) - f(y)|}{d_{p\alpha}(x,y)} \leq 1.
+\]
+
+Then the Wasserstein distance on $\MC^+_{\psi_p}(\RRP)$ is defined via the dual formulation:
+\[
+W_{\psi_p}(\mu,\nu) = \sup_{\substack{f \in Lip_1(d_{p\alpha}) \\ |f| \leq 1 + \psi_p}} \brac{f, \mu - \nu}.
+\]
+Note: Since we do not assume $\mu$ and $\nu$ have the same total mass, the boundedness condition on $f$ is necessary to ensure the supremum is finite. A precise construction of this distance, along with its connection to the classical Wasserstein distance for probability measures, is provided in Section~\ref{section:Wasserstein}. The distance $W_{\psi_1}$ plays a central role, as $d_\alpha$ matches the singularity structure of the kernel $K_\alpha$ under consideration.
+
+Regarding completeness: for any continuous and positive $\psi$, the space $\left(\MC_{\psi}(\RRP), \|\cdot\|_{\psi}\right)$ is a Banach space. Although we primarily rely on completeness in total variation, we also mention the Wasserstein setting: for all $p > 0$, the space $\MC^+_{\psi_p}(\RRP)$ is complete under the distance $W_{\psi_p}$. However, $\left(\MC_{\psi_p}(\RRP), W_{\psi_p} \right)$ is \textbf{not} complete \cite{piccoli2019wasserstein}. For a Cauchy sequence of signed measures to converge in $W_{\psi_p}$, tightness is also required.
+
+\subsection{The Smoluchovski coagulation equation}
+The Smoluchowski coagulation equation ($\SCE$)of kernel $K_\alpha$ and intial value $\mu$, is an equation defined on measured value functions defined in its weak form as or all $f \in C_b(\RR:\RR)$:
+\begin{equation}\tag{\ref{eq:SCE}}
+\begin{aligned}
+    \int_{\RRP} f(x)\mu_t (\dd x) =& \int_{\RRP} f(x)\mu (\dd x)\\
+     &+ \dfrac12\int_0^t \int_{\RRP}\int_{\RRP} 
+        K(x,y)\left[f(x+y) - f(x) - f(y)\right] \mu_s(\dd x)\mu_s(\dd y) \dd s.
+\end{aligned}
 \end{equation}
 With bracket notations the equation can be written:
 \begin{align*}
     \dfrac{d}{dt}\langle f,\mu_t \rangle = \dfrac12\langle Kf , \mu_t \otimes \mu_t\rangle.
 \end{align*}
-where $Kf(x,y) = K(x,y)\left(f(x+y) - f(x) - f(y) \right)$. We define the operator that drives this equation.
+where $Kf(x,y) = K(x,y)\left(f(x+y) - f(x) - f(y) \right)$. Results on the well-posedness of this equation for this kernel are already known, see \cite{norris1999smoluchowski} and for completeness, we recall and reprove these results in Section \ref{section:well-posedness-SCE}. In particular, we show the following:
+\begin{lemma}\label{lem:well_posedness_smol_eq}
+    Let $p \geq 2$, and $\mu \in \MC_{\psi_p}^+ (\RRP)$ for all $T \geq 0$ there exists a unique solution to the Smoluchovski equation of parameter $K_\alpha$, said solution is a continuous map from $[0,T]$ to $\mu \in \MC_{\psi_p}^+ (\RRP)$.
+\end{lemma}
+We show in Lemma \ref{lem:well_posedness_derivative_eq} that upon having $\mu \in \MC_{\psi_2}^+(\RRP)$ there is a unique solution of \eqref{eq:SCE} that is a continuous map in 
+\begin{align*}
+    C\left(\RR^+:\MC^+_{\psi_2}(\RRP)\right).
+\end{align*}
+
+We define the operator that drives this equation, it involves flat derivaitves of functionals on spaces of measures defined in Section \ref{section:analysis-measures}. \red{Would it make sense to repeat its definition here ?}
 \begin{definition}
     We define the Smoluchowski coagulation operator for all $F \in C^1(\MC^+_1\left(\RRP\right):\RR)$ as:
     \begin{align*}
@@ -138,37 +251,113 @@ where $Kf(x,y) = K(x,y)\left(f(x+y) - f(x) - f(y) \right)$. We define the operat
 \end{definition}
 The latter operator drives this equation through the result of the next proposition.
 \begin{proposition}
-    Let $\mu_t$ be a solution of the Smoluchovski coagulation equation For all $F \in \RR^+ \times C^1(\MC_1^+\left(\RR^{*,+} \right):\RR)$ we have:
+    Let $\mu_t$ be a solution of the Smoluchovski coagulation equation For all $F \in C^1(\MC_1^+\left(\RR^{*,+} \right):\RR)$ we have:
     \begin{align*}
-        \dfrac{d}{dt} F(t, \mu_t) = \partial_t F(t, \mu_t) + \LC F(t,\mu_t).
+        \dfrac{d}{dt} F( \mu_t) = \LC F(t,\mu_t).
     \end{align*}
 \end{proposition}
-The next proposition gives an equation verified by the flat derivatives of the solution of the Smoluchovski coagulation equation with respect to its initial value.
-\begin{proposition}\label{prop:smol_derivative_equation}
-    Let us denote by $\mu_t$ the solution of the Smoluchovski coagulation equation started from $\mu \in \MC_1^+\left(\RR^{*,+}\right)$. For all $t\geq 0$ ,\(\mu \mapsto \varphi(\mu,t)\) is differentiable and we have for all $f \in C_b(\RR:\RR)$, $a\in \RR^{*,+}$:
-\begin{equation}\label{eq:smol_first_derivative}
-        \left\langle f, \delta_\mu \varphi(\mu,t,a)\right\rangle
-        = f(a) + \int_0^t \left\langle Kf, \delta_\mu \varphi(\mu,s,a) \otimes \varphi(s,\mu)\right\rangle\dd s.
-    \end{equation}
-\end{proposition}
-The proof of this proposition will be done in the next section. 
+\begin{proof}
+    Immediate from the chain rule and weak formulation of the $\SCE$. See also Section \ref{section:analysis-measures} for the interpretation of $\delta_\mu F$.
+\end{proof}
+    
+    \medskip
+    A central aim in our analysis is to investigate how the solution $\mu_t$ depends on the initial condition $\mu$. For this, we denote by $\varphi_t(\mu)$ the solution of the $\SCE$ with initial data $\mu$. Under stronger integrability assumptions, we show that the map $\mu \mapsto \varphi_t(\mu)$ is differentiable in a suitable sense. In particular we show in section \ref{section:well-posedness-SCE} that:
+\begin{lemma}\label{lem:derivative-existence-and-eq}
+    Let $T > 0$, for all $t \in [0,T)$ the function $ \mu \mapsto \varphi_t(\mu)$ has a linear derivative that we denote by $\delta_\mu\varphi_t$, furthermore for all $z \in \RRP, \mu \in \MC_{\phi_p}(\RRP)$, $\delta_\mu\varphi_t(\mu;z)$ is the unique solution to for all $f \in C_b(\RRP)$:
+    \begin{align*}
+        \brac{f,\delta_\mu\varphi_t(\mu;z)} = f(z) + \int_0^t \brac{Kf,\varphi_s(\mu)\otimes \delta_\mu\varphi_s(\mu;z)} \dd s.
+    \end{align*}
+\end{lemma}
+\subsection{Construction of Stochastic Coalescence}
+We construct the Stochastic Coalescence (SC) process. This process evolves via random binary mergers and is formally defined via a stochastic differential equation driven by a Poisson random measure. This definition was verbatim taken from \cite{fournier2006some,fournierStochasticCoalescenceHomogeneouslike2009}. 
 
+First, we denote $D\left([0,T]: \XF\right)$ the sapce of cadlàg functions from $[0,T]$ to $\XF$ where $\XF$ is Polish. We equip it with the $J_1$-Skorohod topology. Let us denote by $\MC_p^+(\RRP)$ the set of finite point measures on $\RRP$ namely:
+\begin{align*}
+    \MC_p^+(\RRP) = \left\lbrace \sum\limits_{i = 1}^N \delta_{x_i}\  \middle|\  N\in \NN,\  (x_1,\cdots,x_N) \in \RRP \right\rbrace. 
+\end{align*}
 \begin{definition}
-    We work with the following distance on $\RRP$:
-    \begin{align*}
-        d_\alpha(x,y) = | x^{-\alpha} - y^{-\alpha}|
-    \end{align*}
+    Let $\NC$ be random Poisson measure on $\RR^+ \times \RR^+ \times \NN^2$ with intensity $\dd s \times \dd z \times d(i,j)$ where $d(i,j) = \sum\limits_{i < j} \delta_{i,j}$. Let $K$ be a kernel, $\mu^N \in \MC_p^+(\RRP)$ a finite sum of Dirac masses. We call Stochastic Coalescence (\SC) process the solution of the following $SDE$:
+    \begin{multline*}
+        M_t = \mu^N + \int_0^t \int_0^\infty \int_{1 \leq i <j }  \indic{z \leq K(X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}} \\ \times \left(\delta_{X_{i}(s-) + X_{j}(s-)} - \delta_{X_{i}(s-)} - \delta_{X_{j}(s-)}\right)\mathcal{N}(ds,dz,d(i,j)).
+    \end{multline*}
+    where $N_t$ is the number of clusters at time $t$: $N_t = \langle 1 , M_t\rangle$.
 \end{definition}
-\begin{itemize}
-    \item \red{SC}
-    \item \red{Wass}
-    \item \red{Theorème pricipal}
-    \item \red{Assumptions}
-    \item \red{Sketch of main proof with theorem 1 avec Semigroup, theorem 2 Wasserstei rgularity}
-\end{itemize}
-\section{Analysis in spaces of measures}
+The kernels considered $K_\alpha$ is finite on $\RRP$. Furthermore the masses in the Stochastic Coalescence only increase let us call $x_0$ the smallest mass in the initial data $\mu^N$. For all $t \geq 0$ and $i,j$ we have $K_\alpha(X_{i}(s-),X_{j}(s-)) \leq 2x_0^{-\alpha}$. Finally $N_t$ is non-increasing it comes that for all bounded $f$:
+\begin{multline*}
+    \mathbb{E} \left[ \int_0^t \int_0^\infty \int_{1 \leq i <j }  \indic{z \leq K(X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}}\right. \\
+    \left. \times   \left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right]\mathcal{N}(ds,dz,d(i,j)) \vphantom{\int_0^t \int_0^\infty \int_{i <j } }\right] \\
+    = \int_0^t \E{\sum\limits_{1 \leq i< j \leq N_{s-}} K(X_{i}(s-),X_{j}(s-))\left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right] } \dd s \\
+    \leq t 3\|f\|_{\infty}\dfrac{N(N-1)}{2} \times 2 x_0^{-\alpha} .
+\end{multline*}
+
+\begin{proposition}
+    The process $\Proc{M_t}$  is a Markov process with values in $\MC_p^+(\RRP)$ and has infinitesimal generator:
+    \begin{align*}
+        \LC F\left(\mu := \sum\limits_{k = 1}^n\delta_{x_k} \right) = \sum\limits_{1\le i <j \le n} K(x_i,x_j) \left[F\left(\mu + \delta_{x_i + x_j} - \delta_{x_i} -\delta_{x_j}\right) - F(\mu)\right].
+    \end{align*}
+    which can be rewritten:
+    \begin{multline*}
+        \LC F(\mu) = \int_{\RR^+ \times \RR^+} K(x,y)\left[ F\left(\mu + \delta_{x+y} - \delta_x - \delta_y \right) - F(\mu) \right]\mu(dx)\mu(dy) \\
+        -\int_{\RR^+} K(x,x)\left[ F\left(\mu + \delta_{2x} - 2\delta_x \right) - F(\mu) \right]\mu(dx).
+    \end{multline*}
+\end{proposition}
+\begin{proof}
+    The Markov property comes from the $SDE$ formulation. Let $F$ be a map from $\MC_p^+(\RRP)$ to $\RR$, $t \geq 0$, by Ito's formula for jumping processes:
+    \begin{align*}
+        \E{F(M_t)} = F(\mu^N) + \int_0^t \E{\LC F\left(M_s\right)} \dd s.
+    \end{align*}
+\end{proof}
+\begin{remark}
+    The second expression can be conveniently extended to any measure with finite order $-\alpha$ moment $\MC_{\psi_1}^+(\RRP)$.
+\end{remark}
+In our work we are interested in comparing a rescaled process that we denote by $\Proc{M^N_t}$ and the solution to the Smoluchovski coagulation equation \eqref{eq:SCE}. The rescaled process is equal for all $t \geq 0$ to:
+\begin{align*}
+    M^N_t = \dfrac{1}{N} M_{\frac{t}{N}}.
+\end{align*}
+\begin{proposition}
+    The process $\Proc{M^N_{t}}$ has infinitesimal generator:
+    \begin{multline*}
+        \LC^N F(\mu) = N\int_{\RR^+ \times \RR^+} K(x,y)\left[ F\left(\mu + \frac{1}{N}\left(\delta_{x+y} - \delta_x - \delta_y\right) \right) - F(\mu) \right]\mu(dx)\mu(dy) \\
+        -\int_{\RR^+} K(x,x)\left[ F\left(\mu + \frac{1}{N}\left(\delta_{2x} - 2\delta_x\right) \right) - F(\mu) \right]\mu(dx).
+    \end{multline*}
+\end{proposition}
+\begin{proof}
+    Let $t \geq 0$, $F(M^N_t) = F^N(M_{\frac{t}{N}})$ where,
+    \begin{align*}
+        F^N(\mu) = F\left(\dfrac{1}{N}\mu\right).
+    \end{align*}
+    We have:
+    \begin{align*}
+        \dfrac{\dd}{\dd t}\E{F(M^N_t)}  = \dfrac{1}{N}\E{\LC F^N\left(M_{\frac{t}{N}}\right)} =  \E{\LC^N F(M^N_t)}.
+    \end{align*}
+\end{proof}
+
+\begin{remark}
+   When the initial masses are integers, this rescaled process corresponds to the Marcus-Lushnikov process \cite{marcus1968stochastic,lushnikov1978coagulation}. It was originally made as a Stochastic approximation of the Smoluchovski Coagulation equation.
+\end{remark}
+When $F$ has a flat derivaitve the previous expression can be expressed in terms of the linear derivative of $F$
+\begin{proposition}\label{prop:SC_gen_differentiable}
+    Consider a functional $F \in C^1(\MC_{\psi_1}^+\left(\RRP \right):\RR)$ we have for all integers $N$:
+    \begin{multline*}
+        \LC^N F(\mu)\\
+         = \int_0^1 \int_{\RR^+ \times \RR^+} K(x,y)\left\langle  \delta_\mu F\left(\mu + \frac{\lambda}{N}\left(\delta_{x + y} - \delta_x - \delta_y \right),.\right),\delta_{x+y} - \delta_x - \delta_y\right\rangle\mu(dx)\mu(dy)d\lambda \\
+        -\dfrac{1}{N}\int_0^1\int_{\RR^+} K(x,x)\left\langle  \delta_\mu F\left(\mu + \frac{\lambda}{N}\left(\delta_{2x} - 2\delta_x \right),.\right),\delta_{2x} - 2\delta_x \right\rangle\mu(dx)d\lambda.
+    \end{multline*}
+\end{proposition}
+\begin{proof}
+    Immediate by the definition of the flat derivaitve and because for all $\mu \in \MC_{\psi_1}^+\left(\RRP \right)$ and $x,y \in \RRP$, measures $\mu + \frac{1}{N}\left(\delta_{x + y} - \delta_x - \delta_y\right)$ and $\mu + \frac{1}{N}\left(\delta_{2x} - 2\delta_x \right)$ are in $\MC_{\psi_1}\left(\RRP \right)$.
+\end{proof}
+\subsection{Assumptions}
+Assumptions on $F$ 
+\subsection{Main results}
+
+\subsection{Proof outline and strategies}
 
 
+
+\section{Analysis in spaces of measures}\label{section:analysis-measures}
+
+The symmetric difference between two sets $A,B$ is defined by $A\Delta B = A\backslash B \cup B\backslash A$.
 \subsection{Elements of signed measure theory}
 Even though we are ultimately interested about measures defined on subsets of $\RR$ we start by a broad picture and consider for now a general measurable space $(E,\Sigma)$.
 \begin{definition}
@@ -285,7 +474,7 @@ In this section we present the two representation theorems that allow to build m
 \end{remark}
  The following theorem allows to represent Radon measures as positive linear functionals on $C_c(\XF)$ when the underlying space is locally compact. We say that a linear functional $L$ is positive when $Lf \geq 0$ whenever $f \geq 0$.
 \begin{theorem}[Riesz-Markov-Kakutani]
-    Let $\XF$ be a locally-compact Hausdorff space and $L$ be a positive linear functional on $C_c(\XF)$. There exists a unique Radon measure $\mu$ such that:
+    Let $\XF$ be a locally-compact Hausdorff space and $L$ be a positive linear functional on $C_c(\XF)$. There exists a unique(positive) Radon measure $\mu$ such that:
     \begin{align*}
         Lf = \brac{f,\mu}
     \end{align*}
@@ -350,11 +539,6 @@ The following proposition and corollary give the major interest of working with 
     It comes that metric properties of \(\left(\MC\left(\XF\right),\| .\|\right) \) transfer to \(\left(\MC_{\phi}\left(\XF\right),\| .\|_{\phi}\right) \) in particular completeness.
 \end{proof}
 
-\red{\begin{itemize}
-    \item Weak topology
-    \item Wasserstein distance
-\end{itemize}}
-
 \subsection{Wasserstein distance for signed measures}\label{section:Wasserstein}
 The goal of this section is to introduce a definition of the Wasserstein distance for positive or signed measures that are not necessarily probability measures. The classical definition for probability measures is given in Definition \ref{def:Wasserstein}. The definition of the general distance for positive measures of not necessarily same mass relies on proposition \ref{prop:Kantorovich-general} and is given in definition \ref{def:Wasserstein-general}. Finally the extension to signed measures is pretty straightforward and done below the aforementioned definition. 
 
@@ -385,14 +569,14 @@ One key property of this distance is the Kantorovich-Rubinstein duality allowing
 \begin{theorem}[Kantorovich-Rubinstein duality]
     Let $f$ be a continuous function from $\XF$ to $\RR$, we define the Lip pseudo norm by:
     \begin{align*}
-        Lip(f) = \sup\limits_{x,y \in \XF} \dfrac{\left|f(x) - f(y) \right|}{d(x,y)} .
+        Lip(f) = \sup\limits_{x \neq y \in \XF} \dfrac{\left|f(x) - f(y) \right|}{d(x,y)} .
     \end{align*}
     We have:
     \begin{align*}
         W_1(\mu,\nu) = \sup\limits_{Lip(f) \leq 1} \brac{f,\mu - \nu}.
     \end{align*}
 \end{theorem}
-\red{Tout ce qui suit fonctionne en revanche il ne semble pas judicieux de définir cette distance ainsi}Now, we define a more general distance, which will rely on one additional object: a positive function that we denote by $\phi$. This function should satisfy the following, for all $x,y \in \XF$,
+Now, we define a more general distance, which will rely on one additional object: a positive function that we denote by $\phi$. This function should satisfy the following, for all $x,y \in \XF$,
 \begin{align*}
     d(x,y) \leq \phi(x) + \phi(y), \text{ and}\quad|\phi(x) - \phi(y)| \leq d(x,y),
 \end{align*}
@@ -707,26 +891,32 @@ We give a formulation of the chain rule.
     \red{A terminer}
 \end{proof}
 
-\section{The Smoluchovski coagulation equation and its derivative}
-Recall the Smolochowski coagulation equation of kernel $K_\alpha$ \eqref{eq:SCE} for all $f \in C_b(\RRP)$:
-\begin{equation*}
-   \brac{f,\mu_t}  = \brac{f,\mu} +  \dfrac12\int_0^t \brac{K_\alpha f,\mu_s^{\otimes 2}} \dd s.
-\end{equation*}
-In this section we prove that it is well-posed in the sense that for $\mu \in \MC^+_{\psi_2}(\RRP)$ it has a unique solution in:
-\[
-C\left([0,T]: \MC^+_{\psi_2}(\RRP)\right).
-\]
-Let us denote by $\Proc{\varphi_t(\mu)}$ said solution. If $\mu \in \MC^+_{\psi_3}(\RRP)$ we show that for all $t \geq 0,\ \mu \mapsto \varphi_t(\mu)$ has a flat derivaitve and it is the unique solution of equation for all $z \in \RRP,\  f \in C_b(\RRP)$:
-\begin{equation*}
-    \brac{f,\delta_\mu \varphi_t(\mu;z)} = f(z) + \int_0^t \brac{K_\alpha f, \varphi_s(\mu)\otimes \delta_\mu \varphi_s(\mu;z) } \dd s
-\end{equation*}
-in
-\[
-C\left([0,T]: \MC^+_{\psi_3}(\RRP)\right).
-\]
+\section{The Smoluchovski coagulation equation and its derivative}\label{section:well-posedness-SCE}
+% Recall the Smolochowski coagulation equation of kernel $K_\alpha$ \eqref{eq:SCE} for all $f \in C_b(\RRP)$:
+% \begin{equation*}
+%    \brac{f,\mu_t}  = \brac{f,\mu} +  \dfrac12\int_0^t \brac{K_\alpha f,\mu_s^{\otimes 2}} \dd s.
+% \end{equation*}
+The goal of this section is to prove that the Smoluchovski coagulation equation is well-posed as stated in Lemma~\ref{lem:well_posedness_smol_eq}. And that the existence of a flat derivaitve and well-posedness of its equation as in Lemma~\ref{lem:derivative-existence-and-eq}.
 
-\subsection{Some bounds}
-In this section we assume the well-posedness of both the Smoluchovski coagulation equation as well as its first derivative. We recall that the solution of the \(\SCE\) is a positive measure. The first lemma give a result of stability of solutions of the \(\SCE\) and hold for all kernels.
+
+
+% that it is well-posed in the sense that for $\mu \in \MC^+_{\psi_2}(\RRP)$ it has a unique solution in:
+% \[
+% C\left([0,T]: \MC^+_{\psi_2}(\RRP)\right).
+% \]
+% Let us denote by $\Proc{\varphi_t(\mu)}$ said solution. If $\mu \in \MC^+_{\psi_3}(\RRP)$ we show that for all $t \geq 0,\ \mu \mapsto \varphi_t(\mu)$ has a flat derivaitve and it is the unique solution of equation for all $z \in \RRP,\  f \in C_b(\RRP)$:
+% \begin{equation*}
+%     \brac{f,\delta_\mu \varphi_t(\mu;z)} = f(z) + \int_0^t \brac{K_\alpha f, \varphi_s(\mu)\otimes \delta_\mu \varphi_s(\mu;z) } \dd s
+% \end{equation*}
+% in
+% \[
+% C\left([0,T]: \MC^+_{\psi_3}(\RRP)\right).
+% \]
+\subsection{Smoluchovski}
+Expliquer ce que l(on) fait dans cette section.
+
+\subsubsection{Some bounds}
+In this section we assume the well-posedness of both the Smoluchovski coagulation equation in $C([0,T]: \MC_{\psi_2}(\RRP))$. We recall that the solution of the \(\SCE\) is a positive measure. The first lemma give a result of stability of solutions of the \(\SCE\) and hold for all kernels.
 \begin{lemma}\label{lem:sub-add-bounf-smol}
     Let $\phi$ be a sub-multiplicative function meaning that for all $\lambda \geq 1$, $\phi(\lambda x) \leq \lambda \phi(x)$; If $\mu_0 \in \MC^+_{\phi}(\RRP)$ and for all $t\in[0,T]$, $\mu_t \in \MC^+_{\phi}(\RRP)$, then for all $t\geq 0$.
 \end{lemma}
@@ -813,7 +1003,6 @@ Note also that any positive linear combination of sub-multiplicative function is
     \end{align*}
     giving us the desired result.
 \end{proof}
-Now we give a more general bound in the case of an initial measure with an exponential moment.
 % \begin{proposition}
 %     Let $\phi_{e}^c(x) = e^{cx^{-\alpha}}$.
 % \end{proposition}
@@ -880,14 +1069,14 @@ The next lemma gives shows that the solution of the $\SCE$ is Lipschitz with res
 %     The functions $\phi_p$ could be replaced by $\psi_p$.
 % \end{corollary}
 
-\subsection{Well-posedness of the Smoluchovski coagulation equation}
+\subsubsection{Well-posedness of the Smoluchovski coagulation equation}
 In this section we show that the $\SCE$ is well posed and give some useful bounds on it. Because of the singularity of our kernel we start by considering a cut-off equation where we sever the initial value away from $0$, we take $\mu^\varepsilon = \mu\mathds{1}_{[\varepsilon,\infty)}$. And call $\mu^\varepsilon_t$ the solution to the corresponding equation:
 \begin{equation}\label{eq:cutoff_SCE}
     \brac{f, \mu^\varepsilon_t} = \brac{f,\mu^\varepsilon} + \dfrac12\int_0^t \brac{K_\alpha f,\left(\mu^\varepsilon_s\right)^{\otimes 2}} \dd s.
 \end{equation}
 The mass of newly formed particles can only be greater than the smallest initial available mass because this equation describes pure coagulation, as such the support of $\mu^\varepsilon$ is included in $[\varepsilon,\infty)$. We will later make $\varepsilon$ tend to zero in order to build a solution to the $\SCE$.
 
-We will start by showing that \eqref{eq:cutoff_SCE} has a unique solution on a small interval of time. Then we will extend the temporal domain using bounds proved later on.
+We will start by showing that \eqref{eq:cutoff_SCE} has a unique solution on a small interval of time. Then we will extend the temporal domain using some  bounds proved before.
 \begin{proposition}\label{prop:well-posedness-cutoff-smol}
     Let $\mu \in \MC^+_{\phi_p}(\RRP)$, for all $T > 0$ equation \eqref{eq:cutoff_SCE} has a unique solution in $C\left([0,T]:\MC^+_{\phi_p}(\RRP)\right)$. Furthermore the support of aforesaid solution is included in $[\varepsilon,\infty)$ for all $t \in [0,T]$.
 \end{proposition}
@@ -984,8 +1173,8 @@ We can easily extend the definition domain because we have uniform bounds on the
     Therefore we can build another solution on interval $\left[T^{\varepsilon,M}, 2T^{\varepsilon,M}\right]$ using the previous lemma. By induction we can build a solution from $[0,T]$ to $\MC^{+,\varepsilon,M}\left(\RRP\right)$ for all $T$ and thanks to the uniformity of the bound we can build it on $\RR^{+}$ by letting $T \to \infty$ ending the proof.
 \end{proof}
 Now it remains to let $\varepsilon$ go to zero to build a a solution to the $\SCE$ \eqref{eq:SCE}. 
-\begin{lemma}\label{lem:well_posedness_smol_eq}
-    Let $p \geq 2$, and $\mu \in \MC_{\phi_p}^+ (\RRP)$ for all $T \geq 0$ there exists a unique solution to the Smoluchovski equation of parameter $K_\alpha$, said solution is a continuous map from $[0,T]$ to $\mu \in \MC_{\phi_p}^+ (\RRP)$.
+\begin{lemma}[Restated Lemma~\ref{lem:well_posedness_smol_eq}]
+    Let $p \geq 2$, and $\mu \in \MC_{\phi_p}^+ (\RRP)$ for all $T \geq 0$ there exists a unique solution to the Smoluchovski equation of kernel $K_\alpha$, said solution is a continuous map from $[0,T]$ to $\mu \in \MC_{\phi_p}^+ (\RRP)$.
 \end{lemma}
 Our strategy is to show that we can extract from the family of solutions $\left(\Proc{\mu^\varepsilon}\right)_{\varepsilon > 0}$ a Cauchy sequence. Then we will show that this limit is a solution to the Smoluchowski coagulation equation and finally use a Gronwall's lemma to show uniqueness. 
 \begin{proof}
