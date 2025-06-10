@@ -109,12 +109,12 @@
 \section{Introduction}
 Pour controler des erreurs entre observables :comme on le fait: Delarue-TSE, Chassagneux, Szpruch
 
-It is well known that for many kernels the \(\SCE\) is the hydrodynamic limit of the Stochastic Coalescence. Hydrodynamic in the sense that after a careful rescaling of time and as considering a large amount of clusters we have this limit for various types of kernels, \cite{norrisClusterCoagulation2000,norris1999smoluchowski,deaconuPureJumpMarkov2002,deaconu2000smoluchowski,fournierConvergenceMarcusLushnikov2004,fournierStochasticCoalescenceHomogeneouslike2009} with this one treating kernels of our type, \cite{norris1999smoluchowski}. Also some rates of convergence \cite{cepedaSmoluchowskisEquationRate2011a}.
+It is well known that for many kernels the \(\SCE\) is the hydrodynamic limit of the stochastic coalescence. Hydrodynamic in the sense that after a careful rescaling of time and as considering a large amount of clusters we have this limit for various types of kernels, \cite{norrisClusterCoagulation2000,norris1999smoluchowski,deaconuPureJumpMarkov2002,deaconu2000smoluchowski,fournierConvergenceMarcusLushnikov2004,fournierStochasticCoalescenceHomogeneouslike2009} with this one treating kernels of our type, \cite{norris1999smoluchowski}. Also some rates of convergence \cite{cepedaSmoluchowskisEquationRate2011a}.
 
 
 The Smoluchowski coagulation equation (SCE) arises as a macroscopic limit of systems of particles undergoing binary coalescence. Understanding this connection allows one to rigorously derive the deterministic SCE from an underlying stochastic model of particle interactions, and to quantify the accuracy of this approximation.
 
-The Stochastic Coalescence process provides a microscopic model for the dynamics described by the Smoluchowski equation. It consists of randomly merging particles, with coalescence rates depending on their masses. Below, we briefly outline its construction. The Stochastic Coalescence is a process representing a collection of particles characterized by a positive value called mass. Each couple of particles of mass $x,y$ has an infinitesimal probability to merge in an interval of time $[t, t + \dd t]$ proportional to to $K(x,y)\dd t$. Assume we have initially $N$ particles with masses $x_{1},\cdots,x_{N}$. Consider $N(N-1)/2$ independent exponential random variables:
+The stochastic coalescence process provides a microscopic model for the dynamics described by the Smoluchowski equation. It consists of randomly merging particles, with coalescence rates depending on their masses. Below, we briefly outline its construction. The stochastic coalescence is a process representing a collection of particles characterized by a positive value called mass. Each couple of particles of mass $x,y$ has an infinitesimal probability to merge in an interval of time $[t, t + \dd t]$ proportional to to $K(x,y)\dd t$. Assume we have initially $N$ particles with masses $x_{1},\cdots,x_{N}$. Consider $N(N-1)/2$ independent exponential random variables:
 \begin{align*}
     \left\lbrace T_{i,j} \sim \mathcal{E}\left(K(x_{i},x_{j})\right), 1 \leq i < j \leq N \right\rbrace.
 \end{align*}
@@ -126,7 +126,7 @@ We denote by $i^*,j^*$ the couple achieving this minima, at time $T_1$, $N-1$ pa
 \begin{align*}
     M_t = \sum\limits_{i = 1}^{N_t} \delta_{X_{i,t}}.
 \end{align*}
-where $N_t$ is the amount of clusters present at time $t$. Let $\Seq{X_n}$ be a sequence of $iid$ random variables of law $\mu$. We are interested in the Stochastic Coalescence with initial state given by:
+where $N_t$ is the amount of clusters present at time $t$. Let $\Seq{X_n}$ be a sequence of $iid$ random variables of law $\mu$. We are interested in the stochastic coalescence with initial state given by:
 \begin{align*}
     M_0 = \sum\limits_{i = 1}^N \delta_{X_i}.
 \end{align*}
@@ -170,31 +170,44 @@ All sub-multiplicative functions are sub-additive, meaning for all $x, y \in \RR
 f(x+y) \leq f(x) + f(y).
 \]
 
-We denote by $\MC^+(\RRP)$ the set of finite positive measures on $\RRP$ and by $\MC(\RRP)$ the set of finite signed measures. For a measure $\mu \in \MC(\RRP)$, we denote by $|\mu| \in \MC^+(\RRP)$ its total variation measure, and by $\|\mu\|$ its total variation norm. A detailed introduction to measure spaces and the associated topologies considered in this work is given in Section~\ref{section:analysis-measures}.
 
 \subsection{Topological considerations on spaces of measures}
+\red{Solution virer les $\MC_{\psi}$ de la section \ref{section:analysis-measures} et ne parler que de ces espaces ici}
 
-We now introduce the spaces of measures used to state our assumptions and main results. Let $\psi$ be a continuous, positive function. We define:
+
+In this section we define all the measure spaces and topologies on them we consider. We denote by $\MC^+(\RRP)$ the set of finite positive measures on $\RRP$ and by $\MC(\RRP)$ the set of finite signed measures. For a measure $\mu \in \MC(\RRP)$, we denote by $|\mu| \in \MC^+(\RRP)$ its total variation measure, and by $\|\mu\|$ its total variation norm. The existence of the total variation measure comes from the Hahn-Jordan decomposition theorem given in Section \ref{section:analysis-measures}. Given our kenel we will work with measures that have a finite $-\alpha$ moment namely and measure $\mu \in  \MC^+(\RRP)$ such that:
+\begin{align*}
+    \int_{\RRP} x^{-\alpha} \mu(\dd x) \leq  \infty.
+\end{align*}
+Or singned measures $\mu \in  \MC(\RRP)$ such that:
+\begin{align*}
+    \int_{\RRP} x^{-\alpha} |\mu|(\dd x) \leq  \infty.
+\end{align*}
+In all generality let $\psi$ be a continuous, positive function. We define:
 \[
-\MC_{\psi}(\RRP) = \left\lbrace \mu \in \MC(\RRP) \;\middle|\; \int_{\RRP} \psi(x)\,|\mu|(\dd x) < \infty \right\rbrace.
+\MC_{\psi}(\RRP) = \left\lbrace \mu \in \MC(\RRP) \;\middle|\; \int_{\RRP} \psi(x)\,|\mu|(\dd x) < \infty \right\rbrace,
 \]
-A natural norm on these weighted spaces is the $\psi$-weighted total variation norm:
+and $\MC^+_{\psi}(\RRP)$ its restriction to positive measures. This set is the set of finite measures with $\psi$-moment. A natural norm on these weighted spaces is the $\psi$-weighted total variation norm:
 \[
 \|\mu\|_{\psi} = \brac{1 + \psi, |\mu|}.
 \]
-Convergence with respect to this norm is referred to as *strong convergence*.
-
-We define, for all $p \geq 0$,
-\[
-\psi_p(x) = x^{-p\alpha}.
-\]
-Note that if $p \leq q$, then:
-\[
-1 + \psi_p(x) \leq 2(1 + \psi_q(x)),
-\]
-so that $\MC_{\psi_q}(\RRP) \subset \MC_{\psi_p}(\RRP)$.
-
-We primarily work with the spaces $\MC_{\psi_p}(\RRP)$ and $\MC^+_{\psi_p}(\RRP)$. Those spaces are to be interpreted as the space of measures with finite $p$ moment.
+Convergence with respect to this norm is referred to as strong convergence.
+\begin{proposition}
+    The space $\left(\MC_{\psi}(\RRP),\|\cdot\|_{\psi} \right)$ is Banach.
+\end{proposition}
+\begin{proof}
+    The space \(\left(\MC\left(\RRP\right),\| .\|\right) \) is Banach see Proposition \ref{prop:TV-banach}. Let 
+    \begin{equation*}
+        I :
+        \left\lbrace
+        \begin{aligned}
+            \left(\MC\left(\RRP\right),\| .\|\right) &\to \left(\MC_{\psi}\left(\XF\right),\| .\|_{\psi}\right) \\
+            \mu &\mapsto (1 +\psi) \mu
+        \end{aligned}
+        \right. .
+    \end{equation*}
+    The function $I$ is an isometry from \(\left(\MC\left(\RRP\right),\| .\|\right) \) to \(\left(\MC_{\psi}\left(\XF\right),\| .\|_{\psi}\right) \) therefore the later is complete.
+\end{proof}
 
 \begin{definition}[Weak convergence in $\MC_{\psi}(\RRP)$]
 A sequence $\Seq{\mu_n}$ converges weakly in $\MC_{\psi}(\RRP)$ to $\mu$ if, for all continuous functions $f$ such that $|f| \leq 1 + \psi$, we have:
@@ -202,14 +215,23 @@ A sequence $\Seq{\mu_n}$ converges weakly in $\MC_{\psi}(\RRP)$ to $\mu$ if, for
 \brac{f, \mu_n} \xrightarrow[n \to \infty]{} \brac{f, \mu}.
 \]
 \end{definition}
+In $\MC(\RRP)$ this the classical weak convergence in $\MC_{\psi}(\RRP)$ it is the weak convergence plus the converge $\psi$-wise
 
-A central tool in our analysis is a Wasserstein-type distance that metrizes the weak topology on $\MC^+_{\psi_p}(\RRP)$. First, define the distance $d_{p\alpha}$ on $\RRP$ by:
+Given our problem we are particularly interested in the functions $\psi_p$ defined for all $p \geq 0$ by:
+\[
+\psi_p(x) = x^{-p\alpha}.
+\]
+We primarily work with the spaces $\MC_{\psi_p}(\RRP)$ and $\MC^+_{\psi_p}(\RRP)$. Those spaces are to be interpreted as the space of measures with finite $-\alpha p$ moment. Note that if $p \leq q$, then:
+\[
+1 + \psi_p(x) \leq 2(1 + \psi_q(x)),
+\]
+and therefore $\MC_{\psi_q}(\RRP) \subset \MC_{\psi_p}(\RRP)$. A central tool in our analysis is a Wasserstein-type distance that metrizes the weak topology on $\MC^+_{\psi_p}(\RRP)$. First, define the distance $d_{p\alpha}$ on $\RRP$ by:
 \[
 d_{p\alpha}(x,y) = |x^{-p\alpha} - y^{-p\alpha}|.
 \]
-Let $Lip_1(d_{p\alpha})$ denote the space of functions $f:\RRP \to \RR$ such that:
+Let $Lip_1(d_{p\alpha})$ be the space of Lipschitz functions for $d_{p\alpha}$ defined by:
 \[
-\sup_{x \neq y \in \RRP} \dfrac{|f(x) - f(y)|}{d_{p\alpha}(x,y)} \leq 1.
+Lip_1(d_{p\alpha}) = \left\lbrace f: \RRP\to \RR \middle|\ \sup_{x \neq y \in \RRP} \dfrac{|f(x) - f(y)|}{d_{p\alpha}(x,y)} \leq 1 \right\rbrace.
 \]
 
 Then the Wasserstein distance on $\MC^+_{\psi_p}(\RRP)$ is defined via the dual formulation:
@@ -218,7 +240,10 @@ W_{\psi_p}(\mu,\nu) = \sup_{\substack{f \in Lip_1(d_{p\alpha}) \\ |f| \leq 1 + \
 \]
 Note: Since we do not assume $\mu$ and $\nu$ have the same total mass, the boundedness condition on $f$ is necessary to ensure the supremum is finite. A precise construction of this distance, along with its connection to the classical Wasserstein distance for probability measures, is provided in Section~\ref{section:Wasserstein}. The distance $W_{\psi_1}$ plays a central role, as $d_\alpha$ matches the singularity structure of the kernel $K_\alpha$ under consideration.
 
-Regarding completeness: for any continuous and positive $\psi$, the space $\left(\MC_{\psi}(\RRP), \|\cdot\|_{\psi}\right)$ is a Banach space. Although we primarily rely on completeness in total variation, we also mention the Wasserstein setting: for all $p > 0$, the space $\MC^+_{\psi_p}(\RRP)$ is complete under the distance $W_{\psi_p}$. However, $\left(\MC_{\psi_p}(\RRP), W_{\psi_p} \right)$ is \textbf{not} complete \cite{piccoli2019wasserstein}. For a Cauchy sequence of signed measures to converge in $W_{\psi_p}$, tightness is also required.
+Regarding completeness: for any continuous and positive $\psi$, the space $\left(\MC_{\psi}(\RRP), \|\cdot\|_{\psi}\right)$ is a Banach space. 
+
+\red{Non ça n'est pas vrai car $(\RRP,d_\alpha)$ n'est pas complet.}
+Although we primarily rely on completeness in total variation, we also mention the Wasserstein setting: for all $p > 0$, the space $\MC^+_{\psi_p}(\RRP)$ is complete under the distance $W_{\psi_p}$. However, $\left(\MC_{\psi_p}(\RRP), W_{\psi_p} \right)$ is \textbf{not} complete \cite{piccoli2019wasserstein}. For a Cauchy sequence of signed measures to converge in $W_{\psi_p}$, tightness is also required.
 
 \subsection{The Smoluchovski coagulation equation}
 The Smoluchowski coagulation equation ($\SCE$)of kernel $K_\alpha$ and intial value $\mu$, is an equation defined on measured value functions defined in its weak form as or all $f \in C_b(\RR:\RR)$:
@@ -237,11 +262,6 @@ where $Kf(x,y) = K(x,y)\left(f(x+y) - f(x) - f(y) \right)$. Results on the well-
 \begin{lemma}\label{lem:well_posedness_smol_eq}
     Let $p \geq 2$, and $\mu \in \MC_{\psi_p}^+ (\RRP)$ for all $T \geq 0$ there exists a unique solution to the Smoluchovski equation of parameter $K_\alpha$, said solution is a continuous map from $[0,T]$ to $\mu \in \MC_{\psi_p}^+ (\RRP)$.
 \end{lemma}
-We show in Lemma \ref{lem:well_posedness_derivative_eq} that upon having $\mu \in \MC_{\psi_2}^+(\RRP)$ there is a unique solution of \eqref{eq:SCE} that is a continuous map in 
-\begin{align*}
-    C\left(\RR^+:\MC^+_{\psi_2}(\RRP)\right).
-\end{align*}
-
 We define the operator that drives this equation, it involves flat derivaitves of functionals on spaces of measures defined in Section \ref{section:analysis-measures}. \red{Would it make sense to repeat its definition here ?}
 \begin{definition}
     We define the Smoluchowski coagulation operator for all $F \in C^1(\MC^+_1\left(\RRP\right):\RR)$ as:
@@ -263,30 +283,30 @@ The latter operator drives this equation through the result of the next proposit
     \medskip
     A central aim in our analysis is to investigate how the solution $\mu_t$ depends on the initial condition $\mu$. For this, we denote by $\varphi_t(\mu)$ the solution of the $\SCE$ with initial data $\mu$. Under stronger integrability assumptions, we show that the map $\mu \mapsto \varphi_t(\mu)$ is differentiable in a suitable sense. In particular we show in section \ref{section:well-posedness-SCE} that:
 \begin{lemma}\label{lem:derivative-existence-and-eq}
-    Let $T > 0$, for all $t \in [0,T)$ the function $ \mu \mapsto \varphi_t(\mu)$ has a linear derivative that we denote by $\delta_\mu\varphi_t$, furthermore for all $z \in \RRP, \mu \in \MC_{\phi_p}(\RRP)$, $\delta_\mu\varphi_t(\mu;z)$ is the unique solution to for all $f \in C_b(\RRP)$:
+    Let $T > 0$, for all $t \in [0,T)$ the function $ \mu \mapsto \varphi_t(\mu)$ has a flat derivative that we denote by $\delta_\mu\varphi_t$, furthermore for all $z \in \RRP, \mu \in \MC_{\phi_p}(\RRP)$, $\delta_\mu\varphi_t(\mu;z)$ is the unique solution to for all $f \in C_b(\RRP)$:
     \begin{align*}
         \brac{f,\delta_\mu\varphi_t(\mu;z)} = f(z) + \int_0^t \brac{Kf,\varphi_s(\mu)\otimes \delta_\mu\varphi_s(\mu;z)} \dd s.
     \end{align*}
 \end{lemma}
-\subsection{Construction of Stochastic Coalescence}
-We construct the Stochastic Coalescence (SC) process. This process evolves via random binary mergers and is formally defined via a stochastic differential equation driven by a Poisson random measure. This definition was verbatim taken from \cite{fournier2006some,fournierStochasticCoalescenceHomogeneouslike2009}. 
+\subsection{Construction of the stochastic coalescence}
+We construct the stochastic coalescence (SC) process. This process evolves via random binary mergers and is formally defined via a stochastic differential equation driven by a Poisson random measure. This definition was verbatim taken from \cite{fournier2006some,fournierStochasticCoalescenceHomogeneouslike2009}. 
 
 First, we denote $D\left([0,T]: \XF\right)$ the sapce of cadlàg functions from $[0,T]$ to $\XF$ where $\XF$ is Polish. We equip it with the $J_1$-Skorohod topology. Let us denote by $\MC_p^+(\RRP)$ the set of finite point measures on $\RRP$ namely:
 \begin{align*}
     \MC_p^+(\RRP) = \left\lbrace \sum\limits_{i = 1}^N \delta_{x_i}\  \middle|\  N\in \NN,\  (x_1,\cdots,x_N) \in \RRP \right\rbrace. 
 \end{align*}
 \begin{definition}
-    Let $\NC$ be random Poisson measure on $\RR^+ \times \RR^+ \times \NN^2$ with intensity $\dd s \times \dd z \times d(i,j)$ where $d(i,j) = \sum\limits_{i < j} \delta_{i,j}$. Let $K$ be a kernel, $\mu^N \in \MC_p^+(\RRP)$ a finite sum of Dirac masses. We call Stochastic Coalescence (\SC) process the solution of the following $SDE$:
+    Let $\NC$ be random Poisson measure on $\RR^+ \times \RR^+ \times \NN^2$ with intensity $\dd s \times \dd z \times d(i,j)$ where $d(i,j) = \sum\limits_{i < j} \delta_{i,j}$. Let $K$ be a kernel, $\mu^N \in \MC_p^+(\RRP)$ a finite sum of Dirac masses. We call stochastic coalescence (\SC) process the solution of the following $SDE$:
     \begin{multline*}
         M_t = \mu^N + \int_0^t \int_0^\infty \int_{1 \leq i <j }  \indic{z \leq K(X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}} \\ \times \left(\delta_{X_{i}(s-) + X_{j}(s-)} - \delta_{X_{i}(s-)} - \delta_{X_{j}(s-)}\right)\mathcal{N}(ds,dz,d(i,j)).
     \end{multline*}
     where $N_t$ is the number of clusters at time $t$: $N_t = \langle 1 , M_t\rangle$.
 \end{definition}
-The kernels considered $K_\alpha$ is finite on $\RRP$. Furthermore the masses in the Stochastic Coalescence only increase let us call $x_0$ the smallest mass in the initial data $\mu^N$. For all $t \geq 0$ and $i,j$ we have $K_\alpha(X_{i}(s-),X_{j}(s-)) \leq 2x_0^{-\alpha}$. Finally $N_t$ is non-increasing it comes that for all bounded $f$:
+The kernels considered $K_\alpha$ is finite on $\RRP$. Furthermore the masses in the stochastic coalescence only increase let us call $x_0$ the smallest mass in the initial data $\mu^N$. For all $t \geq 0$ and $i,j$ we have $K_\alpha(X_{i}(s-),X_{j}(s-)) \leq 2x_0^{-\alpha}$. Finally $N_t$ is non-increasing it comes that for all bounded $f$:
 \begin{multline*}
     \mathbb{E} \left[ \int_0^t \int_0^\infty \int_{1 \leq i <j }  \indic{z \leq K(X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}}\right. \\
     \left. \times   \left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right]\mathcal{N}(ds,dz,d(i,j)) \vphantom{\int_0^t \int_0^\infty \int_{i <j } }\right] \\
-    = \int_0^t \E{\sum\limits_{1 \leq i< j \leq N_{s-}} K(X_{i}(s-),X_{j}(s-))\left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right] } \dd s \\
+    = \int_0^t \mathbb{E} \left[\sum\limits_{1 \leq i< j \leq N_{s-}} K(X_{i}(s-),X_{j}(s-)) \left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right] \vphantom{\int_0^t \int_0^\infty \int_{i <j } } \right] \dd s \\
     \leq t 3\|f\|_{\infty}\dfrac{N(N-1)}{2} \times 2 x_0^{-\alpha} .
 \end{multline*}
 
@@ -312,7 +332,7 @@ The kernels considered $K_\alpha$ is finite on $\RRP$. Furthermore the masses in
 \end{remark}
 In our work we are interested in comparing a rescaled process that we denote by $\Proc{M^N_t}$ and the solution to the Smoluchovski coagulation equation \eqref{eq:SCE}. The rescaled process is equal for all $t \geq 0$ to:
 \begin{align*}
-    M^N_t = \dfrac{1}{N} M_{\frac{t}{N}}.
+    M^N_t = \frac{1}{N} M_{\frac{t}{N}}.
 \end{align*}
 \begin{proposition}
     The process $\Proc{M^N_{t}}$ has infinitesimal generator:
@@ -333,9 +353,9 @@ In our work we are interested in comparing a rescaled process that we denote by 
 \end{proof}
 
 \begin{remark}
-   When the initial masses are integers, this rescaled process corresponds to the Marcus-Lushnikov process \cite{marcus1968stochastic,lushnikov1978coagulation}. It was originally made as a Stochastic approximation of the Smoluchovski Coagulation equation.
+   When the initial masses are integers, this rescaled process corresponds to the Marcus-Lushnikov process \cite{marcus1968stochastic,lushnikov1978coagulation}. It was originally made as a stochastic approximation of the Smoluchovski Coagulation equation.
 \end{remark}
-When $F$ has a flat derivaitve the previous expression can be expressed in terms of the linear derivative of $F$
+When $F$ has a flat derivaitve the previous expression can be expressed in terms of the flat derivative of $F$
 \begin{proposition}\label{prop:SC_gen_differentiable}
     Consider a functional $F \in C^1(\MC_{\psi_1}^+\left(\RRP \right):\RR)$ we have for all integers $N$:
     \begin{multline*}
@@ -371,9 +391,8 @@ Even though we are ultimately interested about measures defined on subsets of $\
 \end{definition}
 Such a measure cannot be allowed to take both infinite values as we do not give any algebraic sense to the operation $\infty - \infty$. Classical measures lying in $\RR^+\cup\lbrace +\infty\rbrace$ we refer to as positive measure. One first remark is that for a signed measure the notion of a null set varies slightly since there could be two measurable sets $B\subset A$ such that $\mu(A) = 0$ and $\mu(B) \neq 0$ which does not happen for positive measures. Furthermore we introduce positive and negative sets.
 \begin{definition}
-    Let $\mu$ be a signed measure we say that a measurable set $A$ is a $\mu$ null-set if for all measurable $B \subset A$, $\mu(B) = 0$. We define equivalently $\mu$ non-negative, positive,non-positive, and negative sets.
+    Let $\mu$ be a signed measure we say that a measurable set $A$ is a $\mu$ null-set if for all measurable $B \subset A$, $\mu(B) = 0$. We define equivalently $\mu$-positive and $\mu$-negative sets.
 \end{definition}
-The following theorem allows to break down any signed measure into 
 \begin{theorem}[Hahn decomposition]
     Let $\mu$ be a signed measure. There exists a $\mu$-positive set $P$ and a $\mu$-negative set $N$ such that $P\cup N = E$ and $P\cap N = \emptyset$. 
 \end{theorem}
@@ -408,7 +427,7 @@ The couple $(P,N)$ is uniquely defined up to a null-set of $\mu$, in the sense t
     \end{align*}
     since $\mu^-$ is a positive measure and $\mu^-(A\cap P) \leq \mu^-(P) = 0$. This being true for any couple $(P,N)$, $\mu^+$ is unique and same goes for $\mu^-$.
 \end{proof}
-\begin{definition}
+\begin{definition}[Total variation]
     We call total variation measure of $\mu$ the measure $|\mu| = \mu^+ + \mu^-$, and define the total variation norm as $\|\mu\| = |\mu|(E)$. We say that a measure on $E$ is finite when its total variation norm is finite.
 \end{definition}
 Now we give a sense to integrable functions with respect to a signed measure.
@@ -429,7 +448,7 @@ One can check that with this definition the Fubini-Tonelli and Fubini Lebesgues 
     \end{itemize}
 \end{definition}
 The following theorem allows for a decomposition of a signed measure with respect to a positive measure.
-\begin{theorem}
+\begin{theorem}[Radon-Nikodym Lebesgues]
     Let $\nu$ be a signed measure and $\mu$ a \textbf{positive} measure. There exist a unique decomposition:
     \begin{align*}
         \nu = \nu_{a} + \nu_s, \quad  \nu_{a}\ll \mu, \quad \nu_s \perp \mu .
@@ -440,8 +459,39 @@ The following theorem allows for a decomposition of a signed measure with respec
     \end{align*}
     This function is called the Radon Nikodym derivative or the density of $\nu_{a}$ with respect to $\mu$.
 \end{theorem}
+A common abuse of notation is to write $\nu_{a} = f\mu$. Notice that in all generality if $\mu = f\nu$ where $\nu$ is postive and $f$ is a $\nu$-measurable function,
+\begin{align*}
+        |\mu| = |f|\nu.
+\end{align*}
+Indeed it is easy to see that $\mu^+ = f^+\nu$ and $\mu^- = f^- \nu$ where $f^+ = \max(0,f),\ f^- = -\min(0,f)$. We can use the Radon Nikodym derivaitve to prove the following.
 
+\begin{proposition}\label{prop:TV-banach}
+    The space \(\left(\MC\left(E\right),\| .\|\right) \) is Banach.
+\end{proposition}
+\begin{proof}
+    Let $\Seq{\mu_n}$ be a Cauchy sequence of measures. By trigular inequality, for all $p,q$:
+    \begin{align*}
+       \left| \|\mu_p\| - \|\mu_q\|\right| \leq \|\mu_p - \mu_q\|.
+    \end{align*}
+    And therefore the sequence $\Seq{\|\mu_n\|}$ is Cauchy in $\RR^+$ and converges. Define the measure $\lambda$ equal to:
+    \begin{align*}
+        \lambda = \sum\limits_{n \geq 1} \dfrac{1}{n^2} |\mu_n|.
+    \end{align*}
+   This measure is postitive. Since $\Seq{\|\mu_n\|}$ converges it is uniformely bounded in $n$ by some constant $C > 0$. It comes that $\lambda$ is a finite positive measure indeed:
+    \begin{align*}
+        \|\lambda\| = \lambda(E) = \sum\limits_{n \geq 1} \dfrac{1}{n^2}\|\mu_n\| \leq \dfrac{C\pi^2}{6}.
+    \end{align*}
+    Each $\mu_n$ is absolutely continuous with respect to $|\mu_n|$ indeed if $A \in \Sigma$ is such that $|\mu_n|(A) = 0$ then $\mu_n^+(A) = \mu_n^-(A) = 0$ and therefore $\mu_n(A)= 0$. This also implies that $\mu_n$ is absolutely continuous with respect to  $\lambda$, indeed $\lambda(A)= 0$ implies that $A$ is a null set of $|\mu_n|$ for all $n \geq 1$. For $n \geq 1$ we denote by $h_n$ the density of $\mu_n$ with respect to $\lambda$. Since $\Seq{\mu_n}$ is a sequence of finite measures $\Seq{h_n}$ is a sequence in $L^1(\lambda)$ the integrable functions with respect to $\lambda$, we are going to use the completness of $L^1(\lambda)$. We have for all $p,q$ :
+    \begin{align*}
+        \| \mu_p - \mu_q \| = \int_{E} |h_p - h_q| \dd\lambda = \|h_p - h_q \|_{L^1(\lambda)}.
+    \end{align*}
+    It comes that $\Seq{h_n}$ is a Cauchy sequence in $L^1(\lambda)$ and therefore converges to some $h \in L^1(\lambda)$. The measure $\mu = h\lambda$, is a limit of $\Seq{\mu_n}$, indeed for all $n \geq 1$:
+    \begin{align*}
+        \|\mu - \mu_n\| = \|h - h_n\|_{L^1(\lambda)}.
+    \end{align*}
+\end{proof}
 \subsection{Total variation}
+\red{Section à enlever}
 In this section we talk about different kind of topologies on spaces of measures. We give a rather broad overview by introducing these on Polish space, we give a definition below
 \begin{definition}
     A Polish space is a topological space $\XF$ such that:
@@ -455,9 +505,8 @@ These spaces are particularly well adapted to the study of probability measures 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 The first one is the total variation distance coming from the afore-defined total variation norm, it s the strong norm on this space. When $\XF$ is also locally compact it has a nice characterization via functions that vanish at infinity $C_0(\XF)$. The associated theorem is the Riesz-Markov representation theorem that allows to identify
 \subsubsection{Riesz representation theorem}
-\red{Finalement prendre des espaces Polonais}
-\red{Il semblerait que l'on ai pas vraiment besoin de ces théorèmes}
-In this section we present the two representation theorems that allow to build measures from linear maps on functional spaces. We call any measure defined on the Borel sigma algebra a Borel measure, we start by defining measures with good regularity properties.
+
+We present the two representation theorems that allow to build measures from linear maps on functional spaces. We call any measure defined on the Borel sigma algebra a Borel measure, we start by defining measures with good regularity properties.
 \begin{definition}
     A Radon measure on $\XF$ is a positive Borel measure $\mu$ verifying:
     \begin{itemize}
@@ -488,56 +537,57 @@ See Rudin \cite{rudin1987real} page $40$ for a proof of this result. We also giv
     \end{align*}
     for all $f \in C_0(\XF)$. Furthermore the operator norm of $L$ is equal to the total variation norm of $\mu$:
     \begin{align*}
-        \sup\limits_{\substack{f\in C_0(\XF) ,\\ |f| \leq 1}} |Lf| = |\mu|(\XF).
+        \sup\limits_{\substack{f\in C_0(\XF) ,\\ |f| \leq 1}} |Lf| = \|\mu\|.
     \end{align*}
 \end{theorem}
-See Rudin \cite{rudin1987real} page $130$ for a proof of this result. In the present work with use the following weighted set of signed measures defined below. For $\phi > 0$ a positive measurable function:
-\begin{align*}
-    \MC_{\phi}\left(\XF\right) &=  \left\lbrace \mu \in \MC\left(\XF\right) , \int_{\XF}\phi(x) |\mu|\left(\dd x\right) < \infty\right\rbrace.
-\end{align*}
-The set $\MC^+_{\phi}\left(\XF\right)$ is defined equivalently. We define the weighed total variation norm on this set by:
-\[
-\| \mu\|_{\phi} = \brac{\phi,|\mu|}.
-\]
-The following proposition and corollary give the major interest of working with a total variation norm in our work.
-\begin{proposition}
-    The space \(\left(\MC\left(\XF\right),\| \cdot\|\right) \) is Banach.
-\end{proposition}
-\begin{proof}
-    Let $\Seq{\mu_n}$ a Cauchy sequence in \(\left(\MC_1\left(\XF\right),\| \cdot\|\right) \), notice that the sequence $\Seq{\|\mu_n\|}$ is Cauchy in $\RR^+$ indeed for all $p,q \in \NN$:
-    \begin{align*}
-        \left| \|\mu_p\| - \|\mu_q\| \right| \leq \|\mu_p - \mu_q\|,
-    \end{align*}
-    and must therefore converge, we assume without loss of generality that $\lim\limits_{n\to\infty} \|\mu_n\| = 1$. Take now a function $f \in C_0(\XF)$ the sequence $\Seq{\brac{f,\mu_n}}$ is Cauchy in $\RR$ indeed for all $p,q \in \NN$,
-    \begin{align*}
-         \left| \brac{f,\mu_p} -  \brac{f,\mu_q}\right| \leq \sup\limits_{f \in C_0(\XF)} \brac{f,\mu_p - \mu_q} = \| \mu_p - \mu_q\| 
-    \end{align*}
-    we denote by $Lf$ its limit. The map $f \mapsto Lf$ is linear, let us show that it is bounded. Let $f \in C_0(\XF)$ such that $\|f\|_{\infty} \leq 1$ we have:
-    \begin{align*}
-        \left|Lf\right| = \left|Lf\right| - \left|\brac{f,\mu_n} \right| + \left|\brac{f,\mu_n} \right|.
-    \end{align*}
-    Let $\varepsilon > 0$ there exists $N_f \in \NN$ such that for all $n \geq N_f$:
-     \begin{align*}
-        \left|Lf\right| \leq \varepsilon + \left|\brac{f,\mu_n} \right|.
-    \end{align*}
-    And therefore
-    \begin{align*}
-        \left|Lf\right| \leq \varepsilon + \lim\limits_{n\to \infty}\left|\brac{f,\mu_n} \right| = \varepsilon + 1
-    \end{align*}
-    This is true for all $\varepsilon > 0$ regardless of $f$ and therefore $L$ is a bounded linear functional indeed:
-    \[ \sup\limits_{\substack{f\in C_0(\XF) ,\\ |f| \leq 1}} |Lf| \leq 1. \]
-    We conclude by the Riesz-Markov representation theorem that there exists a measure $\mu $ in $\MC(\XF)$ limit of $\Seq{\mu_n}$.
-\end{proof}
-\begin{corollary}\label{cor:Banach-wheigted-space}
-    The space \(\left(\MC_{\phi}\left(\XF\right),\| .\|_{\phi}\right) \) is Banach.
-\end{corollary}
-\begin{proof}
-    The space \(\left(\MC_{\phi}\left(\XF\right),\| .\|_{\phi}\right) \) is isometric to \(\left(\MC\left(\XF\right),\| .\|\right) \) through :
-    \begin{align*}
-        \mu \mapsto \dfrac{1}{\phi} \mu.
-    \end{align*}
-    It comes that metric properties of \(\left(\MC\left(\XF\right),\| .\|\right) \) transfer to \(\left(\MC_{\phi}\left(\XF\right),\| .\|_{\phi}\right) \) in particular completeness.
-\end{proof}
+See Rudin \cite{rudin1987real} page $130$ for a proof of this result. In the present work with use the following weighted set of signed measures defined below.
+%  For $\phi > 0$ a positive measurable function:
+% \begin{align*}
+%     \MC_{\phi}\left(\XF\right) &=  \left\lbrace \mu \in \MC\left(\XF\right) , \int_{\XF}\phi(x) |\mu|\left(\dd x\right) < \infty\right\rbrace.
+% \end{align*}
+% The set $\MC^+_{\phi}\left(\XF\right)$ is defined equivalently. We define the weighed total variation norm on this set by:
+% \[
+% \| \mu\|_{\phi} = \brac{\phi,|\mu|}.
+% \]
+% The following proposition and corollary give the major interest of working with a total variation norm in our work.
+% \begin{proposition}
+%     The space \(\left(\MC\left(\XF\right),\| \cdot\|\right) \) is Banach.
+% \end{proposition}
+% \begin{proof}
+%     Let $\Seq{\mu_n}$ a Cauchy sequence in \(\left(\MC_1\left(\XF\right),\| \cdot\|\right) \), notice that the sequence $\Seq{\|\mu_n\|}$ is Cauchy in $\RR^+$ indeed for all $p,q \in \NN$:
+%     \begin{align*}
+%         \left| \|\mu_p\| - \|\mu_q\| \right| \leq \|\mu_p - \mu_q\|,
+%     \end{align*}
+%     and must therefore converge, we assume without loss of generality that $\lim\limits_{n\to\infty} \|\mu_n\| = 1$. Take now a function $f \in C_0(\XF)$ the sequence $\Seq{\brac{f,\mu_n}}$ is Cauchy in $\RR$ indeed for all $p,q \in \NN$,
+%     \begin{align*}
+%          \left| \brac{f,\mu_p} -  \brac{f,\mu_q}\right| \leq \sup\limits_{f \in C_0(\XF)} \brac{f,\mu_p - \mu_q} = \| \mu_p - \mu_q\| 
+%     \end{align*}
+%     we denote by $Lf$ its limit. The map $f \mapsto Lf$ is linear, let us show that it is bounded. Let $f \in C_0(\XF)$ such that $\|f\|_{\infty} \leq 1$ we have:
+%     \begin{align*}
+%         \left|Lf\right| = \left|Lf\right| - \left|\brac{f,\mu_n} \right| + \left|\brac{f,\mu_n} \right|.
+%     \end{align*}
+%     Let $\varepsilon > 0$ there exists $N_f \in \NN$ such that for all $n \geq N_f$:
+%      \begin{align*}
+%         \left|Lf\right| \leq \varepsilon + \left|\brac{f,\mu_n} \right|.
+%     \end{align*}
+%     And therefore
+%     \begin{align*}
+%         \left|Lf\right| \leq \varepsilon + \lim\limits_{n\to \infty}\left|\brac{f,\mu_n} \right| = \varepsilon + 1
+%     \end{align*}
+%     This is true for all $\varepsilon > 0$ regardless of $f$ and therefore $L$ is a bounded linear functional indeed:
+%     \[ \sup\limits_{\substack{f\in C_0(\XF) ,\\ |f| \leq 1}} |Lf| \leq 1. \]
+%     We conclude by the Riesz-Markov representation theorem that there exists a measure $\mu $ in $\MC(\XF)$ limit of $\Seq{\mu_n}$.
+% \end{proof}
+% \begin{corollary}\label{cor:Banach-wheigted-space}
+%     The space \(\left(\MC_{\phi}\left(\XF\right),\| .\|_{\phi}\right) \) is Banach.
+% \end{corollary}
+% \begin{proof}
+%     The space \(\left(\MC_{\phi}\left(\XF\right),\| .\|_{\phi}\right) \) is isometric to \(\left(\MC\left(\XF\right),\| .\|\right) \) through :
+%     \begin{align*}
+%         \mu \mapsto \dfrac{1}{\phi} \mu.
+%     \end{align*}
+%     It comes that metric properties of \(\left(\MC\left(\XF\right),\| .\|\right) \) transfer to \(\left(\MC_{\phi}\left(\XF\right),\| .\|_{\phi}\right) \) in particular completeness.
+% \end{proof}
 
 \subsection{Wasserstein distance for signed measures}\label{section:Wasserstein}
 The goal of this section is to introduce a definition of the Wasserstein distance for positive or signed measures that are not necessarily probability measures. The classical definition for probability measures is given in Definition \ref{def:Wasserstein}. The definition of the general distance for positive measures of not necessarily same mass relies on proposition \ref{prop:Kantorovich-general} and is given in definition \ref{def:Wasserstein-general}. Finally the extension to signed measures is pretty straightforward and done below the aforementioned definition. 
@@ -576,7 +626,7 @@ One key property of this distance is the Kantorovich-Rubinstein duality allowing
         W_1(\mu,\nu) = \sup\limits_{Lip(f) \leq 1} \brac{f,\mu - \nu}.
     \end{align*}
 \end{theorem}
-Now, we define a more general distance, which will rely on one additional object: a positive function that we denote by $\phi$. This function should satisfy the following, for all $x,y \in \XF$,
+\red{ATTENTION AVEC CES CONDITIONS $\phi(x) = d(x,x_0)$ EST LE SEUL CHOIX POSSIBLE.... IL FAUT CHANGER CETTE SECTION}Now, we define a more general distance, which will rely on one additional object: a positive function that we denote by $\phi$. This function should satisfy the following, for all $x,y \in \XF$,
 \begin{align*}
     d(x,y) \leq \phi(x) + \phi(y), \text{ and}\quad|\phi(x) - \phi(y)| \leq d(x,y),
 \end{align*}
@@ -591,7 +641,7 @@ d(x,y) &\leq d(x,x_0) + d(y,x_0) = \phi(x) + \phi(y)\ \text{ and}\\
 \end{align*}
 It is then clear that for all functions $\phi$ verifying this domination hypothesis
 \[
-\MC^+_1(\XF,d) = \MC^+_{1 + \phi}(\XF). \red{\text{Suggestion : } \MC^+_d(\XF) \text{pour} \MC^+_1(\XF,d)}
+\MC^+_1(\XF,d) = \MC^+_{\phi}(\XF). \red{\text{Suggestion : } \MC^+_d(\XF) \text{pour} \MC^+_1(\XF,d)}
 \]
 To define a distance for two measures not having same mass we add an extra point to $\XF$ that we call a cemetery point and denote $\delta$. Its role is to "store" the missing needed mass. We extend the definition of the distance to $\bar{\XF} = \XF\cup \lbrace\partial\rbrace$ using $\phi$, for all $x \in \XF$:
 \begin{align*}
@@ -819,38 +869,39 @@ for some fixed base point $x_0 \in \XF$, without requiring the domination condit
 However, our formulation is more flexible. It allows for functions of the form $\phi(x) = \lim_{x_0 \to x_a} d(x, x_0)$, where $x_a$ may lie outside of $\XF$. For example, consider the distance that we are interested in this work \(d_\alpha(x, y) = |x^{-\alpha} - y^{-\alpha}|\) on \(\RRP\), with \(\alpha \geq 0\). Then a natural choice is \(\phi(x) = x^{-\alpha}\), which corresponds to the limit \(x_a = +\infty\), a point not contained in \(\RRP\).
 \end{remark}
 
-We emphasize that the distance $W_1(\bar{\mu}^m, \bar{\nu}^m)$ defined in the previous proposition is independent of the choice of $m$, and moreover, it defines a valid distance on the space $\MC^+_{1 + \phi}(\XF)$.
+We emphasize that the distance $W_1(\bar{\mu}^m, \bar{\nu}^m)$ defined in the previous proposition is independent of the choice of $m$, and moreover, it defines a valid distance on the space $\MC^+_{\phi}(\XF)$.
 
 \begin{definition}\label{def:Wasserstein-general}
-We define the \emph{$\phi$-Wasserstein-$1$ distance} on $\MC^+_{1 + \phi}(\XF)$, denoted $W_{1,\phi}$, as the distance introduced in the previous proposition:
+We define the \emph{$\phi$-Wasserstein distance} on $\MC^+_{\phi}(\XF)$, denoted $W_{\phi}$, as the distance introduced in the previous proposition:
 \begin{align*}
-    W_{1,\phi}(\mu, \nu) := \sup_{\substack{Lip(f) \leq 1\\ |f| \leq \phi}} \brac{f, \mu - \nu} + \left| \mu(\XF) - \nu(\XF) \right|.
+    W_{\phi}(\mu, \nu) := \sup_{\substack{Lip(f) \leq 1\\ |f| \leq \phi}} \brac{f, \mu - \nu} + \left| \mu(\XF) - \nu(\XF) \right|.
 \end{align*}
 \end{definition}
 This distance can be generalized to signed measures:
 \begin{definition}\label{def:Wasserstein-general-signed}
-    We define the \emph{$\phi$-Wasserstein-$1$ distance} on $\MC_{1 + \phi}(\XF)$, denoted $W_{1,\phi}$, as:
+    We define the \emph{$\phi$-Wasserstein-$1$ distance} on $\MC_{\phi}(\XF)$, denoted $W_{1,\phi}$, as:
 \begin{align*}
-    W_{1,\phi}(\mu, \nu) := \sup_{\substack{Lip(f) \leq 1\\ |f| \leq \phi}} \brac{f, \mu - \nu} + \left| \mu(\XF) - \nu(\XF) \right|.
+    W_{\phi}(\mu, \nu) := \sup_{\substack{Lip(f) \leq 1\\ |f| \leq \phi}} \brac{f, \mu - \nu} + \left| \mu(\XF) - \nu(\XF) \right|.
 \end{align*}
 \end{definition}
-It is easy to check the triangular inequality. It stills shares the Wasserstein structure given that for $\mu,\nu \in \MC_{1 + \phi}(\XF)$ let $\mu^+,\mu^-$ and $\nu^+,\nu^-$ respectively the Jordan decomposition of $\mu$ and $\nu$ we have:
+It is easy to check the triangular inequality. It stills shares the Wasserstein structure given that for $\mu,\nu \in \MC_{\phi}(\XF)$ let $\mu^+,\mu^-$ and $\nu^+,\nu^-$ respectively the Jordan decomposition of $\mu$ and $\nu$ we have:
 \begin{align*}
-    W_{1,\phi}(\mu, \nu) = W_{1,\phi}(\mu^+ + \nu^-, \nu^+ + \mu^-)\ ,
+    W_{\phi}(\mu, \nu) = W_{\phi}(\mu^+ + \nu^-, \nu^+ + \mu^-)\ ,
 \end{align*}
-and this distance is therefore well-posed. One could also remark that $W_{1,\phi}(\mu,0)$ defines a norm on $\MC_{1 + \phi}(\XF)$, this is very remniscient of the the flat norm given by Villani in \cite{villani2008optimal}.
+and this distance is therefore well-posed. One could also remark that $W_{\phi}(\mu,0)$ defines a norm on $\MC_{\phi}(\XF)$, this is very remniscient of the the flat norm given by Villani in \cite{villani2008optimal}.
+
 \subsubsection{For the distance \(d_\alpha\)}
 In this case all distances are equivalent and functions have a limit in $+\infty$ \red{A completer}.
 
 \subsection{Derivatives on spaces of measures}
-In this section we define the linear derivative of measures. We define them in the same fashion as in \cite{martiniKolmogorovEquationsSpaces2023} that takes inspiration from its presentation in \cite{cardaliaguet2019master,carmona2018probabilistic}.
+In this section we define the flat derivative of measures. We define them in the same fashion as in \cite{martiniKolmogorovEquationsSpaces2023} that takes inspiration from its presentation in \cite{cardaliaguet2019master,carmona2018probabilistic}.
 \begin{definition}
-    Let $E$ be a polish space, $F: \MC(E) \to \RR$ be a continuous function we say that $F$ has a linear derivative if there exists a function $\delta_{\mu}F :\MC(E) \times E\to \RR $ such that for all $\mu,\nu \in \MC(E)$:
+    Let $E$ be a polish space, $F: \MC(E) \to \RR$ be a continuous function we say that $F$ has a flat derivative if there exists a function $\delta_{\mu}F :\MC(E) \times E\to \RR $ such that for all $\mu,\nu \in \MC(E)$:
     \[ F(\mu) - F(\nu) = \int_0^1 \int_E \delta_\mu F(\theta \mu + (1-\theta)\nu,x)\left(\mu - \nu\right)(\dd x)\dd \theta\]
 \end{definition}
 We need the same definition but this time for functional from a space of measure to another space of measures.
 \begin{definition}
-     Let $E$ be a Polish space, $\varphi: \MC(E) \to \MC(E)$ be a continuous function we say that $\varphi$ has a linear derivative if there exists, a continuous function $\delta_{\mu}\varphi :\MC(E) \times E\to \MC(E)$ such that for all $\mu,\nu \in \MC(E)$ and for all $f\in C_b(E)$ \red{Attention, on pourrait demander pour tout $f\in L^1(\mu) \cap L^1(\nu)$ mais il faudrait vérifier que tout fonctionne bien}:
+     Let $E$ be a Polish space, $\varphi: \MC(E) \to \MC(E)$ be a continuous function we say that $\varphi$ has a flat derivative if there exists, a continuous function $\delta_{\mu}\varphi :\MC(E) \times E\to \MC(E)$ such that for all $\mu,\nu \in \MC(E)$ and for all $f\in C_b(E)$ \red{Attention, on pourrait demander pour tout $f\in L^1(\mu) \cap L^1(\nu)$ mais il faudrait vérifier que tout fonctionne bien}:
      \begin{itemize}
          \item The function
          \[x\to \sup_{\theta \in [0,1]} |\langle f, \partial_\mu\varphi(\theta \mu + (1-\theta) \nu,x) \rangle| \in L^1(\mu) \cap L^1(\nu).\]
@@ -860,7 +911,7 @@ We need the same definition but this time for functional from a space of measure
 \end{definition}
 We give a formulation of the chain rule.
 \begin{proposition}
-    Assume that $\delta_\mu F$ is bounded and $\delta_\mu\varphi$ is bounded in total variation. For all \(x\in E\), \(\mu \mapsto \delta_u F(\mu,x)\) and \(\mu \mapsto \delta_u F(\mu,x)\) are continuous. Then \(F\circ \varphi\) has a linear derivative and it is equal to:
+    Assume that $\delta_\mu F$ is bounded and $\delta_\mu\varphi$ is bounded in total variation. For all \(x\in E\), \(\mu \mapsto \delta_u F(\mu,x)\) and \(\mu \mapsto \delta_u F(\mu,x)\) are continuous. Then \(F\circ \varphi\) has a flat derivative and it is equal to:
     \[
     \delta_\mu F\circ \varphi : \left(\mu,x \right) \mapsto \brac{\delta_\mu  F(\mu,.),\delta_\mu\varphi(\mu,x)}.
     \]
@@ -1224,7 +1275,7 @@ In this section we want to differentiate the solution of the \SCE with respect t
 \end{align*}
 The first part of this section is devoted to show that $\mu \mapsto \Proc{\varphi_t(\mu)}$ is differentiable and its derivative follows the latter equation. This equation is particular case of the following: 
 \begin{equation}\label{eq:derivative-initial-general}
-    \brac{f,m_t} = \brac{f,\nu} + \brac{Kf,\varphi_s(\mu)\otimes m_s}\dd s
+    \brac{f,m_t} = \brac{f,m} + \brac{Kf,\varphi_s(\mu)\otimes m_s}\dd s
 \end{equation}
 In the second and third part part we give relevant bounds on equation \ref{eq:derivative-initial-general} In the third part we show that all involved equations are well posed.
 
@@ -1232,13 +1283,13 @@ In the second and third part part we give relevant bounds on equation \ref{eq:de
 We give here bounds that will be important for our next theorems in the derivative. We denote $\Proc{\mu_t}$ the solution of the $\SCE$ of initial value $\mu$ and kernel $K_\alpha$.
 \begin{lemma}\label{lem:bound_derivative}
     Any solution of \eqref{eq:derivative-initial-general} on the time interval $[0,T]$ enjoys the bounds below:
-    \[ \sup\limits_{t \in [0,T]}\| m_t\|_{\phi_p} \leq \| \nu\|_{\phi_p} \exp{\left( C\int_0^T\| \mu_s\|_{\phi_{p+1}} \dd s \right)} \leq \| \nu\|_{\phi_p} \exp{\left( CT\| \mu\|_{\phi_{p+1}}\right)}.\]
+    \[ \sup\limits_{t \in [0,T]}\| m_t\|_{\phi_p} \leq \| m\|_{\phi_p} \exp{\left( C\int_0^T\| \mu_s\|_{\phi_{p+1}} \dd s \right)} \leq \| m\|_{\phi_p} \exp{\left( CT\| \mu\|_{\phi_{p+1}}\right)}.\]
     Functions $\phi_p$ can be replaced by functions $\psi_p$.
 \end{lemma}
 \begin{proof}
     From lemma \ref{lem:ODE_total_variation_kolo} and equation \eqref{eq:cut-off-derivative-equation} we have:
     \begin{align*}
-        \| m_t\|_{\phi_p} = \| \nu\|_{\phi_p} + \int_0^t \brac{K_\alpha \phi_p\sigma_s, \mu_s\otimes m_s} \dd s
+        \| m_t\|_{\phi_p} = \| m\|_{\phi_p} + \int_0^t \brac{K_\alpha \phi_p\sigma_s, \mu_s\otimes m_s} \dd s
     \end{align*}
     where $\sigma_s$ is a density of $m_t^\varepsilon$ with respect to $|m_t^\varepsilon|$ and can take only the $3$ values $-1,0,1$. Let us bound the term inside the time integral:
     \begin{multline*}
@@ -1460,10 +1511,10 @@ It remains to show that a sequence of solutions to the cut-off equation \eqref{e
 
 \subsubsection{Existence of derivative}
 In all this section $p$ is an integer greater or equal than $2$ and $\mu$ is a positive measure in $\MC^+_{\phi_{p+1}}(\RRP)$. We denote by $\Proc{\varphi_t(\mu)}$ the solution of the $\SCE$ of kernel $K_\alpha$ and initial value $\mu$. In this part we show the following result.
-\begin{lemma}\label{lem:derivative-existence-and-eq}
-    Let $T > 0$, for all $t \in [0,T)$ the function $ \mu \mapsto \varphi_t(\mu)$ has a linear derivative that we denote by $\delta_\mu\varphi_t$, furthermore for all $z \in \RRP, \mu \in \MC_{\phi_p}(\RRP)$, $\delta_\mu\varphi_t(\mu,z)$ is the unique solution to equation \eqref{eq:derivative-initial-general} with initial value $\delta_z$.
+\begin{lemma}[Restated Lemma~\ref{lem:derivative-existence-and-eq}]
+    Let $T > 0$, for all $t \in [0,T)$ the function $ \mu \mapsto \varphi_t(\mu)$ has a flat derivative that we denote by $\delta_\mu\varphi_t$, furthermore for all $z \in \RRP, \mu \in \MC_{\phi_p}(\RRP)$, $\delta_\mu\varphi_t(\mu,z)$ is the unique solution to equation \eqref{eq:derivative-initial-general} with initial value $\delta_z$.
 \end{lemma}
-We introduce a notation for this section, we denote by $\Proc{\psi_t(m)}$ the solution to \eqref{eq:derivative-initial-general} with initial value $m$ in $\MC_{\phi_p}(\RRP)$. This function also depends obviously on the initial measure given to the Smoluchowski coagulation equation namely $\mu$ in this work. However this dependence is not relevant to our results as long as $\mu$ belongs to $\MC^+_{\phi_{p+1}}(\RRP)$ with $p\geq 2$, this will be made explicit in our proofs. To exhibit the existence of a linear derivative we will need the following proposition which boils down to exchanging two integrals.
+We introduce a notation for this section, we denote by $\Proc{\psi_t(m)}$ the solution to \eqref{eq:derivative-initial-general} with initial value $m$ in $\MC_{\phi_p}(\RRP)$. This function also depends obviously on the initial measure given to the Smoluchowski coagulation equation namely $\mu$ in this work. However this dependence is not relevant to our results as long as $\mu$ belongs to $\MC^+_{\phi_{p+1}}(\RRP)$ with $p\geq 2$, this will be made explicit in our proofs. To exhibit the existence of a flat derivative we will need the following proposition which boils down to exchanging two integrals.
 \begin{proposition}\label{prop:derivative-prop-fubini}
     For all $t \geq 0$ and $f \in C_b(\RRP)$:
     \[\brac{f,\psi_t(m)} = \int_{\RRP} \brac{f,\psi_t\left(\delta_z\right)}m(\dd z).\]
@@ -3309,11 +3360,11 @@ We rely on the definition of $W_1$ as the infimum on coupling measures and defin
     &+ \dfrac12\int_{\bar{\XF}^2}\int_{\bar{\XF}^2} \left(K_\alpha(x_1,y_1)- K_\alpha(x_2,y_2) \right)^-\\
     &\qquad\left[f(y_1,x_2 + y_2) + f(x_1,\partial)- f(x_1,x_2) -f(y_1,y_2) \vphantom{A^2} \right]\pi_s(\dd x_1,\dd x_2)\pi_s(\dd y_1,\dd y_2) \dd s
 \end{align*}
-The intuition of this equation comes from the Stochastic counterpart, when writing the Stochastic Coalescence as an  integral on Poisson random measure an expression similar appears see \cite{fournier2004convergence}. This equation can be break down into $3$ parts, in the first one we coalesce both parts at rate given by the minimal value of both kernels, intuitively the first of both marginals to coalesce makes the couple coalesce. The second and third part are symmetric and deal with the marginal that was "late" and only coalesces that one.
+The intuition of this equation comes from the stochastic counterpart, when writing the stochastic coalescence as an  integral on Poisson random measure an expression similar appears see \cite{fournier2004convergence}. This equation can be break down into $3$ parts, in the first one we coalesce both parts at rate given by the minimal value of both kernels, intuitively the first of both marginals to coalesce makes the couple coalesce. The second and third part are symmetric and deal with the marginal that was "late" and only coalesces that one.
 
 \newpage
-\section{Stochastic Coalescence}
-The Stochastic Coalescence is a process representing a collection of particles characterized by a positive value called mass. Each couple of particles of mass $x,y$ has a probability to merge in an interval of time $[t, t + \dd t]$ of first order equal to $K(x,y)\dd t$. Assume we have initially $N$ particles with masses $x_{1},\cdots,x_{N}$. Consider $N(N-1)/2$ independent exponential random variables:
+\section{stochastic coalescence}
+The stochastic coalescence is a process representing a collection of particles characterized by a positive value called mass. Each couple of particles of mass $x,y$ has a probability to merge in an interval of time $[t, t + \dd t]$ of first order equal to $K(x,y)\dd t$. Assume we have initially $N$ particles with masses $x_{1},\cdots,x_{N}$. Consider $N(N-1)/2$ independent exponential random variables:
 \begin{align*}
     \left\lbrace T_{i,j} \sim \mathcal{E}\left(K(x_{i},x_{j})\right), 1 \leq i < j \leq N \right\rbrace.
 \end{align*}
@@ -3321,7 +3372,7 @@ Each random variable represents the time taken by the corresponding couple to co
 \begin{align*}
     \sum\limits_{1 \leq i < j \leq N}K(x_{i},x_{j}).
 \end{align*}
-We denote by $i^*,j^*$ the couple achieving this minima, at time $T_1$, $N-1$ particles remain and the process is at state $x_{1},\cdots , x_{i^*}+x_{j^*},\cdots$. We repeat this operation until there is a single particle left with mass equal to $\sum\limits x_i$. We choose to represent this process by a sum of Dirac masses, so that if there is $N_t$ particles at time $t\geq 0$ of masses $X_{1,t},\cdots,X_{N_t,t}$ the Stochastic Coalescence process has value:
+We denote by $i^*,j^*$ the couple achieving this minima, at time $T_1$, $N-1$ particles remain and the process is at state $x_{1},\cdots , x_{i^*}+x_{j^*},\cdots$. We repeat this operation until there is a single particle left with mass equal to $\sum\limits x_i$. We choose to represent this process by a sum of Dirac masses, so that if there is $N_t$ particles at time $t\geq 0$ of masses $X_{1,t},\cdots,X_{N_t,t}$ the stochastic coalescence process has value:
 \begin{align*}
     M_t = \sum\limits_{i = 1}^{N_t} \delta_{X_{i,t}}.
 \end{align*}
@@ -3331,13 +3382,13 @@ We give a formal definition as an integral on a Poisson random measure taken fro
     \MC_p^+(\RRP) = \left\lbrace \sum\limits_{i = 1}^N \delta_{x_i}\  \middle|\  N\in \NN,\  (x_1,\cdots,x_N) \in \RRP \right\rbrace. 
 \end{align*}
 \begin{definition}
-    Let $\NC$ be random Poisson measure on $\RR^+ \times \RR^+ \times \NN^2$ with intensity $\dd s \times \dd z \times d(i,j)$ where $d(i,j) = \sum\limits_{i < j} \delta_{i,j}$. Let $K$ be a kernel, $\mu^N \in \MC_p^+(\RRP)$ a finite sum of Dirac masses. We call Stochastic Coalescence (\SC) process the solution of the following $SDE$:
+    Let $\NC$ be random Poisson measure on $\RR^+ \times \RR^+ \times \NN^2$ with intensity $\dd s \times \dd z \times d(i,j)$ where $d(i,j) = \sum\limits_{i < j} \delta_{i,j}$. Let $K$ be a kernel, $\mu^N \in \MC_p^+(\RRP)$ a finite sum of Dirac masses. We call stochastic coalescence (\SC) process the solution of the following $SDE$:
     \begin{multline*}
         M_t = \mu^N + \int_0^t \int_0^\infty \int_{1 \leq i <j }  \indic{z \leq K(X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}} \\ \times \left(\delta_{X_{i}(s-) + X_{j}(s-)} - \delta_{X_{i}(s-)} - \delta_{X_{j}(s-)}\right)\mathcal{N}(ds,dz,d(i,j)).
     \end{multline*}
     where $N_t$ is the number of clusters at time $t$: $N_t = \langle 1 , M_t\rangle$.
 \end{definition}
-The kernels considered $K_\alpha$ is finite on $\RRP$. Furthermore the masses in the Stochastic Coalescence only increase let us call $x_0$ the smallest mass in the initial data $\mu^N$. For all $t \geq 0$ and $i,j$ we have $K_\alpha(X_{i}(s-),X_{j}(s-)) \leq 2x_0^{-\alpha}$. Finally $N_t$ is non-increasing it comes that for all bounded $f$:
+The kernels considered $K_\alpha$ is finite on $\RRP$. Furthermore the masses in the stochastic coalescence only increase let us call $x_0$ the smallest mass in the initial data $\mu^N$. For all $t \geq 0$ and $i,j$ we have $K_\alpha(X_{i}(s-),X_{j}(s-)) \leq 2x_0^{-\alpha}$. Finally $N_t$ is non-increasing it comes that for all bounded $f$:
 \begin{multline*}
     \mathbb{E} \left[ \int_0^t \int_0^\infty \int_{1 \leq i <j }  \indic{z \leq K(X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}}\right. \\
     \left. \times   \left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right]\mathcal{N}(ds,dz,d(i,j)) \vphantom{\int_0^t \int_0^\infty \int_{i <j } }\right] \\
@@ -3397,9 +3448,9 @@ where $\Proc{\mu_t} $ is the solution of the Smoluchowski Coagulation equation s
 \end{proof}
 
 \begin{remark}
-   When the initial masses are integers, this rescaled process corresponds to the Marcus-Lushnikov process \cite{marcus1968stochastic,lushnikov1978coagulation}. It was originally made as a Stochastic approximation of the Smoluchovski Coagulation equation.
+   When the initial masses are integers, this rescaled process corresponds to the Marcus-Lushnikov process \cite{marcus1968stochastic,lushnikov1978coagulation}. It was originally made as a stochastic approximation of the Smoluchovski Coagulation equation.
 \end{remark}
-When $F$ has a flat derivaitve the previous expression can be expressed in terms of the linear derivative of $F$
+When $F$ has a flat derivaitve the previous expression can be expressed in terms of the flat derivative of $F$
 \begin{proposition}\label{prop:SC_gen_differentiable}
     Consider a functional $F \in C^1(\MC_{\psi_1}^+\left(\RRP \right):\RR)$ we have for all integers $N$:
     \begin{multline*}
@@ -3461,7 +3512,7 @@ We present bounds that will be important in our final theorem.
         \left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle^2 + \left(\left\langle 1,\Phi(t,\mu^N)\right\rangle - \dfrac{2}{N}\right)\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle
         \geq \left(\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle- \dfrac{S_0^{-\alpha}}{N}\right)^2.
     \end{equation}
-    We will now use a couple of arguments from the Stochastic coalescence process. First the random variable $\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle$ is almost surely positive for all $t\geq 0$ as each mass is positive. Second the random variable $N_t := N\times\left\langle 1,\Phi(t,\mu^N)\right\rangle$ is the amount of clusters present at time $t$. As such it belongs almost surely to $\lbrace 1,\cdots,N\rbrace$. 
+    We will now use a couple of arguments from the stochastic coalescence process. First the random variable $\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle$ is almost surely positive for all $t\geq 0$ as each mass is positive. Second the random variable $N_t := N\times\left\langle 1,\Phi(t,\mu^N)\right\rangle$ is the amount of clusters present at time $t$. As such it belongs almost surely to $\lbrace 1,\cdots,N\rbrace$. 
     
     When $N_t = 1$ there is only a single cluster left of mass $S_0$ and therefore:
     \begin{align*}
@@ -3495,7 +3546,7 @@ We present bounds that will be important in our final theorem.
 
 
 \section{Comparing \SC and \SCE}
-For establishing our mains results we want to compare the Stochastic Coalescence process and the solution of the Smoluchovski coagulation equation. First some notations. We denote by $\varphi(t,\mu)$, $\Phi(t,\mu)$ respectively the solution of \SCE and the \SCN process started from $\mu$, let $\mu^N$ be an atomic measure.
+For establishing our mains results we want to compare the stochastic coalescence process and the solution of the Smoluchovski coagulation equation. First some notations. We denote by $\varphi(t,\mu)$, $\Phi(t,\mu)$ respectively the solution of \SCE and the \SCN process started from $\mu$, let $\mu^N$ be an atomic measure.
 Our main theorems are based on the same relation below:
 \begin{align}\label{eq:semi-group-relation}
 \E{F(\Phi(t,\mu^N))} - F(\varphi\left(t,\mu\right)) = \int_0^t \E{\left(\LC^N - \LC\right)F\circ \varphi(s,.)\left(\Phi(t-s,\mu^N)\right)}\dd s.
@@ -3613,7 +3664,7 @@ So that finally the second term can be bounded by:
 
 The latter theorem has weaker hypotheses.
 \begin{theorem}
-    Assume $\alpha < 1$, $F$ is differentiable and, its linear derivative is uniformly bounded and Lipschitz in $\MC^{+}_{1}\left(\RR^{+,*},d_\alpha\right)$. Then for all $t\geq 0$:
+    Assume $\alpha < 1$, $F$ is differentiable and, its flat derivative is uniformly bounded and Lipschitz in $\MC^{+}_{1}\left(\RR^{+,*},d_\alpha\right)$. Then for all $t\geq 0$:
     \begin{align*}
         \E{F(\Phi(t,\mu^N))} - \E{F(\varphi\left(t,\mu^N\right))} \leq C_\alpha\frac{3}{N}\langle x^{-\alpha},\mu^N \rangle \left(3 Lip\left(\delta_\mu F\right) + \frac{t}{1 + t}\|\delta_\mu F\|_{\infty}\right)
     \end{align*}
@@ -3630,7 +3681,7 @@ The latter theorem has weaker hypotheses.
     \end{align*}
 \end{theorem}
 \begin{proof}
-    The function $F\circ \varphi_t$ has a linear derivative and therefore:
+    The function $F\circ \varphi_t$ has a flat derivative and therefore:
     \begin{multline*}
         \E{F\left(\varphi_t(\mu^N)\right)} - F\left(\varphi_t(\mu)\right) \\
         = \E{\int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta}.
