@@ -154,10 +154,10 @@ The result of this work is a convergence rate of obsevables. We give it informal
 The singular behavior of the kernel $K_\alpha$ motivates the use of a specific distance $d_\alpha$ adapted to this singularity. This distance reflects the dominant scaling of the kernel and plays a key role in the convergence analysis. A precise definition is given in Section~\ref{section-main-results}.
 
 \section{Definitions, assumptions and main results}\label{section-main-results}
-In this work, we describe the evolution of particle systems using measure-valued stochastic processes, and the Smoluchowski coagulation equation is formulated as an equation on measures. Elements of measure theory and the relevant topological framework for spaces of measures are introduced in Section~\ref{section:analysis-measures}. If any ambiguity arises regarding the definitions or objects used below, we refer the reader to that section for clarification.
+In this work, we describe the evolution of particle systems using measure-valued stochastic processes, and the Smoluchowski coagulation equation is formulated as an equation on measures. Elements of measure theory are given in Section~\ref{section:analysis-measures}. Among them the reader will find the definition of the Total Variation, the Radon-Nikodym derivaitve, the Hahn-Jordan decomposition and the Wasserstein distance and its extension beyond probability measures. If any ambiguity arises regarding the definitions or objects used below, we refer to that section for clarification.
 
 \subsection{Notations}
-We use “positive” to mean $> 0$ and “non-negative” to mean $\geq 0$.
+The value $\alpha > 0$ appearing in $K_\alpha$ is fixed throughout all this work. 
 
 The notations $\brac{f,\mu}$, $\int f \dd \mu$, and $\int f(x)\mu(\dd x)$ are used interchangeably, depending on convenience. When all functions involved are integrable, we apply Fubini-Tonelli and Fubini-Lebesgue theorems as needed.
 
@@ -172,14 +172,12 @@ f(x+y) \leq f(x) + f(y).
 
 
 \subsection{Topological considerations on spaces of measures}
-\red{Solution virer les $\MC_{\psi}$ de la section \ref{section:analysis-measures} et ne parler que de ces espaces ici}
 
-
-In this section we define all the measure spaces and topologies on them we consider. We denote by $\MC^+(\RRP)$ the set of finite positive measures on $\RRP$ and by $\MC(\RRP)$ the set of finite signed measures. For a measure $\mu \in \MC(\RRP)$, we denote by $|\mu| \in \MC^+(\RRP)$ its total variation measure, and by $\|\mu\|$ its total variation norm. The existence of the total variation measure comes from the Hahn-Jordan decomposition theorem given in Section \ref{section:analysis-measures}. Given our kenel we will work with measures that have a finite $-\alpha$ moment namely and measure $\mu \in  \MC^+(\RRP)$ such that:
+In this section we define all the measure spaces and topologies on them we consider. We denote by $\MC^+(\RRP)$ the set of finite positive measures on $\RRP$ and by $\MC(\RRP)$ the set of finite signed measures. For a measure $\mu \in \MC(\RRP)$, we denote by $|\mu| \in \MC^+(\RRP)$ its total variation measure, and by $\|\mu\|$ its total variation norm. The existence of the total variation measure comes from the Hahn-Jordan decomposition theorem given in Section \ref{section:analysis-measures}. Given our kernel we will work with measures that have a finite negative $\alpha$-moment namely and measure $\mu \in  \MC^+(\RRP)$ such that:
 \begin{align*}
     \int_{\RRP} x^{-\alpha} \mu(\dd x) \leq  \infty.
 \end{align*}
-Or singned measures $\mu \in  \MC(\RRP)$ such that:
+Or signed measures $\mu \in  \MC(\RRP)$ such that:
 \begin{align*}
     \int_{\RRP} x^{-\alpha} |\mu|(\dd x) \leq  \infty.
 \end{align*}
@@ -187,7 +185,9 @@ In all generality let $\psi$ be a continuous, positive function. We define:
 \[
 \MC_{\psi}(\RRP) = \left\lbrace \mu \in \MC(\RRP) \;\middle|\; \int_{\RRP} \psi(x)\,|\mu|(\dd x) < \infty \right\rbrace,
 \]
-and $\MC^+_{\psi}(\RRP)$ its restriction to positive measures. This set is the set of finite measures with $\psi$-moment. A natural norm on these weighted spaces is the $\psi$-weighted total variation norm:
+and $\MC^+_{\psi}(\RRP)$ its restriction to positive measures. This set is the set of finite measures with $\psi$-moment.
+\subsubsection*{Total variation}
+A natural norm on these weighted spaces is the $\psi$-weighted total variation norm:
 \[
 \|\mu\|_{\psi} = \brac{1 + \psi, |\mu|}.
 \]
@@ -209,6 +209,7 @@ Convergence with respect to this norm is referred to as strong convergence.
     The function $I$ is an isometry from \(\left(\MC\left(\RRP\right),\| .\|\right) \) to \(\left(\MC_{\psi}\left(\XF\right),\| .\|_{\psi}\right) \) therefore the later is complete.
 \end{proof}
 
+\subsubsection*{Wasserstein distance}
 \begin{definition}[Weak convergence in $\MC_{\psi}(\RRP)$]
 A sequence $\Seq{\mu_n}$ converges weakly in $\MC_{\psi}(\RRP)$ to $\mu$ if, for all continuous functions $f$ such that $|f| \leq 1 + \psi$, we have:
 \[
@@ -229,21 +230,51 @@ and therefore $\MC_{\psi_q}(\RRP) \subset \MC_{\psi_p}(\RRP)$. A central tool in
 \[
 d_{p\alpha}(x,y) = |x^{-p\alpha} - y^{-p\alpha}|.
 \]
-Let $Lip_1(d_{p\alpha})$ be the space of Lipschitz functions for $d_{p\alpha}$ defined by:
+The space $\left(\RRP,d_\alpha\right)$ is not complete, we need to add a point at infinity as stated in the Proposition below. Algebraic operations with infinity are defined as the classic operations on limit of sequences. 
+\begin{proposition}
+    The space $\left(\RRP \cup \lbrace+\infty\rbrace ,d_\alpha\right)$ is complete. 
+\end{proposition}
+\begin{proof}
+    The space $(\RR^+,|\cdot|)$ is complete as a closed space in $\RR$ for the topology induced by the absolute value. The space $\left(\RRP \cup \lbrace+\infty\rbrace ,d_\alpha\right)$ is isometric to $(\RR^+,|\cdot|)$ through:
+    \begin{equation*}
+        I :
+        \left\lbrace
+        \begin{aligned}
+            \left(\RRP \cup \lbrace+\infty\rbrace ,d_\alpha\right) &\to (\RR^+,|\cdot|)  \\
+            x &\mapsto 
+            \left\lbrace 
+            \begin{aligned}
+                x^{-\alpha} &\text{ if } x \in \RRP \\
+                0 &\text{ if } x= +\infty
+            \end{aligned}
+            \right.
+        \end{aligned}
+        \right. .
+    \end{equation*}
+    Our space therefore inherits completeness.
+\end{proof}
+We can now define the Wasserstein distance on $\MC^+_{\psi_p}\left(\RRP \cup \lbrace+\infty\rbrace\right)$ we introduce the space of Lipschitz functions for $d_{p\alpha}$ with constant equal to $1$ defined by:
 \[
 Lip_1(d_{p\alpha}) = \left\lbrace f: \RRP\to \RR \middle|\ \sup_{x \neq y \in \RRP} \dfrac{|f(x) - f(y)|}{d_{p\alpha}(x,y)} \leq 1 \right\rbrace.
 \]
-
-Then the Wasserstein distance on $\MC^+_{\psi_p}(\RRP)$ is defined via the dual formulation:
-\[
-W_{\psi_p}(\mu,\nu) = \sup_{\substack{f \in Lip_1(d_{p\alpha}) \\ |f| \leq 1 + \psi_p}} \brac{f, \mu - \nu}.
-\]
-Note: Since we do not assume $\mu$ and $\nu$ have the same total mass, the boundedness condition on $f$ is necessary to ensure the supremum is finite. A precise construction of this distance, along with its connection to the classical Wasserstein distance for probability measures, is provided in Section~\ref{section:Wasserstein}. The distance $W_{\psi_1}$ plays a central role, as $d_\alpha$ matches the singularity structure of the kernel $K_\alpha$ under consideration.
-
-Regarding completeness: for any continuous and positive $\psi$, the space $\left(\MC_{\psi}(\RRP), \|\cdot\|_{\psi}\right)$ is a Banach space. 
-
-\red{Non ça n'est pas vrai car $(\RRP,d_\alpha)$ n'est pas complet.}
-Although we primarily rely on completeness in total variation, we also mention the Wasserstein setting: for all $p > 0$, the space $\MC^+_{\psi_p}(\RRP)$ is complete under the distance $W_{\psi_p}$. However, $\left(\MC_{\psi_p}(\RRP), W_{\psi_p} \right)$ is \textbf{not} complete \cite{piccoli2019wasserstein}. For a Cauchy sequence of signed measures to converge in $W_{\psi_p}$, tightness is also required.
+\begin{definition}
+    We define the $\psi_p$-Wasserstein distance on $\MC^+_{\psi_p}\left(\RRP \cup \lbrace+\infty\rbrace\right)$ by:
+    \[
+        W_{\psi_p}(\mu,\nu) = \sup_{\substack{f \in Lip_1(d_{p\alpha}) \\ |f| \leq 1 + \psi_p}} \brac{f, \mu - \nu}.
+    \]
+\end{definition}
+Since we do not assume $\mu$ and $\nu$ have the same total mass, the boundedness condition on $f$ is necessary to ensure the supremum is finite. In Section~\ref{section:Wasserstein} we introduce the premise of this distance it is link to our distance. Our processes are all defined in $\MC^+_{\psi_p}\left(\RRP \right)$, however this space is not complete for this distance, indeed take the sequence $\Seq{\delta_{n}}$. For completeness we give the Proposition giving completeness even though we never use it later.
+\begin{proposition}
+    The space $\left( \MC^+_{\psi_p}\left(\RRP \cup \lbrace+\infty\rbrace\right),W_{\psi_1}\right) $ is complete.
+\end{proposition}
+\begin{proof}
+    Notice that for all $\mu,\nu \in \MC^+_{\psi_p}\left(\RRP \cup \lbrace+\infty\rbrace\right)$:
+    \begin{align*}
+        W_{\psi_p}(\mu,\nu) = \sup_{\substack{f \in Lip_1(d_{p\alpha}) \\ |f(+\infty)| \leq 1 }} \brac{f, \mu - \nu}.
+    \end{align*}
+    The space $\left(\RRP \cup \lbrace+\infty\rbrace ,d_\alpha\right)$ is complete. The result follows by \red{Prop de la section \ref{section:Wasserstein}}.
+\end{proof}
+This distance can also be extended to the set of finite signed measures $\MC_{\psi_p}(\RRP)$ however even adding a point at infinity does not make it complete.
 
 \subsection{The Smoluchovski coagulation equation}
 The Smoluchowski coagulation equation ($\SCE$)of kernel $K_\alpha$ and intial value $\mu$, is an equation defined on measured value functions defined in its weak form as or all $f \in C_b(\RR:\RR)$:
@@ -481,7 +512,7 @@ Indeed it is easy to see that $\mu^+ = f^+\nu$ and $\mu^- = f^- \nu$ where $f^+ 
     \begin{align*}
         \|\lambda\| = \lambda(E) = \sum\limits_{n \geq 1} \dfrac{1}{n^2}\|\mu_n\| \leq \dfrac{C\pi^2}{6}.
     \end{align*}
-    Each $\mu_n$ is absolutely continuous with respect to $|\mu_n|$ indeed if $A \in \Sigma$ is such that $|\mu_n|(A) = 0$ then $\mu_n^+(A) = \mu_n^-(A) = 0$ and therefore $\mu_n(A)= 0$. This also implies that $\mu_n$ is absolutely continuous with respect to  $\lambda$, indeed $\lambda(A)= 0$ implies that $A$ is a null set of $|\mu_n|$ for all $n \geq 1$. For $n \geq 1$ we denote by $h_n$ the density of $\mu_n$ with respect to $\lambda$. Since $\Seq{\mu_n}$ is a sequence of finite measures $\Seq{h_n}$ is a sequence in $L^1(\lambda)$ the integrable functions with respect to $\lambda$, we are going to use the completness of $L^1(\lambda)$. We have for all $p,q$ :
+    Each $\mu_n$ is absolutely continuous with respect to $|\mu_n|$ indeed if $A \in \Sigma$ is such that $|\mu_n|(A) = 0$ then $\mu_n^+(A) = \mu_n^-(A) = 0$ and therefore $\mu_n(A)= 0$. This also implies that $\mu_n$ is absolutely continuous with respect to  $\lambda$, indeed $\lambda(A)= 0$ implies that $A$ is a null set of $|\mu_n|$ for all $n \geq 1$. For $n \geq 1$ we denote by $h_n$ the density of $\mu_n$ with respect to $\lambda$. Since $\Seq{\mu_n}$ is a sequence of finite measures $\Seq{h_n}$ is a sequence in $L^1(\lambda)$ the integrable functions with respect to $\lambda$, we are going to use the completeness of $L^1(\lambda)$. We have for all $p,q$ :
     \begin{align*}
         \| \mu_p - \mu_q \| = \int_{E} |h_p - h_q| \dd\lambda = \|h_p - h_q \|_{L^1(\lambda)}.
     \end{align*}
@@ -2187,12 +2218,12 @@ We now give the proof of Lemma \ref{lem:exponential-moments}, as mentioned befor
     \begin{align}
         \brac{f,\nu_t^{\varepsilon_p}-\nu_t^{\varepsilon_q}} =& \brac{f,\mu^{\varepsilon_p} - \mu^{\varepsilon_q}} 
         \nonumber \\
-        &+ \dfrac12\int_0^t \int_{\RRP}\int_{\RRP}K_\alpha(x,y)f(x+y) G^{\varepsilon_p}_s(x,y)(\nu_s^{\varepsilon_p} + \nu_s^{\varepsilon_q})(\dd x)(\nu_s^{\varepsilon_p} -\nu_s^{\varepsilon_q} )(\dd y)\dd s \label{proof:eq:exponentail-completness-1}\\
-        &+ \dfrac12\int_0^t\int_{\RRP}\int_{\RRP}K_\alpha(x,y)f(x+y) (G^{\varepsilon_p}_s - G^{\varepsilon_q}_s)(x,y)\nu_s^{\varepsilon_q}(\dd x)\nu_s^{\varepsilon_q}(\dd y) \dd s.\label{proof:eq:exponentail-completness-2}
+        &+ \dfrac12\int_0^t \int_{\RRP}\int_{\RRP}K_\alpha(x,y)f(x+y) G^{\varepsilon_p}_s(x,y)(\nu_s^{\varepsilon_p} + \nu_s^{\varepsilon_q})(\dd x)(\nu_s^{\varepsilon_p} -\nu_s^{\varepsilon_q} )(\dd y)\dd s \label{proof:eq:exponentail-completeness-1}\\
+        &+ \dfrac12\int_0^t\int_{\RRP}\int_{\RRP}K_\alpha(x,y)f(x+y) (G^{\varepsilon_p}_s - G^{\varepsilon_q}_s)(x,y)\nu_s^{\varepsilon_q}(\dd x)\nu_s^{\varepsilon_q}(\dd y) \dd s.\label{proof:eq:exponentail-completeness-2}
     \end{align}
-    \label{proof:eq:exponentail-completness}
+    \label{proof:eq:exponentail-completeness}
     \end{subequations}
-    Let us start by bounding \eqref{proof:eq:exponentail-completness-1}, we have for all continuous $|f| \leq \psi$:
+    Let us start by bounding \eqref{proof:eq:exponentail-completeness-1}, we have for all continuous $|f| \leq \psi$:
     \begin{multline*}
         \left|\int_{\RRP}\int_{\RRP}K_\alpha(x,y)f(x+y) G^{\varepsilon_p}_s(x,y)(\nu_s^{\varepsilon_p} + \nu_s^{\varepsilon_q})(\dd x)(\nu_s^{\varepsilon_p} -\nu_s^{\varepsilon_q} )(\dd y)\right| \\
         \leq \int_{\RRP}\int_{\RRP}K_\alpha(x,y)\psi(x+y) (\nu_s^{\varepsilon_p} + \nu_s^{\varepsilon_q})(\dd x)\left|\nu_s^{\varepsilon_p} -\nu_s^{\varepsilon_q} \right|(\dd y).
@@ -2208,12 +2239,12 @@ We now give the proof of Lemma \ref{lem:exponential-moments}, as mentioned befor
         &= \brac{\psi + \psi_1, \mu^{\varepsilon_p} + \mu^{\varepsilon_q}}e^{T\|\mu\|_{\psi_1}} \\
         &\leq 2\brac{\psi + \psi_1, \mu}e^{T\|\mu\|_{\psi_1}}\ .
     \end{align*}
-    We get for \eqref{proof:eq:exponentail-completness-1}:
+    We get for \eqref{proof:eq:exponentail-completeness-1}:
     \begin{multline*}
         \int_0^t \int_{\RRP}\int_{\RRP}K_\alpha(x,y)f(x+y) G^{\varepsilon_p}_s(x,y)(\nu_s^{\varepsilon_p} + \nu_s^{\varepsilon_q})(\dd x)(\nu_s^{\varepsilon_p} -\nu_s^{\varepsilon_q} )(\dd y)\dd s \\
         \leq 2\| \mu\|_{\psi + \psi_1}e^{T\|\mu\|_{\psi_1}} \int_0^t \left\|\nu_s^{\varepsilon_p} - \nu_s^{\varepsilon_q} \right\|_{\psi + \psi_1} \dd s.
     \end{multline*}
-    For \eqref{proof:eq:exponentail-completness-2}, we just have to bound:
+    For \eqref{proof:eq:exponentail-completeness-2}, we just have to bound:
     \begin{align*}
         \left| G^{\varepsilon_p}_s(x,y) - G^{\varepsilon_q}_s(x,y) \right| &\leq \int_0^t \left|K_\alpha(x+y,z) - K_\alpha(x,z) - K_\alpha(y,z)\right|\left|\mu_s^{\varepsilon_p} - \mu_s^{\varepsilon_q}\right|(\dd z) \dd s\\
         &\leq CT \left(1 + \psi_1(x) + \psi_1(y) \right)\| \mu_s^{\varepsilon_p} - \mu_s^{\varepsilon_q} \|_{\psi_1}.
@@ -2225,7 +2256,7 @@ We now give the proof of Lemma \ref{lem:exponential-moments}, as mentioned befor
         &\leq C\left(T,\|\mu\|_{\psi_2}\right) \left(1 + \psi_1(x) + \psi_1(y) \right)\| \mu^{\varepsilon_p} - \mu^{\varepsilon_q} \|_{\psi_1}\\
         &\leq C\left(T,\|\mu\|_{\psi_2}\right) \left(1 + \psi_1(x) + \psi_1(y) \right) \|\mu\|_{\psi_2} \left(\varepsilon_p \vee \varepsilon_q \right)^{\alpha}.
     \end{align*}
-    The bound of \eqref{proof:eq:exponentail-completness-2} reads:
+    The bound of \eqref{proof:eq:exponentail-completeness-2} reads:
     \begin{multline*}
         \int_0^t\int_{\RRP}\int_{\RRP}K_\alpha(x,y)f(x+y) (G^{\varepsilon_p}_s - G^{\varepsilon_q}_s)(x,y)\nu_s^{\varepsilon_q}(\dd x)\nu_s^{\varepsilon_q}(\dd y) \dd s \\
         \leq C\left(T,\|\mu\|_{\psi_2}\right)\left(\varepsilon_p \vee \varepsilon_q \right)^{\alpha} \int_0^t \int_{\RRP} \int_{\RRP} K_\alpha(x,y)\psi(x+y)\left(1 + \psi_1(x) + \psi_1(y) \right)\nu_s^{\varepsilon_p}(\dd x)\nu_s^{\varepsilon_q}(\dd y).
@@ -2237,12 +2268,12 @@ We now give the proof of Lemma \ref{lem:exponential-moments}, as mentioned befor
         &\leq C\left(1 + \psi_2(x) + \psi_2(y)\right)\psi(x+y) \\
         &\leq C\left(1 + \psi(x) + \psi_2(x)\right)\left(1 + \psi(y)+ \psi_2(y)\right).
     \end{align*}
-    We can now use once more the Lemma \ref{lem:exponential-moments-epsilon} to bound the both integrals in $ \nu_s^{\varepsilon_p}$ and $\nu_s^{\varepsilon_q}$. Term \eqref{proof:eq:exponentail-completness-2} satisfies:
+    We can now use once more the Lemma \ref{lem:exponential-moments-epsilon} to bound the both integrals in $ \nu_s^{\varepsilon_p}$ and $\nu_s^{\varepsilon_q}$. Term \eqref{proof:eq:exponentail-completeness-2} satisfies:
     \begin{align*}
         \int_0^t\int_{\RRP}\int_{\RRP}K_\alpha(x,y)f(x+y) (G^{\varepsilon_p}_s - G^{\varepsilon_q}_s)(x,y)\nu_s^{\varepsilon_q}(\dd x)\nu_s^{\varepsilon_q}(\dd y) \dd s \\
         \leq C\left(T,\|\mu\|_{\psi_2}\right)\left(\varepsilon_p \vee \varepsilon_q \right)^{\alpha} \left(\|\mu\|_{\psi + \psi_2}\right)^2.
     \end{align*}
-    At last we put \eqref{proof:eq:exponentail-completness} in Gronwall's shape for all $f \in C_b(\RRP)$, such that  $|f| \leq \psi$ we have:
+    At last we put \eqref{proof:eq:exponentail-completeness} in Gronwall's shape for all $f \in C_b(\RRP)$, such that  $|f| \leq \psi$ we have:
     \begin{multline*}
         \brac{f,\nu_t^{\varepsilon_p}-\nu_t^{\varepsilon_q}} \leq  \brac{f,\mu^{\varepsilon_p} - \mu^{\varepsilon_q}} + C\|\mu\|_{\psi + \psi_1}\int_0^t \|\nu_s^{\varepsilon_p}-\nu_s^{\varepsilon_q}\|_{\psi + \psi_1}\dd s \\
         + C\left(T,\|\mu\|_{\psi_2}\right)\left(\varepsilon_p \vee \varepsilon_q \right)^{\alpha} \left(\|\mu\|_{\psi + \psi_2}\right)^2.
