@@ -47,6 +47,7 @@
 \newcommand{\SCE}{\emph{SCE}}
 \newcommand{\ASCE}{{\emph{ASCE}}}
 \newcommand{\SCN}{\emph{SCN}}
+\newcommand{\A}{(A)}
 
 % Colors
 \newcommand{\red}[1]{\textcolor{red}{#1}}
@@ -143,6 +144,8 @@ We decide to study the kernel for $\alpha \geq 0$:
 \begin{align*}
     K_\alpha(x,y) = x^{-\alpha} + y^{-\alpha}.
 \end{align*}
+This distance is very close to the one used by Fournier and Cepeda to prove convergence rates in \cite{fournier2015rate}.
+
 The result of this work is a convergence rate of obsevables. We give it informally below, the official version is in \ref{section-main-results}
 \begin{theorem}
     For all $t \in [0,T]$:
@@ -170,6 +173,7 @@ All sub-multiplicative functions are sub-additive, meaning for all $x, y \in \RR
 f(x+y) \leq f(x) + f(y).
 \]
 
+Throughout this work, the term 'mass' may refer either to the value of a measure on Borel sets (in a measure-theoretic sense), or to the individual atom sizes in the context of stochastic coalescence. The meaning will be clear from context or specified if necassary, and both interpretations are fundamental to our analysis.
 
 \subsection{Topological considerations on spaces of measures}
 
@@ -201,32 +205,45 @@ Convergence with respect to this norm is referred to as strong convergence.
         I :
         \left\lbrace
         \begin{aligned}
-            \left(\MC\left(\RRP\right),\| .\|\right) &\to \left(\MC_{\psi}\left(\XF\right),\| .\|_{\psi}\right) \\
+            \left(\MC\left(\RRP\right),\| .\|\right) &\to \left(\MC_{\psi}\left(\RRP\right),\| .\|_{\psi}\right) \\
             \mu &\mapsto (1 +\psi) \mu
         \end{aligned}
         \right. .
     \end{equation*}
-    The function $I$ is an isometry from \(\left(\MC\left(\RRP\right),\| .\|\right) \) to \(\left(\MC_{\psi}\left(\XF\right),\| .\|_{\psi}\right) \) therefore the later is complete.
+    The function $I$ is an isometry from \(\left(\MC\left(\RRP\right),\| .\|\right) \) to \(\left(\MC_{\psi}\left(\RRP\right),\| .\|_{\psi}\right) \) therefore the later is complete.
 \end{proof}
-
-\subsubsection*{Wasserstein distance}
-\begin{definition}[Weak convergence in $\MC_{\psi}(\RRP)$]
-A sequence $\Seq{\mu_n}$ converges weakly in $\MC_{\psi}(\RRP)$ to $\mu$ if, for all continuous functions $f$ such that $|f| \leq 1 + \psi$, we have:
-\[
-\brac{f, \mu_n} \xrightarrow[n \to \infty]{} \brac{f, \mu}.
-\]
-\end{definition}
-In $\MC(\RRP)$ this the classical weak convergence in $\MC_{\psi}(\RRP)$ it is the weak convergence plus the converge $\psi$-wise
-
-Given our problem we are particularly interested in the functions $\psi_p$ defined for all $p \geq 0$ by:
+We also have the following characterisation.
+\begin{proposition}
+    We have for all $\mu \in \MC_{\psi}(\RRP)$:
+    \begin{align*}
+        \|\mu\|_{\psi} = \sup\limits_{\substack{f \in C(\RRP), \\ |f| \leq 1 + \psi}} \brac{f,\mu}.
+    \end{align*}
+\end{proposition}
+\begin{proof}
+    We know from the Riesz-Markov theorem that:
+    \begin{align*}
+        \|\mu\| = \sup\limits_{\substack{f \in C_b(\RRP), \\|f| \leq 1}}\brac{f,\mu}.
+    \end{align*}
+    By definition of the weighted norm:
+    \begin{align*}
+        \|\mu\|_{\psi} = \|(1 + \psi)\mu\| = \sup\limits_{\substack{f \in C_b(\RRP), \\ |f| \leq 1}}\brac{f,(1 + \psi)\mu}.
+    \end{align*}
+    For all $f \in C_b(\RRP)$ such that $|f| \leq 1$ the function $f(1 + \psi)$ is continuous and verifies $|f(1 + \psi)| \leq 1 + \psi$. Reciprocally for any continuous function such that $|f| \leq 1 + \psi$ the function $\frac{f}{1 + \psi}$ is also continous bounded by $1$. Therefore:
+    \begin{align*}
+        \sup\limits_{\substack{f \in C_b(\RRP), \\|f| \leq 1}}\brac{f,(1 + \psi)\mu} = \sup\limits_{\substack{f \in C(\RRP), \\ |f| \leq 1 + \psi}}\brac{f,\mu}
+    \end{align*}
+    and the results follows.
+\end{proof}
+\subsubsection*{Considered spaces}
+We mention that we are considering measues that have finite negative $\alpha$-moment. In general we are interested in the functions $\psi_p$ defined for all $p \geq 0$ by:
 \[
 \psi_p(x) = x^{-p\alpha}.
 \]
-We primarily work with the spaces $\MC_{\psi_p}(\RRP)$ and $\MC^+_{\psi_p}(\RRP)$. Those spaces are to be interpreted as the space of measures with finite $-\alpha p$ moment. Note that if $p \leq q$, then:
+We primarily work with the spaces $\MC_{\psi_p}(\RRP)$ and $\MC^+_{\psi_p}(\RRP)$, the spaces of finite signed and positive measures with finite negrative $\alpha p$-moment. Note that if $p \leq q$, then:
 \[
 1 + \psi_p(x) \leq 2(1 + \psi_q(x)),
 \]
-and therefore $\MC_{\psi_q}(\RRP) \subset \MC_{\psi_p}(\RRP)$. A central tool in our analysis is a Wasserstein-type distance that metrizes the weak topology on $\MC^+_{\psi_p}(\RRP)$. First, define the distance $d_{p\alpha}$ on $\RRP$ by:
+and therefore $\MC_{\psi_q}(\RRP) \subset \MC_{\psi_p}(\RRP)$. A central tool in our analysis is a Wasserstein-type distance that metrizes the weak topology on $\MC^+_{\psi_p}(\RRP)$ and the convergence of the negative $\alpha p$-moment. First, define the distance $d_{p\alpha}$ on $\RRP$ by:
 \[
 d_{p\alpha}(x,y) = |x^{-p\alpha} - y^{-p\alpha}|.
 \]
@@ -253,7 +270,18 @@ The space $\left(\RRP,d_\alpha\right)$ is not complete, we need to add a point a
     \end{equation*}
     Our space therefore inherits completeness.
 \end{proof}
-We can now define the Wasserstein distance on $\MC^+_{\psi_p}\left(\RRP \cup \lbrace+\infty\rbrace\right)$ we introduce the space of Lipschitz functions for $d_{p\alpha}$ with constant equal to $1$ defined by:
+\subsubsection*{Wasserstein distance}
+Our final result is based on the convergence rate of sequences of empirical measures toward their law. For $\mu$ a probability measure an empirical measure of iid random variables of law $\mu$ is a measure $\mu^N$ of the form:
+    \begin{align*}
+        \mu^N = \dfrac1N \sum\limits_{n = 1}^N \delta_{X_n},\quad \Seq{X_n}\ \text{iid of law}\ \mu .
+    \end{align*}
+\begin{theorem}[Wasserstein convergence rate \cite{fournier2015rate}]\label{thm:fournier-guillin}
+    Let $W_1$ be the Wasserstein-$1$ distance \cite{villani2008optimal} or Definition \ref{def:Wasserstein}. Assume that $\mu$ as a finite moment of order $q > 2$, i.e $\brac{x^q,\mu} < \infty$. There exists a constant $C>0$ such that for all $N \geq 1$:
+    \begin{align*}
+        W_1\left(\mu^N,\mu\right) \leq \brac{x^q,\mu}^{\frac{1}{q}} \dfrac{C}{\sqrt{N}}\  \text{a.s.}
+    \end{align*}
+\end{theorem}
+This motivates the use of a Wasserstein-type distance on $\MC_{\psi_p}(\RRP)$ and $\MC^+_{\psi_p}(\RRP)$. Below we give a distnace on $\MC^+_{\psi_p}\left(\RRP \cup \lbrace+\infty\rbrace\right)$. Let the space Lipschitz functions for $d_{p\alpha}$ with constant equal to $1$ be defined by:
 \[
 Lip_1(d_{p\alpha}) = \left\lbrace f: \RRP\to \RR \middle|\ \sup_{x \neq y \in \RRP} \dfrac{|f(x) - f(y)|}{d_{p\alpha}(x,y)} \leq 1 \right\rbrace.
 \]
@@ -263,7 +291,45 @@ Lip_1(d_{p\alpha}) = \left\lbrace f: \RRP\to \RR \middle|\ \sup_{x \neq y \in \R
         W_{\psi_p}(\mu,\nu) = \sup_{\substack{f \in Lip_1(d_{p\alpha}) \\ |f| \leq 1 + \psi_p}} \brac{f, \mu - \nu}.
     \]
 \end{definition}
-Since we do not assume $\mu$ and $\nu$ have the same total mass, the boundedness condition on $f$ is necessary to ensure the supremum is finite. In Section~\ref{section:Wasserstein} we introduce the premise of this distance it is link to our distance. Our processes are all defined in $\MC^+_{\psi_p}\left(\RRP \right)$, however this space is not complete for this distance, indeed take the sequence $\Seq{\delta_{n}}$. For completeness we give the Proposition giving completeness even though we never use it later.
+This is the Kantorovich-Rubinstein dual formulation of some Wasserstein distnace on the space $\MC^+_{\psi_p}(\RRP)$. Since two measures on that space may not have equal total mass the link is not direct and is thouroughly explained in Section~\ref{section:Wasserstein}. This distance metrizes the weak convergence plus the convergence of negative $p\alpha$-moments , this is classic \cite{villani2008optimal}. We can give a corollary to the result of \cite{fournier2015rate} on the convergence rate of empirical measures for $W_{\psi_p}$. 
+\begin{corollary}
+    Assume that $\mu$ is a probability measure in $\MC_{\psi_q}$ with $q > 2p$ then there exists a constant $C>0$ such that for all $N \geq 1$ and $\mu^N$ an empirical measure of law $\mu$:
+    \begin{align*}
+        W_{\psi_p}\left(\mu^N,\mu \right) \leq \brac{\psi_q,\mu}^{\frac{p}{q}}  \dfrac{C}{N}.
+    \end{align*} 
+\end{corollary}
+\begin{proof}
+    This proof relies on once again the argument that $\left(\RRP,d_{p\alpha}\right)$ is the same as $\left(\RRP,|\cdot|\right)$ through the lense of the isometry $x \mapsto x^{-\frac{1}{p\alpha}}$. Let $\tilde{\mu}$ be the probability measure on $\RRP$ such that for all $f \in C_b(\RRP)$:
+    \[\brac{f,\tilde{\mu}} = \int_{\RRP} f(x^{-p\alpha}) \mu(\dd x)\]
+    In essense if $X \sim \mu$ then $\tilde{\mu}$ is simply the law of $X^{-p\alpha}$. This measure is uniquely defined thanks to the Riesz representation theorem. Define also $\tilde{\mu}^N$ the empirical measure equal to:
+    \begin{align*}
+        \tilde{\mu}^N = \dfrac{1}{N} \sum\limits_{i = 1}^N \delta_{X_i^{-p\alpha}}
+    \end{align*}
+    where $\Seq{X_n}$ are iid random varaibles of law $\mu$. It comes naturally that for all $f \in C_b(\RRP)$:
+    \begin{align*}
+        \brac{f,\tilde{\mu}^N} = \int_{\RRP} f(x^{-p\alpha}) \mu^N(\dd x)
+    \end{align*}
+    where $\mu^N$ is  an empirical measure of law $\mu$. By definition of the Wasserstein distance:
+    \begin{align*}
+        W_{\psi_p}\left(\mu^N,\mu\right) = W_1\left(\tilde{\mu}^N,\tilde{\mu}\right)  
+    \end{align*}
+    Indeed we have the equivalence:
+    \begin{align*}
+        f \in Lip_1(|\cdot|) \leftrightarrow f\circ(x \mapsto x^{-p\alpha}) \in Lip_1(d_{p\alpha}).
+    \end{align*}
+    By theorem \ref{thm:fournier-guillin} there exists $C > 0$ such that:
+    \begin{align*}
+        W_{\psi_p}\left(\mu^N,\mu\right) \leq \brac{x^q,\tilde{\mu}} \dfrac{C}{\sqrt{N}}.
+    \end{align*}
+    Finally $\brac{x^q,\tilde{\mu}} = \brac{\psi_q,\mu}$ by definition of $\tilde{\mu}$ ending the proof.
+\end{proof}
+
+
+The space $\MC^+_{\psi_p}\left(\RRP \right)$ is not complete for this distance, indeed take the sequence $\Seq{\delta_{n}}$. For all $q_1,q_2 \geq N$ we have:
+\begin{align*}
+    W_{\psi_p}\left(\delta_{q_1},\delta_{q_2}\right) = d_{p\alpha}\left(q_1,q_2 \right) \leq 2N^{-p\alpha}.
+\end{align*}
+It is a Cauchy sequence but does not converge toward any measure in $\MC^+_{\psi_p}\left(\RRP \right)$, as the limit is the measure $\delta_{\infty}$. 
 \begin{proposition}
     The space $\left( \MC^+_{\psi_p}\left(\RRP \cup \lbrace+\infty\rbrace\right),W_{\psi_1}\right) $ is complete.
 \end{proposition}
@@ -274,8 +340,11 @@ Since we do not assume $\mu$ and $\nu$ have the same total mass, the boundedness
     \end{align*}
     The space $\left(\RRP \cup \lbrace+\infty\rbrace ,d_\alpha\right)$ is complete. The result follows by \red{Prop de la section \ref{section:Wasserstein}}.
 \end{proof}
-This distance can also be extended to the set of finite signed measures $\MC_{\psi_p}(\RRP)$ however even adding a point at infinity does not make it complete.
+This distance can also be extended to the set of finite signed measures $\MC_{\psi_p}(\RRP)$ however even adding a point at infinity does not make it complete, as in general signed spaces of measures are not complete for the Wasserstein distance see \cite{piccoli2019wasserstein}.
 
+We can see the appeal of the Toltal Variation distance as opposed to the Wasserstein distance. Indeed using a completeness argument with the Wasserstein distance would force us to verify that the found limit does not have mass at infinity. Also we will have to show uniqueness in signed measure spaces adding to the advantages of using the Total Variation norm. 
+
+A solution for avoid having to add a point at infinity is to use a composite distance equal to $d_{p\alpha}$ close to $0$ on $(0,1]$ because we need it to capture the singularity of our kernel and using the absolute value on say $(1, \infty)$. 
 \subsection{The Smoluchovski coagulation equation}
 The Smoluchowski coagulation equation ($\SCE$)of kernel $K_\alpha$ and intial value $\mu$, is an equation defined on measured value functions defined in its weak form as or all $f \in C_b(\RR:\RR)$:
 \begin{equation}\tag{\ref{eq:SCE}}
@@ -359,7 +428,7 @@ The kernels considered $K_\alpha$ is finite on $\RRP$. Furthermore the masses in
     \end{align*}
 \end{proof}
 \begin{remark}
-    The second expression can be conveniently extended to any measure with finite order $-\alpha$ moment $\MC_{\psi_1}^+(\RRP)$.
+    The second expression can be conveniently extended to any measure with finite order $-\alpha$ moment namely $\MC_{\psi_1}^+(\RRP)$.
 \end{remark}
 In our work we are interested in comparing a rescaled process that we denote by $\Proc{M^N_t}$ and the solution to the Smoluchovski coagulation equation \eqref{eq:SCE}. The rescaled process is equal for all $t \geq 0$ to:
 \begin{align*}
@@ -398,12 +467,56 @@ When $F$ has a flat derivaitve the previous expression can be expressed in terms
 \begin{proof}
     Immediate by the definition of the flat derivaitve and because for all $\mu \in \MC_{\psi_1}^+\left(\RRP \right)$ and $x,y \in \RRP$, measures $\mu + \frac{1}{N}\left(\delta_{x + y} - \delta_x - \delta_y\right)$ and $\mu + \frac{1}{N}\left(\delta_{2x} - 2\delta_x \right)$ are in $\MC_{\psi_1}\left(\RRP \right)$.
 \end{proof}
-\subsection{Assumptions}
-Assumptions on $F$ 
-\subsection{Main results}
+
+\subsection{Main result}
+We recall that the kernel we study is $K_\alpha$ for $\alpha >0$ and for all $x,y \in \RRP$:
+\begin{align*}
+    K_\alpha(x,y) = x^{-\alpha} + y^{-\alpha}.
+\end{align*}
+
+
+\subsubsection*{Assumptions on $F$}
+
+We say that a function \(F : \MC^+_{\psi_1}(\RRP) \to \RR\) satisfies assumptions \(\A\) if it admits a flat derivative \(\delta_\mu F : \MC^+_{\psi_1}(\RRP) \times \RRP \to \RR\) such that there exists a constant \(C > 0\) for which, for all \(\mu, \tilde{\mu} \in \MC^+_{\psi_1}(\RRP)\) and \(z, z_1, z_2 \in \RRP\), the following hold:
+\begin{itemize}
+    \item \(|\delta_\mu F(\mu, z)| \leq C(1 + \psi_1(z))\),
+    \item \(|\delta_\mu F(\mu, z_1) - \delta_\mu F(\mu, z_2)| \leq C d_\alpha(z_1, z_2)\),
+    \item \(|\delta_\mu F(\mu, z) - \delta_\mu F(\tilde{\mu}, z)| \leq C(1 + \psi_1(z)) W_{\psi_1}(\mu, \tilde{\mu})\),
+    \item \(|\delta_\mu F(\mu, z_1) - \delta_\mu F(\tilde{\mu}, z_1) - (\delta_\mu F(\mu, z_2) - \delta_\mu F(\tilde{\mu}, z_2))| \leq C W_{\psi_1}(\mu, \tilde{\mu}) d_\alpha(z_1, z_2)\).
+\end{itemize}
+
+The infimum of all constants \(C > 0\) for which the above inequalities hold is denoted by \(\left\llbracket \delta_\mu F \right\rrbracket_{\A}\).
+
+\subsubsection*{Main result}
+
+
+For an empirical measure $\mu^N$ let \(\Proc{\Phi_t(\mu^N)}\) denote the rescaled stochastic coalescence started from \(\mu^N\) with kernel \(K_\alpha\), and let \(\Proc{\varphi_t(\mu)}\) be the unique solution to the Smoluchowski coagulation equation started from \(\mu\) and kernel \(K_\alpha\).
+\begin{theorem}
+    Let \(\mu \in \MC^+_{\psi_3}(\RRP)\) be a probability measure, and let \(\mu^N\) be the empirical measure of \(N\) i.i.d. random variables with law \(\mu\):
+    \[
+        \mu^N = \frac{1}{N} \sum_{n = 1}^N \delta_{X_n}, \quad X_1, \dots, X_N \sim \mu \text{ i.i.d.}
+    \]
+    For any function \(F : \MC_{\psi_1}(\RRP) \to \RR\) satisfying \(\A\), and for all \(t \in [0, T]\), we have:
+    \[
+    \left| \mathbb{E}\left[F\left(\Phi_t\left(\mu^N\right)\right)\right] - F\left(\varphi_t(\mu)\right) \right| \leq \left\llbracket \delta_\mu F \right\rrbracket_\mathcal{A} \cdot \frac{C\left(T, \|\mu\|, \|\mu\|_{\psi_1}, \|\mu\|_{\psi_2}\right)}{N}.
+    \]
+\end{theorem}
+
+
+% \red{Other formulation}
+% For $f : (E,d_E) \to (F,d_F)$ we denote by $\left\llbracket f \right\rrbracket_{(E,d_E),(F,d_F)}$ the Lipschitz pseudo norm:
+% \begin{align*}
+%     \left\llbracket f \right\rrbracket_{(E,d_E),(F,d_F)} = \sup\limits_{x \neq y \in E} \dfrac{d_F(f(x),f(y))}{d_E(x,y)}.
+% \end{align*}
+
+% \begin{itemize}
+%     \item For all $\mu, z \in \MC^+_{\psi_1}(\RRP)\times \RRP$: \[\delta_\mu F (\mu,z) \leq C\left(1 + \psi_1(z)\right).\]
+%     \item For all $\mu \in \MC^+_{\psi_1}(\RRP)$:\[\left\llbracket \delta_\mu F(\mu,\cdot)\right\rrbracket_{(\RRP,d_\alpha)} < \infty.\]
+%     \item For all $z \in \RRP$:\[\left\llbracket \delta_\mu F(\cdot,z)\right\rrbracket_{\left(\MC_{\psi_1}(\RRP),W_{\psi_1}\right)} < \infty.\]
+%     \item And finally:\[\left\llbracket \delta_\mu F \right\rrbracket_{\left(\MC^+_{\psi_1}(\RRP) \times \RRP, W_{\psi_1} \times d_\alpha\right)}  < \infty.\]
+% \end{itemize}
 
 \subsection{Proof outline and strategies}
-
 
 
 \section{Analysis in spaces of measures}\label{section:analysis-measures}
