@@ -292,7 +292,7 @@ Lip_1(d_{p\alpha}) = \left\lbrace f: \RRP\to \RR \middle|\ \sup_{x \neq y \in \R
     \]
 \end{definition}
 This is the Kantorovich-Rubinstein dual formulation of some Wasserstein distnace on the space $\MC^+_{\psi_p}(\RRP)$. Since two measures on that space may not have equal total mass the link is not direct and is thouroughly explained in Section~\ref{section:Wasserstein}. This distance metrizes the weak convergence plus the convergence of negative $p\alpha$-moments , this is classic \cite{villani2008optimal}. We can give a corollary to the result of \cite{fournier2015rate} on the convergence rate of empirical measures for $W_{\psi_p}$. 
-\begin{corollary}
+\begin{corollary}\label{cor:fournier_guillin}
     Assume that $\mu$ is a probability measure in $\MC_{\psi_q}$ with $q > 2p$ then there exists a constant $C>0$ such that for all $N \geq 1$ and $\mu^N$ an empirical measure of law $\mu$:
     \begin{align*}
         W_{\psi_p}\left(\mu^N,\mu \right) \leq \brac{\psi_q,\mu}^{\frac{p}{q}}  \dfrac{C}{N}.
@@ -469,12 +469,7 @@ When $F$ has a flat derivaitve the previous expression can be expressed in terms
 \end{proof}
 
 \subsection{Main result}
-We recall that the kernel we study is $K_\alpha$ for $\alpha >0$ and for all $x,y \in \RRP$:
-\begin{align*}
-    K_\alpha(x,y) = x^{-\alpha} + y^{-\alpha}.
-\end{align*}
-
-
+In this section, we state the main assumptions and the main theorem of this work. It is a convergence rate of observables of the stochastic coalescence properly rescaled to the unique solution of the Smoluchovski coagulation equation. This theorem does not provide a proof of weak convergence because the class of functionals considered is probably too restrictive. Its interest is in application where we are interested in quantities that can be expessed in terms of observables, meaning the expected value of some functional of the process. Its second interest is that unlike pathwise bounds that give a convergence rate of $N^{-\frac{1}{2}}$ see \cite{cepedaSmoluchowskisEquationRate2011a} this gives us a $\frac{1}{N}$ which is also a clear improvement.
 \subsubsection*{Assumptions on $F$}
 
 We say that a function \(F : \MC^+_{\psi_1}(\RRP) \to \RR\) satisfies assumptions \(\A\) if it admits a flat derivative \(\delta_\mu F : \MC^+_{\psi_1}(\RRP) \times \RRP \to \RR\) such that there exists a constant \(C > 0\) for which, for all \(\mu, \tilde{\mu} \in \MC^+_{\psi_1}(\RRP)\) and \(z, z_1, z_2 \in \RRP\), the following hold:
@@ -490,19 +485,19 @@ The infimum of all constants \(C > 0\) for which the above inequalities hold is 
 \subsubsection*{Main result}
 
 
-For an empirical measure $\mu^N$ let \(\Proc{\Phi_t(\mu^N)}\) denote the rescaled stochastic coalescence started from \(\mu^N\) with kernel \(K_\alpha\), and let \(\Proc{\varphi_t(\mu)}\) be the unique solution to the Smoluchowski coagulation equation started from \(\mu\) and kernel \(K_\alpha\).
+For an empirical measure $\mu^N$ let \(\Proc{\Phi_t(\mu^N)}\) denote the rescaled stochastic coalescence started from \(\mu^N\) with kernel \(K_\alpha\), and \(\Proc{\varphi_t(\mu)}\) be the unique solution to the Smoluchowski coagulation equation started from \(\mu\) and kernel \(K_\alpha\).
 \begin{theorem}
-    Let \(\mu \in \MC^+_{\psi_3}(\RRP)\) be a probability measure, and let \(\mu^N\) be the empirical measure of \(N\) i.i.d. random variables with law \(\mu\):
+    For some $\kappa > 0$, let \(\mu \in \MC^+_{\psi_{4 + \kappa}}(\RRP)\) be a probability measure, and let \(\mu^N\) be the empirical measure of \(N\) i.i.d. random variables with law \(\mu\):
     \[
         \mu^N = \frac{1}{N} \sum_{n = 1}^N \delta_{X_n}, \quad X_1, \dots, X_N \sim \mu \text{ i.i.d.}
     \]
     For any function \(F : \MC_{\psi_1}(\RRP) \to \RR\) satisfying \(\A\), and for all \(t \in [0, T]\), we have:
     \[
-    \left| \mathbb{E}\left[F\left(\Phi_t\left(\mu^N\right)\right)\right] - F\left(\varphi_t(\mu)\right) \right| \leq \left\llbracket \delta_\mu F \right\rrbracket_\mathcal{A} \cdot \frac{C\left(T, \|\mu\|, \|\mu\|_{\psi_1}, \|\mu\|_{\psi_2}\right)}{N}.
+    \left| \mathbb{E}\left[F\left(\Phi_t\left(\mu^N\right)\right)\right] - F\left(\varphi_t(\mu)\right) \right| \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A}  \frac{C\left(T, \|\mu\|, \|\mu\|_{\psi_1}, \|\mu\|_{\psi_2}\right)}{N}.
     \]
 \end{theorem}
 
-
+The requirement $4 + \kappa$ arises solely from the need to apply the Corollary of Fournier-Guillin's theorem \ref{cor:fournier_guillin} to $W_{\psi_2}\left(\mu^N,\mu\right)$. A distance that appears when trying to get estimates of the Wasserstein regularity of the flat derivative of the solution to the $\SCE$. It could be possible that the required moments is not optimal.
 % \red{Other formulation}
 % For $f : (E,d_E) \to (F,d_F)$ we denote by $\left\llbracket f \right\rrbracket_{(E,d_E),(F,d_F)}$ the Lipschitz pseudo norm:
 % \begin{align*}
@@ -1033,9 +1028,6 @@ It is easy to check the triangular inequality. It stills shares the Wasserstein 
     W_{\phi}(\mu, \nu) = W_{\phi}(\mu^+ + \nu^-, \nu^+ + \mu^-)\ ,
 \end{align*}
 and this distance is therefore well-posed. One could also remark that $W_{\phi}(\mu,0)$ defines a norm on $\MC_{\phi}(\XF)$, this is very remniscient of the the flat norm given by Villani in \cite{villani2008optimal}.
-
-\subsubsection{For the distance \(d_\alpha\)}
-In this case all distances are equivalent and functions have a limit in $+\infty$ \red{A completer}.
 
 \subsection{Derivatives on spaces of measures}
 In this section we define the flat derivative of measures. We define them in the same fashion as in \cite{martiniKolmogorovEquationsSpaces2023} that takes inspiration from its presentation in \cite{cardaliaguet2019master,carmona2018probabilistic}.
