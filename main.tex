@@ -319,9 +319,9 @@ This is the Kantorovich-Rubinstein dual formulation of some Wasserstein distnace
     \end{align*}
     By theorem \ref{thm:fournier-guillin} there exists $C > 0$ such that:
     \begin{align*}
-        W_{\psi_p}\left(\mu^N,\mu\right) \leq \brac{x^q,\tilde{\mu}} \dfrac{C}{\sqrt{N}}.
+        W_{\psi_p}\left(\mu^N,\mu\right) \leq \brac{x^{\frac{q}{p}},\tilde{\mu}}^{\frac{p}{q}} \dfrac{C}{\sqrt{N}}.
     \end{align*}
-    Finally $\brac{x^q,\tilde{\mu}} = \brac{\psi_q,\mu}$ by definition of $\tilde{\mu}$ ending the proof.
+    Finally $\brac{x^{\frac{q}{p}},\tilde{\mu}} = \brac{\psi_q,\mu}$ by definition of $\tilde{\mu}$ ending the proof.
 \end{proof}
 
 
@@ -344,7 +344,7 @@ This distance can also be extended to the set of finite signed measures $\MC_{\p
 
 We can see the appeal of the Toltal Variation distance as opposed to the Wasserstein distance. Indeed using a completeness argument with the Wasserstein distance would force us to verify that the found limit does not have mass at infinity. Also we will have to show uniqueness in signed measure spaces adding to the advantages of using the Total Variation norm. 
 
-A solution for avoid having to add a point at infinity is to use a composite distance equal to $d_{p\alpha}$ close to $0$ on $(0,1]$ because we need it to capture the singularity of our kernel and using the absolute value on say $(1, \infty)$. 
+To avoid adding a point at infinity we could use a composite distance equal to $d_{p\alpha}$ close to $0$ on $(0,1]$ and the absolute value on $(1, \infty)$. 
 \subsection{The Smoluchovski coagulation equation}
 The Smoluchowski coagulation equation ($\SCE$)of kernel $K_\alpha$ and intial value $\mu$, is an equation defined on measured value functions defined in its weak form as or all $f \in C_b(\RR:\RR)$:
 \begin{equation}\tag{\ref{eq:SCE}}
@@ -493,7 +493,7 @@ For an empirical measure $\mu^N$ let \(\Proc{\Phi_t(\mu^N)}\) denote the rescale
     \]
     For any function \(F : \MC_{\psi_1}(\RRP) \to \RR\) satisfying \(\A\), and for all \(t \in [0, T]\), we have:
     \[
-    \left| \mathbb{E}\left[F\left(\Phi_t\left(\mu^N\right)\right)\right] - F\left(\varphi_t(\mu)\right) \right| \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A}  \frac{C\left(T, \|\mu\|, \|\mu\|_{\psi_1}, \|\mu\|_{\psi_2}\right)}{N}.
+    \left| \vphantom{A^2}\mathbb{E}\left[F\left(\Phi_t\left(\mu^N\right)\right)\right] - F\left(\varphi_t(\mu)\right) \right| \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A}  \frac{C\left(T, \|\mu\|, \|\mu\|_{\psi_1}, \|\mu\|_{\psi_2},\|\mu\|_{\psi_{4 + \kappa}}\right)}{N}.
     \]
 \end{theorem}
 
@@ -512,6 +512,40 @@ The requirement $4 + \kappa$ arises solely from the need to apply the Corollary 
 % \end{itemize}
 
 \subsection{Proof outline and strategies}
+
+
+
+For establishing our mains results we want to compare the stochastic coalescence process and the solution of the Smoluchovski coagulation equation. First some notations. We denote by $\varphi(t,\mu)$, $\Phi(t,\mu)$ respectively the solution of \SCE and the \SCN process started from $\mu$, let $\mu^N$ be an atomic measure.
+Our main theorems are based on the same relation below:
+\begin{align}\label{eq:semi-group-relation}
+\E{F(\Phi(t,\mu^N))} - F(\varphi\left(t,\mu\right)) = \int_0^t \E{\left(\LC^N - \LC\right)F\circ \varphi(s,.)\left(\Phi(t-s,\mu^N)\right)}\dd s.
+\end{align}
+We took inspiration from \cite{kolokoltsov2010central} that uses the same identity. We provide a proof of this relation in section \ref{section:semi_groups}.
+\begin{remark}
+    Inside the expectancy $F\circ \varphi(s,.)$ is the function defining for a fixed $s \geq 0$ by $\mu \mapsto F\left(\varphi(s,\mu)\right)$. Therefore we read the expression inside the expectancy as the operator $\LC^N - \LC$ applied to function $F\circ \varphi(s,.)$ yielding a function from $\MC(\RR^+) \to \RR $, the latter evaluated in the measure $\Phi(t-s,\mu^N)$.
+\end{remark}
+\begin{theorem}\label{thm:samesame}
+    Assume $\alpha < 1$, $F$ is differentiable and, its flat derivative is uniformly bounded and Lipschitz in $\MC^{+}_{1}\left(\RR^{+,*},d_\alpha\right)$. Then for all $t\geq 0$:
+    \begin{align*}
+        \E{F(\Phi(t,\mu^N))} - \E{F(\varphi\left(t,\mu^N\right))} \leq C_\alpha\frac{3}{N}\langle x^{-\alpha},\mu^N \rangle \left(3 Lip\left(\delta_\mu F\right) + \frac{t}{1 + t}\|\delta_\mu F\|_{\infty}\right)
+    \end{align*}
+\end{theorem}
+
+\begin{theorem}\label{thm:difdif}
+    Let $\Seq{X_n}$ be a sequence of $iid$ real random variables with law $\mu \in \MC^+_{\psi_3}(\RRP)$. Denote by $\mu^N$ the empirical measure:
+    \begin{align*}
+        \mu^N = \dfrac{1}{N} \sum\limits_{i = 1}^N \delta_{X_i}.
+    \end{align*}
+    We have for all $t \in [0,T]$:
+    \begin{align*}
+        \left| \E{F\left(\varphi_t(\mu^N)\right)} - F\left(\varphi_t(\mu)\right)\right| \leq \left\llbracket F \right\rrbracket_{W_{\psi_1}} \dfrac{C(T,\mu)}{N}.
+    \end{align*}
+\end{theorem}
+
+All results regarding the well-posedness of the solution to the $\SCE$ and the existence of its linear derivaitve are in Section \ref{section:well-posedness-SCE}.
+
+
+The necessary proofs of the Wasserstein regularity of the $\SCE$ and its derivative are given in Section \ref{section:Wass-regularity}.
 
 
 \section{Analysis in spaces of measures}\label{section:analysis-measures}
@@ -2100,7 +2134,7 @@ We introduce a notation for this section, we denote by $\Proc{\psi_t(m)}$ the so
 % \end{proof}
 % \newpage
 \newpage
-\section{Wasserstein regularity of solutions and derivative}
+\section{Wasserstein regularity of solutions and derivative}\label{section:Wass-regularity}
 In this section, we establish Wasserstein bounds for the solution to the $\SCE$ and its derivative. The Wasserstein distance we consider is well suited to this equation; it has already been used in the works of Fournier and Cepeda~\cite{cepedaSmoluchowskisEquationRate2011a}, as well as~\cite{fournier2004convergence,fournierDistanceCoagulation2006}. It also plays a central role in our final result, as it ensures the convergence of empirical measures—see~\cite{fournier2015rate}—in contrast to the Total Variation distance, which may fail to do so (see~\cite{devroye1990no}).
 
 This section is very technical due to the singular structure of our coagulation kernel, which prevents us from obtaining Wasserstein bounds through direct methods. An illustration of this difficulty is given in Example~\ref{exp:wasserstein-is-tricky}. This section is organized as follows, we give first the main results with little to no proofs in \ref{section:wass-main-results}. Then we give an outline of the proofs in \ref{section:wass-outline}. The remainder is the proofs of said main results, starting with the generation of exponential moments in Section \ref{section:wass-exponential}. The rest of the theorems rely on some heavy technical lemmas that are all carried out in \ref{section:wass-technical}. Finally the two remaining sections are for the proofs of Propositions \ref{prop:wass-derivative} and \ref{prop:wass-final}
@@ -3499,7 +3533,7 @@ We rely on the definition of $W_1$ as the infimum on coupling measures and defin
 The intuition of this equation comes from the stochastic counterpart, when writing the stochastic coalescence as an  integral on Poisson random measure an expression similar appears see \cite{fournier2004convergence}. This equation can be break down into $3$ parts, in the first one we coalesce both parts at rate given by the minimal value of both kernels, intuitively the first of both marginals to coalesce makes the couple coalesce. The second and third part are symmetric and deal with the marginal that was "late" and only coalesces that one.
 
 \newpage
-\section{stochastic coalescence}
+\section{Stochastic coalescence}
 The stochastic coalescence is a process representing a collection of particles characterized by a positive value called mass. Each couple of particles of mass $x,y$ has a probability to merge in an interval of time $[t, t + \dd t]$ of first order equal to $K(x,y)\dd t$. Assume we have initially $N$ particles with masses $x_{1},\cdots,x_{N}$. Consider $N(N-1)/2$ independent exponential random variables:
 \begin{align*}
     \left\lbrace T_{i,j} \sim \mathcal{E}\left(K(x_{i},x_{j})\right), 1 \leq i < j \leq N \right\rbrace.
