@@ -131,7 +131,7 @@ where $N_t$ is the amount of clusters present at time $t$. Let $\Seq{X_n}$ be a 
 \begin{align*}
     M_0 = \sum\limits_{i = 1}^N \delta_{X_i}.
 \end{align*}
-A classical type of result is to show that a rescaled version of $\Proc{M_t}$ converges as $N$ tend to infinity toward the solution of the Smolochowski equation started from $\mu$. It is defined for all $t \geq 0$, $f \in C_b(\RR:\RR)$ by:
+A classical type of result is to show that a rescaled version of $\Proc{M_t}$ converges as $N$ tend to infinity toward the solution of the Smolochowski equation started from $\mu$. It is defined for all $t \geq 0$, bounded measurable $f$ by:
 \begin{equation}\label{eq:SCE}
     \begin{aligned}
     \int_{\RRP} f(x)\mu_t (\dd x) =& \int_{\RRP} f(x)\mu (\dd x)\\
@@ -346,7 +346,7 @@ We can see the appeal of the Toltal Variation distance as opposed to the Wassers
 
 To avoid adding a point at infinity we could use a composite distance equal to $d_{p\alpha}$ close to $0$ on $(0,1]$ and the absolute value on $(1, \infty)$. 
 \subsection{The Smoluchovski coagulation equation}
-The Smoluchowski coagulation equation ($\SCE$)of kernel $K_\alpha$ and intial value $\mu$, is an equation defined on measured value functions defined in its weak form as or all $f \in C_b(\RR:\RR)$:
+The Smoluchowski coagulation equation ($\SCE$)of kernel $K_\alpha$ and intial value $\mu$, is an equation defined on measured value functions defined in its weak form as or all bounded measurable $f$:
 \begin{equation}\tag{\ref{eq:SCE}}
 \begin{aligned}
     \int_{\RRP} f(x)\mu_t (\dd x) =& \int_{\RRP} f(x)\mu (\dd x)\\
@@ -1134,8 +1134,8 @@ The goal of this section is to prove that the Smoluchovski coagulation equation 
 % C\left([0,T]: \MC^+_{\psi_3}(\RRP)\right).
 % \]
 \subsection{Smoluchovski}
-Expliquer ce que l(on) fait dans cette section.
-
+\red{Expliquer ce que l(on) fait dans cette section.
+}
 \subsubsection{Some bounds}
 In this section we assume the well-posedness of both the Smoluchovski coagulation equation in $C([0,T]: \MC_{\psi_2}(\RRP))$. We recall that the solution of the \(\SCE\) is a positive measure. The first lemma give a result of stability of solutions of the \(\SCE\) and hold for all kernels.
 \begin{lemma}\label{lem:sub-add-bounf-smol}
@@ -1252,7 +1252,22 @@ The next lemma gives shows that the solution of the $\SCE$ is Lipschitz with res
         \| \mu_t - \nu_t\|_{\phi_p} = \|\mu- \nu\|_{\phi_p} \\
         + \dfrac12\int_0^t \int_{\RRP}\int_{\RRP} K_\alpha(x,y) \left[\phi_p\sigma_s(x+y) - \phi_p\sigma_s(x) - \phi_p\sigma_s(y) \right]\left(\mu_t + \nu_t\right)(\dd x) \left(\mu_t - \nu_t\right)(\dd y).
     \end{multline*}
-    where $\sigma_s$ is a density of $\mu_s - \nu_s$ with respect to to $|\mu_s - \nu_s|$. We use the positivity of $\mu_t$ and $\nu_t$: 
+    where $\sigma_s$ is a density (or Radon-Nikodym derivative) of $\mu_s - \nu_s$ with respect to to $|\mu_s - \nu_s|$. The function $\sigma_s$ is defined on $\RRP$ and takes only the three values: $-1,0,1$. Since $\Proc{\mu_t}$ and $\Proc{\nu_t}$ are positive $|\sigma_t| \leq 1$ we have for the first term:
+    \begin{multline*}
+        \int_0^t \int_{\RRP}\int_{\RRP} K_\alpha(x,y) \phi_p\sigma_s(x+y)\left(\mu_t + \nu_t\right)(\dd x) \left(\mu_t - \nu_t\right)(\dd y) \\
+        \leq \int_0^t \int_{\RRP}\int_{\RRP} K_\alpha(x,y) \phi_p(x+y)\left(\mu_t + \nu_t\right)(\dd x) \left|\mu_t - \nu_t\right|(\dd y) .
+    \end{multline*}
+    For the second term with the same arguments:
+    \begin{multline*}
+        -\int_0^t \int_{\RRP}\int_{\RRP} K_\alpha(x,y) \phi_p\sigma_s(x)\left(\mu_t + \nu_t\right)(\dd x) \left(\mu_t - \nu_t\right)(\dd y) \\
+        \leq \int_0^t \int_{\RRP}\int_{\RRP} K_\alpha(x,y) \phi_p(x)\left(\mu_t + \nu_t\right)(\dd x) \left|\mu_t - \nu_t\right|(\dd y).
+    \end{multline*}
+    Finally for the third term we use the fact that $\mu_t - \nu_t = \sigma_t\left| \mu_t - \nu_t \right|$ and we get:
+    \begin{multline*}
+        -\int_0^t \int_{\RRP}\int_{\RRP} K_\alpha(x,y) \phi_p\sigma_s(y)\left(\mu_t + \nu_t\right)(\dd x) \left(\mu_t - \nu_t\right)(\dd y) \\
+        = -\int_0^t \int_{\RRP}\int_{\RRP} K_\alpha(x,y) \phi_p(y)\left(\mu_t + \nu_t\right)(\dd x) \left|\mu_t - \nu_t\right|(\dd y).
+    \end{multline*}
+    In the end we have the bound:
     \begin{multline*}
         \| \mu_t - \nu_t\|_{\phi_p} \leq \|\mu- \nu\|_{\phi_p} \\
         + \dfrac12\int_0^t \int_{\RRP}\int_{\RRP} K_\alpha(x,y) \left[\phi_p(x+y) - \phi_p(y) \right]\left(\mu_t + \nu_t\right)(\dd x) \left|\mu_t - \nu_t\right|(\dd y) \\
@@ -1305,10 +1320,41 @@ We will start by showing that \eqref{eq:cutoff_SCE} has a unique solution on a s
 This proof is based on a classical fixed point theorem in a complete space. We will first show that the solution exists on a small time interval using a fixed point method in the following space of signed measures:
     \[ \MC^{\varepsilon,M}_{\phi_p}(\RRP) = \left\lbrace \mu \in \MC_{\phi_p}(\RRP) ,\quad \|\mu \|_{\phi_p}\leq M,\quad supp(\mu) \subset [\varepsilon,\infty)\right\rbrace. \]
 It is a closed subspace of $\MC_{\phi_p}(\RRP)$ and therefore is complete for the associated weighted norm. Then we preform a second fixed point to show that if the initial measure is positive then the solution stays positive for all time. Both intermediate results are given in the lemma below. 
-\begin{lemma}
+\begin{lemma}\label{lem:fixed-point-1}
     Assume that the initial measure $\mu$ is such that, $\| \mu\|_{\phi_p} \leq \frac{M}{2}$, there exists a time $T^{\varepsilon,M} > 0$ such that equation \eqref{eq:cutoff_SCE} has a unique solution in $C\left([0,T^{\varepsilon,M}]:\MC^{+,\varepsilon,M}_{\phi_p}(\RRP)\right)$. 
 \end{lemma}
-\begin{proof}
+Before proving this lemma we give a small thecnical proposition for differentiating a family of functions
+\begin{proposition}
+    Let $T > 0$ be fixed. Let $\left(\mu_t \right)_{t \in [0,T]}$ be a family of finite measures on $\mathbb{R}^d$ such that the map $t \mapsto \mu_t$ is strongly differentiable in the total variation norm, with derivative $\nu_t$, i.e.,
+    \[
+    \lim_{s \to 0} \left\| \frac{\mu_{t+s} - \mu_t}{s} - \nu_t \right\| = 0.
+    \]
+    Let $h : \mathbb{R}^d \times [0,T] \to \mathbb{R}$ be a bounded function such that $t \mapsto h_t(x)$ is continuously differentiable for all $x$, and $\partial_t h_t(x)$ is bounded on $\mathbb{R}^d \times [0,T]$.
+    
+    Then for all $t \in [0,T]$,
+    \[
+    \frac{d}{dt} \langle h_t, \mu_t \rangle = \langle \partial_t h_t, \mu_t \rangle + \langle h_t, \nu_t \rangle.
+    \]
+    \end{proposition}
+    
+    \begin{proof}
+    Fix $t \in [0,T]$ and let $s \in \mathbb{R}$ such that $t + s \in [0,T]$, we have:
+    \[
+    \frac{1}{s} \left( \langle h_{t+s}, \mu_{t+s} \rangle - \langle h_t, \mu_t \rangle \right) = \frac{1}{s} \langle h_{t+s}, \mu_{t+s} - \mu_t \rangle + \frac{1}{s} \langle h_{t+s} - h_t, \mu_t \rangle.
+    \]
+    
+    For the first term, since $h_{t+s}$ is bounded uniformly in $s$, and $\mu_t$ is strongly differentiable in total variation, we have:
+    \[
+    \lim_{s \to 0} \frac{1}{s} \langle h_{t+s}, \mu_{t+s} - \mu_t \rangle = \langle h_t, \nu_t \rangle.
+    \]
+    
+    For the second term, since $\partial_t h$ is bounded and $\mu_t$ is finite, we apply the dominated convergence theorem:
+    \[
+    \lim_{s \to 0} \frac{1}{s} \langle h_{t+s} - h_t, \mu_t \rangle = \langle \partial_t h_t, \mu_t \rangle.
+    \]
+    \end{proof}
+    
+\begin{proof}[Proof of Lemma \ref{lem:fixed-point-1}]
     We introduce the functional:
     \begin{align*}
     \Gamma^\varepsilon : 
@@ -1337,12 +1383,12 @@ It is a closed subspace of $\MC_{\phi_p}(\RRP)$ and therefore is complete for th
     Claim 2 : For $T$ small enough the operator $\Gamma^\varepsilon$ is a contraction. Let $m^1$ and $m^2$ be in $\MC^{\varepsilon,M}_{\phi_p}\left(\RRP\right)$. Let $|f| \leq \phi$, we have:
     \begin{align*}
         \brac{f,\Gamma^\varepsilon(m^1)_t - \Gamma^\varepsilon(m^2)_t}
-        &= \dfrac{1}{2}\int_0^t \brac{Kf,\left(m^1_s + m^2_s\right)\otimes\left( m^1_s - m^2_s\right)} \dd s \\
-        &\leq C\varepsilon^{-\alpha}\int_0^t \|m^1_s + m^2_s\|_{\phi_p} \|m^1_s - m^2_s\|_{\phi_p}\dd s .
+        &= \dfrac{1}{2}\int_0^t \brac{Kf,\left(m_s + \tilde{m}_s\right)\otimes\left( m_s - \tilde{m}_s\right)} \dd s \\
+        &\leq C\varepsilon^{-\alpha}\int_0^t \|m_s + \tilde{m}_s\|_{\phi_p} \|m_s - \tilde{m}_s\|_{\phi_p}\dd s .
     \end{align*}
     Therefore we have:
     \begin{align*}
-        \sup\limits_{t \in [0,T]} \|\Gamma^\varepsilon(m^1)_t - \Gamma^\varepsilon(m^2)_t\|_{\phi_p} \leq 2\varepsilon^{-\alpha} CMT\sup\limits_{t \in [0,T]} \|m^1_t - m^2_t\|_{\phi_p} .
+        \sup\limits_{t \in [0,T]} \|\Gamma^\varepsilon(m^1)_t - \Gamma^\varepsilon(m^2)_t\|_{\phi_p} \leq 2\varepsilon^{-\alpha} CMT\sup\limits_{t \in [0,T]} \|m_t - \tilde{m}_t\|_{\phi_p} .
     \end{align*}
     Taking $T = \frac{1}{4\varepsilon^{-\alpha}CM}$ proves the claim. Now let $T^{\varepsilon,M} = \frac{1}{4\varepsilon^{-\alpha}CM}$, the Banach contraction theorem give us existence and uniqueness of a solution to equation \eqref{eq:cutoff_SCE} defined on the time interval $[0,T^{\varepsilon,M}]$ with values in $\MC^{\varepsilon,M}_{\phi_p}\left(\RRP\right)$. It remains to show that this solution is positive, let us call it $\mu_t^\varepsilon$. Consider the function:
     \[
@@ -1378,7 +1424,7 @@ It is a closed subspace of $\MC_{\phi_p}(\RRP)$ and therefore is complete for th
     with a reasoning that follows the first fixed point we can show that for $T$ small enough (possibly smaller than previously) the operator $\Gamma^{+,\varepsilon}$ is well defined. 
     Claim $4$: For $T$ small enough $\Gamma^{+,\varepsilon}(m)$ is a contraction. We have:
     \begin{align*}
-        \brac{f, \Gamma^{+,\varepsilon}(m^1)_t - \Gamma^{+,\varepsilon}(m^2)_t} \leq C \varepsilon^{-\alpha}\int_0^t \|m^1_s - m^2_s\|_{\phi_p}\|m^1_s + m^2_s\|_{\phi_p} \dd s.
+        \brac{f, \Gamma^{+,\varepsilon}(m^1)_t - \Gamma^{+,\varepsilon}(m^2)_t} \leq C \varepsilon^{-\alpha}\int_0^t \|m_s - \tilde{m}_s\|_{\phi_p}\|m_s + \tilde{m}_s\|_{\phi_p} \dd s.
     \end{align*}
     It follows again that for $T$ sufficiently small the operator is a contraction. We now denote $\tilde{T}^{\varepsilon,M}$ the minima of all $4$ times found previously. We use again the Banach contraction theorem with initial measure $\mu$, the obtained fixed point is a positive measure on  $[0,\tilde{T}^{\varepsilon,M}]$. We previously found a unique solution to \eqref{eq:cutoff_SCE} therefore the aforementioned fixed point is $h^\varepsilon_t\mu^\varepsilon_t$, finally implying that $\mu^\varepsilon_t$ is positive on the found time interval.
 \end{proof}
@@ -1499,40 +1545,40 @@ Now let us give a bound for two distinct initial values in equation \eqref{eq:de
 \begin{lemma}\label{lem:pseudo-lip-derivative-eq}
      Let $\Proc{\mu^1_t}$ and $\Proc{\mu^2_t}$ be two solutions of the $\SCE$ . We denote by $\Proc{\nu^1_t}$ and $\Proc{\nu^2_t}$ two solutions of \eqref{eq:derivative-initial-general} we have the following bounds for all $p \geq 1$:
     \begin{multline*}
-        \sup\limits_{t \in [0,T]} \| m^1_t - m^2_t \|_{\phi_p} \leq \|m_0^1- m_0^2 \|_{\phi_{p}} C_1\left(T;\| \mu^2_0\|_{\phi_{p+1}} + \| \mu^1_0\|_{\phi_{p+1}}\right)\\
-        + \|\mu_0^1- \mu_0^2 \|_{\phi_{p+1}}C_2\left(T; \|m^1_0\|_{\phi_{p+1}}+ \|m^2_0\|_{\phi_{p+1}};\|\mu^1_0\|_{\phi_{p +2}} + \|\mu^2_0\|_{\phi_{p +2}}\right).
+        \sup\limits_{t \in [0,T]} \| m_t - \tilde{m}_t \|_{\phi_p} \leq \|m- \tilde{m} \|_{\phi_{p}} C_1\left(T;\| \mu\|_{\phi_{p+1}} + \| \tilde{\mu}\|_{\phi_{p+1}}\right)\\
+        + \|\mu - \tilde{\mu} \|_{\phi_{p+1}}C_2\left(T; \|m\|_{\phi_{p+1}}+ \|\tilde{m}\|_{\phi_{p+1}};\|\mu\|_{\phi_{p +2}} + \|\tilde{\mu}\|_{\phi_{p +2}}\right).
     \end{multline*}
     % \begin{align*}
-    %     \sup\limits_{t \in [0,T]} \| m^1_t - m^2_t \|_{\phi_p} \leq C_1\|m_0^1- m_0^2 \|_{\phi_{p}} 
-    %     + C_2\|\mu_0^1- \mu_0^2 \|_{\phi_{p+1}}.
+    %     \sup\limits_{t \in [0,T]} \| m_t - \tilde{m}_t \|_{\phi_p} \leq C_1\|m- \tilde{m} \|_{\phi_{p}} 
+    %     + C_2\|\mu- \tilde{\mu} \|_{\phi_{p+1}}.
     % \end{align*}
     With constants of the form:
     \begin{align*}
-        C_1 &= e^{CT\left(\| \mu^2_0\|_{\phi_{p+1}} + \| \mu^1_0\|_{\phi_{p+1}}\right)}\\
-        C_2 &= CT(\|m^1_0\|_{\phi_{p+1}}+ \|m^2_0\|_{\phi_{p+1}})e^{CT\left(\|\mu^1_0\|_{\phi_{p +2}} + \|\mu^2_0\|_{\phi_{p +2}}\right)}.
+        C_1 &= e^{CT\left(\| \mu\|_{\phi_{p+1}} + \|\tilde{ \mu}\|_{\phi_{p+1}}\right)}\\
+        C_2 &= CT(\|m\|_{\phi_{p+1}}+ \|\tilde{m}\|_{\phi_{p+1}})e^{CT\left(\| \mu\|_{\phi_{p+2}} + \|\tilde{ \mu}\|_{\phi_{p+2}}\right)}.
     \end{align*}
 \end{lemma}
 \begin{proof}
-    We write the equation followed by $t \mapsto \| m^1_t - m^2_t \|_{\phi_p}$, from lemma \ref{lem:ODE_total_variation_kolo} there exist a density $\sigma_t$ such that $m^1_t - m^2_t = \sigma_t|m^1_t - m^2_t|$ and:
+    We write the equation followed by $t \mapsto \| m_t - \tilde{m}_t \|_{\phi_p}$, from lemma \ref{lem:ODE_total_variation_kolo} there exist a density $\sigma_t$ such that $m_t - \tilde{m}_t = \sigma_t|m_t - \tilde{m}_t|$ and:
     \begin{multline*}
-        \| m^1_t - m^2_t \|_{\phi_p} = \|\nu^1- \nu^2 \|_{\phi_{p}} + \int_0^t \brac{K_\alpha\phi_p\sigma_s, \mu^1_s\otimes m^1_s - \mu^2_s\otimes m^2_s} \dd s \\
-        = \|\nu^1- \nu^2 \|_{\phi_{p}} + \dfrac12\int_0^t \brac{K_\alpha\phi_p\sigma_s, (\mu^1_s - \mu^2_s)\otimes (m^1_s + m^2_s) } \\
-        + \dfrac12\brac{K_\alpha\phi_p\sigma_s, (\mu^1_s + \mu^2_s)\otimes (m^1_s - m^2_s)} \dd s.
+        \| m_t - \tilde{m}_t \|_{\phi_p} = \|m-\tilde{m} \|_{\phi_{p}} + \int_0^t \brac{K_\alpha\phi_p\sigma_s, \mu_s\otimes m_s - \tilde{\mu}_s\otimes \tilde{m}_s} \dd s \\
+        = \|\nu^1- \nu^2 \|_{\phi_{p}} + \dfrac12\int_0^t \brac{K_\alpha\phi_p\sigma_s, (\mu_s - \tilde{\mu}_s)\otimes (m_s + \tilde{m}_s) } \\
+        + \dfrac12\brac{K_\alpha\phi_p\sigma_s, (\mu_s + \tilde{\mu}_s)\otimes (m_s - \tilde{m}_s)} \dd s.
     \end{multline*}
     For the first term we have for all $s \in [0,t]$:
     \begin{align*}
-        \left| \brac{K_\alpha\phi_p\sigma_s, (\mu^1_s - \mu^2_s)\otimes (m^1_s + m^2_s)}\right| \leq C\| \mu^1_s - \mu^2_s\|_{\phi_{p+1}} \left(\| m^1_s\|_{\phi_{p+1}} + \| m^2_s\|_{\phi_{p+1}}\right).
+        \left| \brac{K_\alpha\phi_p\sigma_s, (\mu_s - \tilde{\mu}_s)\otimes (m_s + \tilde{m}_s)}\right| \leq C\| \mu_s - \tilde{\mu}_s\|_{\phi_{p+1}} \left(\| m_s\|_{\phi_{p+1}} + \| \tilde{m}_s\|_{\phi_{p+1}}\right).
     \end{align*}
     Using estimates from lemma \ref{lem:bound_derivative} and the lipschitz character of $\SCE$ solutions given in lemma \ref{lem:Lip-smol-TV} we deduce:
     \begin{multline*}
-        \left| \brac{K_\alpha\phi_p\sigma_s, (\mu^1_s - \mu^2_s)\otimes (m^1_s + m_s^2) }\right| \\
-        \leq C(\|m^1_0\|_{\phi_{p+1}}+ \|m^2_0\|_{\phi_{p+1}})e^{CT\left(\|\mu^1_0\|_{\phi_{p +2}} + \|\mu^2_0\|_{\phi_{p +2}}\right)} \|\mu_0^1 - \mu_0^2\|_{\phi_{p+1}}.
+        \left| \brac{K_\alpha\phi_p\sigma_s, (\mu_s - \tilde{\mu}_s)\otimes (m_s + m_s^2) }\right| \\
+        \leq C(\|m\|_{\phi_{p+1}}+ \|\tilde{m}\|_{\phi_{p+1}})e^{CT\left(\|\mu\|_{\phi_{p +2}} + \|\tilde{\mu}\|_{\phi_{p +2}}\right)} \|\mu - \tilde{\mu}\|_{\phi_{p+1}}.
     \end{multline*}
     For the second term we have using the definition of the density $\sigma_s$, for all $s \in [0,t]$:
     \begin{align*}
-        \left| \brac{K_\alpha\phi_p\sigma_s, (\mu^1_s + \mu^2_s)\otimes (m^1_s - m^2_s)} \right| 
-        &\leq C \left(\| \mu^2_s\|_{\phi_{p+1}} + \| \mu^1_s\|_{\phi_{p+1}}\right)\|m^1_s - m^2_s \|_{\phi_p} \\
-        &\leq C \left(\| \mu^2_0\|_{\phi_{p+1}} + \| \mu^1_0\|_{\phi_{p+1}}\right)\|m^1_s - m^2_s \|_{\phi_p}.
+        \left| \brac{K_\alpha\phi_p\sigma_s, (\mu_s + \tilde{\mu}_s)\otimes (m_s - \tilde{m}_s)} \right| 
+        &\leq C \left(\| \tilde{\mu}_s\|_{\phi_{p+1}} + \| \mu_s\|_{\phi_{p+1}}\right)\|m_s - \tilde{m}_s \|_{\phi_p} \\
+        &\leq C \left(\| \tilde{\mu}\|_{\phi_{p+1}} + \| \mu\|_{\phi_{p+1}}\right)\|m_s - \tilde{m}_s \|_{\phi_p}.
     \end{align*}
     The result then follows by Gronwall's lemma.
 \end{proof}
@@ -1609,12 +1655,12 @@ Our proof is based on a fixed point and uses this subset. Corollary \ref{cor:wel
     
     **Claim 3: For $T$ sufficiently small the operator $\Gamma^\varepsilon$ is Lipschitz with a constant smaller or equal than $\frac12$.** Now take $m^1$ and $m^2$ in our functional and $|f| \leq \phi$. The exact same calculations performed in Claim $1$ lead us to:
     \begin{align*}
-        \brac{f, \Gamma^\varepsilon(m^1)_t - \Gamma^\varepsilon(m^2)_t}  \leq tC\varepsilon^{-\alpha}\brac{\phi,\mu} \| m^1_t - m^2_t\|_{\phi}.
+        \brac{f, \Gamma^\varepsilon(m^1)_t - \Gamma^\varepsilon(m^2)_t}  \leq tC\varepsilon^{-\alpha}\brac{\phi,\mu} \| m_t - \tilde{m}_t\|_{\phi}.
     \end{align*}
     And so:
     \begin{align*}
         \sup\limits_{t \in [0,T]} \| \Gamma^\varepsilon(m^1)_t - \Gamma^\varepsilon(m^2)_t\|_{\phi}
-        \leq TC\varepsilon^{-\alpha}\brac{\phi,\mu}\sup\limits_{t \in [0,T]} \| m^1_t - m^2_t\|_{\phi}.
+        \leq TC\varepsilon^{-\alpha}\brac{\phi,\mu}\sup\limits_{t \in [0,T]} \| m_t - \tilde{m}_t\|_{\phi}.
     \end{align*}
     As such choosing $T = \dfrac{1}{2C\varepsilon^{-\alpha}\brac{\phi,\mu}}$ finishes proving the claim.
 
@@ -4018,7 +4064,7 @@ Let \( f : \mathbb{R} \to \mathbb{R} \) be a measurable function. The following 
     \begin{align*}
         f(x) - f(y) = \int_y^x f'(t) \dd t .
     \end{align*}
-    The reciprocal sense is call Rademacher’s theorem see \cite{evans2018measure} for a proof.
+    The reciprocal is the Rademacher theorem see \cite{evans2018measure} for a proof.
 \end{proof}
 Now recall that the metric $d_\alpha$ is defined by 
 \[
