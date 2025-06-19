@@ -159,6 +159,7 @@ The singular behavior of the kernel $K_\alpha$ motivates the use of a specific d
 \section{Definitions, assumptions and main results}\label{section-main-results}
 In this work, we describe the evolution of particle systems using measure-valued stochastic processes, and the Smoluchowski coagulation equation is formulated as an equation on measures. Elements of measure theory are given in Section~\ref{section:analysis-measures}. Among them the reader will find the definition of the Total Variation, the Radon-Nikodym derivaitve, the Hahn-Jordan decomposition and the Wasserstein distance and its extension beyond probability measures. If any ambiguity arises regarding the definitions or objects used below, we refer to that section for clarification.
 
+
 \subsection{Notations}
 The value $\alpha > 0$ appearing in $K_\alpha$ is fixed throughout all this work. 
 
@@ -189,18 +190,27 @@ In all generality let $\psi$ be a continuous, positive function. We define:
 \[
 \MC_{\psi}(\RRP) = \left\lbrace \mu \in \MC(\RRP) \;\middle|\; \int_{\RRP} \psi(x)\,|\mu|(\dd x) < \infty \right\rbrace,
 \]
-and $\MC^+_{\psi}(\RRP)$ its restriction to positive measures. This set is the set of finite measures with $\psi$-moment.
+and $\MC^+_{\psi}(\RRP)$ its restriction to positive measures. This set is the set of finite measures with finite $\psi$-moment. We primarily work with the spaces $\MC_{\psi_p}(\RRP)$ and $\MC^+_{\psi_p}(\RRP)$ where the function $\psi_p$ is defined for all $p \geq 0$ by:
+\[
+\psi_p(x) = x^{-p\alpha}.
+\]
+These are the spaces of finite signed and positive measures with finite negrative $\alpha p$-moment. Note that if $p \leq q$, then:
+\[
+1 + \psi_p(x) \leq 2(1 + \psi_q(x)),
+\]
+and therefore $\MC_{\psi_q}(\RRP) \subset \MC_{\psi_p}(\RRP)$. 
+
 \subsubsection*{Total variation}
-A natural norm on these weighted spaces is the $\psi$-weighted total variation norm:
+A natural norm on $\MC_{\psi}(\RRP)$ is the $\psi$-weighted total variation norm:
 \[
 \|\mu\|_{\psi} = \brac{1 + \psi, |\mu|}.
 \]
-Convergence with respect to this norm is referred to as strong convergence.
+An important property of this norm on $\MC_{\psi}(\RRP)$ is the following.
 \begin{proposition}
     The space $\left(\MC_{\psi}(\RRP),\|\cdot\|_{\psi} \right)$ is Banach.
 \end{proposition}
 \begin{proof}
-    The space \(\left(\MC\left(\RRP\right),\| .\|\right) \) is Banach see Proposition \ref{prop:TV-banach}. Let 
+    The space of finite signed measures equiped with the total variation norm namely \(\left(\MC\left(\RRP\right),\| .\|\right) \) is Banach see Proposition \ref{prop:TV-banach}. Let 
     \begin{equation*}
         I :
         \left\lbrace
@@ -212,7 +222,7 @@ Convergence with respect to this norm is referred to as strong convergence.
     \end{equation*}
     The function $I$ is an isometry from \(\left(\MC\left(\RRP\right),\| .\|\right) \) to \(\left(\MC_{\psi}\left(\RRP\right),\| .\|_{\psi}\right) \) therefore the later is complete.
 \end{proof}
-We also have the following characterisation.
+We also have the following characterisation via the supremum on continous functions dominated by $1 + \psi$.
 \begin{proposition}
     We have for all $\mu \in \MC_{\psi}(\RRP)$:
     \begin{align*}
@@ -226,76 +236,58 @@ We also have the following characterisation.
     \end{align*}
     By definition of the weighted norm:
     \begin{align*}
-        \|\mu\|_{\psi} = \|(1 + \psi)\mu\| = \sup\limits_{\substack{f \in C_b(\RRP), \\ |f| \leq 1}}\brac{f,(1 + \psi)\mu}.
+        \|\mu\|_{\psi} = \|(1 + \psi)\mu\| = \sup\limits_{\substack{f \in C_b(\RRP), \\ |f| \leq 1}}\brac{f(1 + \psi),\mu}.
     \end{align*}
     For all $f \in C_b(\RRP)$ such that $|f| \leq 1$ the function $f(1 + \psi)$ is continuous and verifies $|f(1 + \psi)| \leq 1 + \psi$. Reciprocally for any continuous function such that $|f| \leq 1 + \psi$ the function $\frac{f}{1 + \psi}$ is also continous bounded by $1$. Therefore:
     \begin{align*}
-        \sup\limits_{\substack{f \in C_b(\RRP), \\|f| \leq 1}}\brac{f,(1 + \psi)\mu} = \sup\limits_{\substack{f \in C(\RRP), \\ |f| \leq 1 + \psi}}\brac{f,\mu}
+        \sup\limits_{\substack{f \in C_b(\RRP), \\|f| \leq 1}}\brac{f(1 + \psi),\mu} = \sup\limits_{\substack{f \in C(\RRP), \\ |f| \leq 1 + \psi}}\brac{f,\mu}
     \end{align*}
-    and the results follows.
+    and the result follows.
 \end{proof}
-\subsubsection*{Considered spaces}
-We mention that we are considering measues that have finite negative $\alpha$-moment. In general we are interested in the functions $\psi_p$ defined for all $p \geq 0$ by:
+
+
+\subsubsection*{Wasserstein Distance}
+To state the main result, we require a distance that quantifies the convergence rate of sequences of random empirical measures toward their law. Fournier and Guillin in \cite{fournier2015rate} establish convergence rates for various Wasserstein-$p$ distances. We restate the portion of their theorem that we rely on in our main result in Theorem \ref{thm:fournier-guillin}. First we clarify the definition of empirical measure.
+\begin{definition}
+We call an \emph{empirical measure} on $\RRP$ a probability measure $\mu^N$ of the form:
 \[
-\psi_p(x) = x^{-p\alpha}.
+\mu^N = \dfrac{1}{N} \sum_{i = 1}^N \delta_{x_i},
 \]
-We primarily work with the spaces $\MC_{\psi_p}(\RRP)$ and $\MC^+_{\psi_p}(\RRP)$, the spaces of finite signed and positive measures with finite negrative $\alpha p$-moment. Note that if $p \leq q$, then:
+where $x_1, \dots, x_N$ are elements of $\RRP$. Let $\mu$ be a probability measure on $\RRP$. We say $\mu^N$ is a random empirical measure of \emph{law $\mu$} if:
 \[
-1 + \psi_p(x) \leq 2(1 + \psi_q(x)),
+\mu^N = \dfrac{1}{N} \sum_{i = 1}^N \delta_{X_i},
 \]
-and therefore $\MC_{\psi_q}(\RRP) \subset \MC_{\psi_p}(\RRP)$. A central tool in our analysis is a Wasserstein-type distance that metrizes the weak topology on $\MC^+_{\psi_p}(\RRP)$ and the convergence of the negative $\alpha p$-moment. First, define the distance $d_{p\alpha}$ on $\RRP$ by:
+where $X_1, \dots, X_N$ are i.i.d. random variables with law $\mu$.
+\end{definition}
+
+\begin{theorem}[Wasserstein Convergence Rate {\cite{fournier2015rate}}]\label{thm:fournier-guillin}
+Let $W_1$ be the Wasserstein-1 distance (see Definition~\ref{def:Wasserstein}). Assume that $\mu$ has a finite moment of order $q > 2$, i.e., $\brac{x^q,\mu} < \infty$, and denote by $\mu^N$ a random empirical measure of law $\mu$. There exists a constant $C > 0$ such that for all $N \geq 1$:
 \[
-d_{p\alpha}(x,y) = |x^{-p\alpha} - y^{-p\alpha}|.
+W_1\left(\mu^N, \mu\right) \leq \brac{x^q,\mu}^{\frac{1}{q}} \dfrac{C}{\sqrt{N}} \quad \text{a.s.}
 \]
-The space $\left(\RRP,d_\alpha\right)$ is not complete, we need to add a point at infinity as stated in the Proposition below. Algebraic operations with infinity are defined as the classic operations on limit of sequences. 
-\begin{proposition}
-    The space $\left(\RRP \cup \lbrace+\infty\rbrace ,d_\alpha\right)$ is complete. 
-\end{proposition}
-\begin{proof}
-    The space $(\RR^+,|\cdot|)$ is complete as a closed space in $\RR$ for the topology induced by the absolute value. The space $\left(\RRP \cup \lbrace+\infty\rbrace ,d_\alpha\right)$ is isometric to $(\RR^+,|\cdot|)$ through:
-    \begin{equation*}
-        I :
-        \left\lbrace
-        \begin{aligned}
-            \left(\RRP \cup \lbrace+\infty\rbrace ,d_\alpha\right) &\to (\RR^+,|\cdot|)  \\
-            x &\mapsto 
-            \left\lbrace 
-            \begin{aligned}
-                x^{-\alpha} &\text{ if } x \in \RRP \\
-                0 &\text{ if } x= +\infty
-            \end{aligned}
-            \right.
-        \end{aligned}
-        \right. .
-    \end{equation*}
-    Our space therefore inherits completeness.
-\end{proof}
-\subsubsection*{Wasserstein distance}
-Our final result is based on the convergence rate of sequences of empirical measures toward their law. For $\mu$ a probability measure an empirical measure of iid random variables of law $\mu$ is a measure $\mu^N$ of the form:
-    \begin{align*}
-        \mu^N = \dfrac1N \sum\limits_{n = 1}^N \delta_{X_n},\quad \Seq{X_n}\ \text{iid of law}\ \mu .
-    \end{align*}
-\begin{theorem}[Wasserstein convergence rate \cite{fournier2015rate}]\label{thm:fournier-guillin}
-    Let $W_1$ be the Wasserstein-$1$ distance \cite{villani2008optimal} or Definition \ref{def:Wasserstein}. Assume that $\mu$ as a finite moment of order $q > 2$, i.e $\brac{x^q,\mu} < \infty$. There exists a constant $C>0$ such that for all $N \geq 1$:
-    \begin{align*}
-        W_1\left(\mu^N,\mu\right) \leq \brac{x^q,\mu}^{\frac{1}{q}} \dfrac{C}{\sqrt{N}}\  \text{a.s.}
-    \end{align*}
 \end{theorem}
-This motivates the use of a Wasserstein-type distance on $\MC_{\psi_p}(\RRP)$ and $\MC^+_{\psi_p}(\RRP)$. Below we give a distnace on $\MC^+_{\psi_p}\left(\RRP \cup \lbrace+\infty\rbrace\right)$. Let the space Lipschitz functions for $d_{p\alpha}$ with constant equal to $1$ be defined by:
+
+This motivates the use of a Wasserstein-type distance on the spaces $\MC_{\psi_p}(\RRP)$ and $\MC^+_{\psi_p}(\RRP)$. We first define a distance on $\RRP$, or more generally a “cost function” in the terminology of optimal transport, that is suited to $\MC_{\psi_p}(\RRP)$, and by extension suited to the singularity of $K_\alpha$. Define the distance $d_{p\alpha}$ on $\RRP$ by:
 \[
-Lip_1(d_{p\alpha}) = \left\lbrace f: \RRP\to \RR \middle|\ \sup_{x \neq y \in \RRP} \dfrac{|f(x) - f(y)|}{d_{p\alpha}(x,y)} \leq 1 \right\rbrace.
+d_{p\alpha}(x, y) = |x^{-p\alpha} - y^{-p\alpha}|.
+\]
+Let the space of Lipschitz functions for $d_{p\alpha}$ with Lipschitz constant 1 be:
+\[
+\text{Lip}_1(d_{p\alpha}) = \left\lbrace f: \RRP \to \RR \middle| \sup_{x \neq y \in \RRP} \dfrac{|f(x) - f(y)|}{d_{p\alpha}(x, y)} \leq 1 \right\rbrace.
 \]
 \begin{definition}
-    We define the $\psi_p$-Wasserstein distance on $\MC^+_{\psi_p}\left(\RRP \cup \lbrace+\infty\rbrace\right)$ by:
-    \[
-        W_{\psi_p}(\mu,\nu) = \sup_{\substack{f \in Lip_1(d_{p\alpha}) \\ |f| \leq 1 + \psi_p}} \brac{f, \mu - \nu}.
-    \]
+We define the $\psi_p$-Wasserstein distance on $\MC^+_{\psi_p}\left(\RRP \right)$ by:
+\[
+W_{\psi_p}(\mu, \nu) = \sup_{\substack{f \in \text{Lip}_1(d_{p\alpha}) \\ |f| \leq 1 + \psi_p}} \brac{f, \mu - \nu}.
+\]
 \end{definition}
-This is the Kantorovich-Rubinstein dual formulation of some Wasserstein distnace on the space $\MC^+_{\psi_p}(\RRP)$. Since two measures on that space may not have equal total mass the link is not direct and is thouroughly explained in Section~\ref{section:Wasserstein}. This distance metrizes the weak convergence plus the convergence of negative $p\alpha$-moments , this is classic \cite{villani2008optimal}. We can give a corollary to the result of \cite{fournier2015rate} on the convergence rate of empirical measures for $W_{\psi_p}$. 
+
+This formulation comes from the Kantorovich–Rubinstein duality for a class of Wasserstein distances on $\MC^+_{\psi_p}(\RRP)$. However, since two measures in this space may not have equal total mass, the link to the classical optimal transport problem is not direct, and is thoroughly discussed in Section~\ref{section:Wasserstein}. This distance metrizes weak convergence along with convergence of negative $p\alpha$-moments, a well-known result (see \cite{villani2008optimal}). As a consequence, we can deduce a corollary from \cite{fournier2015rate} for the convergence of empirical measures with respect to $W_{\psi_p}$.
+
 \begin{corollary}\label{cor:fournier_guillin}
-    Assume that $\mu$ is a probability measure in $\MC_{\psi_q}$ with $q > 2p$ then there exists a constant $C>0$ such that for all $N \geq 1$ and $\mu^N$ an empirical measure of law $\mu$:
+    Assume that $\mu$ is a probability measure in $\MC_{\psi_q}$ with $q > 2p$ then there exists a constant $C>0$ such that for all $N \geq 1$ and $\mu^N$ a random empirical measure of law $\mu$:
     \begin{align*}
-        W_{\psi_p}\left(\mu^N,\mu \right) \leq \brac{\psi_q,\mu}^{\frac{p}{q}}  \dfrac{C}{N}.
+        W_{\psi_p}\left(\mu^N,\mu \right) \leq \brac{\psi_q,\mu}^{\frac{p}{q}}  \dfrac{C}{\sqrt{N}}.
     \end{align*} 
 \end{corollary}
 \begin{proof}
@@ -329,7 +321,30 @@ The space $\MC^+_{\psi_p}\left(\RRP \right)$ is not complete for this distance, 
 \begin{align*}
     W_{\psi_p}\left(\delta_{q_1},\delta_{q_2}\right) = d_{p\alpha}\left(q_1,q_2 \right) \leq 2N^{-p\alpha}.
 \end{align*}
-It is a Cauchy sequence but does not converge toward any measure in $\MC^+_{\psi_p}\left(\RRP \right)$, as the limit is the measure $\delta_{\infty}$. 
+It is a Cauchy sequence but does not converge toward any measure in $\MC^+_{\psi_p}\left(\RRP \right)$, as the limit is the measure $\delta_{\infty}$. The issue comes from the fact that $\left(\RRP,d_\alpha\right)$ is not complete, we need to add a point at infinity as stated in the Proposition below. Algebraic operations with infinity are defined as the classic operations on limit of sequences. 
+\begin{proposition}
+    The space $\left(\RRP \cup \lbrace+\infty\rbrace ,d_\alpha\right)$ is complete. 
+\end{proposition}
+\begin{proof}
+    The space $(\RR^+,|\cdot|)$ is complete as a closed space in $\RR$ for the topology induced by the absolute value. The space $\left(\RRP \cup \lbrace+\infty\rbrace ,d_\alpha\right)$ is isometric to $(\RR^+,|\cdot|)$ through:
+    \begin{equation*}
+        I :
+        \left\lbrace
+        \begin{aligned}
+            \left(\RRP \cup \lbrace+\infty\rbrace ,d_\alpha\right) &\to (\RR^+,|\cdot|)  \\
+            x &\mapsto 
+            \left\lbrace 
+            \begin{aligned}
+                x^{-\alpha} &\text{ if } x \in \RRP \\
+                0 &\text{ if } x= +\infty
+            \end{aligned}
+            \right.
+        \end{aligned}
+        \right. .
+    \end{equation*}
+    Our space therefore inherits completeness.
+\end{proof}
+
 \begin{proposition}
     The space $\left( \MC^+_{\psi_p}\left(\RRP \cup \lbrace+\infty\rbrace\right),W_{\psi_1}\right) $ is complete.
 \end{proposition}
@@ -345,8 +360,12 @@ This distance can also be extended to the set of finite signed measures $\MC_{\p
 We can see the appeal of the Toltal Variation distance as opposed to the Wasserstein distance. Indeed using a completeness argument with the Wasserstein distance would force us to verify that the found limit does not have mass at infinity. Also we will have to show uniqueness in signed measure spaces adding to the advantages of using the Total Variation norm. 
 
 To avoid adding a point at infinity we could use a composite distance equal to $d_{p\alpha}$ close to $0$ on $(0,1]$ and the absolute value on $(1, \infty)$. 
+\subsection{Derivatives on spaces of measures}
+A consequent part of our analysis relies on differentiating functions defined on spaces of measures. We give definitions aswell as a chain rule property that we also prove. This tools come from a rather general framework, however our ability to define a chain rule depends specifically on the topological structure we give to the considered sapce of measures. Since we work on $\MC_{\psi_p}(\RRP)$ and the topology induced by the Wasserstein distance $W_{\psi_p}$ we shall state all results in this particular setting.
+
+
 \subsection{The Smoluchovski coagulation equation}
-The Smoluchowski coagulation equation ($\SCE$)of kernel $K_\alpha$ and intial value $\mu$, is an equation defined on measured value functions defined in its weak form as or all bounded measurable $f$:
+The Smoluchowski coagulation equation ($\SCE$) of kernel $K_\alpha$ and intial value $\mu$, is an equation defined on measured value functions defined in its weak form as or all bounded measurable $f$:
 \begin{equation}\tag{\ref{eq:SCE}}
 \begin{aligned}
     \int_{\RRP} f(x)\mu_t (\dd x) =& \int_{\RRP} f(x)\mu (\dd x)\\
@@ -362,41 +381,41 @@ where $Kf(x,y) = K(x,y)\left(f(x+y) - f(x) - f(y) \right)$. Results on the well-
 \begin{lemma}\label{lem:well_posedness_smol_eq}
     Let $p \geq 2$, and $\mu \in \MC_{\psi_p}^+ (\RRP)$ for all $T \geq 0$ there exists a unique solution to the Smoluchovski equation of parameter $K_\alpha$, said solution is a continuous map from $[0,T]$ to $\mu \in \MC_{\psi_p}^+ (\RRP)$.
 \end{lemma}
-We define the operator that drives this equation, it involves flat derivaitves of functionals on spaces of measures defined in Section \ref{section:analysis-measures}. \red{Would it make sense to repeat its definition here ?}
+For the final result we need to know how functionals $F : \MC_{\psi_1}(\RRP) \to \RR$ evaluated in $\mu_t$ evolve through time.
 \begin{definition}
-    We define the Smoluchowski coagulation operator for all $F \in C^1(\MC^+_1\left(\RRP\right):\RR)$ as:
+    We define the Smoluchowski coagulation operator for all $F \in C^1(\MC^+_{\psi_1}\left(\RRP\right):\RR)$ as:
     \begin{align*}
         \LC F(\mu) = \langle K\delta_\mu F(\mu,.) , \mu\otimes \mu\rangle.
     \end{align*}
 \end{definition}
-The latter operator drives this equation through the result of the next proposition.
+The notation $\delta_\mu F$ is the flat derivative of $F$ it is defined in \ref{section:analysis-measures}. The coagulation operator drives this equation through the result of the next proposition.
 \begin{proposition}
-    Let $\mu_t$ be a solution of the Smoluchovski coagulation equation For all $F \in C^1(\MC_1^+\left(\RR^{*,+} \right):\RR)$ we have:
+    Let $\mu_t$ be a solution of the Smoluchovski coagulation equation For all $F \in C^1(\MC_{\psi_1}^+\left(\RRP \right):\RR)$ we have:
     \begin{align*}
-        \dfrac{d}{dt} F( \mu_t) = \LC F(t,\mu_t).
+        \dfrac{d}{dt} F( \mu_t) = \LC F(\mu_t).
     \end{align*}
 \end{proposition}
 \begin{proof}
-    Immediate from the chain rule and weak formulation of the $\SCE$. See also Section \ref{section:analysis-measures} for the interpretation of $\delta_\mu F$.
+    Immediate from the chain rule and weak formulation of the $\SCE$.
 \end{proof}
     
     \medskip
     A central aim in our analysis is to investigate how the solution $\mu_t$ depends on the initial condition $\mu$. For this, we denote by $\varphi_t(\mu)$ the solution of the $\SCE$ with initial data $\mu$. Under stronger integrability assumptions, we show that the map $\mu \mapsto \varphi_t(\mu)$ is differentiable in a suitable sense. In particular we show in section \ref{section:well-posedness-SCE} that:
 \begin{lemma}\label{lem:derivative-existence-and-eq}
-    Let $T > 0$, for all $t \in [0,T)$ the function $ \mu \mapsto \varphi_t(\mu)$ has a flat derivative that we denote by $\delta_\mu\varphi_t$, furthermore for all $z \in \RRP, \mu \in \MC_{\phi_p}(\RRP)$, $\delta_\mu\varphi_t(\mu;z)$ is the unique solution to for all $f \in C_b(\RRP)$:
+    Let $T > 0$, and $p \geq 3$, for all $t \in [0,T)$ the function $ \mu \mapsto \varphi_t(\mu)$ has a flat derivative in $\MC_{\psi_p}(\RRP)$ that we denote by $\delta_\mu\varphi_t$, furthermore for all $z \in \RRP, \mu \in \MC_{\psi_p}(\RRP)$, $\delta_\mu\varphi_t(\mu;z)$ is the unique solution to the equation defined for all $f$ bounded measurable by:
     \begin{align*}
         \brac{f,\delta_\mu\varphi_t(\mu;z)} = f(z) + \int_0^t \brac{Kf,\varphi_s(\mu)\otimes \delta_\mu\varphi_s(\mu;z)} \dd s.
     \end{align*}
 \end{lemma}
 \subsection{Construction of the stochastic coalescence}
-We construct the stochastic coalescence (SC) process. This process evolves via random binary mergers and is formally defined via a stochastic differential equation driven by a Poisson random measure. This definition was verbatim taken from \cite{fournier2006some,fournierStochasticCoalescenceHomogeneouslike2009}. 
+This process evolves via random binary mergers and is formally defined via a stochastic differential equation driven by a Poisson random measure. This definition was verbatim taken from \cite{fournier2006some,fournierStochasticCoalescenceHomogeneouslike2009}. 
 
-First, we denote $D\left([0,T]: \XF\right)$ the sapce of cadlàg functions from $[0,T]$ to $\XF$ where $\XF$ is Polish. We equip it with the $J_1$-Skorohod topology. Let us denote by $\MC_p^+(\RRP)$ the set of finite point measures on $\RRP$ namely:
+First, we denote $D\left([0,T]: \XF\right)$ the sapce of cadlàg functions from $[0,T]$ to $\XF$ where $\XF$ is Polish that we equip it with the $J_1$-Skorohod topology. Let us denote by $\MC_p^+(\RRP)$ the set of finite point measures on $\RRP$ namely:
 \begin{align*}
     \MC_p^+(\RRP) = \left\lbrace \sum\limits_{i = 1}^N \delta_{x_i}\  \middle|\  N\in \NN,\  (x_1,\cdots,x_N) \in \RRP \right\rbrace. 
 \end{align*}
 \begin{definition}
-    Let $\NC$ be random Poisson measure on $\RR^+ \times \RR^+ \times \NN^2$ with intensity $\dd s \times \dd z \times d(i,j)$ where $d(i,j) = \sum\limits_{i < j} \delta_{i,j}$. Let $K$ be a kernel, $\mu^N \in \MC_p^+(\RRP)$ a finite sum of Dirac masses. We call stochastic coalescence (\SC) process the solution of the following $SDE$:
+    Let $\NC$ be a random Poisson measure on $\RR^+ \times \RR^+ \times \NN^2$ with intensity $\dd s \times \dd z \times d(i,j)$ where $d(i,j) = \sum\limits_{i < j} \delta_{i,j}$. Let $K$ be a kernel, $\mu^N \in \MC_p^+(\RRP)$ a finite sum of Dirac masses. We call stochastic coalescence (\SC) process the solution of the following $SDE$:
     \begin{multline*}
         M_t = \mu^N + \int_0^t \int_0^\infty \int_{1 \leq i <j }  \indic{z \leq K(X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}} \\ \times \left(\delta_{X_{i}(s-) + X_{j}(s-)} - \delta_{X_{i}(s-)} - \delta_{X_{j}(s-)}\right)\mathcal{N}(ds,dz,d(i,j)).
     \end{multline*}
@@ -409,30 +428,30 @@ The kernels considered $K_\alpha$ is finite on $\RRP$. Furthermore the masses in
     = \int_0^t \mathbb{E} \left[\sum\limits_{1 \leq i< j \leq N_{s-}} K(X_{i}(s-),X_{j}(s-)) \left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right] \vphantom{\int_0^t \int_0^\infty \int_{i <j } } \right] \dd s \\
     \leq t 3\|f\|_{\infty}\dfrac{N(N-1)}{2} \times 2 x_0^{-\alpha} .
 \end{multline*}
-
+The behavior of functionals evaluated in the stochastic coalescence is described by the generator below.
 \begin{proposition}
-    The process $\Proc{M_t}$  is a Markov process with values in $\MC_p^+(\RRP)$ and has infinitesimal generator:
+    The process $\Proc{M_t}$  is a Markov process with values in $\MC_p^+(\RRP)$. It has infinitesimal generator for $F : \MC_p^+(\RRP) \to \RR$:
     \begin{align*}
-        \LC F\left(\mu := \sum\limits_{k = 1}^n\delta_{x_k} \right) = \sum\limits_{1\le i <j \le n} K(x_i,x_j) \left[F\left(\mu + \delta_{x_i + x_j} - \delta_{x_i} -\delta_{x_j}\right) - F(\mu)\right].
+        \LC_{SC} F\left(\mu := \sum\limits_{k = 1}^n\delta_{x_k} \right) = \sum\limits_{1\le i <j \le n} K(x_i,x_j) \left[F\left(\mu + \delta_{x_i + x_j} - \delta_{x_i} -\delta_{x_j}\right) - F(\mu)\right].
     \end{align*}
     which can be rewritten:
     \begin{multline*}
-        \LC F(\mu) = \int_{\RR^+ \times \RR^+} K(x,y)\left[ F\left(\mu + \delta_{x+y} - \delta_x - \delta_y \right) - F(\mu) \right]\mu(dx)\mu(dy) \\
+        \LC_{SC} F(\mu) = \int_{\RR^+ \times \RR^+} K(x,y)\left[ F\left(\mu + \delta_{x+y} - \delta_x - \delta_y \right) - F(\mu) \right]\mu(dx)\mu(dy) \\
         -\int_{\RR^+} K(x,x)\left[ F\left(\mu + \delta_{2x} - 2\delta_x \right) - F(\mu) \right]\mu(dx).
     \end{multline*}
 \end{proposition}
 \begin{proof}
-    The Markov property comes from the $SDE$ formulation. Let $F$ be a map from $\MC_p^+(\RRP)$ to $\RR$, $t \geq 0$, by Ito's formula for jumping processes:
+    The Markov property comes from the $SDE$ formulation. Let $F$ be a map from $\MC_p^+(\RRP)$ to $\RR$, and $t \geq 0$, by Ito's formula for jumping processes:
     \begin{align*}
-        \E{F(M_t)} = F(\mu^N) + \int_0^t \E{\LC F\left(M_s\right)} \dd s.
+        \E{F(M_t)} = F(\mu^N) + \int_0^t \E{\LC_{SC} F\left(M_s\right)} \dd s.
     \end{align*}
 \end{proof}
 \begin{remark}
-    The second expression can be conveniently extended to any measure with finite order $-\alpha$ moment namely $\MC_{\psi_1}^+(\RRP)$.
+    The second expression can be conveniently extended to any measure with finite negative $\alpha$-moment namely measures in $\MC_{\psi_1}^+(\RRP)$.
 \end{remark}
-In our work we are interested in comparing a rescaled process that we denote by $\Proc{M^N_t}$ and the solution to the Smoluchovski coagulation equation \eqref{eq:SCE}. The rescaled process is equal for all $t \geq 0$ to:
+In order to compare the stochastic coalescence to the solution of the Smolochowski coagulation equation we rescale it. Consider the rescaled process equal for all $t \geq 0$ to:
 \begin{align*}
-    M^N_t = \frac{1}{N} M_{\frac{t}{N}}.
+    M^N_t = \frac{1}{N} M_{t/N}.
 \end{align*}
 \begin{proposition}
     The process $\Proc{M^N_{t}}$ has infinitesimal generator:
@@ -442,20 +461,20 @@ In our work we are interested in comparing a rescaled process that we denote by 
     \end{multline*}
 \end{proposition}
 \begin{proof}
-    Let $t \geq 0$, $F(M^N_t) = F^N(M_{\frac{t}{N}})$ where,
+    Let $t \geq 0$, $F(M^N_t) = F^N(M_{t/N})$ where,
     \begin{align*}
         F^N(\mu) = F\left(\dfrac{1}{N}\mu\right).
     \end{align*}
     We have:
     \begin{align*}
-        \dfrac{\dd}{\dd t}\E{F(M^N_t)}  = \dfrac{1}{N}\E{\LC F^N\left(M_{\frac{t}{N}}\right)} =  \E{\LC^N F(M^N_t)}.
+        \dfrac{\dd}{\dd t}\E{F(M^N_t)}  = \dfrac{1}{N}\E{\LC_{SC} F^N\left(M_{t/N}\right)} =  \E{\LC^N F(M^N_t)}.
     \end{align*}
 \end{proof}
 
 \begin{remark}
    When the initial masses are integers, this rescaled process corresponds to the Marcus-Lushnikov process \cite{marcus1968stochastic,lushnikov1978coagulation}. It was originally made as a stochastic approximation of the Smoluchovski Coagulation equation.
 \end{remark}
-When $F$ has a flat derivaitve the previous expression can be expressed in terms of the flat derivative of $F$
+When $F$ is differentiable the infinitesimal generator $\LC_{SC}$ can be expressed in terms of $\delta_\mu F$.
 \begin{proposition}\label{prop:SC_gen_differentiable}
     Consider a functional $F \in C^1(\MC_{\psi_1}^+\left(\RRP \right):\RR)$ we have for all integers $N$:
     \begin{multline*}
@@ -469,7 +488,7 @@ When $F$ has a flat derivaitve the previous expression can be expressed in terms
 \end{proof}
 
 \subsection{Main result}
-In this section, we state the main assumptions and the main theorem of this work. It is a convergence rate of observables of the stochastic coalescence properly rescaled to the unique solution of the Smoluchovski coagulation equation. This theorem does not provide a proof of weak convergence because the class of functionals considered is probably too restrictive. Its interest is in application where we are interested in quantities that can be expessed in terms of observables, meaning the expected value of some functional of the process. Its second interest is that unlike pathwise bounds that give a convergence rate of $N^{-\frac{1}{2}}$ see \cite{cepedaSmoluchowskisEquationRate2011a} this gives us a $\frac{1}{N}$ which is also a clear improvement.
+In this section, we state the main assumptions and our central theorem, which provides a convergence rate for observables of the rescaled stochastic coalescence process to those of the unique solution of the Smoluchowski coagulation equation. While the theorem does not establish weak convergence—due to the restricted class of functionals considered—it is particularly relevant in applications where we are primarily interested in expected values of functionals of the process. Another interesting feature is that unlike pathwise bounds that give a convergence rate of $N^{-\frac{1}{2}}$ see \cite{cepedaSmoluchowskisEquationRate2011a} this gives us $N^{-1}$.
 \subsubsection*{Assumptions on $F$}
 
 We say that a function \(F : \MC^+_{\psi_1}(\RRP) \to \RR\) satisfies assumptions \(\A\) if it admits a flat derivative \(\delta_\mu F : \MC^+_{\psi_1}(\RRP) \times \RRP \to \RR\) such that there exists a constant \(C > 0\) for which, for all \(\mu, \tilde{\mu} \in \MC^+_{\psi_1}(\RRP)\) and \(z, z_1, z_2 \in \RRP\), the following hold:
@@ -480,73 +499,54 @@ We say that a function \(F : \MC^+_{\psi_1}(\RRP) \to \RR\) satisfies assumption
     \item \(|\delta_\mu F(\mu, z_1) - \delta_\mu F(\tilde{\mu}, z_1) - (\delta_\mu F(\mu, z_2) - \delta_\mu F(\tilde{\mu}, z_2))| \leq C W_{\psi_1}(\mu, \tilde{\mu}) d_\alpha(z_1, z_2)\).
 \end{itemize}
 
-The infimum of all constants \(C > 0\) for which the above inequalities hold is denoted by \(\left\llbracket \delta_\mu F \right\rrbracket_{\A}\).
+The infimum of all constants \(C > 0\) for which the above inequalities hold is denoted by \(\left\llbracket \delta_\mu F \right\rrbracket_{\A}\). The origin of those assumptions lie in the Lipschitz regularity properties enjoyed by the derivative of the solution to the $\SCE$ see Propositions \ref{prop:wass-derivative} and \ref{prop:wass-final}.
 
 \subsubsection*{Main result}
 
 
 For an empirical measure $\mu^N$ let \(\Proc{\Phi_t(\mu^N)}\) denote the rescaled stochastic coalescence started from \(\mu^N\) with kernel \(K_\alpha\), and \(\Proc{\varphi_t(\mu)}\) be the unique solution to the Smoluchowski coagulation equation started from \(\mu\) and kernel \(K_\alpha\).
-\begin{theorem}
-    For some $\kappa > 0$, let \(\mu \in \MC^+_{\psi_{4 + \kappa}}(\RRP)\) be a probability measure, and let \(\mu^N\) be the empirical measure of \(N\) i.i.d. random variables with law \(\mu\):
+\begin{theorem}\label{thm:main-result}
+    For some $\kappa > 0$, let \(\mu \in \MC^+_{\psi_{4 + \kappa}}(\RRP)\) be a probability measure, and let \(\mu^N\) be the random empirical measure of \(N\) i.i.d. random variables with law \(\mu\):
     \[
         \mu^N = \frac{1}{N} \sum_{n = 1}^N \delta_{X_n}, \quad X_1, \dots, X_N \sim \mu \text{ i.i.d.}
     \]
-    For any function \(F : \MC_{\psi_1}(\RRP) \to \RR\) satisfying \(\A\), and for all \(t \in [0, T]\), we have:
+    For any function \(F : \MC^+_{\psi_1}(\RRP) \to \RR\) satisfying \(\A\), and for all \(t \in [0, T]\), we have:
     \[
     \left| \vphantom{A^2}\mathbb{E}\left[F\left(\Phi_t\left(\mu^N\right)\right)\right] - F\left(\varphi_t(\mu)\right) \right| \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A}  \frac{C\left(T, \|\mu\|, \|\mu\|_{\psi_1}, \|\mu\|_{\psi_2},\|\mu\|_{\psi_{4 + \kappa}}\right)}{N}.
     \]
 \end{theorem}
 
-The requirement $4 + \kappa$ arises solely from the need to apply the Corollary of Fournier-Guillin's theorem \ref{cor:fournier_guillin} to $W_{\psi_2}\left(\mu^N,\mu\right)$. A distance that appears when trying to get estimates of the Wasserstein regularity of the flat derivative of the solution to the $\SCE$. It could be possible that the required moments is not optimal.
-% \red{Other formulation}
-% For $f : (E,d_E) \to (F,d_F)$ we denote by $\left\llbracket f \right\rrbracket_{(E,d_E),(F,d_F)}$ the Lipschitz pseudo norm:
-% \begin{align*}
-%     \left\llbracket f \right\rrbracket_{(E,d_E),(F,d_F)} = \sup\limits_{x \neq y \in E} \dfrac{d_F(f(x),f(y))}{d_E(x,y)}.
-% \end{align*}
-
-% \begin{itemize}
-%     \item For all $\mu, z \in \MC^+_{\psi_1}(\RRP)\times \RRP$: \[\delta_\mu F (\mu,z) \leq C\left(1 + \psi_1(z)\right).\]
-%     \item For all $\mu \in \MC^+_{\psi_1}(\RRP)$:\[\left\llbracket \delta_\mu F(\mu,\cdot)\right\rrbracket_{(\RRP,d_\alpha)} < \infty.\]
-%     \item For all $z \in \RRP$:\[\left\llbracket \delta_\mu F(\cdot,z)\right\rrbracket_{\left(\MC_{\psi_1}(\RRP),W_{\psi_1}\right)} < \infty.\]
-%     \item And finally:\[\left\llbracket \delta_\mu F \right\rrbracket_{\left(\MC^+_{\psi_1}(\RRP) \times \RRP, W_{\psi_1} \times d_\alpha\right)}  < \infty.\]
-% \end{itemize}
+The requirement $4 + \kappa$ arises solely from the need to apply the Corollary of Fournier-Guillin's theorem \ref{cor:fournier_guillin} to $W_{\psi_2}\left(\mu^N,\mu\right)$. It could be possible that the required moments are not optimal.
 
 \subsection{Proof outline and strategies}
+The proof relies on sevreal key results that can be split in two categories. \textbf{Well-posedness and differentiability}, the first is the existence and uniqueness of the solutions to the $\SCE$ in Lemma \ref{lem:well_posedness_smol_eq}. Then Lemma \ref{lem:derivative-existence-and-eq} states that for all $t \geq 0$,  $t \mapsto \varphi_t(\mu)$ is differentiable on $\MC_{\psi_3}(\RRP)$ with derivative that we denote by $\delta_\mu \varphi_t$. It also states that for all $\mu,z \in \MC_{\psi_3}(\RRP) \times \RRP$ the flow of measures $\Proc{\delta_\mu \varphi_t(\mu;z)}$ is the unique solution of some linearized formulation of the Smolochowski coagulation equation. All those results regarding the well-posedness of the solution to the $\SCE$ and the existence of its linear derivaitve are in Section \ref{section:well-posedness-SCE}. 
+\textbf{Lipschitz regularity}, the second category of important results are that both the solution of the Smolochowski equation enjoy Lipschitz regularity results with respect to the Wasserstein distance $W_{\psi_1} + W_{\psi_2}$, the main results regarding this regularity are given in Propositions \ref{prop:wass-sce},\ref{prop:wass-derivative} and \ref{prop:wass-final}. All those proofs are given in Section \ref{section:Wass-regularity}.
 
 
-
-For establishing our mains results we want to compare the stochastic coalescence process and the solution of the Smoluchovski coagulation equation. First some notations. We denote by $\varphi(t,\mu)$, $\Phi(t,\mu)$ respectively the solution of \SCE and the \SCN process started from $\mu$, let $\mu^N$ be an atomic measure.
-Our main theorems are based on the same relation below:
-\begin{align}\label{eq:semi-group-relation}
-\E{F(\Phi(t,\mu^N))} - F(\varphi\left(t,\mu\right)) = \int_0^t \E{\left(\LC^N - \LC\right)F\circ \varphi(s,.)\left(\Phi(t-s,\mu^N)\right)}\dd s.
-\end{align}
-We took inspiration from \cite{kolokoltsov2010central} that uses the same identity. We provide a proof of this relation in section \ref{section:semi_groups}.
-\begin{remark}
-    Inside the expectancy $F\circ \varphi(s,.)$ is the function defining for a fixed $s \geq 0$ by $\mu \mapsto F\left(\varphi(s,\mu)\right)$. Therefore we read the expression inside the expectancy as the operator $\LC^N - \LC$ applied to function $F\circ \varphi(s,.)$ yielding a function from $\MC(\RR^+) \to \RR $, the latter evaluated in the measure $\Phi(t-s,\mu^N)$.
-\end{remark}
+We split the workload in two theorems. In the first we compare the stochastic coalescence with the solution to the Smolochowski equation started from the same deterministic empirical measure $\mu^N$.
 \begin{theorem}\label{thm:samesame}
-    Assume $\alpha < 1$, $F$ is differentiable and, its flat derivative is uniformly bounded and Lipschitz in $\MC^{+}_{1}\left(\RR^{+,*},d_\alpha\right)$. Then for all $t\geq 0$:
+    Let $\mu^N$ be a (deterministic) empirical measure. We have for all $t \in [0,T]$:
     \begin{align*}
-        \E{F(\Phi(t,\mu^N))} - \E{F(\varphi\left(t,\mu^N\right))} \leq C_\alpha\frac{3}{N}\langle x^{-\alpha},\mu^N \rangle \left(3 Lip\left(\delta_\mu F\right) + \frac{t}{1 + t}\|\delta_\mu F\|_{\infty}\right)
+        \left| \E{F\left(\varphi_t(\mu^N)\right)} - F\left(\varphi_t(\mu^N)\right)\right| \leq \left\llbracket \delta_\mu F \right\rrbracket_{(\A)} \dfrac{C(T,\mu^N)}{N}.
     \end{align*}
 \end{theorem}
+Our proof is based on the following relation:
+\begin{align}\label{eq:semi-group-relation}
+\E{F(\Phi(t,\mu^N))} - F(\varphi\left(t,\mu^N\right)) = \int_0^t \E{\left(\LC^N - \LC\right)F\circ \varphi_s \left(\Phi_{t-s}(,\mu^N)\right)}\dd s.
+\end{align}
+It compares the infinitesimal generator of the rescaled stochastic coalescence process, $\LC^N$ and the one of the Smolochowski coagulation equation $\LC$. The expression reads operator $\LC^N - \LC$ applied to the function $\mu \mapsto F\circ \varphi_s(\mu)$ evaluated in the measure $\Phi_{t-s}(,\mu^N)$. This expression is proved in Section \ref{section:semigroups}. The second theorem compares the solution of the $\SCE$ initiated in a random empirical measure of law $\mu$ with the one started form $\mu$ itself.
 
 \begin{theorem}\label{thm:difdif}
-    Let $\Seq{X_n}$ be a sequence of $iid$ real random variables with law $\mu \in \MC^+_{\psi_3}(\RRP)$. Denote by $\mu^N$ the empirical measure:
+    % Let $\Seq{X_n}$ be a sequence of $iid$ real random variables with law $\mu \in \MC^+_{\psi_3}(\RRP)$. Denote by $\mu^N$ the empirical measure:
+    % \begin{align*}
+    %     \mu^N = \dfrac{1}{N} \sum\limits_{i = 1}^N \delta_{X_i}.
+    % \end{align*}
+    % We have for all $t \in [0,T]$:
+    Let $\mu^N$ be a random empirical measure of law $\mu \in \MC^+_{\psi_3}(\RRP)$. We have for all $t \in [0,T]$:
     \begin{align*}
-        \mu^N = \dfrac{1}{N} \sum\limits_{i = 1}^N \delta_{X_i}.
-    \end{align*}
-    We have for all $t \in [0,T]$:
-    \begin{align*}
-        \left| \E{F\left(\varphi_t(\mu^N)\right)} - F\left(\varphi_t(\mu)\right)\right| \leq \left\llbracket F \right\rrbracket_{W_{\psi_1}} \dfrac{C(T,\mu)}{N}.
+        \left| \E{F\left(\varphi_t(\mu^N)\right)} - F\left(\varphi_t(\mu)\right)\right| \leq \left\llbracket \delta_\mu F \right\rrbracket_{(\A)}  \dfrac{C(T,\mu)}{N}.
     \end{align*}
 \end{theorem}
-
-All results regarding the well-posedness of the solution to the $\SCE$ and the existence of its linear derivaitve are in Section \ref{section:well-posedness-SCE}.
-
-
-The necessary proofs of the Wasserstein regularity of the $\SCE$ and its derivative are given in Section \ref{section:Wass-regularity}.
-
 
 \section{Analysis in spaces of measures}\label{section:analysis-measures}
 
@@ -4218,7 +4218,7 @@ We present the following lemma stated and proved in appendix of \cite{kolokoltso
     Notice first that it suffices to prove the result for $\phi = 1$. Indeed consider a continuously differentiable mapping $t\mapsto \mu_t$ from $[0,T]$ to \(\left(\MC(E),\|.\|\right)\), with derivative equal to $t \mapsto\nu_t$. Then for a general $\phi > 0$ it suffices to apply the result to $\frac{f}{\phi}$ where $f$ is a positive function below $\phi$.
 \end{remark}
 
-\section{Semi-Groups}\label{section:semi_groups}
+\section{Semi-Groups}\label{section:semigroups}
 
 Let $\Proc{T_t}$ and $\Proc{\Tilde{T}_t}$ be two semi groups on a normed vector space $E$ of respective infinitesimal generators $L$ and $\tilde{L}$. Assume that $L$ is bounded in the sense that there exists a constant $C$ such that for all $F \in E$ 
 \begin{align*}
