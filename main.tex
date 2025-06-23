@@ -156,6 +156,11 @@ The result of this work is a convergence rate of obsevables. We give it informal
 
 The singular behavior of the kernel $K_\alpha$ motivates the use of a specific distance $d_\alpha$ adapted to this singularity. This distance reflects the dominant scaling of the kernel and plays a key role in the convergence analysis. A precise definition is given in Section~\ref{section-main-results}.
 
+In this work, we study the convergence of the stochastic coalescence process to the Smoluchowski coagulation equation. Our main quantitative result (Corollary~\ref{thm:main-result-2}) provides an explicit rate of convergence of order $N^{-1}$ for the expectation of observables when the initial condition is a random empirical measure. This improves upon classical pathwise bounds (which typically yield a $N^{-\frac{1}{2}}$ rate), at the cost of stronger integrability assumptions.
+
+To support this result, we first prove a more general deterministic bound (Theorem~\ref{thm:main-result}), which applies to arbitrary empirical initial conditions and controls the error using Wasserstein distances. While this theorem does not yield weak convergence in full generality, it plays a key role in the analysis of averaged behavior.
+
+
 \section{Definitions, assumptions and main results}\label{section-main-results}
 In this work, we describe the evolution of particle systems using measure-valued stochastic processes, and the Smoluchowski coagulation equation is formulated as an equation on measures. Elements of measure theory are given in Section~\ref{section:analysis-measures}. Among them the reader will find the definition of the Total Variation, the Radon-Nikodym derivaitve, the Hahn-Jordan decomposition and the Wasserstein distance and its extension beyond probability measures. If any ambiguity arises regarding the definitions or objects used below, we refer to that section for clarification.
 
@@ -488,7 +493,9 @@ When $F$ is differentiable the infinitesimal generator $\LC_{SC}$ can be express
 \end{proof}
 
 \subsection{Main result}
-In this section, we state the main assumptions and our central theorem, which provides a convergence rate for observables of the rescaled stochastic coalescence process to those of the unique solution of the Smoluchowski coagulation equation. While the theorem does not establish weak convergence—due to the restricted class of functionals considered—it is particularly relevant in applications where we are primarily interested in expected values of functionals of the process. Another interesting feature is that unlike pathwise bounds that give a convergence rate of $N^{-\frac{1}{2}}$ see \cite{cepedaSmoluchowskisEquationRate2011a} this gives us $N^{-1}$.
+In this section, we state the main assumptions and results. The first theorem provides a bound on the difference between observables when the stochastic coalescence process is started from a general empirical measure. The bound depends on the Wasserstein distance between the two initial measures. While the result does not establish weak convergence—due to the restricted class of functionals considered—it is particularly relevant in applications where we are primarily interested in expected values of functionals of the process.
+
+The second result is a corollary, where the stochastic coalescence is initialized with a random empirical measure distributed according to a law $\mu$, and the Smoluchowski coagulation equation is started from the same law $\mu$. A particularly interesting feature of this result is that, unlike pathwise bounds which typically yield a convergence rate of $N^{-\frac{1}{2}}$ (see \cite{cepedaSmoluchowskisEquationRate2011a}), this result achieves a rate of $N^{-1}$. However, the cost of this sharper bound is the assumption of exponential moments of order $2$, as we need to control terms that depend exponentially on the random empirical measure and ensure that their expected value remains finite. We believe that this requirement is not optimal, and we discuss potential improvements in the conclusion.
 \subsubsection*{Assumptions on $F$}
 
 We say that a function \(F : \MC^+_{\psi_1}(\RRP) \to \RR\) satisfies assumptions \(\A\) if it admits a flat derivative \(\delta_\mu F : \MC^+_{\psi_1}(\RRP) \times \RRP \to \RR\) such that there exists a constant \(C > 0\) for which, for all \(\mu, \tilde{\mu} \in \MC^+_{\psi_1}(\RRP)\) and \(z, z_1, z_2 \in \RRP\), the following hold:
@@ -503,47 +510,105 @@ The infimum of all constants \(C > 0\) for which the above inequalities hold is 
 
 \subsubsection*{Main result}
 
+Let $\mu^N$ be an empirical measure. We denote by \(\Proc{\Phi_t(\mu^N)}\) the rescaled stochastic coalescence process started from \(\mu^N\) with kernel \(K_\alpha\), and by \(\Proc{\varphi_t(\mu)}\) the unique solution to the Smoluchowski coagulation equation started from \(\mu\) with the same kernel \(K_\alpha\). We now state the main theorem of this work.
 
-For an empirical measure $\mu^N$ let \(\Proc{\Phi_t(\mu^N)}\) denote the rescaled stochastic coalescence started from \(\mu^N\) with kernel \(K_\alpha\), and \(\Proc{\varphi_t(\mu)}\) be the unique solution to the Smoluchowski coagulation equation started from \(\mu\) and kernel \(K_\alpha\).
 \begin{theorem}\label{thm:main-result}
-    For some $\kappa > 0$, let \(\mu \in \MC^+_{\psi_{4 + \kappa}}(\RRP)\) be a probability measure, and let \(\mu^N\) be the random empirical measure of \(N\) i.i.d. random variables with law \(\mu\):
-    \[
-        \mu^N = \frac{1}{N} \sum_{n = 1}^N \delta_{X_n}, \quad X_1, \dots, X_N \sim \mu \text{ i.i.d.}
-    \]
-    For any function \(F : \MC^+_{\psi_1}(\RRP) \to \RR\) satisfying \(\A\), and for all \(t \in [0, T]\), we have:
-    \[
-    \left| \vphantom{A^2}\mathbb{E}\left[F\left(\Phi_t\left(\mu^N\right)\right)\right] - F\left(\varphi_t(\mu)\right) \right| \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A}  \frac{C\left(T, \|\mu\|, \|\mu\|_{\psi_1}, \|\mu\|_{\psi_2},\|\mu\|_{\psi_{4 + \kappa}}\right)}{N}.
-    \]
+    Let $\mu^N$ be a deterministic empirical measure and let $\mu \in \MC_{\psi_3}(\RRP)$. Then for all $t \in [0,T]$:
+    \begin{multline*}
+        \left| \mathbb{E}\left[F\left(\Phi_t\left(\mu^N\right)\right)\right] - F\left(\varphi_t(\mu)\right) \right| \\
+        \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A} \left( \frac{C(T,\mu^N)}{N} + C(T,\mu + \mu^N)\left(W_{\psi_1}\left(\mu,\mu^N\right) + W_{\psi_2}\left(\mu,\mu^N\right) \right)^2\right) \\
+        + \int_{\RRP} \left\langle \delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\mu;z \right) \right\rangle \left(\mu^N - \mu\right)(\dd z).
+    \end{multline*}
+    where the constant $C$ is of the form:
+    \begin{align*}
+        C(T,\mu) = P(T,\|\mu\|_{\psi_1},\|\mu\|_{\psi_2},\|\mu\|_{\psi_3})\, e^{C_1T(1 + T)\|\mu\|_{\psi_2}},
+    \end{align*}
+    and $P$ is a polynomial.
 \end{theorem}
 
-The requirement $4 + \kappa$ arises solely from the need to apply the Corollary of Fournier-Guillin's theorem \ref{cor:fournier_guillin} to $W_{\psi_2}\left(\mu^N,\mu\right)$. It could be possible that the required moments are not optimal.
+The main appeal of this result is that it provides nearly optimal conditions on the integrability of $\mu$. In particular, the assumption $\mu \in \MC_{\psi_2}(\RRP)$ is believed to be optimal for the existence and uniqueness of solutions to the Smoluchowski coagulation equation (see \cite{norris1999smoluchowski}). We also believe that the stronger assumption $\mu \in \MC_{\psi_3}(\RRP)$ is optimal for the existence of the derivative, which is necessary to define the generator of the $\SCE$.
+
+However, to achieve the convergence rate of $1/N$, we are forced to assume stronger integrability conditions on $\mu$. We define the following space:
+\begin{align*}
+    \MC^+_{e^{\psi_2}}(\RRP) = \left\lbrace \mu \in \MC^+(\RRP) \,\middle|\, \int_{\RRP} e^{x^{-2\alpha}} \mu(\dd x) < \infty \right\rbrace.
+\end{align*}
+The necessity of this condition appears in the proof of Lemma~\ref{lem:boudning-constant-empirical}, and stems from the form of the constant in the theorem above. Specifically, in order to ensure that $\mathbb{E}[C(T,\mu^N)]$ is finite, this exponential moment condition is required.
+
+\begin{corollary}\label{thm:main-result-2}
+    Let $\mu \in \MC^+_{e^{\psi_2}}(\RRP)$ be a probability measure. Fix a time horizon $T > 0$. Then there exists an integer $N_T = C_1T(1 + T)$ such that for all $N \geq N_T$ and for any function \(F : \MC^+_{\psi_1}(\RRP) \to \RR\) satisfying assumption \(\A\), and for all \(t \in [0, T]\), we have:
+    \[
+    \left| \mathbb{E}\left[F\left(\Phi_t\left(\mu^N\right)\right)\right] - F\left(\varphi_t(\mu)\right) \right| \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A}  \frac{C\left(T, \mu\right)}{N}.
+    \]
+    The constant $C$ is of the form:
+    \begin{align*}
+        C(T,\mu) = P(T,\|\mu\|_{\psi_1},\|\mu\|_{\psi_2},\|\mu\|_{\psi_3})\, e^{CT(1 + T)\|\mu\|_{\psi_2}} + \|\mu\|_{e^{\psi_2}}^{C(1 + T^2)},
+    \end{align*}
+    where $P$ is a polynomial.
+\end{corollary}
+
+\begin{remark}
+    The constant $C_1$ appearing in the threshold $N_T = C_1T(1 + T)$ is the same as the one appearing in the constant of Theorem~\ref{thm:main-result}.
+\end{remark}
+
+
 
 \subsection{Proof outline and strategies}
-The proof relies on sevreal key results that can be split in two categories. \textbf{Well-posedness and differentiability}, the first is the existence and uniqueness of the solutions to the $\SCE$ in Lemma \ref{lem:well_posedness_smol_eq}. Then Lemma \ref{lem:derivative-existence-and-eq} states that for all $t \geq 0$,  $t \mapsto \varphi_t(\mu)$ is differentiable on $\MC_{\psi_3}(\RRP)$ with derivative that we denote by $\delta_\mu \varphi_t$. It also states that for all $\mu,z \in \MC_{\psi_3}(\RRP) \times \RRP$ the flow of measures $\Proc{\delta_\mu \varphi_t(\mu;z)}$ is the unique solution of some linearized formulation of the Smolochowski coagulation equation. All those results regarding the well-posedness of the solution to the $\SCE$ and the existence of its linear derivaitve are in Section \ref{section:well-posedness-SCE}. \textbf{Lipschitz regularity}, the second category of important results are that both the solution of the Smolochowski equation enjoy Lipschitz regularity results with respect to the Wasserstein distance $W_{\psi_1} + W_{\psi_2}$, the main results regarding this regularity are given in Propositions \ref{prop:wass-sce},\ref{prop:wass-derivative} and \ref{prop:wass-final}. All those proofs are given in Section \ref{section:Wass-regularity}.
+The proof of our main result relies on several key intermediate results, which naturally fall into two categories:
 
+\textbf{1. Well-posedness and differentiability.} The starting point is the existence and uniqueness of solutions to the $\SCE$, stated in Lemma~\ref{lem:well_posedness_smol_eq}. Then, Lemma~\ref{lem:derivative-existence-and-eq} establishes that for all $t \geq 0$, the map $\mu \mapsto \varphi_t(\mu)$ is differentiable on $\MC_{\psi_3}(\RRP)$, with derivative denoted by $\delta_\mu \varphi_t$. Moreover, for all $\mu \in \MC_{\psi_3}(\RRP)$ and $z \in \RRP$, the flow $\Proc{\delta_\mu \varphi_t(\mu;z)}$ solves a linearized form of the $\SCE$. These results are collected in Section~\ref{section:well-posedness-SCE}.
 
-We split the main result in two theorems. In the first we compare the stochastic coalescence with the solution to the Smolochowski equation started from the same deterministic empirical measure $\mu^N$.
+\textbf{2. Lipschitz regularity.} The second group of results concerns stability of the $\SCE$ with respect to Wasserstein distances. In particular, both the solution $\varphi_t(\mu)$ and its linear derivative $\delta_\mu \varphi_t$ satisfy Lipschitz bounds with respect to the distance $W_{\psi_1} + W_{\psi_2}$. These are proved in Propositions~\ref{prop:wass-sce}, \ref{prop:wass-derivative}, and \ref{prop:wass-final}, and are detailed in Section~\ref{section:Wass-regularity}.
+
+\medskip
+
+\textbf{Proof strategy overview.} The proof of the main convergence result is split into two theorems, reflecting two distinct sources of error:
+
+\begin{itemize}
+    \item In Theorem~\ref{thm:samesame}, we compare the stochastic coalescence process with the deterministic solution to the $\SCE$ started from the same empirical measure $\mu^N$. This isolates the stochastic fluctuations and yields a $1/N$ convergence rate.
+    \item In Theorem~\ref{thm:difdif}, we compare two deterministic trajectories: the solution to the $\SCE$ started from $\mu^N$ and the one started from the true law $\mu$. This captures the deterministic approximation error due to discretization of the initial condition.
+\end{itemize}
+
+These two ingredients are then combined to prove the corollary stated in the introduction.
+
+\medskip
+
+We begin with the comparison between the stochastic coalescence process and the deterministic $\SCE$ solution.
+
 \begin{theorem}\label{thm:samesame}
-    Let $\mu^N$ be a (deterministic) empirical measure. We have for all $t \in [0,T]$:
+    Let $\mu^N$ be a (deterministic) empirical measure. Then for all $t \in [0,T]$, we have:
     \begin{align*}
-        \left| \E{F\left(\varphi_t(\mu^N)\right)} - F\left(\varphi_t(\mu^N)\right)\right| \leq \left\llbracket \delta_\mu F \right\rrbracket_{(\A)} \dfrac{C(T,\mu^N)}{N}.
+        \left| \mathbb{E}\left[F\left(\Phi_t(\mu^N)\right)\right] - F\left(\varphi_t(\mu^N)\right) \right| 
+        \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A} \dfrac{C(T,\mu^N)}{N}.
     \end{align*}
+    The constant $C$ is of the form:
+    \begin{align*}
+        C(T,\mu^N) = P\left(T,\|\mu^N\|_{\psi_1},\|\mu^N\|_{\psi_2},\|\mu^N\|_{\psi_3}\right) 
+        \cdot e^{CT(1 + T)\|\mu^N\|_{\psi_2}}.
+    \end{align*}
+    where $P$ is a polynomial and $C > 0$ is universal.
 \end{theorem}
-Our proof is based on the following relation, we took inspiration from \cite{kolokoltsov2010central} that uses it in his proof of a central limit theorem.
+
+Our proof is based on the following semigroup representation identity, inspired by \cite{kolokoltsov2010central}, which is central to controlling the difference in expectations:
 \begin{align}\label{eq:semi-group-relation}
-\E{F(\Phi(t,\mu^N))} - F(\varphi\left(t,\mu^N\right)) = \int_0^t \E{\left(\LC^N - \LC\right)F\circ \varphi_s \left(\Phi_{t-s}(,\mu^N)\right)}\dd s.
+    \mathbb{E}\left[F(\Phi_t(\mu^N))\right] - F(\varphi_t(\mu^N)) 
+    = \int_0^t \mathbb{E}\left[\left(\LC^N - \LC\right)F\circ \varphi_s\left(\Phi_{t-s}(\mu^N)\right)\right]\, \mathrm{d}s.
 \end{align}
-It compares the infinitesimal generator of the rescaled stochastic coalescence process, $\LC^N$ and the one of the Smolochowski coagulation equation $\LC$. The expression reads operator $\LC^N - \LC$ applied to the function $\mu \mapsto F\circ \varphi_s(\mu)$ evaluated in the measure $\Phi_{t-s}(,\mu^N)$. This expression is proved in Section \ref{section:semigroups}. The second theorem compares the solution of the $\SCE$ initiated in a random empirical measure of law $\mu$ with the one started form $\mu$ itself.
+Here, $\LC^N$ and $\LC$ denote the infinitesimal generators of the stochastic coalescence process and the $\SCE$, respectively. The operator $\LC^N - \LC$ acts on the time-evolved test function $\mu \mapsto F(\varphi_s(\mu))$. This representation is rigorously justified in Section~\ref{section:semigroups}.
+
+\medskip
+
+We now turn to the deterministic comparison between two solutions to the $\SCE$ started from $\mu^N$ and $\mu$.
 
 \begin{theorem}\label{thm:difdif}
-    % Let $\Seq{X_n}$ be a sequence of $iid$ real random variables with law $\mu \in \MC^+_{\psi_3}(\RRP)$. Denote by $\mu^N$ the empirical measure:
-    % \begin{align*}
-    %     \mu^N = \dfrac{1}{N} \sum\limits_{i = 1}^N \delta_{X_i}.
-    % \end{align*}
-    % We have for all $t \in [0,T]$:
-    Let $\mu^N$ be a random empirical measure of law $\mu \in \MC^+_{\psi_3}(\RRP)$. We have for all $t \in [0,T]$:
+    Let $\mu^N$ be a deterministic empirical measure and let $\mu \in \MC^+_{\psi_3}(\RRP)$. Then for all $t \in [0,T]$:
     \begin{align*}
-        \left| \E{F\left(\varphi_t(\mu^N)\right)} - F\left(\varphi_t(\mu)\right)\right| \leq \left\llbracket \delta_\mu F \right\rrbracket_{(\A)}  \dfrac{C(T,\mu)}{N}.
+        \left| F\left(\varphi_t(\mu^N)\right) - F\left(\varphi_t(\mu)\right) \right|
+        \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A} \cdot C(T,\mu + \mu^N) \cdot \left(W_{\psi_1}(\mu^N,\mu) + W_{\psi_2}(\mu^N,\mu)\right).
+    \end{align*}
+    The constant $C$ is of the same form as in Theorem~\ref{thm:samesame}:
+    \begin{align*}
+        C(T,\mu) = P\left(T,\|\mu\|_{\psi_1},\|\mu\|_{\psi_2},\|\mu\|_{\psi_3}\right) 
+        \cdot e^{CT(1 + T)\|\mu\|_{\psi_2}}.
     \end{align*}
 \end{theorem}
 
@@ -2262,7 +2327,7 @@ Next, we provide a key comparison estimate between derivatives corresponding to 
     \end{enumerate}
     The constant $C$ is of the form:
     \begin{align*}
-        C(T,\nu) = P(T,\|\mu\|,\|\mu\|_{\psi_1},\|\mu\|_{\psi_2},\|\mu\|_{\psi_3}) e^{CT\|\mu\|_{\psi_2}(1 + T\|\mu\|)}.
+        C(T,\nu) = P(T,\|\nu\|,\|\nu\|_{\psi_1},\|\nu\|_{\psi_2},\|\nu\|_{\psi_3}) e^{CT\|\nu\|_{\psi_2}(1 + T\|\mu\|)}.
     \end{align*}
     where $P$ is a polynomial.
 \end{proposition}
@@ -3595,186 +3660,186 @@ We rely on the definition of $W_1$ as the infimum on coupling measures and defin
 The intuition of this equation comes from the stochastic counterpart, when writing the stochastic coalescence as an  integral on Poisson random measure an expression similar appears see \cite{fournier2004convergence}. This equation can be break down into $3$ parts, in the first one we coalesce both parts at rate given by the minimal value of both kernels, intuitively the first of both marginals to coalesce makes the couple coalesce. The second and third part are symmetric and deal with the marginal that was "late" and only coalesces that one.
 
 \newpage
-\section{Stochastic coalescence}
-The stochastic coalescence is a process representing a collection of particles characterized by a positive value called mass. Each couple of particles of mass $x,y$ has a probability to merge in an interval of time $[t, t + \dd t]$ of first order equal to $K_{\alpha}(x,y)\dd t$. Assume we have initially $N$ particles with masses $x_{1},\cdots,x_{N}$. Consider $N(N-1)/2$ independent exponential random variables:
-\begin{align*}
-    \left\lbrace T_{i,j} \sim \mathcal{E}\left(K_{\alpha}(x_{i},x_{j})\right), 1 \leq i < j \leq N \right\rbrace.
-\end{align*}
-Each random variable represents the time taken by the corresponding couple to coalesce. The first coalescence to happen is the fastest one, in other words the minimum of the previous set that we denote $T_1$. By property of exponential laws $T_1$ is itself an exponential variable of parameter:
-\begin{align*}
-    \sum\limits_{1 \leq i < j \leq N}K_{\alpha}(x_{i},x_{j}).
-\end{align*}
-We denote by $i^*,j^*$ the couple achieving this minima, at time $T_1$, $N-1$ particles remain and the process is at state $x_{1},\cdots , x_{i^*}+x_{j^*},\cdots$. We repeat this operation until there is a single particle left with mass equal to $\sum\limits x_i$. We choose to represent this process by a sum of Dirac masses, so that if there is $N_t$ particles at time $t\geq 0$ of masses $X_{1,t},\cdots,X_{N_t,t}$ the stochastic coalescence process has value:
-\begin{align*}
-    M_t = \sum\limits_{i = 1}^{N_t} \delta_{X_{i,t}}.
-\end{align*}
+% \section{Stochastic coalescence}
+% The stochastic coalescence is a process representing a collection of particles characterized by a positive value called mass. Each couple of particles of mass $x,y$ has a probability to merge in an interval of time $[t, t + \dd t]$ of first order equal to $K_{\alpha}(x,y)\dd t$. Assume we have initially $N$ particles with masses $x_{1},\cdots,x_{N}$. Consider $N(N-1)/2$ independent exponential random variables:
+% \begin{align*}
+%     \left\lbrace T_{i,j} \sim \mathcal{E}\left(K_{\alpha}(x_{i},x_{j})\right), 1 \leq i < j \leq N \right\rbrace.
+% \end{align*}
+% Each random variable represents the time taken by the corresponding couple to coalesce. The first coalescence to happen is the fastest one, in other words the minimum of the previous set that we denote $T_1$. By property of exponential laws $T_1$ is itself an exponential variable of parameter:
+% \begin{align*}
+%     \sum\limits_{1 \leq i < j \leq N}K_{\alpha}(x_{i},x_{j}).
+% \end{align*}
+% We denote by $i^*,j^*$ the couple achieving this minima, at time $T_1$, $N-1$ particles remain and the process is at state $x_{1},\cdots , x_{i^*}+x_{j^*},\cdots$. We repeat this operation until there is a single particle left with mass equal to $\sum\limits x_i$. We choose to represent this process by a sum of Dirac masses, so that if there is $N_t$ particles at time $t\geq 0$ of masses $X_{1,t},\cdots,X_{N_t,t}$ the stochastic coalescence process has value:
+% \begin{align*}
+%     M_t = \sum\limits_{i = 1}^{N_t} \delta_{X_{i,t}}.
+% \end{align*}
 
-We give a formal definition as an integral on a Poisson random measure taken from \cite{fournier2006some,fournierStochasticCoalescenceHomogeneouslike2009}. First of we denote $D\left([0,T]: \XF\right)$ the sapce of cadlàg functions from $[0,T]$ to $\XF$ where $\XF$ is Polish. We equip it with the $J_1$-Skorohod topology. Let us denote by $\MC_p^+(\RRP)$ the set of finite point measures on $\RRP$ namely:
-\begin{align*}
-    \MC_p^+(\RRP) = \left\lbrace \sum\limits_{i = 1}^N \delta_{x_i}\  \middle|\  N\in \NN,\  (x_1,\cdots,x_N) \in \RRP \right\rbrace. 
-\end{align*}
-\begin{definition}
-    Let $\NC$ be random Poisson measure on $\RR^+ \times \RR^+ \times \NN^2$ with intensity $\dd s \times \dd z \times d(i,j)$ where $d(i,j) = \sum\limits_{i < j} \delta_{i,j}$. Let $K$ be a kernel, $\mu^N \in \MC_p^+(\RRP)$ a finite sum of Dirac masses. We call stochastic coalescence (\SC) process the solution of the following $SDE$:
-    \begin{multline*}
-        M_t = \mu^N + \int_0^t \int_0^\infty \int_{1 \leq i <j }  \indic{z \leq K_{\alpha}X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}} \\ \times \left(\delta_{X_{i}(s-) + X_{j}(s-)} - \delta_{X_{i}(s-)} - \delta_{X_{j}(s-)}\right)\mathcal{N}(ds,dz,d(i,j)).
-    \end{multline*}
-    where $N_t$ is the number of clusters at time $t$: $N_t = \langle 1 , M_t\rangle$.
-\end{definition}
-The kernels considered $K_\alpha$ is finite on $\RRP$. Furthermore the masses in the stochastic coalescence only increase let us call $x_0$ the smallest mass in the initial data $\mu^N$. For all $t \geq 0$ and $i,j$ we have $K_\alpha(X_{i}(s-),X_{j}(s-)) \leq 2x_0^{-\alpha}$. Finally $N_t$ is non-increasing it comes that for all bounded $f$:
-\begin{multline*}
-    \mathbb{E} \left[ \int_0^t \int_0^\infty \int_{1 \leq i <j }  \indic{z \leq K_{\alpha}X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}}\right. \\
-    \left. \times   \left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right]\mathcal{N}(ds,dz,d(i,j)) \vphantom{\int_0^t \int_0^\infty \int_{i <j } }\right] \\
-    = \int_0^t \E{\sum\limits_{1 \leq i< j \leq N_{s-}} K_{\alpha}X_{i}(s-),X_{j}(s-))\left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right] } \dd s \\
-    \leq t 3\|f\|_{\infty}\dfrac{N(N-1)}{2} \times 2 x_0^{-\alpha} .
-\end{multline*}
+% We give a formal definition as an integral on a Poisson random measure taken from \cite{fournier2006some,fournierStochasticCoalescenceHomogeneouslike2009}. First of we denote $D\left([0,T]: \XF\right)$ the sapce of cadlàg functions from $[0,T]$ to $\XF$ where $\XF$ is Polish. We equip it with the $J_1$-Skorohod topology. Let us denote by $\MC_p^+(\RRP)$ the set of finite point measures on $\RRP$ namely:
+% \begin{align*}
+%     \MC_p^+(\RRP) = \left\lbrace \sum\limits_{i = 1}^N \delta_{x_i}\  \middle|\  N\in \NN,\  (x_1,\cdots,x_N) \in \RRP \right\rbrace. 
+% \end{align*}
+% \begin{definition}
+%     Let $\NC$ be random Poisson measure on $\RR^+ \times \RR^+ \times \NN^2$ with intensity $\dd s \times \dd z \times d(i,j)$ where $d(i,j) = \sum\limits_{i < j} \delta_{i,j}$. Let $K$ be a kernel, $\mu^N \in \MC_p^+(\RRP)$ a finite sum of Dirac masses. We call stochastic coalescence (\SC) process the solution of the following $SDE$:
+%     \begin{multline*}
+%         M_t = \mu^N + \int_0^t \int_0^\infty \int_{1 \leq i <j }  \indic{z \leq K_{\alpha}X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}} \\ \times \left(\delta_{X_{i}(s-) + X_{j}(s-)} - \delta_{X_{i}(s-)} - \delta_{X_{j}(s-)}\right)\mathcal{N}(ds,dz,d(i,j)).
+%     \end{multline*}
+%     where $N_t$ is the number of clusters at time $t$: $N_t = \langle 1 , M_t\rangle$.
+% \end{definition}
+% The kernels considered $K_\alpha$ is finite on $\RRP$. Furthermore the masses in the stochastic coalescence only increase let us call $x_0$ the smallest mass in the initial data $\mu^N$. For all $t \geq 0$ and $i,j$ we have $K_\alpha(X_{i}(s-),X_{j}(s-)) \leq 2x_0^{-\alpha}$. Finally $N_t$ is non-increasing it comes that for all bounded $f$:
+% \begin{multline*}
+%     \mathbb{E} \left[ \int_0^t \int_0^\infty \int_{1 \leq i <j }  \indic{z \leq K_{\alpha}X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}}\right. \\
+%     \left. \times   \left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right]\mathcal{N}(ds,dz,d(i,j)) \vphantom{\int_0^t \int_0^\infty \int_{i <j } }\right] \\
+%     = \int_0^t \E{\sum\limits_{1 \leq i< j \leq N_{s-}} K_{\alpha}X_{i}(s-),X_{j}(s-))\left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right] } \dd s \\
+%     \leq t 3\|f\|_{\infty}\dfrac{N(N-1)}{2} \times 2 x_0^{-\alpha} .
+% \end{multline*}
 
-\begin{proposition}
-    The process $\Proc{M_t}$  is a Markov process with values in $\MC_p^+(\RRP)$ and has infinitesimal generator:
-    \begin{align*}
-        \LC F\left(\mu := \sum\limits_{k = 1}^n\delta_{x_k} \right) = \sum\limits_{1\le i <j \le n} K_{\alpha}(x_i,x_j) \left[F\left(\mu + \delta_{x_i + x_j} - \delta_{x_i} -\delta_{x_j}\right) - F(\mu)\right].
-    \end{align*}
-    which can be rewritten:
-    \begin{multline*}
-        \LC F(\mu) = \int_{\RR^+ \times \RR^+} K_{\alpha}(x,y)\left[ F\left(\mu + \delta_{x+y} - \delta_x - \delta_y \right) - F(\mu) \right]\mu(dx)\mu(dy) \\
-        -\int_{\RR^+} K_{\alpha}(x,x)\left[ F\left(\mu + \delta_{2x} - 2\delta_x \right) - F(\mu) \right]\mu(dx).
-    \end{multline*}
-\end{proposition}
-\begin{proof}
-    The Markov property comes from the $SDE$ formulation. Let $F$ be a map from $\MC_p^+(\RRP)$ to $\RR$, $t \geq 0$, by Ito's formula for jumping processes:
-    \begin{align*}
-        \E{F(M_t)} = F(\mu^N) + \int_0^t \E{\LC F\left(M_s\right)} \dd s.
-    \end{align*}
-\end{proof}
-\begin{remark}
-    The second expression can be conveniently extended to any measure with finite order $-\alpha$ moment $\MC_{\psi_1}^+(\RRP)$.
-\end{remark}
+% \begin{proposition}
+%     The process $\Proc{M_t}$  is a Markov process with values in $\MC_p^+(\RRP)$ and has infinitesimal generator:
+%     \begin{align*}
+%         \LC F\left(\mu := \sum\limits_{k = 1}^n\delta_{x_k} \right) = \sum\limits_{1\le i <j \le n} K_{\alpha}(x_i,x_j) \left[F\left(\mu + \delta_{x_i + x_j} - \delta_{x_i} -\delta_{x_j}\right) - F(\mu)\right].
+%     \end{align*}
+%     which can be rewritten:
+%     \begin{multline*}
+%         \LC F(\mu) = \int_{\RR^+ \times \RR^+} K_{\alpha}(x,y)\left[ F\left(\mu + \delta_{x+y} - \delta_x - \delta_y \right) - F(\mu) \right]\mu(dx)\mu(dy) \\
+%         -\int_{\RR^+} K_{\alpha}(x,x)\left[ F\left(\mu + \delta_{2x} - 2\delta_x \right) - F(\mu) \right]\mu(dx).
+%     \end{multline*}
+% \end{proposition}
+% \begin{proof}
+%     The Markov property comes from the $SDE$ formulation. Let $F$ be a map from $\MC_p^+(\RRP)$ to $\RR$, $t \geq 0$, by Ito's formula for jumping processes:
+%     \begin{align*}
+%         \E{F(M_t)} = F(\mu^N) + \int_0^t \E{\LC F\left(M_s\right)} \dd s.
+%     \end{align*}
+% \end{proof}
+% \begin{remark}
+%     The second expression can be conveniently extended to any measure with finite order $-\alpha$ moment $\MC_{\psi_1}^+(\RRP)$.
+% \end{remark}
 
-We are interested in initial measures of the type:
-\begin{align*}
-    \mu^N = \sum\limits_{i = 1}^N \delta_{X_i}.
-\end{align*}
-Where $\Seq{X_n}$ is a sequence of independent random variables. We want to show the following limit in some sense that will be cleared later:
-\begin{align*}
-   (M^N_t)_{t\ge 0} := \frac{1}{N} \Proc{M_{N^{-1}t}} \xrightarrow[N \to \infty]{} \Proc{\mu_t} 
-\end{align*}
-where $\Proc{\mu_t} $ is the solution of the Smoluchowski Coagulation equation started from:
-\begin{align*}
-    \mu = \lim\limits_{N \to \infty} \dfrac{1}{N}\mu^N.
-\end{align*}
-\begin{proposition}
-    The process $\Proc{M^N_{t}}$ has infinitesimal generator:
-    \begin{multline*}
-        \LC^N F(\mu) = N\int_{\RR^+ \times \RR^+} K_{\alpha}(x,y)\left[ F\left(\mu + \frac{1}{N}\left(\delta_{x+y} - \delta_x - \delta_y\right) \right) - F(\mu) \right]\mu(dx)\mu(dy) \\
-        -\int_{\RR^+} K_{\alpha}(x,x)\left[ F\left(\mu + \frac{1}{N}\left(\delta_{2x} - 2\delta_x\right) \right) - F(\mu) \right]\mu(dx).
-    \end{multline*}
-\end{proposition}
-\begin{proof}
-    Let $t \geq 0$, $F(M^N_t) = F^N(M_{\frac{t}{N}})$ where,
-    \begin{align*}
-        F^N(\mu) = F\left(\dfrac{1}{N}\mu\right).
-    \end{align*}
-    We have:
-    \begin{align*}
-        \dfrac{\dd}{\dd t}\E{F(M^N_t)}  = \dfrac{1}{N}\E{\LC F^N\left(M_{\frac{t}{N}}\right)} =  \E{\LC^N F(M^N_t)}.
-    \end{align*}
-\end{proof}
+% We are interested in initial measures of the type:
+% \begin{align*}
+%     \mu^N = \sum\limits_{i = 1}^N \delta_{X_i}.
+% \end{align*}
+% Where $\Seq{X_n}$ is a sequence of independent random variables. We want to show the following limit in some sense that will be cleared later:
+% \begin{align*}
+%    (M^N_t)_{t\ge 0} := \frac{1}{N} \Proc{M_{N^{-1}t}} \xrightarrow[N \to \infty]{} \Proc{\mu_t} 
+% \end{align*}
+% where $\Proc{\mu_t} $ is the solution of the Smoluchowski Coagulation equation started from:
+% \begin{align*}
+%     \mu = \lim\limits_{N \to \infty} \dfrac{1}{N}\mu^N.
+% \end{align*}
+% \begin{proposition}
+%     The process $\Proc{M^N_{t}}$ has infinitesimal generator:
+%     \begin{multline*}
+%         \LC^N F(\mu) = N\int_{\RR^+ \times \RR^+} K_{\alpha}(x,y)\left[ F\left(\mu + \frac{1}{N}\left(\delta_{x+y} - \delta_x - \delta_y\right) \right) - F(\mu) \right]\mu(dx)\mu(dy) \\
+%         -\int_{\RR^+} K_{\alpha}(x,x)\left[ F\left(\mu + \frac{1}{N}\left(\delta_{2x} - 2\delta_x\right) \right) - F(\mu) \right]\mu(dx).
+%     \end{multline*}
+% \end{proposition}
+% \begin{proof}
+%     Let $t \geq 0$, $F(M^N_t) = F^N(M_{\frac{t}{N}})$ where,
+%     \begin{align*}
+%         F^N(\mu) = F\left(\dfrac{1}{N}\mu\right).
+%     \end{align*}
+%     We have:
+%     \begin{align*}
+%         \dfrac{\dd}{\dd t}\E{F(M^N_t)}  = \dfrac{1}{N}\E{\LC F^N\left(M_{\frac{t}{N}}\right)} =  \E{\LC^N F(M^N_t)}.
+%     \end{align*}
+% \end{proof}
 
-\begin{remark}
-   When the initial masses are integers, this rescaled process corresponds to the Marcus-Lushnikov process \cite{marcus1968stochastic,lushnikov1978coagulation}. It was originally made as a stochastic approximation of the Smoluchovski Coagulation equation.
-\end{remark}
-When $F$ has a flat derivaitve the previous expression can be expressed in terms of the flat derivative of $F$
-\begin{proposition}\label{prop:SC_gen_differentiable}
-    Consider a functional $F \in C^1(\MC_{\psi_1}^+\left(\RRP \right):\RR)$ we have for all integers $N$:
-    \begin{multline*}
-        \LC^N F(\mu) = \int_0^1 \int_{\RR^+ \times \RR^+} K_{\alpha}(x,y)\left\langle  \delta_\mu F\left(\mu + \frac{\lambda}{N}\left(\delta_{x + y} - \delta_x - \delta_y \right),.\right),\delta_{x+y} - \delta_x - \delta_y\right\rangle\mu(dx)\mu(dy)d\lambda \\
-        -\dfrac{1}{N}\int_0^1\int_{\RR^+} K_{\alpha}(x,x)\left\langle  \delta_\mu F\left(\mu + \frac{\lambda}{N}\left(\delta_{2x} - 2\delta_x \right),.\right),\delta_{2x} - 2\delta_x \right\rangle\mu(dx)d\lambda.
-    \end{multline*}
-\end{proposition}
-\begin{proof}
-    Immediate by the definition of the flat derivaitve and because for all $\mu \in \MC_{\psi_1}^+\left(\RRP \right)$ and $x,y \in \RRP$, measures $\mu + \frac{1}{N}\left(\delta_{x + y} - \delta_x - \delta_y\right)$ and $\mu + \frac{1}{N}\left(\delta_{2x} - 2\delta_x \right)$ are in $\MC_{\psi_1}\left(\RRP \right)$.
-\end{proof}
+% \begin{remark}
+%    When the initial masses are integers, this rescaled process corresponds to the Marcus-Lushnikov process \cite{marcus1968stochastic,lushnikov1978coagulation}. It was originally made as a stochastic approximation of the Smoluchovski Coagulation equation.
+% \end{remark}
+% When $F$ has a flat derivaitve the previous expression can be expressed in terms of the flat derivative of $F$
+% \begin{proposition}\label{prop:SC_gen_differentiable}
+%     Consider a functional $F \in C^1(\MC_{\psi_1}^+\left(\RRP \right):\RR)$ we have for all integers $N$:
+%     \begin{multline*}
+%         \LC^N F(\mu) = \int_0^1 \int_{\RR^+ \times \RR^+} K_{\alpha}(x,y)\left\langle  \delta_\mu F\left(\mu + \frac{\lambda}{N}\left(\delta_{x + y} - \delta_x - \delta_y \right),.\right),\delta_{x+y} - \delta_x - \delta_y\right\rangle\mu(dx)\mu(dy)d\lambda \\
+%         -\dfrac{1}{N}\int_0^1\int_{\RR^+} K_{\alpha}(x,x)\left\langle  \delta_\mu F\left(\mu + \frac{\lambda}{N}\left(\delta_{2x} - 2\delta_x \right),.\right),\delta_{2x} - 2\delta_x \right\rangle\mu(dx)d\lambda.
+%     \end{multline*}
+% \end{proposition}
+% \begin{proof}
+%     Immediate by the definition of the flat derivaitve and because for all $\mu \in \MC_{\psi_1}^+\left(\RRP \right)$ and $x,y \in \RRP$, measures $\mu + \frac{1}{N}\left(\delta_{x + y} - \delta_x - \delta_y\right)$ and $\mu + \frac{1}{N}\left(\delta_{2x} - 2\delta_x \right)$ are in $\MC_{\psi_1}\left(\RRP \right)$.
+% \end{proof}
 
-\subsection{Some bounds}
-We present bounds that will be important in our final theorem. 
+% \subsection{Some bounds}
+% We present bounds that will be important in our final theorem. 
 
-\begin{lemma}
-    Let $\Phi(t,\mu^N)$ be the Stochastic Coalescent started from the atomic measure 
-    \begin{align*}
-        \mu^N = \dfrac{1}{N}\sum\limits_{k = 1}^N \delta_{x_{k,0}}
-    \end{align*}
-    with kernel $K_\alpha$ we have:
-    \begin{align*}
-        \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle} \leq \dfrac{S_0^{-\alpha}}{N} + \dfrac{\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}}{1 + C_\alpha \left(\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}\right)t},
-    \end{align*}
-    where $S_0 := \sum\limits_{i = 1}^N x_{i,0} = N\langle x,\mu^N\rangle$ and $C_\alpha = 2 - 2^{-\alpha}$.
-\end{lemma}
-\begin{proof}
-    Let us denote $F : \mu \mapsto \langle x^{-\alpha},\mu \rangle$.
-    \begin{align*}
-        \dfrac{d}{dt} \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle} 
-        =& \E{\LC^N F\left( \Phi(t,\mu^N)\right)}\\
-        =& \E{\left\langle K_\alpha x^{-\alpha}, \Phi(t,\mu^N)^{\otimes 2}\right\rangle} 
-        \\&- \frac{1}{N}\E{\int_{\RR^+} K_\alpha(x,x) (2x)^{-\alpha} - 2x^{-\alpha}\Phi(t,\mu^N)(dx)}\\
-        =& \E{\left\langle Kx^{-\alpha}, \Phi(t,\mu^N)^{\otimes 2}\right\rangle} 
-        + \dfrac{2C_\alpha}{N}\E{\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle}
-    \end{align*}
-    We treat the first term of the left hand side equation:
-    \begin{align*}
-        \E{\left\langle K_\alpha x^{-\alpha}, \Phi(t,\mu^N)^{\otimes 2}\right\rangle} 
-        &= \E{\int_{(\RR^+)^2} K_\alpha(x,y) \left((x+y)^{-\alpha} - x^{-\alpha} -y^{-\alpha}\right) \Phi(t,\mu^N)(dx)\Phi(t,\mu^N)(dy)}.
-    \end{align*}
-    By convexity of the function $x \mapsto x^{-\alpha}$ we have for all $x,y \in \RR^{+,*}$:
-    \begin{align*}
-        (x+y)^{-\alpha} - x^{-\alpha} -y^{-\alpha} \leq -\frac{C_\alpha}{2}\left(x^{-\alpha} + y^{-\alpha}\right).
-    \end{align*}
-    So
-    \begin{multline*}
-        \E{\left\langle K_\alpha x^{-\alpha}, \Phi(t,\mu^N)^{\otimes 2}\right\rangle} 
-        \leq - \frac{C_\alpha}{2}\E{\int_{(\RR^+)^2} (K_\alpha(x,y))^2  \Phi(t,\mu^N)(dx)\Phi(t,\mu^N)(dy)}\\
-        = - C_\alpha\left(\E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle^2}\vphantom{\dfrac{A}{B}} \right.\\
-        \left.\vphantom{\dfrac{A}{B}}+ \E{\left\langle 1,\Phi(t,\mu^N)\right\rangle\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle}\right).
-    \end{multline*}
-    We have the following ODE:
-    \begin{multline*}
-         \dfrac{d}{dt} \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle} \leq -C_\alpha\E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle^2} 
-         \\- C_\alpha \E{\left(\left\langle 1,\Phi(t,\mu^N)\right\rangle - \dfrac{2}{N}\right)\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle}.
-    \end{multline*}
-    We show that for all $t\geq 0$ almost surely:
-    \begin{equation}\label{eq:proofboundmagic}
-        \left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle^2 + \left(\left\langle 1,\Phi(t,\mu^N)\right\rangle - \dfrac{2}{N}\right)\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle
-        \geq \left(\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle- \dfrac{S_0^{-\alpha}}{N}\right)^2.
-    \end{equation}
-    We will now use a couple of arguments from the stochastic coalescence process. First the random variable $\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle$ is almost surely positive for all $t\geq 0$ as each mass is positive. Second the random variable $N_t := N\times\left\langle 1,\Phi(t,\mu^N)\right\rangle$ is the amount of clusters present at time $t$. As such it belongs almost surely to $\lbrace 1,\cdots,N\rbrace$. 
+% \begin{lemma}
+%     Let $\Phi(t,\mu^N)$ be the Stochastic Coalescent started from the atomic measure 
+%     \begin{align*}
+%         \mu^N = \dfrac{1}{N}\sum\limits_{k = 1}^N \delta_{x_{k,0}}
+%     \end{align*}
+%     with kernel $K_\alpha$ we have:
+%     \begin{align*}
+%         \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle} \leq \dfrac{S_0^{-\alpha}}{N} + \dfrac{\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}}{1 + C_\alpha \left(\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}\right)t},
+%     \end{align*}
+%     where $S_0 := \sum\limits_{i = 1}^N x_{i,0} = N\langle x,\mu^N\rangle$ and $C_\alpha = 2 - 2^{-\alpha}$.
+% \end{lemma}
+% \begin{proof}
+%     Let us denote $F : \mu \mapsto \langle x^{-\alpha},\mu \rangle$.
+%     \begin{align*}
+%         \dfrac{d}{dt} \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle} 
+%         =& \E{\LC^N F\left( \Phi(t,\mu^N)\right)}\\
+%         =& \E{\left\langle K_\alpha x^{-\alpha}, \Phi(t,\mu^N)^{\otimes 2}\right\rangle} 
+%         \\&- \frac{1}{N}\E{\int_{\RR^+} K_\alpha(x,x) (2x)^{-\alpha} - 2x^{-\alpha}\Phi(t,\mu^N)(dx)}\\
+%         =& \E{\left\langle Kx^{-\alpha}, \Phi(t,\mu^N)^{\otimes 2}\right\rangle} 
+%         + \dfrac{2C_\alpha}{N}\E{\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle}
+%     \end{align*}
+%     We treat the first term of the left hand side equation:
+%     \begin{align*}
+%         \E{\left\langle K_\alpha x^{-\alpha}, \Phi(t,\mu^N)^{\otimes 2}\right\rangle} 
+%         &= \E{\int_{(\RR^+)^2} K_\alpha(x,y) \left((x+y)^{-\alpha} - x^{-\alpha} -y^{-\alpha}\right) \Phi(t,\mu^N)(dx)\Phi(t,\mu^N)(dy)}.
+%     \end{align*}
+%     By convexity of the function $x \mapsto x^{-\alpha}$ we have for all $x,y \in \RR^{+,*}$:
+%     \begin{align*}
+%         (x+y)^{-\alpha} - x^{-\alpha} -y^{-\alpha} \leq -\frac{C_\alpha}{2}\left(x^{-\alpha} + y^{-\alpha}\right).
+%     \end{align*}
+%     So
+%     \begin{multline*}
+%         \E{\left\langle K_\alpha x^{-\alpha}, \Phi(t,\mu^N)^{\otimes 2}\right\rangle} 
+%         \leq - \frac{C_\alpha}{2}\E{\int_{(\RR^+)^2} (K_\alpha(x,y))^2  \Phi(t,\mu^N)(dx)\Phi(t,\mu^N)(dy)}\\
+%         = - C_\alpha\left(\E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle^2}\vphantom{\dfrac{A}{B}} \right.\\
+%         \left.\vphantom{\dfrac{A}{B}}+ \E{\left\langle 1,\Phi(t,\mu^N)\right\rangle\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle}\right).
+%     \end{multline*}
+%     We have the following ODE:
+%     \begin{multline*}
+%          \dfrac{d}{dt} \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle} \leq -C_\alpha\E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle^2} 
+%          \\- C_\alpha \E{\left(\left\langle 1,\Phi(t,\mu^N)\right\rangle - \dfrac{2}{N}\right)\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle}.
+%     \end{multline*}
+%     We show that for all $t\geq 0$ almost surely:
+%     \begin{equation}\label{eq:proofboundmagic}
+%         \left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle^2 + \left(\left\langle 1,\Phi(t,\mu^N)\right\rangle - \dfrac{2}{N}\right)\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle
+%         \geq \left(\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle- \dfrac{S_0^{-\alpha}}{N}\right)^2.
+%     \end{equation}
+%     We will now use a couple of arguments from the stochastic coalescence process. First the random variable $\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle$ is almost surely positive for all $t\geq 0$ as each mass is positive. Second the random variable $N_t := N\times\left\langle 1,\Phi(t,\mu^N)\right\rangle$ is the amount of clusters present at time $t$. As such it belongs almost surely to $\lbrace 1,\cdots,N\rbrace$. 
     
-    When $N_t = 1$ there is only a single cluster left of mass $S_0$ and therefore:
-    \begin{align*}
-        \left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle = \dfrac{S_0^{-\alpha}}{N} \quad,\quad \left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle = \dfrac{S_0^{-2\alpha}}{N}.
-    \end{align*}
-    Replacing this expressions in both sides of \eqref{eq:proofboundmagic} shows both sides equal to zero proving the inequality when $N_t = 1$.
+%     When $N_t = 1$ there is only a single cluster left of mass $S_0$ and therefore:
+%     \begin{align*}
+%         \left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle = \dfrac{S_0^{-\alpha}}{N} \quad,\quad \left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle = \dfrac{S_0^{-2\alpha}}{N}.
+%     \end{align*}
+%     Replacing this expressions in both sides of \eqref{eq:proofboundmagic} shows both sides equal to zero proving the inequality when $N_t = 1$.
     
-    When $N_t \neq 1$ it is a.s larger or equal to $2$ and
-    \begin{align*}
-        \left(\left\langle 1,\Phi(t,\mu^N)\right\rangle - \dfrac{2}{N}\right)\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle \geq 0 \text{ as}.
-    \end{align*}
-    Furthermore since $\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle$ is almost surely non-increasing in time and tends to $\dfrac{S_0^{-\alpha}}{N}$ as $t\to \infty$ we have for all $t\geq 0$:
-    \begin{align*}
-        \left(\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle\right)^2 \geq \left(\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle - \dfrac{S_0^{-\alpha}}{N}\right)^2 \text{ as},
-    \end{align*}
-    and therefore proving also inequality \eqref{eq:proofboundmagic}. 
+%     When $N_t \neq 1$ it is a.s larger or equal to $2$ and
+%     \begin{align*}
+%         \left(\left\langle 1,\Phi(t,\mu^N)\right\rangle - \dfrac{2}{N}\right)\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle \geq 0 \text{ as}.
+%     \end{align*}
+%     Furthermore since $\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle$ is almost surely non-increasing in time and tends to $\dfrac{S_0^{-\alpha}}{N}$ as $t\to \infty$ we have for all $t\geq 0$:
+%     \begin{align*}
+%         \left(\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle\right)^2 \geq \left(\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle - \dfrac{S_0^{-\alpha}}{N}\right)^2 \text{ as},
+%     \end{align*}
+%     and therefore proving also inequality \eqref{eq:proofboundmagic}. 
 
-    So finally we have the following ODE:
-    \begin{align*}
-        \dfrac{\dd}{\dd t} \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle- \dfrac{S_0^{-\alpha}}{N}} \leq -C_\alpha\E{\left(\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle - \dfrac{S_0^{-\alpha}}{N}\right)^2}.
-    \end{align*}
-    And by Jensen:
-   \begin{align*}
-        \dfrac{\dd}{\dd t} \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle- \dfrac{S_0^{-\alpha}}{N}} \leq -C_\alpha\E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle - \dfrac{S_0^{-\alpha}}{N}}^2.
-    \end{align*}
-    After solving a simple ODE we get the desired bound from lemma \ref{lem:inequality_ODE_square}:
-    \begin{align*}
-        \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle} \leq \dfrac{S_0^{-\alpha}}{N} + \dfrac{\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}}{1 + C_\alpha \left(\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}\right)t}.
-    \end{align*}
-\end{proof}
+%     So finally we have the following ODE:
+%     \begin{align*}
+%         \dfrac{\dd}{\dd t} \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle- \dfrac{S_0^{-\alpha}}{N}} \leq -C_\alpha\E{\left(\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle - \dfrac{S_0^{-\alpha}}{N}\right)^2}.
+%     \end{align*}
+%     And by Jensen:
+%    \begin{align*}
+%         \dfrac{\dd}{\dd t} \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle- \dfrac{S_0^{-\alpha}}{N}} \leq -C_\alpha\E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle - \dfrac{S_0^{-\alpha}}{N}}^2.
+%     \end{align*}
+%     After solving a simple ODE we get the desired bound from lemma \ref{lem:inequality_ODE_square}:
+%     \begin{align*}
+%         \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle} \leq \dfrac{S_0^{-\alpha}}{N} + \dfrac{\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}}{1 + C_\alpha \left(\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}\right)t}.
+%     \end{align*}
+% \end{proof}
 
 
 \section{Proof of the main result}
@@ -3814,8 +3879,13 @@ We start with the technical lemma below.
 \begin{lemma}\label{lem:bounds_diff_gen}
 For all $\mu \in \MC_{\psi_1}(\RRP)$:
 \begin{align*}
-    \left| \left(\LC^N - \LC\right)F\circ \varphi_s (\mu) \right| \leq \frac{9}{2N}\|\delta_\mu^2 F\|_{\infty}\langle K,\mu\otimes\mu\rangle + \frac{3}{N}\|\delta_\mu F\|_{\infty}\int_{\RR^+} K_{\alpha}(x,x)\mu(\dd x)
+    \left| \left(\LC^N - \LC\right)F\circ \varphi_s (\mu) \right| \leq \dfrac{C(T,\mu)}{N}
 \end{align*}
+where the constant $C$ is of the form:
+    \begin{align*}
+        C(T,\nu) = P(T,\|\mu\|,\|\mu\|_{\psi_1},\|\mu\|_{\psi_2},\|\mu\|_{\psi_3}) e^{CT\|\mu\|_{\psi_2}(1 + T\|\mu\|)}.
+    \end{align*}
+    where $P$ is a polynomial.
 \end{lemma}
 
 \begin{proof}
@@ -3841,19 +3911,19 @@ For all $\mu \in \MC_{\psi_1}(\RRP)$:
     \begin{align*}
         \mu^\theta_N = \mu + \frac{\theta}{N}\left(\delta_{x + y} - \delta_x - \delta_y \right)
     \end{align*}
-    By hypothesis on $F$, differentiability of $\mu \mapsto \varphi_t(\mu)$, and Lipschitz regualrity of its derivaitve we can apply the chain rule \red{ref prop}. Let $\nu,z \in \MC^+_{\psi_1}(\RRP),\RRP$ we have:
+    Note that if $\psi$ is non-increasing then $\|\mu^\theta_N\|_{\psi} \leq \|\mu\|_{\psi}$ and therefore we can write all constants appearing in bounds below as functions of $\mu$ and $T$. By hypothesis on $F$, differentiability of $\mu \mapsto \varphi_t(\mu)$, and Lipschitz regualrity of its derivaitve we can apply the chain rule \red{ref prop}. Let $\nu,z \in \MC^+_{\psi_1}(\RRP),\RRP$ we have:
     \begin{align*}
         \delta_\mu F\circ \varphi_s(\nu;z) = \brac{\delta_\mu F(\varphi_s(\nu);\cdot),\delta_\mu \varphi_s (\nu;z)}.
     \end{align*}
     And therefore:
     \begin{subequations}
     \begin{align}
-        \delta_\mu F\circ \varphi_s\left(\mu^\theta_N;z\right) - \delta_\mu F\circ \varphi_s(\mu;z) &= \brac{\delta_\mu F\left(\varphi_s\left(\mu^\theta_N\right);\cdot\right) - \delta_\mu F(\varphi_s(\mu);\cdot),\delta_\mu \varphi_s (\mu;z)}\label{proof:eq:samesame-part1} \\
+        \delta_\mu F\circ \varphi_s\left(\mu^\theta_N;z\right) - \delta_\mu F\circ \varphi_s(\mu;z) =& \brac{\delta_\mu F\left(\varphi_s\left(\mu^\theta_N\right);\cdot\right) - \delta_\mu F(\varphi_s(\mu);\cdot),\delta_\mu \varphi_s (\mu;z)}\label{proof:eq:samesame-part1} \\
          &+ \brac{\delta_\mu F\left(\varphi_s\left(\mu^\theta_N\right);\cdot\right),\delta_\mu \varphi_s \left(\mu^\theta_N;z\right) - \delta_\mu \varphi_s (\mu;z)}\label{proof:eq:samesame-part2} .
     \end{align}
     \end{subequations}
 
-    For \eqref{proof:eq:samesame-part1} by hypothesis on $F$ we have the function:
+    For \eqref{proof:eq:samesame-part1} by hypothesis on $\delta_\mu F$ the function:
     \begin{align*}
         z \mapsto \delta_\mu F\left(\varphi_s\left(\mu^\theta_N\right);z\right) - \delta_\mu F(\varphi_s(\mu);z)
     \end{align*}
@@ -3868,78 +3938,95 @@ For all $\mu \in \MC_{\psi_1}(\RRP)$:
     Finally,
     \begin{align*}
         W_{\psi_1}\left(\mu^\theta_N,\mu\right) &= \dfrac{\theta}{N} \sup\limits_{\substack{f \in Lip_1(d_\alpha) \\ |f| \leq 1 + \psi_1}} f(x+y) - f(x) - f(y) \\
-        &\leq C(\psi_1(x) + \psi_1(y))
+        &\leq \dfrac{\theta}{N} C(1 + \psi_1(x) + \psi_1(y))
     \end{align*}
     And we get:
     \begin{align*}
-        \brac{\delta_\mu F\left(\varphi_s\left(\mu^\theta_N\right),\cdot\right) - \delta_\mu F(\varphi_s(\mu);\cdot),\delta_\mu \varphi_s (\mu;z)} \leq \dfrac{C(T,\mu)}{N}(1 + \psi_1(z))
+        \brac{\delta_\mu F\left(\varphi_s\left(\mu^\theta_N\right),\cdot\right) - \delta_\mu F(\varphi_s(\mu);\cdot),\delta_\mu \varphi_s (\mu;z)} \leq \dfrac{C(T,\mu)}{N}(1 + \psi_1(z) + \psi_1(x) + \psi_1(y))
     \end{align*}
     Onto \eqref{proof:eq:samesame-part2}, since $z \mapsto \delta_\mu F\left(\varphi_s\left(\mu^\theta_N\right);z\right)$ is in $Lip_1(d_\alpha)$ we have by point $1$ of Proposition \ref{prop:wass-final}:
-    
+    \begin{multline*}
+        \brac{\delta_\mu F\left(\varphi_s\left(\mu^\theta_N\right);\cdot\right),\delta_\mu \varphi_s \left(\mu^\theta_N;z\right) - \delta_\mu \varphi_s (\mu;z)}\\
+         \leq C(T,\mu) \left(W_{\psi_1}\left(\mu^\theta_N, \mu\right) + W_{\psi_2}\left(\mu^\theta_N, \mu\right) \right)(1 + \psi_1{z} + \psi_2(z))
+    \end{multline*}
+    So finally:
+    \begin{align*}
+        \brac{\delta_\mu F\left(\varphi_s\left(\mu^\theta_N\right);\cdot\right),\delta_\mu \varphi_s \left(\mu^\theta_N;z\right) - \delta_\mu \varphi_s (\mu;z)} \leq \dfrac{C(T,\mu)}{N}(1 + \psi_2(z) + \psi_2(x) + \psi_2(y)).
+    \end{align*}
+    It follows that for all $z \in \RRP$:
+    \begin{align*}
+        \delta_\mu F\circ \varphi_s\left(\mu^\theta_N;z\right) - \delta_\mu F\circ \varphi_s(\mu;z) \leq \dfrac{C(T,\mu)}{N}(1 + \psi_2(z) + \psi_2(x) + \psi_2(y)).
+    \end{align*}
+    And therefore :
+    \begin{multline*}
+        \left\langle  \delta_\mu F\circ \varphi_s\left(\mu + \frac{\theta}{N}\left(\delta_{x + y} - \delta_x - \delta_y \right);.\right)- \delta_\mu F\circ \varphi_s\left(\mu;.\right),\delta_{x+y} - \delta_x - \delta_y\right\rangle \\
+        \leq \dfrac{C(T,\mu)}{N}(1 + \psi_2(x) + \psi_2(y)).
+    \end{multline*}
+    So finally:
+    \begin{align*}
+        \left(\LC_1^N - \LC\right)F\circ \varphi_s (\mu) \leq \dfrac{C(T,\mu)}{N} \|\mu\|_{\psi_3}^2.
+    \end{align*}
+    For the second part of the stochastic coalescence operator:
+    \begin{align*}
+        \LC_2^N F\circ \varphi_s(\mu) =& -\dfrac{1}{N}\int_0^1\int_{\RR^+} K_{\alpha}(x,x) 
+           \left\langle  \delta_\mu F\circ \varphi_s\left(\mu + \frac{\theta}{N}\left(\delta_{2x} - 2\delta_x \right),.\right),\delta_{2x} - 2\delta_x \right\rangle\mu(\dd x)\dd\theta.
+    \end{align*}
+    We know from hypothesis on $\delta_\mu F$ that it is Lipschitz therefore by the first point of Proposition \ref{prop:wass-derivative} we have:
+    \begin{align*}
+        \left\langle  \delta_\mu F\circ \varphi_s\left(\mu + \frac{\theta}{N}\left(\delta_{2x} - 2\delta_x \right),.\right),\delta_{2x} - 2\delta_x \right\rangle \leq C(T,\mu) (1 + \psi_1(x)).
+    \end{align*}
+    And therefore:
+    \begin{align*}
+         \LC_2^N F\circ \varphi_s(\mu) \leq \dfrac{C(T,\mu)}{N} \|\mu\|_{\psi_2}.
+    \end{align*}
+    The shape of the constants follows from the three propositions we used \ref{prop:wass-derivative},\ref{prop:wass-derivative},\ref{prop:wass-sce}.
 \end{proof}
 
-\begin{proof}[Proof of the Theorem]
- We start from expression \eqref{eq:semi-group-relation}:
+
+\begin{proof}[Proof of the Theorem \ref{thm:samesame}]
+ We recall that $\mu^N$ is deterministic in the context of this theorem. We start from expression \eqref{eq:semi-group-relation}:
  \begin{align*}
-\E{F(\Phi(t,\mu^N))} - \E{F(\varphi\left(t,\mu\right))} = \int_0^t \E{\left(\LC^N - \LC\right)F(\varphi(s,\Phi(t-s,\mu^N)))}\dd s.
+\E{F(\Phi_t(\mu^N))} - F(\varphi_t\left(\mu^N\right)) = \int_0^t \E{\left(\LC^N - \LC\right)F \circ \varphi_s (\Phi_{t-s}(\mu^N))}\dd s.
 \end{align*}
 Using the previous Lemma \ref{lem:bounds_diff_gen} we get:
 \begin{align*}
-    \left|\vphantom{\dfrac{A}{A}} \E{F(\Phi(t,\mu^N))} - \E{F(\varphi\left(t,\mu\right))}\right| \leq&  \frac{9}{2N}\|\delta_\mu^2 F\|_{\infty}\int_0^t \E{ \langle Kx^{-\alpha} , \varphi(s,\Phi(t-s,\mu^N))^{\otimes 2}}\dd s\\
-    &+ \frac{3}{N}\|\delta_\mu F\|_{\infty}\int_0^t\E{\int_{\RR^+} K_{\alpha}(x,x)\varphi(s,\Phi(t-s,\mu^N))(\dd x)}.
+    \left|\vphantom{A^2} \E{F(\Phi_t(\mu^N))} - F(\varphi_t\left(\mu^N\right))\right| \leq \dfrac{1}{N} \int_0^t \E{C\left(T,\Phi_{t -s }(\mu^N)\right)} \dd s.
 \end{align*}
-Let us handle the second term:
+We know that $C$ is of the form:
 \begin{align*}
-    \E{\int_{\RR^+} K_{\alpha}(x,x)\varphi(s,\Phi(t-s,\mu^N))(\dd x)} 
-    &=  2\E{\langle x^{-\alpha}, \varphi(s,\Phi(t-s,\mu^N))\rangle}.
+    C(T,\mu) = P(T,\|\mu\|,\|\mu\|_{\psi_1},\|\mu\|_{\psi_2},\|\mu\|_{\psi_3}) e^{CT\|\mu\|_{\psi_2}(1 + T\|\mu\|)},
 \end{align*}
-By Lemmas \ref{lem:flow_linear_control}  and \ref{lem:bounds_diff_gen}we have:
+where $P$ is a polynomial. We can assume that the coefficients of $P$ are positive, if not $P$ is smaller and a polynomial $Q$ with postive coefficients that we can take in its stead. Then if $\nu$ is a measure such that $\|\nu\|_{\psi} \geq \|\mu\|_{\psi}$ for all non-increasing $\psi$ then $C(T,\nu) \geq C(T,\mu)$. By construction the stochastic coalescence is almost surely a positve measure we know that almost surely for all non increasing $\psi$, $\brac{\psi,\Phi_t(\mu^N)} \leq \brac{\psi,\mu^N}$. Therefore:
 \begin{align*}
-    \E{\langle x^{-\alpha}, \varphi(s,\Phi(t-s,\mu^N))\rangle} \leq \dfrac{S_0^{-\alpha}}{N} + \dfrac{\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}}{1 + C_\alpha \left(\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}\right)t}
+    \left\|\Phi_t(\mu^N) \right\|_{\psi} = \brac{1 + \psi,\Phi_t(\mu^N)} \leq \brac{1 + \psi,\mu^N} = \|\mu^N\|_{\psi}\ \text{a.s}.
 \end{align*}
-So that finally the second term can be bounded by:
-\begin{multline*}
-    \frac{6}{N}\|\delta_\mu F\|_{\infty}\int_0^t\E{\langle x^{-\alpha}, \varphi(s,\Phi(t-s,\mu^N))\rangle}ds \leq \frac{6}{N}\|\delta_\mu F\|_{\infty} \left( t\dfrac{S_0^{-\alpha}}{N} + \dfrac{t\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}}{1 + C_\alpha \left(\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}\right)t}\right).
-\end{multline*}
+The desired result follows:
+\begin{align*}
+     \left|\vphantom{A^2} \E{F(\Phi_t(\mu^N))} - F(\varphi_t\left(\mu^N\right))\right| \leq \dfrac{C(T,\mu^N)}{N}. 
+\end{align*}
 \end{proof}
 
+\subsection{Proof of Theorem \ref{thm:difdif}}
 
-The latter theorem has weaker hypotheses.
-\begin{theorem}
-    Assume $\alpha < 1$, $F$ is differentiable and, its flat derivative is uniformly bounded and Lipschitz in $\MC^{+}_{1}\left(\RR^{+,*},d_\alpha\right)$. Then for all $t\geq 0$:
-    \begin{align*}
-        \E{F(\Phi(t,\mu^N))} - \E{F(\varphi\left(t,\mu^N\right))} \leq C_\alpha\frac{3}{N}\langle x^{-\alpha},\mu^N \rangle \left(3 Lip\left(\delta_\mu F\right) + \frac{t}{1 + t}\|\delta_\mu F\|_{\infty}\right)
-    \end{align*}
-\end{theorem}
 
-\begin{theorem}
-    Let $\Seq{X_n}$ be a sequence of $iid$ real random variables with law $\mu \in \MC^+_{\psi_3}(\RRP)$. Denote by $\mu^N$ the empirical measure:
-    \begin{align*}
-        \mu^N = \dfrac{1}{N} \sum\limits_{i = 1}^N \delta_{X_i}.
-    \end{align*}
-    We have for all $t \in [0,T]$:
-    \begin{align*}
-        \left| \E{F\left(\varphi_t(\mu^N)\right)} - F\left(\varphi_t(\mu)\right)\right| \leq \left\llbracket F \right\rrbracket_{W_{\psi_1}} \dfrac{C(T,\mu)}{N}.
-    \end{align*}
-\end{theorem}
-\begin{proof}
+\begin{proof}[Proof of Theorem \ref{thm:difdif}]
     The function $F\circ \varphi_t$ has a flat derivative and therefore:
     \begin{multline*}
-        \E{F\left(\varphi_t(\mu^N)\right)} - F\left(\varphi_t(\mu)\right) \\
-        = \E{\int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta}.
+        F\left(\varphi_t(\mu^N)\right) - F\left(\varphi_t(\mu)\right) \\
+        = \int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta.
     \end{multline*}
     We split it in three parts :
     \begin{multline*}
-        \E{F\left(\varphi_t(\mu^N)\right)} - F\left(\varphi_t(\mu)\right) \\
-        = \E{\int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right);\cdot \right)- \delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta} \\
-        + \E{\int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right) -  \delta_\mu \varphi_t\left(\mu;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta} \\
-        + \E{\int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\mu;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta}.
+        F\left(\varphi_t(\mu^N)\right) - F\left(\varphi_t(\mu)\right) \\
+        = \int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right);\cdot \right)- \delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta \\
+        + \int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right) -  \delta_\mu \varphi_t\left(\mu;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta \\
+        + \int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\mu;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta.
     \end{multline*}
-    Note that since $\mu^N$ is an empirical measure with iid variables of law $\mu$ the third is equal to zero:
-    \begin{multline*}
-        \E{\int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\mu;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta} \\
-        = \E{\int_{\RRP}G(z) \mu^N(\dd z) } - \int_{\RRP} G(z)\mu(\dd z) = 0.
-    \end{multline*}
+    The last term we can write as:
+    \begin{align*}
+        \int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\mu;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta
+        = \int_{\RRP}G(z) \left( \mu^N - \mu\right)(\dd z)  .
+    \end{align*}
 
     Let us treat the first term, by hypothesis on $F$ the function:
     \begin{align*}
@@ -3955,50 +4042,131 @@ The latter theorem has weaker hypotheses.
     \end{align*}
     where for all $m \in \MC_{\psi_2}(\RRP)$:
     \begin{align*}
-        C(T,m) = \left( 1 + T\|m\|\right)e^{CT\left(\|m\|_{\psi_1} + T \|m\|\|m\|_{\psi_2} \right)}.
+        C(T,m) = \left( 1 + T\|m\|\right)e^{CT\|m\|_{\psi_2}\left(1 + T \|m\| \right)}.
     \end{align*}
-    Since $\mu^N$ and $\mu$ are probability measures we have:
-    \begin{align*}
-        \left\|\mu + \left[\mu^N,\mu \right]^\theta \right\| = \brac{1, \mu + \left[\mu^N,\mu \right]^\theta} = 2.
-    \end{align*}
-    Note that $\mu + \left[\mu^N,\mu \right]^\theta = (2-\theta)\mu + \theta \mu^N \leq 2\mu + \mu^N$. We have:
-    \begin{align*}
-        C(T,\mu + \left[\mu^N,\mu \right]^\theta) \leq (1 + 2T) e^{CT\left(\brac{\psi_1,\mu + \mu^N} + T\brac{\psi_2,\mu + \mu^N}\right)}.
-    \end{align*}
-    We have also $\left[\mu^N,\mu \right]^\theta-\mu = \theta(\mu^N - \mu)$ and therefore:
-    \begin{align*}
-        W_{\psi_1}\left( \left[\mu^N,\mu \right]^\theta , \mu\right) = \theta  W_{\psi_1}\left( \mu^N , \mu\right).
-    \end{align*}
-    It finally comes that:
-    \begin{multline*}
-        \left\llbracket \delta_\mu F\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right);\cdot \right)- \delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right)  \right\rrbracket_{d_\alpha} \leq (1 + 2T) e^{CT\left(\brac{\psi_1,\mu + \mu^N} + T\brac{\psi_2,\mu + \mu^N}\right)}W_{\psi_1}\left( \mu^N , \mu\right).
-    \end{multline*}
     Consequently by Proposition \ref{prop:wass-derivative} the function: 
     \begin{align*}
          z \mapsto \brac{\delta_\mu F\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right);\cdot \right)- \delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right)}.
     \end{align*}
-    is Lipschitz-bounded for $d_\alpha$ with constant below:
+    is Lipschitz-bounded for $d_\alpha$ with constant below $C(T, \mu + \left[\mu^N,\mu \right]^\theta)$.
     \begin{align*}
         e^{CT\left(\brac{\psi_1,\mu + \mu^N} + T\brac{\psi_2,\mu + \mu^N}\right)}W_{\psi_1}\left( \mu^N , \mu\right).
     \end{align*}
     It finally comes that 
     \begin{multline*}
         \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right);\cdot \right)- \delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right)} \left(\mu^N - \mu\right)(\dd z) \\
-        \leq e^{CT\left(\brac{\psi_1,\mu + \mu^N} + T\brac{\psi_2,\mu + \mu^N}\right)} \left(W_{\psi_1}\left( \mu^N , \mu\right)\right)^2.
+        \leq C(T, \mu + \left[\mu^N,\mu \right]^\theta) W_{\psi_1}\left( \mu^N , \mu\right)^2.
     \end{multline*}
-    By \red{F-G, à lire pcq pas sur de ce bound.}:
+    Finally since $\left[\mu^N,\mu \right]^\theta \leq \mu^N + \mu$ we can rewrite the constant as $C(T,\mu^N + \mu)$. For the second term we have:
     \begin{align*}
-        \left(W_{\psi_1}\left( \mu^N , \mu\right)\right)^2 \leq \dfrac{1}{N}.
+        \int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right) -  \delta_\mu \varphi_t\left(\mu;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta.
     \end{align*}
-    and therefore:
+    By Proposition \ref{prop:wass-final} and hypothesis on $\delta_\mu F$ the function,
+    \begin{align*}
+        z \mapsto \brac{\delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right) -  \delta_\mu \varphi_t\left(\mu;z \right)}
+    \end{align*}
+    Is bounded Lipschitz for the composite distance $d_\alpha + d_{2\alpha}$ with a constant below: 
     \begin{multline*}
-        \E{\int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\left[\mu^N,\mu \right]^\theta\right);\cdot \right)- \delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta} \\
-        \leq \dfrac{1}{N}\E{e^{CT\left(\brac{\psi_1,\mu + \mu^N} + T\brac{\psi_2,\mu + \mu^N}\right)}}\\
-        = \dfrac{1}{N}e^{CT\left(2\brac{\psi_1,\mu } + 2T\brac{\psi_2,\mu}\right)}.
+        C(T,\mu + \left[\mu^N,\mu \right]^\theta)\left(W_{\psi_1}\left(\mu,\left[\mu^N,\mu \right]^\theta\right) +W_{\psi_2}\left(\mu,\left[\mu^N,\mu \right]^\theta\right) \right) \\
+        \leq C(T,\mu + \mu^N)\left(W_{\psi_1}\left(\mu,\mu^N\right) +W_{\psi_2}\left(\mu,\mu^N\right) \right),
     \end{multline*}
-    Where in the last line we used that $\mu^N$ is an empirical measure of iid varaibles and therefore
-    \[ \E{e^{\brac{\psi_1,\mu^N}}}  = \E{ e^{\sum\limits_{i = 1}^N \psi_1(X_i)}} = \E{\prod\limits_{i = 1}^N e^{\psi_1(X_i)}} = \prod\limits_{i = 1}^N \E{e^{\psi_1(X_i)}} = e^{\brac{\psi_1,\mu}}.  \]
+    where for all $m \in \MC_{\psi_3}(\RRP)$:
+    \begin{align*}
+        C(T,m) = P(T,\|m\|,\|m\|_{\psi_1},\|m\|_{\psi_2},\|m\|_{\psi_3})e^{CT(1 + T)\|m\|_{\psi_2}}.
+    \end{align*}
+    The bound that comes for the second term is:
+    \begin{multline*}
+        \int_0^1 \int_{\RRP} \brac{\delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\left[\mu^N,\mu \right]^\theta;z \right) -  \delta_\mu \varphi_t\left(\mu;z \right)} \left(\mu^N - \mu\right)(\dd z)\dd \theta \\
+        \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A} C(T,\mu + \mu^N)\left(W_{\psi_1}\left(\mu,\mu^N\right) +W_{\psi_2}\left(\mu,\mu^N\right) \right)^2.
+    \end{multline*}
+
+    Putting all our bounds together we have:
+    \begin{multline*}
+        \left|F\left(\varphi_t(\mu^N)\right) - F\left(\varphi_t(\mu)\right) \right| \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A}C(T,\mu + \mu^N)\left(W_{\psi_1}\left(\mu,\mu^N\right) +W_{\psi_2}\left(\mu,\mu^N\right) \right)^2 \\
+        + \int_{\RRP} \brac{\vphantom{A^2}\delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\mu;z \right)} \left(\mu^N - \mu\right)(\dd z).
+    \end{multline*}
 \end{proof}
+\subsection{Proof of Theorem \ref{thm:main-result-2}}
+We state and prove an alternative result in a separate technical lemma. It shows the reason why we have to assume $\mu$ to have negative $\alpha$-square exponential moments. We denote by $\MC^+_{e^{\psi_2}}(\RRP)$ the space:
+\begin{align*}
+    \MC^+_{e^{\psi_2}}(\RRP) = \left\lbrace \mu \in \MC^+(\RRP) \middle|\ \int_{\RRP} e^{x^{-2\alpha}} \mu(\dd x) < \infty \right\rbrace. 
+\end{align*}
+
+\begin{lemma}\label{lem:boudning-constant-empirical}
+    Let $T > 0$ be a fixed time horizon and let $\mu$ be a probability measure in $\MC^+_{e^{\psi_2}}(\RRP)$. Let $C$ be a function of the form:
+    \begin{align*}
+        C(T,\mu) = P(T,\|\mu\|,\|\mu\|_{\psi_1},\|\mu\|_{\psi_2},\|\mu\|_{\psi_3}) \cdot e^{C_1 T\|\mu\|_{\psi_2}(1 + T\|\mu\|)},
+    \end{align*}
+    where $P$ is a polynomial. Let $\mu^N$ be a random empirical measure with law $\mu$. Then there exists a constant $C_d$ related to the degree of $P$ and an integer $N_T$ such that for all $N \geq N_T$:
+    \begin{align*}
+        \E{C(T,\mu^N)} \leq C \|\mu\|_{e^{\psi_2}}^{C_d(1 + T^2)}.
+    \end{align*}
+    The threshold is of the form $N_T = C_1 T(1 + T)$. 
+\end{lemma}
+
+\begin{proof}
+    First, note that for all $\nu \in \MC^+_{e^{\psi_2}}$ and any monomial:
+    \begin{align*}
+        \|\nu\|_{\psi_1}^{p_1} \|\nu\|_{\psi_2}^{p_2} \|\nu\|_{\psi_3}^{p_3} \leq C \|\nu\|_{\psi_3}^{p_1 + p_2 + p_3}.
+    \end{align*}
+    
+    Now we write the random empirical measure explicitly:
+    \begin{align*}
+        \mu^N = \dfrac{1}{N}\sum\limits_{i = 1}^N \delta_{X_i}.
+    \end{align*}
+
+    We have:
+    \begin{align*}
+        \left\|\mu^N\right\|_{\psi_3}^p \cdot e^{C T(1 + T)\left\|\mu^N\right\|_{\psi_2}} 
+        = \dfrac{1}{N^p} \sum\limits_{1 \leq i_1,\dots,i_p \leq N} \prod_{k=1}^p \left(1 + \psi_3(X_{i_k})\right) \cdot e^{\frac{C T(1 + T)}{N} \sum\limits_{j = 1}^N (1 + \psi_2(X_j))}.
+    \end{align*}
+
+    Taking expectation inside the sum:
+    \begin{multline*}
+        \E{\prod_{k=1}^p \left(1 + \psi_3(X_{i_k})\right) \cdot e^{\frac{C T(1 + T)}{N} \sum_{j=1}^N (1 + \psi_2(X_j))}} \\
+        = \prod_{j=1}^N \E{ \left(1 + \psi_3(X_j)\right)^{q_j} \cdot e^{\frac{C T(1 + T)}{N}(1 + \psi_2(X_j))}},
+    \end{multline*}
+    where the $q_j$ are integers between $0$ and $p$ such that $\sum_{j=1}^N q_j = p$. There are at most $p$ non-zero $q_j$ (when all non-zeros are 1). Denoting $q_{j_1} \cdots q_{j_p}$ those non-zero values and assuming $N > p$, we can write:
+    \begin{multline*}
+        \E{\prod_{k=1}^p \left(1 + \psi_3(X_{i_k})\right) \cdot e^{\frac{C T(1 + T)}{N} \sum_{j=1}^N (1 + \psi_2(X_j))}} \\
+        = \left(\E{e^{\frac{C T(1 + T)}{N}(1 + \psi_2(X_1))}}\right)^{N-p}
+        \cdot \prod_{k=1}^p \E{(1 + \psi_3(X_1))^{q_{j_k}} \cdot e^{\frac{C T(1 + T)}{N}(1 + \psi_2(X_1))}}.
+    \end{multline*}
+
+    Bounding the product:
+    \begin{align*}
+        \prod_{k=1}^p \E{(1 + \psi_3(X_1))^{q_{j_k}} \cdot e^{\frac{C T(1 + T)}{N}(1 + \psi_2(X_1))}}
+        &\leq \left(\E{(1 + \psi_3(X_1))^p \cdot e^{\frac{C T(1 + T)}{N}(1 + \psi_2(X_1))}}\right)^p \\
+        &\leq C \|\mu\|_{e^{\psi_2}}^p,
+    \end{align*}
+    provided $N \geq 2 C T(1 + T)$.
+
+    For the exponential term:
+    \begin{align*}
+        \left(\E{e^{\frac{C T(1 + T)}{N}(1 + \psi_2(X_1))}}\right)^{N-p} 
+        &= \left(\int_{\RRP} e^{\frac{C T(1 + T)}{N} x^{-2\alpha}} \mu(\dd x) \right)^{N - p}.
+    \end{align*}
+
+    Using Jensen’s inequality with $N \geq C T(1 + T) + p$:
+    \begin{align*}
+        \left(\int_{\RRP} e^{\frac{C T(1 + T)}{N} x^{-2\alpha}} \mu(\dd x)\right)^{N - p} 
+        &\leq \left(\|\mu\|_{e^{\psi_2}}\right)^{C T(1 + T)}.
+    \end{align*}
+
+    Combining all parts, we get:
+    \begin{align*}
+        \E{\left\|\mu^N\right\|_{\psi_q}^p \cdot e^{C T(1 + T)\left\|\mu^N\right\|_{\psi_2}}} 
+        &\leq C \|\mu\|_{e^{\psi_2}}^{C T(1 + T) + p}.
+    \end{align*}
+
+    Therefore, there exists a constant $C_d$ depending on the degree of $P$ such that:
+    \begin{align*}
+        \E{C(T,\mu^N)} \leq C \|\mu\|_{e^{\psi_2}}^{C_d(1 + T^2)}.
+    \end{align*}
+\end{proof}
+
+
+
 
 \appendix
 
