@@ -366,8 +366,56 @@ We can see the appeal of the Toltal Variation distance as opposed to the Wassers
 
 To avoid adding a point at infinity we could use a composite distance equal to $d_{p\alpha}$ close to $0$ on $(0,1]$ and the absolute value on $(1, \infty)$. 
 \subsection{Derivatives on spaces of measures}
-A consequent part of our analysis relies on differentiating functions defined on spaces of measures. We give definitions aswell as a chain rule property that we also prove. This tools come from a rather general framework, however our ability to define a chain rule depends specifically on the topological structure we give to the considered sapce of measures. Since we work on $\MC_{\psi_p}(\RRP)$ and the topology induced by the Wasserstein distance $W_{\psi_p}$ we shall state all results in this particular setting.
+A consequent part of our analysis relies on differentiating functions defined on spaces of measures. We give definitions aswell as a chain rule property that we also prove. This tools come from a rather general framework, however our ability to define a chain rule depends specifically on the topological structure we give to the considered sapce of measures. Since we work on $\MC^+_{\psi_p}(\RRP)$ and the topology induced by the Wasserstein distance $W_{\psi_p}$ we shall state all results in this particular setting.
 
+Classical works involving those derivatives are \cite{martiniKolmogorovEquationsSpaces2023} that takes inspiration from \cite{cardaliaguet2019master,carmona2018probabilistic}. We denote by $\psi$ any of the functions $\psi_p$.
+\begin{definition}
+    Let $F: \MC^+_{\psi}(\RRP) \to \RR$ be a continuous function we say that $F$ has a flat derivative if there exists a function $\delta_{\mu}F :\MC^+_{\psi}(\RRP) \times \RRP \to \RR $ such that for all $\mu,\nu \in \MC^+_{\psi}(\RRP) $:
+    \[ F(\mu) - F(\nu) = \int_0^1 \int_{\RRP} \delta_\mu F(\theta \mu + (1-\theta)\nu;x)\left(\mu - \nu\right)(\dd x)\dd \theta\]
+\end{definition}
+We also define the derivaitve a function with values in $\MC^+_{\psi_p}(\RRP) $.
+\begin{definition}
+     Let $\varphi: \MC^+_{\psi}(\RRP) \to \MC^+_{\psi}(\RRP)$ be a continuous function we say that $\varphi$ has a flat derivative if there exists, a continuous function $\delta_{\mu}\varphi :\MC^+_{\psi}(\RRP) \times E\to \MC_{\psi}(\RRP)$ such that for all $\mu,\nu \in \MC^+_{\psi}(\RRP)$ and for all $f$ measurable, $|f| \leq 1 + \psi$:
+     \begin{itemize}
+         \item The function
+         \[x \mapsto \sup_{\theta \in [0,1]} |\langle f, \partial_\mu\varphi(\theta \mu + (1-\theta) \nu;x) \rangle| \in L^1(\mu) \cap L^1(\nu).\]
+        \item The following equality holds :
+            \[ \left\langle f,\varphi(\mu) - \varphi(\nu) \right\rangle= \int_0^1 \int_{\RRP} \left\langle f,\delta_\mu \varphi(\theta \mu + (1-\theta)\nu,x)\right\rangle\left(\mu - \nu\right)(\dd x)\dd \theta.\]
+     \end{itemize}
+\end{definition}
+We give a formulation of the chain rule.
+\begin{proposition}
+    Assume that $\delta_\mu F$ is bounded and $\delta_\mu\varphi$ is bounded in total variation. Assume that for all \(x\in \RRP\), \(\mu \mapsto \delta_u F(\mu,x)\) is continuous in the $W_{\psi}$ topology and that for all $\mu \in \MC^+_{\psi}(\RRP)$, $\delta_\mu F(\mu;\cdot)$ is Lipschitz and bounded for $d_\alpha$ and \(\mu \mapsto \delta_u F(\mu,x)\) are continuous in the $W_{\psi}$ topology. Then \(F\circ \varphi\) has a flat derivative and it is equal to:
+    \[
+    \delta_\mu F\circ \varphi : \left(\mu,x \right) \mapsto \brac{\delta_\mu  F(\mu;.),\delta_\mu\varphi(\mu;x)}.
+    \]
+\end{proposition}
+\begin{proof}
+    Let $\mu,\nu \in \MC^+_{\psi}(\RRP)$, we define the following function for $\theta \in (0,1)$:
+    \[
+        g(\theta) =  F\left(\varphi(\theta\mu + (1 - \theta)\nu)\right).
+    \]
+    We will show that $g$ is differentiable and compute its derivative. One can then conclude by simply noticing that :
+    \[ F(\varphi(\mu)) - F(\varphi(\nu)) = \int_0^1 g'(\theta) \dd \theta.\]
+    We introduce the bracket notation, $[\mu,\nu]^{\theta } =  \theta\mu + (1 - \theta)\nu$. Let $h > 0$, we have:
+    \[ 
+    g(\theta + h) - g(\theta) = F\left(\varphi\left([\mu,\nu]^{\theta + h}\right)\right) -F\left(\varphi\left([\mu,\nu]^{\theta}\right)\right)
+    \]
+    By using the differentiability of $F$ we get:
+    \begin{multline*}
+    g(\theta + h) - g(\theta) =\\ \int_0^1 \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, . \right),\varphi\left([\mu,\nu]^{\theta + h}\right) - \varphi\left([\mu,\nu]^{\theta}\right)} \dd \lambda_1.
+    \end{multline*}
+    Now by differentiability of $\varphi$ we get:
+    \begin{multline*}
+        g(\theta + h) - g(\theta) =\\
+        h\int_0^1 \int_0^1\int_{\RRP} \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, . \right),\delta_\mu \varphi\left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} ,x\right)}
+        \\
+        (\mu-\nu)(\dd x) \dd \lambda_2 \dd \lambda_1. 
+    \end{multline*}
+    Notice first that \(\left[\varphi\left([\mu,\nu]^{\theta}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1} = \varphi\left([\mu,\nu]^{\theta}\right)\).
+    \red{A terminer}
+\end{proof}
+There exists many formulation of the latter depending on the properties of the considered functions. For isntance we could take $\delta_\mu F(\mu;\cdot)$ only dominated and measurable if $\varphi$ was continuous in the strong topology which are conditions also aplicable in our setting, however the conditions provided corresponds to our setting well.
 
 \subsection{The Smoluchovski coagulation equation}
 The Smoluchowski coagulation equation ($\SCE$) of kernel $K_\alpha$ and intial value $\mu$, is an equation defined on measured value functions defined in its weak form as or all bounded measurable $f$:
