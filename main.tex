@@ -3744,13 +3744,13 @@ Our main result is a quantitative convergence estimate with rate $1/N$, which is
 \[
 G(\mu) = F\left( \frac{\mu}{\brac{1,\mu}} \right),
 \]
-where $F$ satisfies a set of general assumptions $\mathcal{A}$. Let the stochastic coalescence process be given by
+where $F$ satisfies a set of general assumptions $\mathcal{A}$. Let the stochastic coalescence process (not time rescaled) be given by
 \[
-M_t^N = \frac{1}{N} \sum_{i=1}^{N_t} \delta_{X_{i,t}},
+M_t =  \sum_{i=1}^{N_t} \delta_{X_{i,t}},
 \]
 then for all $t \geq 0$, we establish the estimate
 \[
-\left| \mathbb{E} \left[ F\left( \frac{1}{N_t} \sum_{i=1}^{N_t} \delta_{X_{i,t}} \right) \right] - F\left( \frac{1}{\brac{1,\mu_t}} \mu_t \right) \right| \leq \frac{C(T) \|\mu\|_{e^{\psi_2}}^{C(1 + T^2)}}{N \brac{1,\mu_T}}.
+\left| \mathbb{E} \left[ F\left( \frac{1}{N_{t/N}} \sum_{i=1}^{N_t} \delta_{X_{i,t/N}} \right) \right] - F\left( \frac{1}{\brac{1,\mu_t}} \mu_t \right) \right| \leq \frac{C(T) \|\mu\|_{e^{\psi_2}}^{C(1 + T^2)}}{N \brac{1,\mu_T}}.
 \]
 Furthermore, we show that $\brac{1,\mu_T} \geq C T^{-\beta}$ for some $\beta > 0$, which indicates that the empirical measure converges (in a weak sense) to the normalized solution $\mu_t / \brac{1,\mu_t}$. However, the function class defined by $F$ may not be rich enough to establish full weak convergence. Instead, we derive propagation of chaos results.
 
@@ -3758,7 +3758,7 @@ In particular, for observables of the form
 \[
 F(\mu) = g\left( \left\langle f, \mu^{\otimes k} \right\rangle \right),
 \]
-where $k \geq 1$ is an integer, $f$ is a symmetric function on $(\mathbb{R}_+^*)^k$, and $g$ is twice differentiable with bounded first and second derivatives, we obtain a propagation of chaos result with rate of order $1/N$, under suitable assumptions on $f$.
+where $k \geq 1$ is an integer, $f$ is a symmetric function on $(\mathbb{R}_+^*)^k$, and $g$ is twice differentiable with bounded first and second derivatives, we obtain a propagation of chaos result with rate of order $1/N$, under suitable assumptions on $f$. This indicates that, as the number of initial particles increases, the particles become asymptotically statistically independent in the time-rescaled process. Consequently a major application of this work is that the law of each individual particle $X_{i,t/N}$ can be approximated by the probability measure $\brac{1,\mu_t}^{-1} \mu_t$.
 
 The integrability requirements we impose—specifically exponential-square integrability—are not optimal and arise primarily from limitations in currently available bounding techniques. We believe these conditions could be significantly relaxed by introducing a new Wasserstein-type distance, interpolating between $W_{\psi_1}$ and the classical Wasserstein metric. Such a development may lead to time-uniform estimates, thereby improving the integrability requirements on $\mu$ and clarifying the link between the long-time behavior of the SCE and the early stochastic dynamics of the coalescence process. This would also pave the way for uniform-in-time propagation of chaos results.
 
@@ -3793,7 +3793,7 @@ Overall, our results provide both theoretical insights and practical tools for a
 %     \end{align*}
 %     which implies $y'(T^*) \geq x'(T^*) = f(x(T^*))$ and therefore $y'(T^*) = f(y(T^*))$. 
 % \end{proof}
-
+\newpage
 \section{Properties of $d_\alpha$}
 Here we give an important property of the distance $d_\alpha(x,y) = |x^{-\alpha} - y^{-\alpha}|$ for $\alpha \geq 0$ that we use in some of our proofs.
 % \begin{lemma}\label{lem:properties-of-d-alpha}
