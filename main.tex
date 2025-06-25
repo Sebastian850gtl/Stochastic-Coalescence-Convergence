@@ -108,57 +108,59 @@
 \pagestyle{headings}  
 \begin{document}
 \section{Introduction}
-Pour controler des erreurs entre observables :comme on le fait: Delarue-TSE, Chassagneux, Szpruch
 
-It is well known that for many kernels the \(\SCE\) is the hydrodynamic limit of the stochastic coalescence. Hydrodynamic in the sense that after a careful rescaling of time and as considering a large amount of clusters we have this limit for various types of kernels, \cite{norrisClusterCoagulation2000,norris1999smoluchowski,deaconuPureJumpMarkov2002,deaconu2000smoluchowski,fournierConvergenceMarcusLushnikov2004,fournierStochasticCoalescenceHomogeneouslike2009} with this one treating kernels of our type, \cite{norris1999smoluchowski}. Also some rates of convergence \cite{cepedaSmoluchowskisEquationRate2011a}.
+The Smoluchowski coagulation equation (SCE) arises as a macroscopic limit of particle systems undergoing binary coalescence. It describes the evolution of cluster size distributions under pairwise merging and has been the subject of extensive study from both deterministic and probabilistic perspectives. A seminal review of the field is provided by Aldous~\cite{aldousDeterministicStochasticModels1999}, and a recent survey of the fragmentation side of the theory can be found in~\cite{deaconuProbabilisticRepresentationsFragmentation2023}.
 
+\paragraph{Context and Related Work}
 
-The Smoluchowski coagulation equation (SCE) arises as a macroscopic limit of systems of particles undergoing binary coalescence. Understanding this connection allows one to rigorously derive the deterministic SCE from an underlying stochastic model of particle interactions, and to quantify the accuracy of this approximation.
-
-The stochastic coalescence process provides a microscopic model for the dynamics described by the Smoluchowski equation. It consists of randomly merging particles, with coalescence rates depending on their masses. Below, we briefly outline its construction. The stochastic coalescence is a process representing a collection of particles characterized by a positive value called mass. Each couple of particles of mass $x,y$ has an infinitesimal probability to merge in an interval of time $[t, t + \dd t]$ proportional to to $K_{\alpha}(x,y)\dd t$. Assume we have initially $N$ particles with masses $x_{1},\cdots,x_{N}$. Consider $N(N-1)/2$ independent exponential random variables:
-\begin{align*}
-    \left\lbrace T_{i,j} \sim \mathcal{E}\left(K_{\alpha}(x_{i},x_{j})\right), 1 \leq i < j \leq N \right\rbrace.
-\end{align*}
-Each random variable represents the time taken by the corresponding couple to coalesce. The first coalescence to happen is the fastest one, in other words the minimum of the previous set that we denote $T_1$. By property of exponential laws $T_1$ is itself an exponential variable of parameter:
-\begin{align*}
-    \sum\limits_{1 \leq i < j \leq N}K_{\alpha}(x_{i},x_{j}).
-\end{align*}
-We denote by $i^*,j^*$ the couple achieving this minima, at time $T_1$, $N-1$ particles remain and the process is at state $x_{1},\cdots , x_{i^*}+x_{j^*},\cdots$. We repeat this operation until there is a single particle left with mass equal to $\sum\limits x_i$. To study the evolution of the system, we encode the state at time $t$ as the empirical measure:
-\begin{align*}
-    M_t = \sum\limits_{i = 1}^{N_t} \delta_{X_{i,t}}.
-\end{align*}
-where $N_t$ is the amount of clusters present at time $t$. Let $\Seq{X_n}$ be a sequence of $iid$ random variables of law $\mu$. We are interested in the stochastic coalescence with initial state given by:
-\begin{align*}
-    M_0 = \sum\limits_{i = 1}^N \delta_{X_i}.
-\end{align*}
-A classical type of result is to show that a rescaled version of $\Proc{M_t}$ converges as $N$ tend to infinity toward the solution of the Smolochowski equation started from $\mu$. It is defined for all $t \geq 0$, bounded measurable $f$ by:
+The stochastic coalescence process models a system of $N$ particles, where each pair of particles with masses $x$ and $y$ coalesces at a rate governed by a symmetric kernel $K(x,y)$. The state of the system at time $t$ is encoded by the empirical measure
+\[
+    M_t = \sum_{i=1}^{N_t} \delta_{X_{i,t}},
+\]
+where $X_{i,t}$ denotes the mass of cluster $i$ at time $t$. It is well known that, under suitable conditions, a rescaled version of $M_t$ converges as $N \to \infty$ to a solution $\mu_t$ of the Smoluchowski equation:
 \begin{equation}\label{eq:SCE}
     \begin{aligned}
-    \int_{\RRP} f(x)\mu_t (\dd x) =& \int_{\RRP} f(x)\mu (\dd x)\\
+    \int_{\RRP} f(x)\mu_t (\dd x) =& \int_{\RRP} f(x)\mu_0 (\dd x)\\
      &+ \dfrac12\int_0^t \int_{\RRP}\int_{\RRP} 
-        K_{\alpha}(x,y)\left[f(x+y) - f(x) - f(y)\right] \mu_s(\dd x)\mu_s(\dd y) \dd s.
+        K(x,y)\left[f(x+y) - f(x) - f(y)\right] \mu_s(\dd x)\mu_s(\dd y) \dd s,
     \end{aligned}
 \end{equation}
+for bounded measurable test functions $f$.
 
-We decide to study the kernel for $\alpha \geq 0$:
-\begin{align*}
-    K_\alpha(x,y) = x^{-\alpha} + y^{-\alpha}.
-\end{align*}
-This distance is very close to the one used by Fournier and Cepeda to prove convergence rates in \cite{fournier2015rate}.
+Existence and uniqueness for~\eqref{eq:SCE} have been studied extensively, including under general conditions in~\cite{laurencotClassContinuousCoagulationFragmentation2000,lambExistenceUniquenessResults2004}. However, the singular kernel we consider in this work falls outside the scope of most classical treatments. Notably, the work by Norris~\cite{norrisSmoluchowskisCoagulationEquation1999} provides a robust framework that accommodates our kernel, but does not include rates of convergence.
 
-The result of this work is a convergence rate of obsevables. We give it informally below, the official version is in \ref{section-main-results}
-\begin{theorem}
-    For all $t \in [0,T]$:
-    \begin{align*}
-    \left|\E{F\left(M^N_t\right)} - F(\mu_t) \right| \leq  \dfrac{C(T,F,\mu)}{N} .
-    \end{align*}
+Convergence of the Marcus–Lushnikov process to the SCE in weak topology has been addressed in a series of important works, including~\cite{fournierConvergenceMarcusLushnikov2004,fournierStochasticCoalescenceHomogeneouslike2009,fournierDistanceCoagulation2006}, among others. However, these results typically require different assumptions on the kernel or address convergence in weaker senses. Rates of convergence have been studied under more restrictive settings, such as constant or homogeneous kernels, as in~\cite{cepedaSmoluchowskisEquationRate2011a,kyprianouUniversalityClassFragmentationcoalescence2018}.
+
+\paragraph{Contributions of this Work}
+
+In this paper, we consider the kernel
+\[
+    K_\alpha(x,y) = x^{-\alpha} + y^{-\alpha}, \quad \alpha \geq 0,
+\]
+which exhibits a singularity at zero and thus presents analytical challenges not addressed by most existing results. Our primary contributions are as follows:
+
+\begin{itemize}
+    \item We establish a convergence rate of order $1/N$ for expectations of observables of the Marcus–Lushnikov process toward the solution $\mu_t$ of the SCE, under appropriate integrability and regularity assumptions.
+    \item We work in the Wasserstein-1 distance framework, and introduce a singularity-adapted distance $d_\alpha$ to handle the behavior of the kernel near zero. This mirrors the approach taken in~\cite{fournier2015rate} and \cite{cepedaSmoluchowskisEquationRate2011a}, but is adapted to our more singular setting.
+    \item Our quantitative bound is expressed both deterministically (for fixed empirical initial data) and probabilistically (when initial conditions are random), yielding a complete convergence picture.
+    \item In addition to the convergence of observables, we derive various regularity properties of the SCE in Wasserstein-type distances, which are key to our stability analysis.
+\end{itemize}
+
+The main convergence estimate, stated informally, is:
+\begin{theorem}[Informal statement]
+    For all $t \in [0,T]$, we have
+    \[
+        \left| \mathbb{E}\left[F\left(M^N_t\right)\right] - F(\mu_t) \right| \leq \frac{C(T, F, \mu)}{N},
+    \]
+    where $F$ is an observable compatible with the kernel singularity, and $\mu_t$ is the solution of the SCE with initial law $\mu$.
 \end{theorem}
 
-The singular behavior of the kernel $K_\alpha$ motivates the use of a specific distance $d_\alpha$ adapted to this singularity. This distance reflects the dominant scaling of the kernel and plays a key role in the convergence analysis. A precise definition is given in Section~\ref{section-main-results}.
+Our analysis combines ideas from several sources: the distance construction from~\cite{cepedaSmoluchowskisEquationRate2011a}, the existence theory in~\cite{norrisSmoluchowskisCoagulationEquation1999}, the regularity analysis from~\cite{kolokoltsov2010central}, and the convergence methods of~\cite{kyprianouUniversalityClassFragmentationcoalescence2018,martiniKolmogorovEquationsSpaces2023}. The treatment of nonlinear observables also draws from recent advances in controlling errors between functionals of empirical measures, as in~\cite{delarue2025uniform}.
 
-In this work, we study the convergence of the stochastic coalescence process to the Smoluchowski coagulation equation. Our main quantitative result (Corollary~\ref{thm:main-result-2}) provides an explicit rate of convergence of order $N^{-1}$ for the expectation of observables when the initial condition is a random empirical measure. This improves upon classical pathwise bounds (which typically yield a $N^{-\frac{1}{2}}$ rate), at the cost of stronger integrability assumptions.
+\paragraph{Outline}
 
-To support this result, we first prove a more general deterministic bound (Theorem~\ref{thm:main-result}), which applies to arbitrary empirical initial conditions and controls the error using Wasserstein distances. While this theorem does not yield weak convergence in full generality, it plays a key role in the analysis of averaged behavior.
+The rest of the paper is organized as follows. In Section~\ref{section-main-results}, we present the main results along with the key definitions and an overview of the proof strategies. Section~\ref{section:analysis-measures} introduces measure-theoretic tools and concepts relevant to our analysis. In Section~\ref{section:well-posedness-SCE}, we establish existence and uniqueness results for the Smoluchowski coagulation equation. Section~\ref{section:Wass-regularity} contains the core analytical arguments, focusing on Wasserstein regularity estimates and associated technical results. The complete proofs of our main results are then provided in Section~\ref{section-main-results}. We conclude with a discussion of open problems and possible directions for future research.
+
 
 
 \section{Definitions, assumptions and main results}\label{section-main-results}
@@ -169,15 +171,6 @@ In this work, we describe the evolution of particle systems using measure-valued
 The value $\alpha > 0$ appearing in $K_\alpha$ is fixed throughout all this work. 
 
 The notations $\brac{f,\mu}$, $\int f \dd \mu$, and $\int f(x)\mu(\dd x)$ are used interchangeably, depending on convenience. When all functions involved are integrable, we apply Fubini-Tonelli and Fubini-Lebesgue theorems as needed.
-
-A sub-multiplicative function is a positive function $f$ such that for all $x \in \RR$ and $\lambda \geq 1$, we have:
-\[
-f(\lambda x) \leq \lambda f(x).
-\]
-All sub-multiplicative functions are sub-additive, meaning for all $x, y \in \RR$:
-\[
-f(x+y) \leq f(x) + f(y).
-\]
 
 Throughout this work, the term 'mass' may refer either to the value of a measure on Borel sets (in a measure-theoretic sense), or to the individual atom sizes in the context of stochastic coalescence. The meaning will be clear from context or specified if necassary, and both interpretations are fundamental to our analysis.
 
@@ -352,14 +345,14 @@ It is a Cauchy sequence but does not converge toward any measure in $\MC^+_{\psi
 \end{proof}
 
 \begin{proposition}
-    The space $\left( \MC^+_{\psi_p}\left(\RRP \cup \lbrace+\infty\rbrace\right),W_{\psi_1}\right) $ is complete.
+    The space $\left( \MC^+_{\psi_p}\left(\RRP \cup \lbrace+\infty\rbrace\right),W_{\psi_p}\right) $ is complete.
 \end{proposition}
 \begin{proof}
     Notice that for all $\mu,\nu \in \MC^+_{\psi_p}\left(\RRP \cup \lbrace+\infty\rbrace\right)$:
     \begin{align*}
         W_{\psi_p}(\mu,\nu) = \sup_{\substack{f \in Lip_1(d_{p\alpha}) \\ |f(+\infty)| \leq 1 }} \brac{f, \mu - \nu}.
     \end{align*}
-    The space $\left(\RRP \cup \lbrace+\infty\rbrace ,d_\alpha\right)$ is complete. The result follows by \red{Prop de la section \ref{section:Wasserstein}}.
+    Because of Proposition \ref{prop:equivalent-notation} this exactly the distance defined in Definition \ref{def:Wasserstein-general} with $x_0 = \infty$, since the space $\left(\RRP \cup \lbrace+\infty\rbrace ,d_\alpha\right)$ is complete the result follows by Proposition \ref{prop:completness-wasserstein}.
 \end{proof}
 This distance can also be extended to the set of finite signed measures $\MC_{\psi_p}(\RRP)$ however even adding a point at infinity does not make it complete, as in general signed spaces of measures are not complete for the Wasserstein distance see \cite{piccoli2019wasserstein}.
 
@@ -1032,8 +1025,12 @@ We define the \emph{Wasserstein-$1$ distance} on $\MC^+_{1}(\XF,d)$, denoted $W_
     W_{1}(\mu, \nu) := \sup_{\substack{Lip(f) \leq 1\\ f(x_0) = 0}} \brac{f, \mu - \nu} + \left| \mu(\XF) - \nu(\XF) \right|.
 \end{align*}
 \end{definition}
-This distance depends on the choice of $x_0$ however they are all equivalent. Another interesting property is the following.
-\begin{proposition}
+This distance depends on the choice of $x_0$ however they are all equivalent.
+\begin{proposition}\label{prop:completness-wasserstein}
+    The space $\left(\MC_d^+(\XF), W_1 \right)$ is complete.
+\end{proposition}
+Another interesting property is the following.
+\begin{proposition}\label{prop:equivalent-notation}
     Let $\psi = d(x,x_0)$, this distance also verifies:
 \begin{align*}
     W_{1}(\mu, \nu) := \sup_{\substack{Lip(f) \leq 1\\ |f| \leq 1 + \psi }} \brac{f, \mu - \nu} .
@@ -1056,7 +1053,7 @@ This distance depends on the choice of $x_0$ however they are all equivalent. An
     \end{align*}
     Indeed $|f(x_0)| \leq d(x_0,x_0) + 1 = 1$.
 \end{proof}
-Lastly it makes $\MC_d^+(\XF)$ complete. This distance can be generalized to signed measures:
+This distance can be generalized to signed measures:
 \begin{definition}\label{def:Wasserstein-general-signed}
     We define the \emph{Wasserstein-$1$ distance} on $\MC_{1}(\XF,d)$, denoted $W_{1}$, as:
 \begin{align*}
@@ -3399,7 +3396,7 @@ This lemma can be interpreted as follows: The first point shows that the solutio
 \newpage
 
 
-\section{Proof of the main results}
+\section{Proof of the main results}\label{Section:main-results}
 \subsection{Proof of Theorem \ref{thm:samesame}}
 We start with the technical lemma below.
 \begin{lemma}\label{lem:bounds_diff_gen}
