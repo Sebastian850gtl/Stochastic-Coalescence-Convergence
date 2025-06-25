@@ -210,7 +210,7 @@ A natural norm on $\MC_{\psi}(\RRP)$ is the $\psi$-weighted total variation norm
 \[
 \|\mu\|_{\psi} = \brac{1 + \psi, |\mu|}.
 \]
-An important property of this norm on $\MC_{\psi}(\RRP)$ is the following.
+Note that if $\mu$ is a positive measure then $\mu = |\mu|$ and $\|\mu\|_{\psi} = \brac{1 + \psi,\mu}$. An important property of this norm on $\MC_{\psi}(\RRP)$ is the following.
 \begin{proposition}
     The space $\left(\MC_{\psi}(\RRP),\|\cdot\|_{\psi} \right)$ is Banach.
 \end{proposition}
@@ -280,6 +280,7 @@ Let the space of Lipschitz functions for $d_{p\alpha}$ with Lipschitz constant 1
 \[
 \text{Lip}_1(d_{p\alpha}) = \left\lbrace f: \RRP \to \RR \middle| \sup_{x \neq y \in \RRP} \dfrac{|f(x) - f(y)|}{d_{p\alpha}(x, y)} \leq 1 \right\rbrace.
 \]
+We say that a function in $Lip_C(d_{p\alpha})$ and dominated by $C(1 + \psi_p)$ is \textbf{Lipschitz-dominated} for $d_{p\alpha}$ with constant $C$.
 \begin{definition}
 We define the $\psi_p$-Wasserstein distance on $\MC^+_{\psi_p}\left(\RRP \right)$ by:
 \[
@@ -366,16 +367,16 @@ We can see the appeal of the Toltal Variation distance as opposed to the Wassers
 
 To avoid adding a point at infinity we could use a composite distance equal to $d_{p\alpha}$ close to $0$ on $(0,1]$ and the absolute value on $(1, \infty)$. 
 \subsection{Derivatives on spaces of measures}
-A consequent part of our analysis relies on differentiating functions defined on spaces of measures. We give definitions aswell as a chain rule property that we also prove. This tools come from a rather general framework, however our ability to define a chain rule depends specifically on the topological structure we give to the considered sapce of measures. Since we work on $\MC^+_{\psi_p}(\RRP)$ and the topology induced by the Wasserstein distance $W_{\psi_p}$ we shall state all results in this particular setting.
+A consequent part of our analysis relies on differentiating functions defined on spaces of measures. We give definitions aswell as a chain rule property that we also prove. This tools come from a rather general framework, however our ability to define a chain rule depends specifically on the topological structure we give to the considered space of measures. We equip $\MC^+_{\psi_p}(\RRP)$ and $\MC_{\psi_p}(\RRP)$ with the topology induced by the Wasserstein distance $W_{\psi_p}$ we shall state all results in this particular setting.
 
 Classical works involving those derivatives are \cite{martiniKolmogorovEquationsSpaces2023} that takes inspiration from \cite{cardaliaguet2019master,carmona2018probabilistic}. We denote by $\psi$ any of the functions $\psi_p$.
 \begin{definition}
-    Let $F: \MC^+_{\psi}(\RRP) \to \RR$ be a continuous function we say that $F$ has a flat derivative if there exists a function $\delta_{\mu}F :\MC^+_{\psi}(\RRP) \times \RRP \to \RR $ such that for all $\mu,\nu \in \MC^+_{\psi}(\RRP) $:
+    Let $F: \MC^+_{\psi_p}(\RRP) \to \RR$ be a continuous function we say that $F$ has a flat derivative if there exists a function $\delta_{\mu}F :\MC^+_{\psi_p}(\RRP) \times \RRP \to \RR $ continuous in the product topology such that for all $\mu,\nu \in \MC^+_{\psi_p}(\RRP) $:
     \[ F(\mu) - F(\nu) = \int_0^1 \int_{\RRP} \delta_\mu F(\theta \mu + (1-\theta)\nu;x)\left(\mu - \nu\right)(\dd x)\dd \theta\]
 \end{definition}
 We also define the derivaitve a function with values in $\MC^+_{\psi_p}(\RRP) $.
 \begin{definition}
-     Let $\varphi: \MC^+_{\psi}(\RRP) \to \MC^+_{\psi}(\RRP)$ be a continuous function we say that $\varphi$ has a flat derivative if there exists, a continuous function $\delta_{\mu}\varphi :\MC^+_{\psi}(\RRP) \times E\to \MC_{\psi}(\RRP)$ such that for all $\mu,\nu \in \MC^+_{\psi}(\RRP)$ and for all $f$ measurable, $|f| \leq 1 + \psi$:
+     Let $\varphi: \MC^+_{\psi}(\RRP) \to \MC^+_{\psi}(\RRP)$ be a continuous function we say that $\varphi$ has a flat derivative if there exists, a continuous function $\delta_{\mu}\varphi :\MC^+_{\psi}(\RRP) \times \RRP \to \MC_{\psi}(\RRP)$ such that for all $\mu,\nu \in \MC^+_{\psi}(\RRP)$ and for all $f$ measurable, $|f| \leq 1 + \psi$:
      \begin{itemize}
          \item The function
          \[x \mapsto \sup_{\theta \in [0,1]} |\langle f, \partial_\mu\varphi(\theta \mu + (1-\theta) \nu;x) \rangle| \in L^1(\mu) \cap L^1(\nu).\]
@@ -384,14 +385,23 @@ We also define the derivaitve a function with values in $\MC^+_{\psi_p}(\RRP) $.
      \end{itemize}
 \end{definition}
 We give a formulation of the chain rule.
-\begin{proposition}
-    Assume that $\delta_\mu F$ is bounded and $\delta_\mu\varphi$ is bounded in total variation. Assume that for all \(x\in \RRP\), \(\mu \mapsto \delta_u F(\mu,x)\) is continuous in the $W_{\psi}$ topology and that for all $\mu \in \MC^+_{\psi}(\RRP)$, $\delta_\mu F(\mu;\cdot)$ is Lipschitz and bounded for $d_\alpha$ and \(\mu \mapsto \delta_u F(\mu,x)\) are continuous in the $W_{\psi}$ topology. Then \(F\circ \varphi\) has a flat derivative and it is equal to:
+\begin{proposition}\label{prop:chain-rule}
+    Assume that:
+    \begin{itemize}
+        \item For all $\mu \in \MC^+_{\psi_p}(\RRP)$, $x \mapsto \delta_u F(\mu,x)$ is Lipschitz-dominated in $d_{p\alpha}$ with a constant bounded by some $u(\|\mu\|_{\psi_p})$ where $u$ is a non-decreasing function on $\RR^+$.
+        \item For all $\mu,x \in \MC^+_{\psi_p}(\RRP)\times \RRP$, for all $f$ Lipschitz-dominated for $d_{p\alpha}$ with constant $C$, 
+        \begin{align*}
+            \brac{f, \delta_\mu \varphi(\mu;x)} \leq Cv(\|\mu\|_{\psi_p})(1 + \psi_p(x)), 
+        \end{align*}
+        where $v$ is a non-decreasing function on $\RR^+$.
+    \end{itemize}
+    Then \(F\circ \varphi : \MC_{\psi_p}^+(\RRP) \to \RR\) has a flat derivative and it is equal to:
     \[
     \delta_\mu F\circ \varphi : \left(\mu,x \right) \mapsto \brac{\delta_\mu  F(\mu;.),\delta_\mu\varphi(\mu;x)}.
     \]
 \end{proposition}
 \begin{proof}
-    Let $\mu,\nu \in \MC^+_{\psi}(\RRP)$, we define the following function for $\theta \in (0,1)$:
+    Let $\mu,\nu \in \MC^+_{\psi_p}(\RRP)$, we define the following function for $\theta \in (0,1)$:
     \[
         g(\theta) =  F\left(\varphi(\theta\mu + (1 - \theta)\nu)\right).
     \]
@@ -412,10 +422,86 @@ We give a formulation of the chain rule.
         \\
         (\mu-\nu)(\dd x) \dd \lambda_2 \dd \lambda_1. 
     \end{multline*}
-    Notice first that \(\left[\varphi\left([\mu,\nu]^{\theta}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1} = \varphi\left([\mu,\nu]^{\theta}\right)\).
-    \red{A terminer}
+    The rest of the proof in a dominated convergence theorem applied to the family of functions:
+    \begin{align*}
+        \left(x \mapsto \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, . \right),\delta_\mu \varphi\left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} ,x\right)} \right)_{0 \leq h \leq \varepsilon}
+    \end{align*}
+    First we show that that the expression in bracket is well dominated:
+    \begin{multline*}
+        \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, . \right),\delta_\mu \varphi\left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} ,x\right)} \\
+        \leq u\left(\left\|\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1} \right\|_{\psi_p}\right)\times v\left(\left\|\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} \right\|_{\psi_p}\right)\times  ( 1 + \psi_p(x)).
+    \end{multline*}
+    Note that for positive measures $\left[\mu,\nu \right]^\theta \leq \mu + \nu$, and therefore because $v$ is non-decreasing:
+    \begin{align*}
+        v\left(\left\|\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} \right\|_{\psi_p}\right) \leq v\left(\left\|\mu + \nu\right\|_{\psi_p}\right).
+    \end{align*}
+    To bound the term inside of $u$ we first give a bound for the inside. For any $f$ Lipschitz-bounded for $d_{p\alpha}$ with constant $1$:
+    \begin{align*}
+        \brac{f,\varphi\left([\mu,\nu]^{\theta + h}\right)- \varphi\left([\mu,\nu]^{\theta}\right)}
+        &= h\int_0^1 \brac{f, \delta_\mu \varphi \left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_3};x \right)} (\mu - \nu)(\dd x) \lambda_3\\
+        &\leq h v\left(\left\|\mu + \nu\right\|_{\psi_p}\right) \brac{1 + \psi_p, |\mu - \nu|}.
+    \end{align*}
+    Therefore by letting the LHS go to the supremum we have:
+    \begin{align*}
+        W_{\psi_p}\left(\varphi\left([\mu,\nu]^{\theta + h}\right), \varphi\left([\mu,\nu]^{\theta}\right) \right) \leq h v\left(\left\|\mu + \nu\right\|_{\psi_p}\right) \brac{1 + \psi_p, |\mu - \nu|}.
+    \end{align*}
+    It comes that for $h$ small enough 
+    \begin{align*}
+        \left\|\varphi\left([\mu,\nu]^{\theta + h}\right)\right\|_{\psi_p} \leq  \left\|\varphi\left([\mu,\nu]^{\theta }\right)\right\|_{\psi_p} + 1.
+    \end{align*}
+    and finally for $h$ small enough:
+    \begin{multline*}
+        \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, . \right),\delta_\mu \varphi\left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} ,x\right)} \\
+        \leq u\left(\left\|\varphi\left([\mu,\nu]^{\theta }\right)+ 1\right\|_{\psi_p}\right)\times v\left(\left\|\mu + \nu\right\|_{\psi_p}\right)\times  ( 1 + \psi_p(x)).
+    \end{multline*}
+    We show that the integrand converges pointwise, we can rewrite it
+    \begin{multline*}
+        \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, . \right),\delta_\mu \varphi\left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} ,x\right)} \\
+        = \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, . \right),\delta_\mu \varphi\left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} ,x\right) - \delta_\mu \varphi\left([\mu,\nu]^{\theta } ,x\right)} \\
+        + \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, . \right) ,\delta_\mu \varphi\left([\mu,\nu]^{\theta } ,x\right)}.
+    \end{multline*}
+    We show that the first term on the RHS tends to $0$ for all $x \in \RRP$. First note that:
+    \begin{align*}
+        \left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} - [\mu,\nu]^{\theta } = \lambda_2 h (\mu - \nu).
+    \end{align*}
+    And therefore:
+    \begin{align*}
+        W_{\psi_p}\left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2},[\mu,\nu]^{\theta } \right) = \lambda_2 h W_{\psi_p}\left(\mu,\nu\right) \xrightarrow[h \to 0]{} 0
+    \end{align*}
+    It comes by continuity of $\mu \mapsto \delta_{\mu} \varphi(\mu;x)$:
+    \begin{multline*}
+        \left| \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, . \right),\delta_\mu \varphi\left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} ,x\right) - \delta_\mu \varphi\left([\mu,\nu]^{\theta } ,x\right)} \right|\\
+        \leq u\left(\left\|\varphi\left([\mu,\nu]^{\theta }\right)+ 1\right\|_{\psi_p}\right) W_{\psi_p} \left(\delta_\mu \varphi\left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} ,x\right) , \delta_\mu \varphi\left([\mu,\nu]^{\theta } ,x\right) \right) 
+        \xrightarrow[h \to 0]{} 0.
+    \end{multline*}
+    Now to the treat the second term we already know that:
+    \begin{align*}
+        W_{\psi_p}\left(\varphi\left([\mu,\nu]^{\theta + h}\right), \varphi\left([\mu,\nu]^{\theta}\right) \right) \xrightarrow[h \to 0]{} 0
+    \end{align*}
+    And therefore by hypothesis on $F$ the function:
+    \begin{align*}
+        z \mapsto \delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, z\right)
+    \end{align*}
+    converges pointwise when $h \to 0$ to $x \mapsto \delta_\mu F\left(\varphi\left([\mu,\nu]^{\theta}\right), x\right)$. It is also dominated by an integrable function by hypothesis and therfore by the domianted convergence theorem:
+    \begin{multline*}
+        \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, . \right) ,\delta_\mu \varphi\left([\mu,\nu]^{\theta } ,x\right)} \\
+        \xrightarrow[h \to 0]{} \brac{\delta_\mu F\left(\varphi\left([\mu,\nu]^{\theta}\right), . \right) ,\delta_\mu \varphi\left([\mu,\nu]^{\theta } ,x\right)}.
+    \end{multline*}
+    Therefore the function:
+    \begin{align*}
+        x \mapsto \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, . \right),\delta_\mu \varphi\left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} ,x\right)}
+    \end{align*}
+    converges pointwise to
+    \begin{align*}
+        x \mapsto \brac{\delta_\mu F\left(\varphi\left([\mu,\nu]^{\theta}\right), . \right),\delta_\mu \varphi\left([\mu,\nu]^{\theta } ,x\right)}.
+    \end{align*}
+    It comes by dominated convergence theorem that:
+    \begin{align*}
+        \lim\limits_{h \to 0} h^{-1}\left(g(\theta + h) - g(\theta)\right) = \int_{\RRP} \brac{\delta_\mu F\left(\varphi\left([\mu,\nu]^{\theta}\right), . \right),\delta_\mu \varphi\left([\mu,\nu]^{\theta } ,x\right)}(\mu -\nu)(\dd x).
+    \end{align*}
+    Terefore $g$ is differentiable and we get the desired result.
 \end{proof}
-There exists many formulation of the latter depending on the properties of the considered functions. For isntance we could take $\delta_\mu F(\mu;\cdot)$ only dominated and measurable if $\varphi$ was continuous in the strong topology which are conditions also aplicable in our setting, however the conditions provided corresponds to our setting well.
+There exists many formulation of the latter depending on the properties of the considered functions. For instance we could take $x \mapsto \delta_\mu F(\mu;x)$ only dominated and measurable instead of Lipschitz if $\varphi$ was continuous in the strong topology which are conditions also aplicable in our setting, however the conditions suffice for the theorem we provide.
 
 \subsection{The Smoluchovski coagulation equation}
 The Smoluchowski coagulation equation ($\SCE$) of kernel $K_\alpha$ and intial value $\mu$, is an equation defined on measured value functions defined in its weak form as or all bounded measurable $f$:
@@ -576,13 +662,13 @@ Let $\mu^N$ be an empirical measure. We denote by \(\Proc{\Phi_t(\mu^N)}\) the r
 
 The main appeal of this result is that it provides nearly optimal conditions on the integrability of $\mu$. In particular, the assumption $\mu \in \MC_{\psi_2}(\RRP)$ is believed to be optimal for the existence and uniqueness of solutions to the Smoluchowski coagulation equation (see \cite{norris1999smoluchowski}). We also believe that the stronger assumption $\mu \in \MC_{\psi_3}(\RRP)$ is optimal for the existence of the derivative, which is necessary to define the generator of the $\SCE$.
 
-However, to achieve the convergence rate of $1/N$, we are forced to assume stronger integrability conditions on $\mu$. We define the following space:
+To achieve the convergence rate of $1/N$ we are forced to assume stronger integrability conditions on $\mu$. We define the following space:
 \begin{align*}
     \MC^+_{e^{\psi_2}}(\RRP) = \left\lbrace \mu \in \MC^+(\RRP) \,\middle|\, \int_{\RRP} e^{x^{-2\alpha}} \mu(\dd x) < \infty \right\rbrace.
 \end{align*}
 The necessity of this condition appears in the proof of Lemma~\ref{lem:boudning-constant-empirical}, and stems from the form of the constant in the theorem above. Specifically, in order to ensure that $\mathbb{E}[C(T,\mu^N)]$ is finite, this exponential moment condition is required.
 
-\begin{corollary}\label{thm:main-result-2}
+\begin{theorem}\label{thm:main-result-2}
     Let $\mu \in \MC^+_{e^{\psi_2}}(\RRP)$ be a probability measure. Fix a time horizon $T > 0$. Then there exists an integer $N_T = C_1T(1 + T)$ such that for all $N \geq N_T$ and for any function \(F : \MC^+_{\psi_1}(\RRP) \to \RR\) satisfying assumption \(\A\), and for all \(t \in [0, T]\), we have:
     \[
     \left| \mathbb{E}\left[F\left(\Phi_t\left(\mu^N\right)\right)\right] - F\left(\varphi_t(\mu)\right) \right| \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A}  \frac{C\left(T, \mu\right)}{N}.
@@ -592,7 +678,7 @@ The necessity of this condition appears in the proof of Lemma~\ref{lem:boudning-
         C(T,\mu) = P(T,\|\mu\|_{\psi_1},\|\mu\|_{\psi_2},\|\mu\|_{\psi_3})\, e^{CT(1 + T)\|\mu\|_{\psi_2}} + \|\mu\|_{e^{\psi_2}}^{C(1 + T^2)},
     \end{align*}
     where $P$ is a polynomial.
-\end{corollary}
+\end{theorem}
 
 \begin{remark}
     The constant $C_1$ appearing in the threshold $N_T = C_1T(1 + T)$ is the same as the one appearing in the constant of Theorem~\ref{thm:main-result}.
@@ -615,10 +701,6 @@ The proof of our main result relies on several key intermediate results, which n
     \item In Theorem~\ref{thm:samesame}, we compare the stochastic coalescence process with the deterministic solution to the $\SCE$ started from the same empirical measure $\mu^N$. This isolates the stochastic fluctuations and yields a $1/N$ convergence rate.
     \item In Theorem~\ref{thm:difdif}, we compare two deterministic trajectories: the solution to the $\SCE$ started from $\mu^N$ and the one started from the true law $\mu$. This captures the deterministic approximation error due to discretization of the initial condition.
 \end{itemize}
-
-These two ingredients are then combined to prove the corollary stated in the introduction.
-
-\medskip
 
 We begin with the comparison between the stochastic coalescence process and the deterministic $\SCE$ solution.
 
@@ -651,7 +733,8 @@ We now turn to the deterministic comparison between two solutions to the $\SCE$ 
     Let $\mu^N$ be a deterministic empirical measure and let $\mu \in \MC^+_{\psi_3}(\RRP)$. Then for all $t \in [0,T]$:
     \begin{align*}
         \left| F\left(\varphi_t(\mu^N)\right) - F\left(\varphi_t(\mu)\right) \right|
-        \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A} \cdot C(T,\mu + \mu^N) \cdot \left(W_{\psi_1}(\mu^N,\mu) + W_{\psi_2}(\mu^N,\mu)\right).
+        \leq& \left\llbracket \delta_\mu F \right\rrbracket_{\A} \cdot C(T,\mu + \mu^N) \cdot \left(W_{\psi_1}(\mu^N,\mu) + W_{\psi_2}(\mu^N,\mu)\right) \\
+        &+ + \int_{\RRP} \left\langle \delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\mu;z \right) \right\rangle \left(\mu^N - \mu\right)(\dd z).
     \end{align*}
     The constant $C$ is of the same form as in Theorem~\ref{thm:samesame}:
     \begin{align*}
@@ -659,10 +742,10 @@ We now turn to the deterministic comparison between two solutions to the $\SCE$ 
         \cdot e^{CT(1 + T)\|\mu\|_{\psi_2}}.
     \end{align*}
 \end{theorem}
+The theorem \ref{thm:main-result} is simply theorems \ref{thm:samesame} and \ref{thm:difdif} put together. The proof of the Theorem \ref{thm:main-result-2} giving the bound of $1/N$ relies on Fournier-Guillin rate of convergence for empirical measures.
 
 \section{Analysis in spaces of measures}\label{section:analysis-measures}
-This section acts as a remainder of some very general notions of measure theory. We also recall the definition of the Wasserstein distance and its basic properties, finally we also build an extension 
-The symmetric difference between two sets $A,B$ is defined by $A\Delta B = A\backslash B \cup B\backslash A$.
+This section acts as a remainder of some very general notions of measure theory. We also recall the definition of the Wasserstein distance and its basic properties, finally we also build an extension of the Wasserstein distance to positive and signed measures. The symmetric difference between two sets $A,B$ is defined by $A\Delta B = A\backslash B \cup B\backslash A$.
 \subsection{Elements of signed measure theory}
 Even though we are ultimately interested about measures defined on subsets of $\RR$ we start by a broad picture and consider for now a general measurable space $(E,\Sigma)$.
 \begin{definition}
@@ -826,64 +909,17 @@ See Rudin \cite{rudin1987real} page $40$ for a proof of this result. We also giv
     \end{align*}
 \end{theorem}
 See Rudin \cite{rudin1987real} page $130$ for a proof of this result or \cite{evans2018measure} when $\XF = \RR^d$. In the present work with use the following weighted set of signed measures defined below.
-%  For $\psi > 0$ a positive measurable function:
-% \begin{align*}
-%     \MC_{\psi}\left(\XF\right) &=  \left\lbrace \mu \in \MC\left(\XF\right) , \int_{\XF}\psi(x) |\mu|\left(\dd x\right) < \infty\right\rbrace.
-% \end{align*}
-% The set $\MC^+_{\psi}\left(\XF\right)$ is defined equivalently. We define the weighed total variation norm on this set by:
-% \[
-% \| \mu\|_{\psi} = \brac{\psi,|\mu|}.
-% \]
-% The following proposition and corollary give the major interest of working with a total variation norm in our work.
-% \begin{proposition}
-%     The space \(\left(\MC\left(\XF\right),\| \cdot\|\right) \) is Banach.
-% \end{proposition}
-% \begin{proof}
-%     Let $\Seq{\mu_n}$ a Cauchy sequence in \(\left(\MC_1\left(\XF\right),\| \cdot\|\right) \), notice that the sequence $\Seq{\|\mu_n\|}$ is Cauchy in $\RR^+$ indeed for all $p,q \in \NN$:
-%     \begin{align*}
-%         \left| \|\mu_p\| - \|\mu_q\| \right| \leq \|\mu_p - \mu_q\|,
-%     \end{align*}
-%     and must therefore converge, we assume without loss of generality that $\lim\limits_{n\to\infty} \|\mu_n\| = 1$. Take now a function $f \in C_0(\XF)$ the sequence $\Seq{\brac{f,\mu_n}}$ is Cauchy in $\RR$ indeed for all $p,q \in \NN$,
-%     \begin{align*}
-%          \left| \brac{f,\mu_p} -  \brac{f,\mu_q}\right| \leq \sup\limits_{f \in C_0(\XF)} \brac{f,\mu_p - \mu_q} = \| \mu_p - \mu_q\| 
-%     \end{align*}
-%     we denote by $Lf$ its limit. The map $f \mapsto Lf$ is linear, let us show that it is bounded. Let $f \in C_0(\XF)$ such that $\|f\|_{\infty} \leq 1$ we have:
-%     \begin{align*}
-%         \left|Lf\right| = \left|Lf\right| - \left|\brac{f,\mu_n} \right| + \left|\brac{f,\mu_n} \right|.
-%     \end{align*}
-%     Let $\varepsilon > 0$ there exists $N_f \in \NN$ such that for all $n \geq N_f$:
-%      \begin{align*}
-%         \left|Lf\right| \leq \varepsilon + \left|\brac{f,\mu_n} \right|.
-%     \end{align*}
-%     And therefore
-%     \begin{align*}
-%         \left|Lf\right| \leq \varepsilon + \lim\limits_{n\to \infty}\left|\brac{f,\mu_n} \right| = \varepsilon + 1
-%     \end{align*}
-%     This is true for all $\varepsilon > 0$ regardless of $f$ and therefore $L$ is a bounded linear functional indeed:
-%     \[ \sup\limits_{\substack{f\in C_0(\XF) ,\\ |f| \leq 1}} |Lf| \leq 1. \]
-%     We conclude by the Riesz-Markov representation theorem that there exists a measure $\mu $ in $\MC(\XF)$ limit of $\Seq{\mu_n}$.
-% \end{proof}
-% \begin{corollary}\label{cor:Banach-wheigted-space}
-%     The space \(\left(\MC_{\psi}\left(\XF\right),\| .\|_{\psi}\right) \) is Banach.
-% \end{corollary}
-% \begin{proof}
-%     The space \(\left(\MC_{\psi}\left(\XF\right),\| .\|_{\psi}\right) \) is isometric to \(\left(\MC\left(\XF\right),\| .\|\right) \) through :
-%     \begin{align*}
-%         \mu \mapsto \dfrac{1}{\psi} \mu.
-%     \end{align*}
-%     It comes that metric properties of \(\left(\MC\left(\XF\right),\| .\|\right) \) transfer to \(\left(\MC_{\psi}\left(\XF\right),\| .\|_{\psi}\right) \) in particular completeness.
-% \end{proof}
 
 \subsection{Wasserstein distance for signed measures}\label{section:Wasserstein}
 The goal of this section is to introduce a definition of the Wasserstein distance for positive or signed measures that are not necessarily probability measures. The classical definition for probability measures is given in Definition \ref{def:Wasserstein}. The definition of the general distance for positive measures of not necessarily same mass relies on proposition \ref{prop:Kantorovich-general} and is given in definition \ref{def:Wasserstein-general}. Finally the extension to signed measures is pretty straightforward and done below the aforementioned definition. 
 
-The Wasserstein distance between two probability measures is based on a distance defined on the underlying metric space. As such we introduce $(\XF,d)$, asking from it slightly more than being merely a metric space but that it is $\XF$ is Polish and $d$ is a distance making it complete. The relevant measure space is the space of all finite measures on $\XF$, $\mu$ such that there exists $x_0 \in \XF$ and 
+The Wasserstein distance between two probability measures is based on a distance defined on the underlying metric space. As such we introduce $(\XF,d)$, asking from it slightly more than being merely a metric space but that it is $\XF$ is Polish and $d$ is a distance metrizing its topology and making it complete. The relevant measure space is the space of all finite measures on $\XF$, $\mu$ such that there exists $x_0 \in \XF$ and 
 \begin{align*}
     \int_{\XF} d(x,x_0) \mu(\dd x) < \infty.
 \end{align*}
-Notice that this also implies that the latter is also true for all $x_0 \in \XF$, let us call this space $\MC^+_1(\XF,d)$ for the moment namely the space of finite measures with finite first moment under $d$.
+Notice that this also implies that the latter is also true for all $x_0 \in \XF$, let us call this space $\MC^+_d(\XF)$ for the moment namely the space of finite measures with finite first moment under $d$. We also call $\mathcal{P}_1(\XF,d)$ the space of probability measures on this space.
 \begin{definition}\label{def:Wasserstein}
-    Let $\mu,\nu \in \MC^+_1(\XF,d)$ be two probability measures. The set of couplings between $\mu$ and $\nu$ that we denote by $\Pi(\mu,\nu)$, is the set of probability measures $\pi$ on $\XF\times \XF$ such that for all Borel sets $A$:
+    Let $\mu,\nu \in \mathcal{P}_1(\XF,d)$ be two probability measures. The set of couplings between $\mu$ and $\nu$ that we denote by $\Pi(\mu,\nu)$, is the set of probability measures $\pi$ on $\XF\times \XF$ such that for all Borel sets $A$:
     \begin{align*}
         \pi(A\times\XF) = \mu(A) ,\quad  \pi(\XF\times A) = \nu(A)\ ,
     \end{align*}
@@ -892,7 +928,7 @@ Notice that this also implies that the latter is also true for all $x_0 \in \XF$
         W_1(\mu,\nu) = \inf\limits_{\pi \in\Pi(\mu,\nu)} \int_{\XF\times \XF} d(x,y) \pi(\dd x,\dd y).
     \end{align*}
 \end{definition}
-It is straightforward to generalize this distance to positive measures with the same total mass. Indeed, let $\mu, \nu \in \MC^+_1(\XF,d)$ be such that $\mu(\XF) = \nu(\XF) = m$. Then the set of couplings between $\mu$ and $\nu$ (which are no longer probability measures when $m \neq 1$) satisfies:
+It is straightforward to generalize this distance to positive measures with the same total mass. Indeed, let $\mu, \nu \in \MC^+_d(\XF)$ be such that $\mu(\XF) = \nu(\XF) = m$. Then the set of couplings between $\mu$ and $\nu$ (which are no longer probability measures when $m \neq 1$) satisfies:
 \begin{align*}
     \Pi(\mu,\nu) = m \, \Pi\left(\frac{\mu}{m}, \frac{\nu}{m}\right).
 \end{align*}
@@ -911,28 +947,15 @@ One key property of this distance is the Kantorovich-Rubinstein duality allowing
         W_1(\mu,\nu) = \sup\limits_{Lip(f) \leq 1} \brac{f,\mu - \nu}.
     \end{align*}
 \end{theorem}
-\red{ATTENTION AVEC CES CONDITIONS $\psi(x) = d(x,x_0)$ EST LE SEUL CHOIX POSSIBLE.... IL FAUT CHANGER CETTE SECTION}Now, we define a more general distance, which will rely on one additional object: a positive function that we denote by $\psi$. This function should satisfy the following, for all $x,y \in \XF$,
+A proof of this theorem can be found in \cite{santambrogio2015optimal}. Another important fact is:
+\begin{proposition}
+    The space $\left( \mathcal{P}_1(\XF,d),W_1\right) $ is complete.
+\end{proposition}
+To define a distance for two measures not having same mass we add an extra point to $\XF$ that we call a cemetery point and denote $\delta$. Its role is to "store" the missing needed mass. We arbitrarily choose a point $x_0$ closest to the cemetery to extend the definition of the distance to $\bar{\XF} = \XF\cup \lbrace\partial\rbrace$, for all $x \in \XF$:
 \begin{align*}
-    d(x,y) \leq \psi(x) + \psi(y), \text{ and}\quad|\psi(x) - \psi(y)| \leq d(x,y),
+    \bar{d}(x,\partial) = d_{x,x_0} + 1.
 \end{align*}
-that we could call a domination property and be Lipschitz. Assume furthermore that,
-\begin{align*}
-    \inf\limits_{x \in \XF} \psi(x) = 0.
-\end{align*}
-A function $\psi$ satisfying this condition always exists. For example, fix any point $x_0 \in \XF$ and define $\psi(x) = d(x,x_0)$. It is clear that $\psi(x_0) = 0$, then, by the triangle inequality,
-\begin{align*}
-d(x,y) &\leq d(x,x_0) + d(y,x_0) = \psi(x) + \psi(y)\ \text{ and}\\
-|\psi(x) - \psi(y)| &= |d(x,x_0) + d(y,x_0)| \leq d(x,y).
-\end{align*}
-It is then clear that for all functions $\psi$ verifying this domination hypothesis
-\[
-\MC^+_1(\XF,d) = \MC^+_{\psi}(\XF). \red{\text{Suggestion : } \MC^+_d(\XF) \text{pour} \MC^+_1(\XF,d)}
-\]
-To define a distance for two measures not having same mass we add an extra point to $\XF$ that we call a cemetery point and denote $\delta$. Its role is to "store" the missing needed mass. We extend the definition of the distance to $\bar{\XF} = \XF\cup \lbrace\partial\rbrace$ using $\psi$, for all $x \in \XF$:
-\begin{align*}
-    \bar{d}(x,\partial) = \psi(x) + 1
-\end{align*}
-The space $\bar{\XF}$ is Polish by $\bar{d}$. Let us define the extended measures for $m\geq \mu(\XF) \vee \nu(\XF)$ :
+The space $\bar{\XF}$ is Polish with $\bar{d}$. Let us define the extended measures for $m\geq \mu(\XF) \vee \nu(\XF)$ :
 \begin{align*}
     \bar{\mu}^m &= \mu + (m-\mu(\XF))\delta_{\partial}, \\
     \bar{\nu}^m &= \nu + (m-\nu(\XF))\delta_{\partial}.
@@ -941,313 +964,118 @@ Both measures are positive and have mass equal to $m$, we see in the next propos
 \begin{proposition}\label{prop:Kantorovich-general}
     We have:
     \begin{align*}
-        W_1(\bar{\mu}^m,\bar{\nu}^m) = \sup\limits_{Lip(f) \leq 1, |f| \leq \psi} \brac{f,\mu - \nu} + \left|\vphantom{A^2}\mu(\XF) - \nu(\XF) \right|
+        W_1(\bar{\mu}^m,\bar{\nu}^m) = \sup\limits_{\substack{Lip(f) \leq 1,\\ f(x_0) = 0}} \brac{f,\mu - \nu} + \left|\vphantom{A^2}\mu(\XF) - \nu(\XF) \right|.
     \end{align*}
 \end{proposition}
 \begin{proof}
-    By the Kantorovich-Rubinstein duality theorem we have:
+     By the Kantorovich-Rubinstein duality theorem we have:
     \begin{align*}
         W_1(\bar{\mu}^m,\bar{\nu}^m) = \sup\limits_{Lip(f) \leq 1} \brac{f,\bar{\mu}^m - \bar{\nu}^m} .
     \end{align*}
-    Step $1$: We show that:
+    Step $1$: We show that
     \begin{align*}
-        \sup\limits_{Lip(f) \leq 1} \brac{f,\bar{\mu}^m - \bar{\nu}^m} = \sup\limits_{Lip(f) \leq 1,|f| \leq \psi} \brac{f,\bar{\mu}^m - \bar{\nu}^m}
+        W_1(\bar{\mu}^m,\bar{\nu}^m) \leq  \sup\limits_{\substack{Lip(f) \leq 1,\\ f(x_0) = 0}} \brac{f,\mu - \nu} + \left|\vphantom{A^2}\mu(\XF) - \nu(\XF) \right|.
     \end{align*}
-    One inequality is obvious we treat the other. Let $f$ be a function such that $Lip(f) \leq 1$, let us define the truncation $f_\psi$ by:
+    Let $f: \bar{\XF}$ be such that $Lip(f)\leq 1$, note that since $\bar{\mu}^m$ and $\bar{\nu}^m$ have same mass $m$:
     \begin{align*}
-        f_\psi(x) = \min(\psi(x),\max(f(x),-\psi(x))),
+         \brac{f -f(x_0),\bar{\mu}^m - \bar{\nu}^m} =  \brac{f,\bar{\mu}^m - \bar{\nu}^m}.
     \end{align*}
-    illustrated below in Figure \ref{fig:illustration-of-truncation}.
-    \begin{center}
-  % ========== First Main Plot ==========
-  \begin{figure}[h]
-    \centering
-    \pgfplotsset{compat=1.18}
-    \pgfmathdeclarefunction{phi}{1}{%
-    \pgfmathparse{exp(#1/2)}%
-    }
-    \pgfmathdeclarefunction{f}{1}{%
-    \pgfmathparse{1.4*phi(x)*cos(300*#1)}%
-    }
-    \pgfmathdeclarefunction{fphi}{1}{%
-    \pgfmathparse{min(phi(#1), max(f(#1), -phi(#1)))}%
-    }
-    \begin{tikzpicture}[scale=1,every node/.style={scale=1}]
-      \begin{axis}[
-        axis lines=middle,
-        axis line style={->},
-        xlabel={$x$},
-        ylabel={},
-        xtick=\empty,
-        ytick=\empty,
-        ymin=-3, ymax=3,
-        xmin=-1, xmax=2.5,
-        samples=300,
-        domain=-1:3,
-        clip=true,
-        width=\linewidth,
-        height=6cm
-      ]
-        \addplot[blue, thick]{phi(x)};
-        \addplot[blue, thick]{-phi(x)};
-        \addplot[red, dashed, thick]{f(x)};
-        \addplot[black, thick]{fphi(x)};
-        \node[blue] at (axis cs:0.6,1.7) {$\psi$};
-        \node[blue] at (axis cs:1.2,-1.5) {$-\psi$};
-        \node[red] at (axis cs:1.2,2.8) {$f$};
-        \node[black] at (axis cs:1.5,1.3) {$f_\psi$};
-      \end{axis}
-    \end{tikzpicture}
-    \caption{Illustration of the trunctation $f_\psi$}
-    \label{fig:illustration-of-truncation}
-  \end{figure}
-  % ========== 4 Case Diagrams ==========
-  \begin{figure}[ht]
-\centering
+    and $Lip(f-f(x_0)) = Lip(f) \leq 1$. Therefore we can take $f$ such that $f(x_0) = 0$. We have:
+    \begin{align*}
+       \brac{f,\bar{\mu}^m - \bar{\nu}^m} 
+       &= \brac{f,\mu - \nu} + f(\partial)\left( \mu(\XF) - \nu(\XF)\right).
+    \end{align*}
+    Since $f(x_0) = 0$ we have since $f$ is Lipschitz:
+    \begin{align*}
+        \left| f(\partial) \right| \leq d(x_0,x_0) + 1 = 1.
+    \end{align*}
+    And therefore:
+    \begin{align*}
+        \brac{f,\bar{\mu}^m - \bar{\nu}^m}  \leq \brac{f,\mu - \nu} + \left| \mu(\XF) - \nu(\XF)\right|
+    \end{align*}
+    and letting the LHS go to the supremum gives us the first result.
 
-\begin{subfigure}[t]{0.49\textwidth}
-    \centering
-    \begin{tikzpicture}[scale=0.82,every node/.style={scale=0.75}]
-      \draw[->] (-4.5, 0) -- (4.5, 0);
-      \foreach \x in {-3.5,-2,0, -0.75,1.2, 2,3.5} {
-        \draw[thick] (\x, -0.1) -- (\x, 0.1);
-      }
-      \node[below] at (2, 0) {$\psi(x)$};
-      \node[below] at (3.5, 0) {$\psi(y)$};
-      \node[below] at (-2, 0) {$-\psi(x)$};
-      \node[below] at (-3.5, 0) {$-\psi(y)$};
-      \node[below] at (0, 0) {$0$};
-      \node[below,red] at (-0.75, 0) {$f(x)$};
-      \node[above,blue] at (-0.75, 0) {$f_\psi(x)$};
-      \node[below,red] at (1.2, 0) {$f(y)$};
-      \node[above,blue] at (1.2, 0) {$f_\psi(y)$};
-      \draw[<->, thick, blue] (-0.75, -0.65) -- (1.2, -.65);
-    \end{tikzpicture}
-    \caption{Case 1}
-\end{subfigure}
-\begin{subfigure}[t]{0.49\textwidth}
-    \centering
-    \begin{tikzpicture}[scale=0.82,every node/.style={scale=0.75}]
-      \draw[->] (-4.5, 0) -- (4.5, 0);
-      \foreach \x in {-3.5,-2,0, -0.75, 2, 4.3,3.5} {
-        \draw[thick] (\x, -0.1) -- (\x, 0.1);
-      }
-      \node[below] at (2, 0) {$\psi(x)$};
-      \node[below] at (3.5, 0) {$\psi(y)$};
-      \node[below] at (-2, 0) {$-\psi(x)$};
-      \node[below] at (-3.5, 0) {$-\psi(y)$};
-      \node[below] at (0, 0) {$0$};
-      \node[below,red] at (-0.75, 0) {$f(x)$};
-      \node[above,blue] at (-0.75, 0) {$f_\psi(x)$};
-      \node[below,red] at (4.3, 0) {$f(y)$};
-      \node[above,blue] at (3.5, 0) {$f_\psi(y)$};
-      \draw[<->, thick, blue] (-0.75, -.65) -- (3.5, -.65);
-    \end{tikzpicture}
-    \caption{Case 2}
-\end{subfigure}
-
-\vspace{1em}
-
-\begin{subfigure}[t]{0.49\textwidth}
-    \centering
-    \begin{tikzpicture}[scale=0.82,every node/.style={scale=0.75}]
-      \draw[->] (-4.5, 0) -- (4.5, 0);
-      \foreach \x in {-3.5,-2,0, -2.75, 2, 4.3,3.5} {
-        \draw[thick] (\x, -0.1) -- (\x, 0.1);
-      }
-      \node[below] at (2, 0) {$\psi(x)$};
-      \node[below] at (3.5, 0) {$\psi(y)$};
-      \node[below] at (-2, 0) {$-\psi(x)$};
-      \node[below] at (-3.5, 0) {$-\psi(y)$};
-      \node[below] at (0, 0) {$0$};
-      \node[below,red] at (-2.75, 0) {$f(x)$};
-      \node[above,blue] at (-2, 0) {$f_\psi(x)$};
-      \node[below,red] at (4.3, 0) {$f(y)$};
-      \node[above,blue] at (3.5, 0) {$f_\psi(y)$};
-      \draw[<->, thick, blue] (-2, -.65) -- (3.5, -.65);
-    \end{tikzpicture}
-    \caption{Case 3}
-\end{subfigure}
-\begin{subfigure}[t]{0.49\textwidth}
-    \centering
-    \begin{tikzpicture}[scale=0.82,every node/.style={scale=0.75}]
-      \draw[->] (-4.5, 0) -- (4.5, 0);
-      \foreach \x in {-3.5,-2,0, -2.75, 2, -4.3,3.5} {
-        \draw[thick] (\x, -0.1) -- (\x, 0.1);
-      }
-      \node[below] at (2, 0) {$\psi(x)$};
-      \node[below] at (3.5, 0) {$\psi(y)$};
-      \node[below] at (-2, 0) {$-\psi(x)$};
-      \node[below] at (-3.5, 0) {$-\psi(y)$};
-      \node[below] at (0, 0) {$0$};
-      \node[below,red] at (-2.75, 0) {$f(x)$};
-      \node[above,blue] at (-2, 0) {$f_\psi(x)$};
-      \node[below,red] at (-4.3, 0) {$f(y)$};
-      \node[above,blue] at (-3.5, 0) {$f_\psi(y)$};
-      \draw[<->, thick, blue] (-2, -.65) -- (-3.5, -.65);
-    \end{tikzpicture}
-    \caption{Case 4}
-\end{subfigure}
-\caption{Diagrams showing that $\left|f_\psi(x) - f_\psi(y)\right| \leq \max\left(\left|f(x) - f(y)\right|,\left|\psi(x) - \psi(y)\right| \right)$ .}
-\label{fig:comparison-lip-diagram}
-\end{figure}
-\end{center}
-    By construction $|f_\psi| \leq \psi$. This function is also Lipschitz since both $f$ and $\psi$ are Lipschitz, see the diagrams in Figure \ref{fig:comparison-lip-diagram}.
-    We get:
+    Step $2$: We show that
     \begin{align*}
-        \brac{f,\bar{\mu}^m - \bar{\nu}^m} = \brac{f_\psi,\bar{\mu}^m - \bar{\nu}^m} + \brac{f_\psi-f,\bar{\mu}^m - \bar{\nu}^m}.
+        W_1(\bar{\mu}^m,\bar{\nu}^m) \geq  \sup\limits_{\substack{Lip(f) \leq 1,\\ f(x_0) = 0}} \brac{f,\mu - \nu} + \left|\vphantom{A^2}\mu(\XF) - \nu(\XF) \right|.
     \end{align*}
-    
-    Notice that for all $x_0 \in \XF$ replacing $f$ by $f - f(x_0)$ does not change the value of $\brac{f,\bar{\mu}^m - \bar{\nu}^m}$ and therefore we can choose an $f$ such that $f(x_0) = 0$. Let $\varepsilon > 0$ and $x_0$ be such that $\psi(x_0) \leq \varepsilon$, take a function $f$ such that $Lip(f) \leq 1$ and $f(x_0) = 0$ then 
-    \[
-    |f(x)| = |f(x) - f(x_0)| \leq d(x,x_0) \leq \psi(x) + \psi(x_0) \leq \psi(x) + \varepsilon.
-    \]
-    From this we can deduce:
-    \[
-    |f_\psi(x) - f(x)| = \max\left(0,|f(x)| - \psi(x) \vphantom{A^2}\right) \leq \psi(x_0) \leq \varepsilon.
-    \]
-    And finally:
+    Take $f:\XF \to \RR$ such that $f(x_0) = 0$ and $Lip(f) \leq 1$, we define $\tilde{f}: \bar{\XF}  \to \RR$ by setting:
     \begin{align*}
-        \brac{f,\bar{\mu}^m - \bar{\nu}^m} &\leq \brac{f_\psi,\bar{\mu}^m - \bar{\nu}^m} + \varepsilon\left(\bar{\mu}^m(\XF) + \bar{\nu}^m(\XF)\right)\\
-        &\leq \sup\limits_{\substack{Lip(f) \leq 1,\\ |f| \leq \psi}} \brac{f,\bar{\mu}^m - \bar{\nu}^m} + 2m\varepsilon .
+        \tilde{f}(x) = \left\lbrace
+        \begin{aligned}
+            f(x)\ \text{if}\ x \in \XF
+            sign(\mu(\XF) - \nu(\XF))\ \text{if}\ x = \partial
+        \end{aligned}
+        \right. .
     \end{align*}
-    That being true for all $\varepsilon > 0$ we get the equality allowing us to pass to the supremum value on the LHS yields the desired result.
-
-    Step $2$: We start by showing:
+    Then $\tilde{f}$ is a Lipschitz function with constant below one for $d$, indeed for all $x,y \in \XF$:
     \begin{align*}
-        \sup\limits_{\substack{Lip(f) \leq 1,\\ |f| \leq \psi}} \brac{f,\bar{\mu}^m - \bar{\nu}^m} \leq \sup\limits_{\substack{Lip(f) \leq 1,\\ |f| \leq \psi}} \brac{f,\mu - \nu} + \left|\vphantom{A^2}\mu(\XF) - \nu(\XF) \right|
+        \left| \tilde{f}(x) - \tilde{f}(y) \right| = \left| f(x) - f(y) \right| \leq d(x,y).
     \end{align*}
-    Let us take a Lipschitz function $f$ such that $|f| \leq \psi$:
+    And for all $x \in \XF$ since $f(x_0)= 0$:
     \begin{align*}
-        \brac{f,\bar{\mu}^m - \bar{\nu}^m} &= \brac{f,\mu - \nu} + f(\partial) \left(\mu(\XF) - \nu(\XF)\vphantom{A^2}\right).
+        \left| \tilde{f}(x) - \tilde{f}(\partial) \right| &\leq \left| \tilde{f}(x) - \tilde{f}(x_0) \right| + \left| \tilde{f}(x_0) - \tilde{f}(\partial) \right| \\
+        &\leq d(x,x_0) + \left|sign(\mu(\XF) - \nu(\XF)) \right| \\
+        &= d(x,x_0) + 1.
     \end{align*}
-    We have that for all $x_0 \in \XF$:
-    \[
-    |f(\partial)| = \left|\vphantom{A^{\int_0}}f(\partial) - \psi(x_0) + \psi(x_0)\right| \leq 2\psi(x_0) + 1
-    \]
-    And therefore $|f(\partial)| \leq 1$ since we can take $x_0$ such that $\psi(x_0) \leq \varepsilon$ for all $\varepsilon > 0$ ending step $2$.
-    
-    Step $3$: We prove the reverse inequality. In the previous step we showed that for all $f$ such that $Lip(f) \leq 1$ and $|f| \leq \psi$ we had that $|f(\partial)| \leq 1$. Therefore:
+    We have:
     \begin{align*}
-        \brac{f,\mu - \nu} + f(\partial) \left(\mu(\XF) - \nu(\XF)\vphantom{A^2}\right) \leq \brac{f,\mu - \nu} + \left|\mu(\XF) - \nu(\XF)\vphantom{A^2}\right|.
-    \end{align*}
-    We can reach part of the optimum by choosing a function $\tilde{f} = f$ on $\XF$ and such that $\tilde{f}(\partial) = sign(\mu(\XF) - \nu(\XF))$. This function is Lipschitz with the right constant, for $x \in \XF$:
-    \begin{align*}
-        \left|\tilde{f}(x) - \tilde{f}(\partial)\right| \leq  \left|\tilde{f}(x)\right| + \left|\tilde{f}(\partial)\right| \leq \psi(x) + 1.
-    \end{align*}
-    We have that:
-    \begin{align*}
-        \brac{f,\mu - \nu} + \left|\vphantom{A^2}\mu(\XF) - \nu(\XF) \right| &= \brac{f,\mu - \nu} + sign(\mu(\XF) - \nu(\XF))\left(\vphantom{A^2}\mu(\XF) - \nu(\XF) \right)\\
-        &=  \brac{\tilde{f},\mu - \nu} + \tilde{f}(\partial)\left(\vphantom{A^2}\mu(\XF) - \nu(\XF) \right)\\
-        &= \brac{\tilde{f},\bar{\mu}^m - \bar{\mu}^m} \\
-        &\leq \sup\limits_{\substack{Lip(f) \leq 1,\\ |f| \leq \psi}} \brac{f,\bar{\mu}^m - \bar{\mu}^m} .
-    \end{align*}
-    We finish this step and this proof by going to the sup on LHS.
+        \brac{f,\mu - \nu} + \left|\vphantom{A^2}\mu(\XF) - \nu(\XF) \right| = \brac{\tilde{f},\bar{\mu}^m - \bar{\nu}^m} \leq W_1(\bar{\mu}^m ,\bar{\nu}^m)
+    \end{align*} 
+    and letting the LHS go to the supremum gives the result.
 \end{proof}
-\begin{remark}
-A common approach to generalizing the Wasserstein distance to positive measures of distinct mass is to define:
-\begin{align*}
-    W_1(\bar{\mu}^m, \bar{\nu}^m) = \sup_{\substack{Lip(f) \leq 1\\ f(x_0) = 0}} \brac{f, \mu - \nu} + \left| \mu(\XF) - \nu(\XF) \right|,
-\end{align*}
-for some fixed base point $x_0 \in \XF$, without requiring the domination condition involving a function $\psi$ (see \textcolor{red}{REF}). In this setting, if we choose $\psi(x) = d(x, x_0)$, both definitions coincide.
-
-However, our formulation is more flexible. It allows for functions of the form $\psi(x) = \lim_{x_0 \to x_a} d(x, x_0)$, where $x_a$ may lie outside of $\XF$. For example, consider the distance that we are interested in this work \(d_\alpha(x, y) = |x^{-\alpha} - y^{-\alpha}|\) on \(\RRP\), with \(\alpha \geq 0\). Then a natural choice is \(\psi(x) = x^{-\alpha}\), which corresponds to the limit \(x_a = +\infty\), a point not contained in \(\RRP\).
-\end{remark}
-
-We emphasize that the distance $W_1(\bar{\mu}^m, \bar{\nu}^m)$ defined in the previous proposition is independent of the choice of $m$, and moreover, it defines a valid distance on the space $\MC^+_{\psi}(\XF)$.
+We emphasize that the distance $W_1(\bar{\mu}^m, \bar{\nu}^m)$ defined in the previous proposition is independent of the choice of $m$, and moreover, it defines a valid distance on the space $\MC^+_{1}(\XF,d)$.
 
 \begin{definition}\label{def:Wasserstein-general}
-We define the \emph{$\psi$-Wasserstein distance} on $\MC^+_{\psi}(\XF)$, denoted $W_{\psi}$, as the distance introduced in the previous proposition:
+We define the \emph{Wasserstein-$1$ distance} on $\MC^+_{1}(\XF,d)$, denoted $W_{1}$, as the distance introduced in the previous proposition:
 \begin{align*}
-    W_{\psi}(\mu, \nu) := \sup_{\substack{Lip(f) \leq 1\\ |f| \leq \psi}} \brac{f, \mu - \nu} + \left| \mu(\XF) - \nu(\XF) \right|.
+    W_{1}(\mu, \nu) := \sup_{\substack{Lip(f) \leq 1\\ f(x_0) = 0}} \brac{f, \mu - \nu} + \left| \mu(\XF) - \nu(\XF) \right|.
 \end{align*}
 \end{definition}
-This distance can be generalized to signed measures:
-\begin{definition}\label{def:Wasserstein-general-signed}
-    We define the \emph{$\psi$-Wasserstein-$1$ distance} on $\MC_{\psi}(\XF)$, denoted $W_{1,\psi}$, as:
-\begin{align*}
-    W_{\psi}(\mu, \nu) := \sup_{\substack{Lip(f) \leq 1\\ |f| \leq \psi}} \brac{f, \mu - \nu} + \left| \mu(\XF) - \nu(\XF) \right|.
-\end{align*}
-\end{definition}
-It is easy to check the triangular inequality. It stills shares the Wasserstein structure given that for $\mu,\nu \in \MC_{\psi}(\XF)$ let $\mu^+,\mu^-$ and $\nu^+,\nu^-$ respectively the Jordan decomposition of $\mu$ and $\nu$ we have:
-\begin{align*}
-    W_{\psi}(\mu, \nu) = W_{\psi}(\mu^+ + \nu^-, \nu^+ + \mu^-)\ ,
-\end{align*}
-and this distance is therefore well-posed. One could also remark that $W_{\psi}(\mu,0)$ defines a norm on $\MC_{\psi}(\XF)$, this is very remniscient of the the flat norm given by Villani in \cite{villani2008optimal}.
-
-\subsection{Derivatives on spaces of measures}
-In this section we define the flat derivative of measures. We define them in the same fashion as in \cite{martiniKolmogorovEquationsSpaces2023} that takes inspiration from its presentation in \cite{cardaliaguet2019master,carmona2018probabilistic}.
-\begin{definition}
-    Let $E$ be a polish space, $F: \MC(E) \to \RR$ be a continuous function we say that $F$ has a flat derivative if there exists a function $\delta_{\mu}F :\MC(E) \times E\to \RR $ such that for all $\mu,\nu \in \MC(E)$:
-    \[ F(\mu) - F(\nu) = \int_0^1 \int_E \delta_\mu F(\theta \mu + (1-\theta)\nu,x)\left(\mu - \nu\right)(\dd x)\dd \theta\]
-\end{definition}
-We need the same definition but this time for functional from a space of measure to another space of measures.
-\begin{definition}
-     Let $E$ be a Polish space, $\varphi: \MC(E) \to \MC(E)$ be a continuous function we say that $\varphi$ has a flat derivative if there exists, a continuous function $\delta_{\mu}\varphi :\MC(E) \times E\to \MC(E)$ such that for all $\mu,\nu \in \MC(E)$ and for all $f\in C_b(E)$ \red{Attention, on pourrait demander pour tout $f\in L^1(\mu) \cap L^1(\nu)$ mais il faudrait vérifier que tout fonctionne bien}:
-     \begin{itemize}
-         \item The function
-         \[x\to \sup_{\theta \in [0,1]} |\langle f, \partial_\mu\varphi(\theta \mu + (1-\theta) \nu,x) \rangle| \in L^1(\mu) \cap L^1(\nu).\]
-        \item The following equality holds :
-            \[ \left\langle f,\varphi(\mu) - \varphi(\nu) \right\rangle= \int_0^1 \int_E \left\langle f,\delta_\mu \varphi(\theta \mu + (1-\theta)\nu,x)\right\rangle\left(\mu - \nu\right)(\dd x)\dd \theta.\]
-     \end{itemize}
-\end{definition}
-We give a formulation of the chain rule.
+This distance depends on the choice of $x_0$ however they are all equivalent. Another interesting property is the following.
 \begin{proposition}
-    Assume that $\delta_\mu F$ is bounded and $\delta_\mu\varphi$ is bounded in total variation. For all \(x\in E\), \(\mu \mapsto \delta_u F(\mu,x)\) and \(\mu \mapsto \delta_u F(\mu,x)\) are continuous. Then \(F\circ \varphi\) has a flat derivative and it is equal to:
-    \[
-    \delta_\mu F\circ \varphi : \left(\mu,x \right) \mapsto \brac{\delta_\mu  F(\mu,.),\delta_\mu\varphi(\mu,x)}.
-    \]
+    Let $\psi = d(x,x_0)$, this distance also verifies:
+\begin{align*}
+    W_{1}(\mu, \nu) := \sup_{\substack{Lip(f) \leq 1\\ |f| \leq 1 + \psi }} \brac{f, \mu - \nu} .
+\end{align*}
 \end{proposition}
 \begin{proof}
-    Let $\mu,\nu \in \MC(E)$, we define the following function for $\theta \in (0,1)$:
-    \[
-        g(\theta) =  F\left(\varphi(\theta\mu + (1 - \theta)\nu)\right).
-    \]
-    We will show that $g$ is differentiable and compute its derivative. One can then conclude by simply noticing that :
-    \[ F(\varphi(\mu)) - F(\varphi(\nu)) = \int_0^1 g'(\theta) \dd \theta.\]
-    Let $h > 0$, we take advantage of the bracket notation:
-    \[ 
-    g(\theta + h) - g(\theta) = F\left(\varphi\left([\mu,\nu]^{\theta + h}\right)\right) -F\left(\varphi\left([\mu,\nu]^{\theta}\right)\right)
-    \]
-    By using the differentiability of $F$ we get:
-    \begin{multline*}
-    g(\theta + h) - g(\theta) =\\ \int_0^1 \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, . \right),\varphi\left([\mu,\nu]^{\theta + h}\right) - \varphi\left([\mu,\nu]^{\theta}\right)} \dd \lambda_1.
-    \end{multline*}
-    Now by differentiability of $\varphi$ we get:
-    \begin{multline*}
-        g(\theta + h) - g(\theta) =\\
-        h\int_0^1 \int_0^1\int_E \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, . \right),\delta_\mu \varphi\left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} ,x\right)}
-        \\
-        (\mu-\nu)(\dd x) \dd \lambda_2 \dd \lambda_1. 
-    \end{multline*}
-    Notice first that \(\left[\varphi\left([\mu,\nu]^{\theta}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1} = \varphi\left([\mu,\nu]^{\theta}\right)\).
-    \red{A terminer}
+     Let $f$ is such that $f(x_0) = 0$ and $Lip(f) \leq 1$ then:
+    \begin{align*}
+        |\tilde{f}(x)| \leq d(x,x_0) = \psi(x).
+    \end{align*}
+    We also have:
+    \begin{align*}
+        \brac{f, \mu - \nu} + \left| \mu(\XF) - \nu(\XF) \right| = \brac{\tilde{f},\mu - \nu}.
+    \end{align*}
+    where $\tilde{f} = sign\left( \mu(\XF) - \nu(\XF)\right) + f$, and $Lip(\tilde{f}) \leq 1$, $|f| \leq 1 + \psi$. Reciprocally if we take $f$ such that $Lip(f) \leq 1$ and $|f(x)| \leq d(x,x_0) + 1$ then:
+    \begin{align*}
+        \brac{f, \mu - \nu}
+        &= \brac{f - f(x_0),\mu - \nu} + f(x_0) \left(\mu(\XF) - \nu(\XF) \right) \\
+        &\leq \brac{f - f(x_0),\mu - \nu} + f(x_0) \left| \mu(\XF) - \nu(\XF) \right|.
+    \end{align*}
+    Indeed $|f(x_0)| \leq d(x_0,x_0) + 1 = 1$.
 \end{proof}
+Lastly it makes $\MC_d^+(\XF)$ complete. This distance can be generalized to signed measures:
+\begin{definition}\label{def:Wasserstein-general-signed}
+    We define the \emph{Wasserstein-$1$ distance} on $\MC_{1}(\XF,d)$, denoted $W_{1}$, as:
+\begin{align*}
+    W_{1}(\mu, \nu) := \sup_{\substack{Lip(f) \leq 1\\ f(x_0) = 0}} \brac{f, \mu - \nu} + \left| \mu(\XF) - \nu(\XF) \right|.
+\end{align*}
+\end{definition}
+It is easy to check the triangular inequality. It stills shares the Wasserstein structure given that for $\mu,\nu \in \MC_{1}(\XF)$ let $\mu^+,\mu^-$ and $\nu^+,\nu^-$ respectively the Jordan decomposition of $\mu$ and $\nu$ we have:
+\begin{align*}
+    W_{1}(\mu, \nu) = W_{1}(\mu^+ + \nu^-, \nu^+ + \mu^-)\ ,
+\end{align*}
+and this distance is therefore well-posed. One could also remark that $W_{1}(\mu,0)$ defines a norm on $\MC_{1}(\XF)$, this is very remniscient of the the flat norm given by Villani in \cite{villani2008optimal}.
+
 
 \section{The Smoluchovski coagulation equation and its derivative}\label{section:well-posedness-SCE}
-% Recall the Smolochowski coagulation equation of kernel $K_\alpha$ \eqref{eq:SCE} for all $f \in C_b(\RRP)$:
-% \begin{equation*}
-%    \brac{f,\mu_t}  = \brac{f,\mu} +  \dfrac12\int_0^t \brac{K_\alpha f,\mu_s^{\otimes 2}} \dd s.
-% \end{equation*}
-The goal of this section is to prove that the Smoluchovski coagulation equation is well-posed as stated in Lemma~\ref{lem:well_posedness_smol_eq}. And that the existence of a flat derivaitve and well-posedness of its equation as in Lemma~\ref{lem:derivative-existence-and-eq}.
 
+The goal of this section is to prove that the Smoluchovski coagulation equation is well-posed as stated in Lemma~\ref{lem:well_posedness_smol_eq}. And that the existence of a flat derivaitve and well-posedness of its equation as in Lemma~\ref{lem:derivative-existence-and-eq}. The difficult part lies in the singulariry in $0$ of the considered kernel. We use classical thechnics, building solutions as the limit of approximations defined on intervals $[\varepsilon,\infty)$ for $\varepsilon > 0$ and then use completeness arguments to show that they convergence. In all this section we use total variation like norms.
 
-
-% that it is well-posed in the sense that for $\mu \in \MC^+_{\psi_2}(\RRP)$ it has a unique solution in:
-% \[
-% C\left([0,T]: \MC^+_{\psi_2}(\RRP)\right).
-% \]
-% Let us denote by $\Proc{\varphi_t(\mu)}$ said solution. If $\mu \in \MC^+_{\psi_3}(\RRP)$ we show that for all $t \geq 0,\ \mu \mapsto \varphi_t(\mu)$ has a flat derivaitve and it is the unique solution of equation for all $z \in \RRP,\  f \in C_b(\RRP)$:
-% \begin{equation*}
-%     \brac{f,\delta_\mu \varphi_t(\mu;z)} = f(z) + \int_0^t \brac{K_\alpha f, \varphi_s(\mu)\otimes \delta_\mu \varphi_s(\mu;z) } \dd s
-% \end{equation*}
-% in
-% \[
-% C\left([0,T]: \MC^+_{\psi_3}(\RRP)\right).
-% \]
 \subsection{Smoluchovski}
-\red{Expliquer ce que l(on) fait dans cette section.
-}
+In this section we show well-posedness of Smolochowski coagulation equations as stated in Lemma \ref{lem:well_posedness_smol_eq}. For this purpose we first provide a priori bounds, then we use a fixed point theorem to prove well-posedness of appproximations and finally use a priori bounds and completeness to show the Lemma.
 \subsubsection{Some bounds}
 In this section we assume the well-posedness of both the Smoluchovski coagulation equation in $C([0,T]: \MC_{\psi_2}(\RRP))$. We recall that the solution of the \(\SCE\) is a positive measure. The first lemma give a result of stability of solutions of the \(\SCE\) and hold for all kernels.
 \begin{lemma}\label{lem:sub-add-bounf-smol}
@@ -1269,85 +1097,7 @@ In this section we assume the well-posedness of both the Smoluchovski coagulatio
     \end{align*}
     So $ \|\mu_t\|_{\psi} \leq  \|\mu_0\|_{\psi}$ ending the proof.
 \end{proof}
-Note also that any non-increasing function is sub-multiplicative and positive linear combination of sub-multiplicative function is also sub multiplicative. Therefore all the measure spaces we defined in our introduction are stable for the $\SCE$. The previous result told us that $t \mapsto \|\mu_t\|_{\psi}$ is non-increasing, the next proposition gives a more precise estimation of this damping for some particular $\psi$'s. 
-\begin{lemma}\label{lem:bound_smol_1}
-    Let $\mu_t$ be the solution of the Smoluchovski coagulation equation for the kernel $K_\alpha$ started from measure $\mu$. For all $t\geq 0$ we have:
-    \begin{enumerate}[label=(\roman*)]
-        \item \( \left\langle 1, \mu_t \right\rangle \leq \frac{\left\langle 1, \mu \right\rangle}{\left(1 + (1 + \alpha)\left\langle x, \mu \right\rangle^{-\alpha} \left\langle 1, \mu \right\rangle^{1 + \alpha} t \right)^{\frac{1}{1 + \alpha}}}.\)
-        \item \(\left\langle x^{-\alpha}, \mu_t \right\rangle \leq \frac{\left\langle x^{-\alpha}, \mu \right\rangle}{1 + C_\alpha\left\langle x^{-\alpha}, \mu \right\rangle t }\), where $C_\alpha = 2 - 2^{-\alpha}$
-    \end{enumerate}
-    % \begin{align*}
-    %     \left\langle 1, \mu_t \right\rangle &\leq \dfrac{\left\langle 1, \mu \right\rangle}{\left(1 + (1 + \alpha)\left\langle x, \mu \right\rangle^{-\alpha} \left\langle 1, \mu \right\rangle^{1 + \alpha} t \right)^{\frac{1}{1 + \alpha}}}.
-    % \end{align*}
-\end{lemma}
-\begin{proof}
-    $(i)$ Let us write the $ODE$ verified by our quantity of interest:
-    \begin{align}
-        \dfrac{\dd}{\dd t} \left\langle 1, \mu_t \right\rangle
-        &= -\dfrac12\int_{\RR^{+,*} \times \RR^{+,*} } K_\alpha(x,y) \mu_t^{\otimes 2} (\dd x, \dd y) \nonumber\\
-        &= -\left\langle 1, \mu_t \right\rangle \left\langle x^{-\alpha}, \mu_t \right\rangle. \label{eq:proof:bound_1_smol}
-    \end{align}
-    To continue we bound below $\left\langle x^{-\alpha}, \mu_t \right\rangle$. By positivity of $\varphi$, $\frac{\mu_t}{\left\langle 1, \mu_t\right\rangle}$ is a probability measure on $\RR^{+,*}$ and the function $x\mapsto x^{-\alpha}$ is convex on $\RR^{+,*}$ therefore by Jensen's inequality we have:
-    \begin{align*}
-        \dfrac{\left\langle x^{-\alpha},\mu_t \right\rangle}{\left\langle 1, \mu_t\right\rangle} \geq  \left(\dfrac{\left\langle x,\mu_t \right\rangle}{\left\langle 1, \mu_t\right\rangle}\right)^{-\alpha} \implies
-        \left\langle x^{-\alpha},\mu_t \right\rangle \geq \left\langle x,\mu_t \right\rangle^{-\alpha} \left\langle 1, \mu_t\right\rangle^{1 + \alpha}.
-    \end{align*}
-    Now recall that for all $t \geq 0$ the total mass remains constant meaning that $\left\langle x,\mu_t\right\rangle = \left\langle x,\mu\right\rangle$, giving us:
-    \begin{align*}
-        \left\langle x^{-\alpha},\mu_t \right\rangle \geq \left\langle x,\mu \right\rangle^{-\alpha} \left\langle 1, \mu_t\right\rangle^{1 + \alpha}.
-    \end{align*}
-    Replacing it in \eqref{eq:proof:bound_1_smol} gets us :
-    \begin{align*}
-        \dfrac{\dd}{\dd t} \left\langle 1, \mu_t \right\rangle
-        \leq -\left\langle x,\mu \right\rangle^{-\alpha}\left\langle 1, \mu_t \right\rangle^{2 + \alpha}.
-    \end{align*}
-    We conclude by using lemma \red{ajouter le lemme pour $u' \leq -a u^\gamma$, $\gamma \geq 1$}.
-
-    $(ii)$ The function $x \mapsto x^{-\alpha}$ is convex on $\RR^{+,*}$, so:
-    \begin{align*}
-        \left(\dfrac{x + y}{2}\right)^{-\alpha} \leq \dfrac{1}{2}  \left(x^{-\alpha} + y^{-\alpha}\right) \implies 
-        \left(x + y\right)^{-\alpha} - x^{-\alpha} - y^{-\alpha} \leq \dfrac{C_\alpha}{2} \left( x^{-\alpha} + y^{-\alpha}\right).
-    \end{align*}
-    Now from the Smoluchovski coagulation equation we have:
-    \begin{align*}
-        \dfrac{\dd}{\dd t} \left\langle x^{-\alpha},\mu_t\right\rangle &= \dfrac12\int_{\RR^{+,*}\times \RR^{+,*}} K_\alpha(x,y) \left((x + y)^{-\alpha}- x^{-\alpha} - y^{-\alpha} \right) \mu_t^{\otimes 2}(\dd x, \dd y).
-    \end{align*}
-    Now by positivity of $\Proc{\mu_t}$ we have:
-    \begin{align*}
-        \dfrac{\dd}{\dd t} \left\langle x^{-\alpha},\mu_t\right\rangle &\leq -\dfrac{C_\alpha}{2}\int_{\RR^{+,*}\times \RR^{+,*}} \left(x^{-\alpha} + y^{-\alpha} \right)^2 \mu_t^{\otimes 2}(\dd x, \dd y)
-        \\
-        &= -\dfrac{C_\alpha}{2} \left\langle x^{-\alpha}, \mu_t\right\rangle^2 - \dfrac{C_\alpha}{2}\left\langle x^{-2\alpha}, \mu_t\right\rangle \left\langle 1, \mu_t\right\rangle.
-    \end{align*}
-   The measure $\frac{\mu_t}{\left\langle 1, \mu_t\right\rangle}$ is a probability measure. By convexity of the square function and Jensen's inequality:
-   \begin{align*}
-       \left\langle 1, \mu_t\right\rangle\left\langle x^{-2\alpha}, \mu_t\right\rangle \geq \left\langle x^{-\alpha}, \mu_t\right\rangle^2.
-   \end{align*}
-   Therefore:
-    \begin{align*}
-        \dfrac{\dd}{\dd t} \left\langle x^{-\alpha},\mu_t\right\rangle &\leq -C_\alpha \left\langle x^{-\alpha}, \mu_t\right\rangle^2.
-    \end{align*}
-    Finally we conclude with lemma \ref{lem:inequality_ODE_square}:
-    \begin{align*}
-        \left\langle x^{-\alpha},\mu_t\right\rangle \leq \dfrac{\left\langle x^{-\alpha}, \mu \right\rangle}{1 + C_\alpha\left\langle x^{-\alpha}, \mu \right\rangle t },
-    \end{align*}
-    giving us the desired result.
-\end{proof}
-% \begin{proposition}
-%     Let $\psi_{e}^c(x) = e^{cx^{-\alpha}}$.
-% \end{proposition}
-% \begin{proof}
-%     We compute:
-%     \begin{align*}
-%         \dfrac{\dd}{\dd t}\brac{\psi^c,\mu_t} &= \dfrac{1}{2}\int_{\RRP \times \RRP} K_\alpha(x,y)  \left[e^{c(x+y)^{-\alpha}} - e^{cx^{-\alpha}} - e^{cy^{-\alpha}} \right]\mu_t(\dd x) \mu_t( \dd y) \\
-%         &\leq -\dfrac{1}{2}\int_{\RRP \times \RRP} K_\alpha(x,y)  e^{cx^{-\alpha}}\mu_t(\dd x) \mu_t( \dd y) \\
-%         &= -\dfrac12\brac{1,\mu_t}\int_{\RRP} x^{-\alpha} e^{cx^{-\alpha}}\mu_t(\dd x) - \dfrac12\brac{x^{-\alpha},\mu_t}\brac{\psi^c,\mu_t}.
-%     \end{align*}
-%     Let us denote $u(c,t) := \brac{\psi^c,\mu_t}$ the previous can be seen as the following inequality:
-%     \begin{align*}
-%         \partial_t u \leq -\brac{1,\mu_t}\partial_c u - \brac{x^{-\alpha},\mu_t} u.
-%     \end{align*}
-% \end{proof}
-The next lemma gives shows that the solution of the $\SCE$ is Lipschitz with respect to its initial value in a specific weighted norm total variation norm.
+Note also that any non-increasing function is sub-multiplicative and positive linear combination of sub-multiplicative function is also sub multiplicative. Therefore all the measure spaces we defined in our introduction are stable for the $\SCE$. The next lemma gives shows that the solution of the $\SCE$ is Lipschitz with respect to its initial value in a specific weighted norm total variation norm.
 \begin{lemma}\label{lem:Lip-smol-TV}
     Let $\mu,\nu \in \MC^+_{\psi_p}(\RRP)$ and denote $\mu_t,\nu_t$ the respective solutions of the $\SCE$ started from $\mu,\nu$ we have:
     \begin{align*}
@@ -1388,30 +1138,6 @@ The next lemma gives shows that the solution of the $\SCE$ is Lipschitz with res
     \end{align*}
     We use a Gronwall's lemma ending the proof.
 \end{proof}
-% \begin{proof}
-%     We denote $\|\cdot\|_{\psi_1}$ by  $\|\cdot\|$ for convenience. From lemma \ref{lem:ODE_total_variation_kolo}:
-%     \begin{multline*}
-%         \| \mu_t - \nu_t\| = \|\mu- \nu\| \\
-%         + \dfrac12\int_0^t \int_{\RRP}\int_{\RRP} K_\alpha(x,y) \left[\psi_1\sigma_s(x+y) - \psi_1\sigma_s(x) - \psi_1\sigma_s(y) \right]\left(\mu_s + \nu_s\right)(\dd x) \left(\mu_s - \nu_s\right)(\dd y) \dd s.
-%     \end{multline*}
-%     where $\sigma_s$ is a density of $\mu_s - \nu_s$ with respect to to $|\mu_s - \nu_s|$ so that $\sigma_s(\mu_s - \nu_s) = |\mu_s - \nu_s|$. We use the positivity of $\mu_t ,\nu_t$ and the definition of $\sigma_t$: 
-%     \begin{align*}
-%         \| \mu_t - \nu_t\| 
-%         &\leq \|\mu- \nu\| + \dfrac12\int_0^t \int_{\RRP}\int_{\RRP} K_\alpha(x,y)\psi_1(x)\left(\mu_s + \nu_s\right)(\dd x) \left|\mu_s - \nu_s\right|(\dd y) \dd s.
-%     \end{align*}
-%     where we used that $\psi_1(x + y) \leq \psi_1(y)$ for all $x,y \geq 0$. Finally we have:
-%     \begin{align*}
-%         \dfrac{\dd}{\dd t}\| \mu_t - \nu_t\| \leq   C\brac{\psi_2,\mu_t + \nu_t}\|\mu_t - \nu_t\| \leq C\left(\|\mu\|_{\psi_2} + \|\mu\|_{\psi_2}\right)\|\mu_t - \nu_t\|.
-%     \end{align*}
-%     We conclude with a Gronwall's lemma.
-% \end{proof}
-% \begin{corollary}\label{cor:Lip-smol-TV}
-%     Let $\psi_n : x\mapsto 1 + x^{-n\alpha}$. Let $p \geq 2$ and $\mu,\nu \in \MC^+_{\psi_{p+1}}(\RRP)$ and denote $\mu_t,\nu_t$ the respective solutions of the $\SCE$ started from $\mu,\nu$ we have:
-%     \begin{align*}
-%         \sup\limits_{t \in [0,T]}\| \mu_t - \nu_t\|_{\psi_p} \leq \left(1 + T e^{C\left(\|\mu\|_{\psi_{p + 1}} + \|\nu\|_{\psi_{p+1}}\right)T}\right)\|\mu- \nu\|_{\psi_1}.
-%     \end{align*}
-%     The functions $\psi_p$ could be replaced by $\psi_p$.
-% \end{corollary}
 
 \subsubsection{Well-posedness of the Smoluchovski coagulation equation}
 In this section we show that the $\SCE$ is well posed and give some useful bounds on it. Because of the singularity of our kernel we start by considering a cut-off equation where we sever the initial value away from $0$, we take $\mu^\varepsilon = \mu\mathds{1}_{[\varepsilon,\infty)}$. And call $\mu^\varepsilon_t$ the solution to the corresponding equation:
@@ -1477,7 +1203,7 @@ Before proving this lemma we give a small thecnical proposition for differentiat
     \begin{align*}
         \brac{f,\Gamma^\varepsilon(m)_t}= \brac{f,\mu^\varepsilon} + \dfrac12\int_0^t \brac{K_\alpha f,\left(m_s\right)^{\otimes 2}} \dd s.
     \end{align*}
-    Claim $1$: For $T$ small enough the functional $\Gamma^\varepsilon$ is well defined. First of all it is quite clear that if $m \in C\left([0,T]:\MC^{\varepsilon,M}_{\psi_p}(\RRP) \right)$ the support of $\Gamma^\varepsilon(m)_t$ is included $[\varepsilon,\infty)$ for all $t$. Let $|f| \leq \psi_p$ we have:
+    \textbf{Claim} $1$: For $T$ small enough the functional $\Gamma^\varepsilon$ is well defined. First of all it is quite clear that if $m \in C\left([0,T]:\MC^{\varepsilon,M}_{\psi_p}(\RRP) \right)$ the support of $\Gamma^\varepsilon(m)_t$ is included $[\varepsilon,\infty)$ for all $t$. Let $|f| \leq \psi_p$ we have:
     \begin{align*}
         \brac{f,\Gamma^\varepsilon(m)_t} &\leq \|\mu^\varepsilon\|_{\psi_p} + C\varepsilon^{-\alpha}\int_0^t \brac{\psi_p,|m_s|}^2 \dd s 
     \end{align*}
@@ -1488,7 +1214,7 @@ Before proving this lemma we give a small thecnical proposition for differentiat
     \end{align*}
     Since we assumed that $\|\mu\|_{\psi_p} \leq \frac{M}{2}$ it suffices to choose $T = \dfrac{1}{2\varepsilon^{-\alpha}MC}$. Finally by boundedness of the integrand in time it follows that $t \mapsto \Gamma^\varepsilon(m)_t$ is continuous thus showing the claim.
 
-    Claim 2 : For $T$ small enough the operator $\Gamma^\varepsilon$ is a contraction. Let $m^1$ and $m^2$ be in $\MC^{\varepsilon,M}_{\psi_p}\left(\RRP\right)$. Let $|f| \leq \psi$, we have:
+    \textbf{Claim} 2 : For $T$ small enough the operator $\Gamma^\varepsilon$ is a contraction. Let $m^1$ and $m^2$ be in $\MC^{\varepsilon,M}_{\psi_p}\left(\RRP\right)$. Let $|f| \leq \psi$, we have:
     \begin{align*}
         \brac{f,\Gamma^\varepsilon(m^1)_t - \Gamma^\varepsilon(m^2)_t}
         &= \dfrac{1}{2}\int_0^t \brac{Kf,\left(m_s + \tilde{m}_s\right)\otimes\left( m_s - \tilde{m}_s\right)} \dd s \\
@@ -1525,12 +1251,12 @@ Before proving this lemma we give a small thecnical proposition for differentiat
     \begin{align*}
         \brac{f,\Gamma^{+,\varepsilon}(m)_t}= \brac{f,\mu^\varepsilon} + \int_0^t \frac{f,G_s(m_s)}  \dd s.
     \end{align*}
-    Claim $3$: For $T$ small enough $\Gamma^{+,\varepsilon}(m)$ is well defined. If $m$ is a map from $[0,T]$ to positive measures it is clear that $\Gamma^{+,\varepsilon}(m)_t$ is positive for all $t\geq 0$. We have that:
+    \textbf{Claim} $3$: For $T$ small enough $\Gamma^{+,\varepsilon}(m)$ is well defined. If $m$ is a map from $[0,T]$ to positive measures it is clear that $\Gamma^{+,\varepsilon}(m)_t$ is positive for all $t\geq 0$. We have that:
     \begin{align*}
         G_s(m_s) \leq C \varepsilon^{-\alpha}\|m_s\|_{\psi_p}^2.
     \end{align*}
     with a reasoning that follows the first fixed point we can show that for $T$ small enough (possibly smaller than previously) the operator $\Gamma^{+,\varepsilon}$ is well defined. 
-    Claim $4$: For $T$ small enough $\Gamma^{+,\varepsilon}(m)$ is a contraction. We have:
+    \textbf{Claim} $4$: For $T$ small enough $\Gamma^{+,\varepsilon}(m)$ is a contraction. We have:
     \begin{align*}
         \brac{f, \Gamma^{+,\varepsilon}(m^1)_t - \Gamma^{+,\varepsilon}(m^2)_t} \leq C \varepsilon^{-\alpha}\int_0^t \|m_s - \tilde{m}_s\|_{\psi_p}\|m_s + \tilde{m}_s\|_{\psi_p} \dd s.
     \end{align*}
@@ -1691,8 +1417,8 @@ Now let us give a bound for two distinct initial values in equation \eqref{eq:de
     The result then follows by Gronwall's lemma.
 \end{proof}
 
-\subsubsection{Well posedness of equations}
-Now onto the derivatives of $\varphi$. The goal of the following is to show the next proposition.
+\subsubsection{Well posedness of the derivative's equation}
+The goal of the following is to show that the equation followed by the derivaitve of the $\SCE$ solutions is well-posed.
 \begin{lemma}\label{lem:well_posedness_derivative_eq}
     Let $p \geq 2$ and Denote $\Proc{\mu_t}$ the solution of the Smoluchowski Coagulation equation started from $\mu \in \MC^+_{\psi_{p + 1}}\left(\RRP\right)$. Equation \eqref{eq:derivative-initial-general} defined for all $f \in C_b(\RR^+_*)$ by:
     \begin{align*}
@@ -1710,7 +1436,7 @@ Our strategy is the same as the one we used for the $\SCE$ considering $\Proc{\m
 \begin{equation}\label{eq:cut-off-derivative-equation}
     \brac{f,m^\varepsilon_t} = \brac{f,m^\varepsilon} + \int_0^t \brac{K_\alpha f,\mu^\varepsilon_s\otimes m^\varepsilon_s} \dd s.
 \end{equation}
-This equation is much easier to study than the previous because as we will show, its solutions are in $[\varepsilon,\infty)$. We start by showing that \eqref{eq:cut-off-derivative-equation} is well posed on a subset of $\MC_{\psi_p}\left(\RRP\right)$. For $M \geq 0$ define:
+We start by showing that \eqref{eq:cut-off-derivative-equation} is well-posed on a subset of $\MC_{\psi_p}\left(\RRP\right)$. For $M \geq 0$ define:
 \begin{align*}
     \MC^{M,\varepsilon}_{\psi_p}\left(\RRP\right) = \left\lbrace \mu \in \MC_{\psi_p}\left(\RRP\right), \int_{\RRP} \psi_p(x)|\mu|(\dd x) \leq M, supp(\mu) \subset [\varepsilon,\infty) \right\rbrace.
 \end{align*}
@@ -1734,7 +1460,7 @@ Our proof is based on a fixed point and uses this subset. Corollary \ref{cor:wel
         \brac{f,\Gamma^\varepsilon(m)_t} = \brac{f,\nu^\varepsilon} + \int_0^t \brac{K_\alpha f,\mu^\varepsilon_s\otimes m_s} \dd s.
     \end{align*}
 
-    **Claim 1: For $T$ sufficiently small $\Gamma^\varepsilon$ is well defined from \(C\left([0,T]:\MC^{M,\varepsilon}_{\psi_p}\left(\RRP\right) \right) \) in itself.** Let $\Proc{m_t} \in C\left([0,T]:\MC^{M,\varepsilon}_{\psi_p}\left(\RRP\right) \right)$, from proposition \ref{prop:well-posedness-cutoff-smol} that the support of $\mu^\varepsilon_s$ is in $[\varepsilon,\infty)$ and therefore the support of $\Gamma^\varepsilon(m)_t$ as-well. Let $f$ be such that for all $x\in \RRP, |f(x)| \leq \psi(x)$:
+    \textbf{Claim} 1: For $T$ sufficiently small $\Gamma^\varepsilon$ is well defined from \(C\left([0,T]:\MC^{M,\varepsilon}_{\psi_p}\left(\RRP\right) \right) \) in itself. Let $\Proc{m_t} \in C\left([0,T]:\MC^{M,\varepsilon}_{\psi_p}\left(\RRP\right) \right)$, we know from proposition \ref{prop:well-posedness-cutoff-smol} that the support of $\mu^\varepsilon_s$ is in $[\varepsilon,\infty)$ for all $s$ and therefore the support of $\Gamma^\varepsilon(m)_t$ as-well. Let $f$ be such that for all $x\in \RRP, |f(x)| \leq \psi(x)$:
     \[ \left|\brac{K_\alpha f,\mu_s\otimes m_s}\right| \leq \int_{\RRP\times \RRP} K_\alpha(x,y) \left|f(x+y) - f(x) -f(y)\right| \mu_s(\dd x)|m_s|(\dd y)
     \]
     where we used the fact that $\mu^\varepsilon_s $ is positive. Because the support of both measures in the integral is included in $[\varepsilon,\infty)$ we have:
@@ -1755,13 +1481,13 @@ Our proof is based on a fixed point and uses this subset. Corollary \ref{cor:wel
     \end{align*}
     So by choosing $T = \dfrac{\varepsilon^{\alpha}}{2C\brac{\psi,\mu}}$ our operator is well defined.
 
-    **Claim 2: The space \(C\left([0,T]:\MC^{M,\varepsilon}_{\psi_p}\left(\RRP\right) \right) \) equipped with the norm 
+    \textbf{Claim} 2: The space \(C\left([0,T]:\MC^{M,\varepsilon}_{\psi_p}\left(\RRP\right) \right) \) equipped with the norm 
      \[
     \sup\limits_{t \in [0,T]} \|m_t\|_{\psi_p}
     \]
-    is complete.** The space \(\left(\MC_{\psi_p}\left(\RRP\right),\|.\|_{\psi_p}\right)\) is Banach see Corollary \ref{cor:Banach-wheigted-space}. We deduce that \(C\left([0,T]:\MC_{\psi_p}\left(\RRP\right) \right) \) with the previously defined norm is also Banach. The functional space considered is closed in \(C\left([0,T]:\MC_{\psi_p}\left(\RRP\right) \right) \) and therefore it is complete.  
+    is complete. The space \(\left(\MC_{\psi_p}\left(\RRP\right),\|.\|_{\psi_p}\right)\) is Banach see Corollary \ref{cor:Banach-wheigted-space}. We deduce that \(C\left([0,T]:\MC_{\psi_p}\left(\RRP\right) \right) \) with the previously defined norm is also Banach. The functional space considered is closed in \(C\left([0,T]:\MC_{\psi_p}\left(\RRP\right) \right) \) and therefore it is complete.  
     
-    **Claim 3: For $T$ sufficiently small the operator $\Gamma^\varepsilon$ is Lipschitz with a constant smaller or equal than $\frac12$.** Now take $m^1$ and $m^2$ in our functional and $|f| \leq \psi$. The exact same calculations performed in Claim $1$ lead us to:
+    \textbf{Claim} 3: For $T$ sufficiently small the operator $\Gamma^\varepsilon$ is Lipschitz with a constant smaller or equal than $\frac12$. Now take $m^1$ and $m^2$ in our functional and $|f| \leq \psi$. The exact same calculations performed in Claim $1$ lead us to:
     \begin{align*}
         \brac{f, \Gamma^\varepsilon(m^1)_t - \Gamma^\varepsilon(m^2)_t}  \leq tC\varepsilon^{-\alpha}\brac{\psi,\mu} \| m_t - \tilde{m}_t\|_{\psi}.
     \end{align*}
@@ -2592,7 +2318,7 @@ We now give the proof of Lemma \ref{lem:exponential-moments}, as mentioned befor
     \begin{align*}
         \left\| \mu^{\varepsilon_p} - \mu^{\varepsilon_q}\right\|_{\psi} = \psi\mu([\varepsilon_p,\varepsilon_q)) \leq \psi\mu\left((0,\varepsilon_q) \right)\ .
     \end{align*}
-    The measure $\psi\mu$ is regular as a finite measure on a Polish space, it comes by outter regularity that:
+    The measure $\psi\mu$ is regular as a finite measure on $\RRP$, it comes by outter regularity that:
     \begin{align*}
         \lim\limits_{\varepsilon \to 0} \psi\mu\left((0,\varepsilon)\right) = \psi\mu(\emptyset) = 0.
     \end{align*}
@@ -2600,7 +2326,7 @@ We now give the proof of Lemma \ref{lem:exponential-moments}, as mentioned befor
     \begin{align*}
         \left\| \nu_t^{\varepsilon_p}-\nu_t^{\varepsilon_q}\right\|_{\psi + \psi_1} \leq \gamma
     \end{align*}
-    and therefore the sequence $\Seq{\Proc{\nu^{\varepsilon_n}_t}}$ is Cauchy in $C([0,T]:\MC^+_{\psi + \psi_1}(\RRP))$. It converges to some measure $\nu_t$ in $C([0,T]:\MC^+_{\psi + \psi_1}(\RRP))$. Naturally $\psi$ beeing smaller than $\psi + \psi_1$ it is $\nu_t$-integrable. Applying Lemma \ref{lem:exponential-moments-epsilon} on $\Proc{\nu^\varepsilon_t}$ gives us for all $t \in [0,T]$:
+    and therefore the sequence $\Seq{\Proc{\nu^{\varepsilon_n}_t}}$ is Cauchy in $C([0,T]:\MC^+_{\psi + \psi_1}(\RRP))$. It converges to some $\Proc{\nu_t}$ in $C([0,T]:\MC^+_{\psi + \psi_1}(\RRP))$. Naturally $\psi$ beeing smaller than $\psi + \psi_1$ it is $\nu_t$-integrable. Applying Lemma \ref{lem:exponential-moments-epsilon} on $\Proc{\nu^\varepsilon_t}$ gives us for all $t \in [0,T]$:
     \begin{align*}
         \brac{\psi,\nu^\varepsilon_t}e^{-\int_0^t \brac{\psi_1,\mu^\varepsilon_s}\dd s} \leq \brac{\psi,\mu},
     \end{align*}
@@ -3670,258 +3396,10 @@ This lemma can be interpreted as follows: The first point shows that the solutio
     where $P$ is a polynomial. All steps of this proof just increased the degree of $P$ the only step that could contribute to the exponential is the last application of Gronwall's lemma. We conclude that the final constant retains this same overall structure.
 \end{proof}
 
-\subsection{Another method Coupling and augmented equations}
-We define the relevant equations, we take advantage on the use of a cemetery point to define the Wasserstein distance and the equivalence given by Proposition \ref{prop:Kantorovich-general}. In all this section let $\partial$ be a cemetery point we will work on $\bar{\XF} = \RRP \cup {\partial}$. The role of this point is to store the missing mass, we show how we can treat the solutions of the $\SCE$ with it, let $\Proc{\mu_t}$ be a solution to the $\SCE$ , let $m \geq \mu_0(\RRP)$ we define $\Proc{\bar{\mu}^m_t}$ by :
-\begin{align*}
-    \bar{\mu}^m_t = \mu_t + \left(m - \mu_t(\RRP) \right)\delta_\partial.
-\end{align*}
-This measure is positive since $t \mapsto \mu_t(\RRP)$ is non increasing and has finite total mass equal to $m$, intuitively the weight on the point $\partial$ gives us the amount of mass that coalesced at time $t$. Notice that it also satisfies for all $f \in C_b(\bar{\XF})$:
-\begin{multline*}
-    \brac{f,\bar{\mu}^m_t} = \brac{f,\bar{\mu}^m_0} + f(\partial) \int_0^t\int_{\RRP} \int_{\RRP} K_\alpha(x,y)\mu_s(\dd x) \mu_s(\dd y) \\
-    + \int_{\RRP} \int_{\RRP} K_\alpha(x,y) \left[\vphantom{A^2}f(x+y)  -f(x) -f(y)\right]\mu_s(\dd x) \mu_s(\dd y) \dd s
-\end{multline*}
-We want to give this measure its own equation, for this we extend the definition of the kernel to $\bar{\XF}$. We set for all $x \in \bar{\XF}$:
-\begin{align*}
-    K_{\alpha}(x,\partial) = 0.
-\end{align*}
-Then $\Proc{\bar{\mu}^m_t}$ is solution of the following equation, for all $f \in C_b(\bar{\XF})$:
-\begin{align*}
-    \brac{f,\bar{\mu}^m_t} = \brac{f,\bar{\mu}^m_0} + \int_0^t \int_{\bar{\XF}} \int_{\bar{\XF}} K_\alpha(x,y) \left[\vphantom{A^2}f(x+y) + f(\partial) -f(x) -f(y)\right]\bar{\mu}^m_s(\dd x) \bar{\mu}^m_s(\dd y) \dd s.
-\end{align*}
-We call this equation the Augmented Smoluchowski Coagulation equation and denote it $\ASCE$. Now we also extend the definition of the distance $d_\alpha$ to $\bar{\XF}$, for all $x \in \RRP$ we set:
-\begin{align*}
-    \bar{d}_\alpha(x,\partial) = x^{-\alpha} + 1.
-\end{align*}
-The function $\psi : x \mapsto x^{-\alpha}$ verifies all the required hypothesis to define the distance $W_{1,\psi}$ on $\MC^+_{\psi}(\RRP)$. Let $\Proc{\mu_t}$ and $\Proc{\nu_t}$ be two solutions of the $\SCE$ by Proposition \ref{prop:Kantorovich-general} for all $m \geq \mu_0(\RRP) \vee \nu_0(\RRP)$ we have that:
-\begin{align*}
-    W_{1,\psi}(\mu_t,\nu_t) = W_1\left(\bar{\mu}^m_t,\bar{\nu}^m_t \right) = \inf_{\pi \in \Pi(\bar{\mu}^m_t,\bar{\nu}^m_t)} \int_{\bar{\XF}^2} \bar{d}_\alpha(x,y) \pi(\dd x, \dd y).
-\end{align*}
-We rely on the definition of $W_1$ as the infimum on coupling measures and define a dynamic on couplings via the next equation on $\MC(\bar{\XF}\times \bar{\XF})$.
-\begin{align*}
-\brac{f,\pi_t} =& \brac{f,\pi_0} + \dfrac12\int_0^t \int_{\bar{\XF}^2} \int_{\bar{\XF}^2}\left(K_\alpha(x_1,y_1)\wedge K_\alpha(x_2,y_2) \right) \\
-    &\qquad  \left[f(x_1+y_1,x_2+y_2) + f(\partial,\partial)- f(x_1,x_2) -f(y_1,y_2) \vphantom{A^2} \right]\pi_s(\dd x_1,\dd x_2)\pi_s(\dd y_1,\dd y_2)\\
-    &+ \dfrac12\int_{\bar{\XF}^2}\int_{\bar{\XF}^2} \left(K_\alpha(x_1,y_1)- K_\alpha(x_2,y_2) \right)^+ \\
-    &\qquad\left[f(x_1+y_1,x_2) + f(\partial,y_2)- f(x_1,x_2) -f(y_1,y_2) \vphantom{A^2} \right]\pi_s(\dd x_1,\dd x_2)\pi_s(\dd y_1,\dd y_2)\\
-    &+ \dfrac12\int_{\bar{\XF}^2}\int_{\bar{\XF}^2} \left(K_\alpha(x_1,y_1)- K_\alpha(x_2,y_2) \right)^-\\
-    &\qquad\left[f(y_1,x_2 + y_2) + f(x_1,\partial)- f(x_1,x_2) -f(y_1,y_2) \vphantom{A^2} \right]\pi_s(\dd x_1,\dd x_2)\pi_s(\dd y_1,\dd y_2) \dd s
-\end{align*}
-The intuition of this equation comes from the stochastic counterpart, when writing the stochastic coalescence as an  integral on Poisson random measure an expression similar appears see \cite{fournier2004convergence}. This equation can be break down into $3$ parts, in the first one we coalesce both parts at rate given by the minimal value of both kernels, intuitively the first of both marginals to coalesce makes the couple coalesce. The second and third part are symmetric and deal with the marginal that was "late" and only coalesces that one.
-
 \newpage
-% \section{Stochastic coalescence}
-% The stochastic coalescence is a process representing a collection of particles characterized by a positive value called mass. Each couple of particles of mass $x,y$ has a probability to merge in an interval of time $[t, t + \dd t]$ of first order equal to $K_{\alpha}(x,y)\dd t$. Assume we have initially $N$ particles with masses $x_{1},\cdots,x_{N}$. Consider $N(N-1)/2$ independent exponential random variables:
-% \begin{align*}
-%     \left\lbrace T_{i,j} \sim \mathcal{E}\left(K_{\alpha}(x_{i},x_{j})\right), 1 \leq i < j \leq N \right\rbrace.
-% \end{align*}
-% Each random variable represents the time taken by the corresponding couple to coalesce. The first coalescence to happen is the fastest one, in other words the minimum of the previous set that we denote $T_1$. By property of exponential laws $T_1$ is itself an exponential variable of parameter:
-% \begin{align*}
-%     \sum\limits_{1 \leq i < j \leq N}K_{\alpha}(x_{i},x_{j}).
-% \end{align*}
-% We denote by $i^*,j^*$ the couple achieving this minima, at time $T_1$, $N-1$ particles remain and the process is at state $x_{1},\cdots , x_{i^*}+x_{j^*},\cdots$. We repeat this operation until there is a single particle left with mass equal to $\sum\limits x_i$. We choose to represent this process by a sum of Dirac masses, so that if there is $N_t$ particles at time $t\geq 0$ of masses $X_{1,t},\cdots,X_{N_t,t}$ the stochastic coalescence process has value:
-% \begin{align*}
-%     M_t = \sum\limits_{i = 1}^{N_t} \delta_{X_{i,t}}.
-% \end{align*}
-
-% We give a formal definition as an integral on a Poisson random measure taken from \cite{fournier2006some,fournierStochasticCoalescenceHomogeneouslike2009}. First of we denote $D\left([0,T]: \XF\right)$ the sapce of cadlàg functions from $[0,T]$ to $\XF$ where $\XF$ is Polish. We equip it with the $J_1$-Skorohod topology. Let us denote by $\MC_p^+(\RRP)$ the set of finite point measures on $\RRP$ namely:
-% \begin{align*}
-%     \MC_p^+(\RRP) = \left\lbrace \sum\limits_{i = 1}^N \delta_{x_i}\  \middle|\  N\in \NN,\  (x_1,\cdots,x_N) \in \RRP \right\rbrace. 
-% \end{align*}
-% \begin{definition}
-%     Let $\NC$ be random Poisson measure on $\RR^+ \times \RR^+ \times \NN^2$ with intensity $\dd s \times \dd z \times d(i,j)$ where $d(i,j) = \sum\limits_{i < j} \delta_{i,j}$. Let $K$ be a kernel, $\mu^N \in \MC_p^+(\RRP)$ a finite sum of Dirac masses. We call stochastic coalescence (\SC) process the solution of the following $SDE$:
-%     \begin{multline*}
-%         M_t = \mu^N + \int_0^t \int_0^\infty \int_{1 \leq i <j }  \indic{z \leq K_{\alpha}X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}} \\ \times \left(\delta_{X_{i}(s-) + X_{j}(s-)} - \delta_{X_{i}(s-)} - \delta_{X_{j}(s-)}\right)\mathcal{N}(ds,dz,d(i,j)).
-%     \end{multline*}
-%     where $N_t$ is the number of clusters at time $t$: $N_t = \langle 1 , M_t\rangle$.
-% \end{definition}
-% The kernels considered $K_\alpha$ is finite on $\RRP$. Furthermore the masses in the stochastic coalescence only increase let us call $x_0$ the smallest mass in the initial data $\mu^N$. For all $t \geq 0$ and $i,j$ we have $K_\alpha(X_{i}(s-),X_{j}(s-)) \leq 2x_0^{-\alpha}$. Finally $N_t$ is non-increasing it comes that for all bounded $f$:
-% \begin{multline*}
-%     \mathbb{E} \left[ \int_0^t \int_0^\infty \int_{1 \leq i <j }  \indic{z \leq K_{\alpha}X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}}\right. \\
-%     \left. \times   \left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right]\mathcal{N}(ds,dz,d(i,j)) \vphantom{\int_0^t \int_0^\infty \int_{i <j } }\right] \\
-%     = \int_0^t \E{\sum\limits_{1 \leq i< j \leq N_{s-}} K_{\alpha}X_{i}(s-),X_{j}(s-))\left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right] } \dd s \\
-%     \leq t 3\|f\|_{\infty}\dfrac{N(N-1)}{2} \times 2 x_0^{-\alpha} .
-% \end{multline*}
-
-% \begin{proposition}
-%     The process $\Proc{M_t}$  is a Markov process with values in $\MC_p^+(\RRP)$ and has infinitesimal generator:
-%     \begin{align*}
-%         \LC F\left(\mu := \sum\limits_{k = 1}^n\delta_{x_k} \right) = \sum\limits_{1\le i <j \le n} K_{\alpha}(x_i,x_j) \left[F\left(\mu + \delta_{x_i + x_j} - \delta_{x_i} -\delta_{x_j}\right) - F(\mu)\right].
-%     \end{align*}
-%     which can be rewritten:
-%     \begin{multline*}
-%         \LC F(\mu) = \int_{\RR^+ \times \RR^+} K_{\alpha}(x,y)\left[ F\left(\mu + \delta_{x+y} - \delta_x - \delta_y \right) - F(\mu) \right]\mu(dx)\mu(dy) \\
-%         -\int_{\RR^+} K_{\alpha}(x,x)\left[ F\left(\mu + \delta_{2x} - 2\delta_x \right) - F(\mu) \right]\mu(dx).
-%     \end{multline*}
-% \end{proposition}
-% \begin{proof}
-%     The Markov property comes from the $SDE$ formulation. Let $F$ be a map from $\MC_p^+(\RRP)$ to $\RR$, $t \geq 0$, by Ito's formula for jumping processes:
-%     \begin{align*}
-%         \E{F(M_t)} = F(\mu^N) + \int_0^t \E{\LC F\left(M_s\right)} \dd s.
-%     \end{align*}
-% \end{proof}
-% \begin{remark}
-%     The second expression can be conveniently extended to any measure with finite order $-\alpha$ moment $\MC_{\psi_1}^+(\RRP)$.
-% \end{remark}
-
-% We are interested in initial measures of the type:
-% \begin{align*}
-%     \mu^N = \sum\limits_{i = 1}^N \delta_{X_i}.
-% \end{align*}
-% Where $\Seq{X_n}$ is a sequence of independent random variables. We want to show the following limit in some sense that will be cleared later:
-% \begin{align*}
-%    (M^N_t)_{t\ge 0} := \frac{1}{N} \Proc{M_{N^{-1}t}} \xrightarrow[N \to \infty]{} \Proc{\mu_t} 
-% \end{align*}
-% where $\Proc{\mu_t} $ is the solution of the Smoluchowski Coagulation equation started from:
-% \begin{align*}
-%     \mu = \lim\limits_{N \to \infty} \dfrac{1}{N}\mu^N.
-% \end{align*}
-% \begin{proposition}
-%     The process $\Proc{M^N_{t}}$ has infinitesimal generator:
-%     \begin{multline*}
-%         \LC^N F(\mu) = N\int_{\RR^+ \times \RR^+} K_{\alpha}(x,y)\left[ F\left(\mu + \frac{1}{N}\left(\delta_{x+y} - \delta_x - \delta_y\right) \right) - F(\mu) \right]\mu(dx)\mu(dy) \\
-%         -\int_{\RR^+} K_{\alpha}(x,x)\left[ F\left(\mu + \frac{1}{N}\left(\delta_{2x} - 2\delta_x\right) \right) - F(\mu) \right]\mu(dx).
-%     \end{multline*}
-% \end{proposition}
-% \begin{proof}
-%     Let $t \geq 0$, $F(M^N_t) = F^N(M_{\frac{t}{N}})$ where,
-%     \begin{align*}
-%         F^N(\mu) = F\left(\dfrac{1}{N}\mu\right).
-%     \end{align*}
-%     We have:
-%     \begin{align*}
-%         \dfrac{\dd}{\dd t}\E{F(M^N_t)}  = \dfrac{1}{N}\E{\LC F^N\left(M_{\frac{t}{N}}\right)} =  \E{\LC^N F(M^N_t)}.
-%     \end{align*}
-% \end{proof}
-
-% \begin{remark}
-%    When the initial masses are integers, this rescaled process corresponds to the Marcus-Lushnikov process \cite{marcus1968stochastic,lushnikov1978coagulation}. It was originally made as a stochastic approximation of the Smoluchovski Coagulation equation.
-% \end{remark}
-% When $F$ has a flat derivaitve the previous expression can be expressed in terms of the flat derivative of $F$
-% \begin{proposition}\label{prop:SC_gen_differentiable}
-%     Consider a functional $F \in C^1(\MC_{\psi_1}^+\left(\RRP \right):\RR)$ we have for all integers $N$:
-%     \begin{multline*}
-%         \LC^N F(\mu) = \int_0^1 \int_{\RR^+ \times \RR^+} K_{\alpha}(x,y)\left\langle  \delta_\mu F\left(\mu + \frac{\lambda}{N}\left(\delta_{x + y} - \delta_x - \delta_y \right),.\right),\delta_{x+y} - \delta_x - \delta_y\right\rangle\mu(dx)\mu(dy)d\lambda \\
-%         -\dfrac{1}{N}\int_0^1\int_{\RR^+} K_{\alpha}(x,x)\left\langle  \delta_\mu F\left(\mu + \frac{\lambda}{N}\left(\delta_{2x} - 2\delta_x \right),.\right),\delta_{2x} - 2\delta_x \right\rangle\mu(dx)d\lambda.
-%     \end{multline*}
-% \end{proposition}
-% \begin{proof}
-%     Immediate by the definition of the flat derivaitve and because for all $\mu \in \MC_{\psi_1}^+\left(\RRP \right)$ and $x,y \in \RRP$, measures $\mu + \frac{1}{N}\left(\delta_{x + y} - \delta_x - \delta_y\right)$ and $\mu + \frac{1}{N}\left(\delta_{2x} - 2\delta_x \right)$ are in $\MC_{\psi_1}\left(\RRP \right)$.
-% \end{proof}
-
-% \subsection{Some bounds}
-% We present bounds that will be important in our final theorem. 
-
-% \begin{lemma}
-%     Let $\Phi(t,\mu^N)$ be the Stochastic Coalescent started from the atomic measure 
-%     \begin{align*}
-%         \mu^N = \dfrac{1}{N}\sum\limits_{k = 1}^N \delta_{x_{k,0}}
-%     \end{align*}
-%     with kernel $K_\alpha$ we have:
-%     \begin{align*}
-%         \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle} \leq \dfrac{S_0^{-\alpha}}{N} + \dfrac{\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}}{1 + C_\alpha \left(\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}\right)t},
-%     \end{align*}
-%     where $S_0 := \sum\limits_{i = 1}^N x_{i,0} = N\langle x,\mu^N\rangle$ and $C_\alpha = 2 - 2^{-\alpha}$.
-% \end{lemma}
-% \begin{proof}
-%     Let us denote $F : \mu \mapsto \langle x^{-\alpha},\mu \rangle$.
-%     \begin{align*}
-%         \dfrac{d}{dt} \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle} 
-%         =& \E{\LC^N F\left( \Phi(t,\mu^N)\right)}\\
-%         =& \E{\left\langle K_\alpha x^{-\alpha}, \Phi(t,\mu^N)^{\otimes 2}\right\rangle} 
-%         \\&- \frac{1}{N}\E{\int_{\RR^+} K_\alpha(x,x) (2x)^{-\alpha} - 2x^{-\alpha}\Phi(t,\mu^N)(dx)}\\
-%         =& \E{\left\langle Kx^{-\alpha}, \Phi(t,\mu^N)^{\otimes 2}\right\rangle} 
-%         + \dfrac{2C_\alpha}{N}\E{\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle}
-%     \end{align*}
-%     We treat the first term of the left hand side equation:
-%     \begin{align*}
-%         \E{\left\langle K_\alpha x^{-\alpha}, \Phi(t,\mu^N)^{\otimes 2}\right\rangle} 
-%         &= \E{\int_{(\RR^+)^2} K_\alpha(x,y) \left((x+y)^{-\alpha} - x^{-\alpha} -y^{-\alpha}\right) \Phi(t,\mu^N)(dx)\Phi(t,\mu^N)(dy)}.
-%     \end{align*}
-%     By convexity of the function $x \mapsto x^{-\alpha}$ we have for all $x,y \in \RR^{+,*}$:
-%     \begin{align*}
-%         (x+y)^{-\alpha} - x^{-\alpha} -y^{-\alpha} \leq -\frac{C_\alpha}{2}\left(x^{-\alpha} + y^{-\alpha}\right).
-%     \end{align*}
-%     So
-%     \begin{multline*}
-%         \E{\left\langle K_\alpha x^{-\alpha}, \Phi(t,\mu^N)^{\otimes 2}\right\rangle} 
-%         \leq - \frac{C_\alpha}{2}\E{\int_{(\RR^+)^2} (K_\alpha(x,y))^2  \Phi(t,\mu^N)(dx)\Phi(t,\mu^N)(dy)}\\
-%         = - C_\alpha\left(\E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle^2}\vphantom{\dfrac{A}{B}} \right.\\
-%         \left.\vphantom{\dfrac{A}{B}}+ \E{\left\langle 1,\Phi(t,\mu^N)\right\rangle\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle}\right).
-%     \end{multline*}
-%     We have the following ODE:
-%     \begin{multline*}
-%          \dfrac{d}{dt} \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle} \leq -C_\alpha\E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle^2} 
-%          \\- C_\alpha \E{\left(\left\langle 1,\Phi(t,\mu^N)\right\rangle - \dfrac{2}{N}\right)\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle}.
-%     \end{multline*}
-%     We show that for all $t\geq 0$ almost surely:
-%     \begin{equation}\label{eq:proofboundmagic}
-%         \left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle^2 + \left(\left\langle 1,\Phi(t,\mu^N)\right\rangle - \dfrac{2}{N}\right)\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle
-%         \geq \left(\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle- \dfrac{S_0^{-\alpha}}{N}\right)^2.
-%     \end{equation}
-%     We will now use a couple of arguments from the stochastic coalescence process. First the random variable $\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle$ is almost surely positive for all $t\geq 0$ as each mass is positive. Second the random variable $N_t := N\times\left\langle 1,\Phi(t,\mu^N)\right\rangle$ is the amount of clusters present at time $t$. As such it belongs almost surely to $\lbrace 1,\cdots,N\rbrace$. 
-    
-%     When $N_t = 1$ there is only a single cluster left of mass $S_0$ and therefore:
-%     \begin{align*}
-%         \left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle = \dfrac{S_0^{-\alpha}}{N} \quad,\quad \left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle = \dfrac{S_0^{-2\alpha}}{N}.
-%     \end{align*}
-%     Replacing this expressions in both sides of \eqref{eq:proofboundmagic} shows both sides equal to zero proving the inequality when $N_t = 1$.
-    
-%     When $N_t \neq 1$ it is a.s larger or equal to $2$ and
-%     \begin{align*}
-%         \left(\left\langle 1,\Phi(t,\mu^N)\right\rangle - \dfrac{2}{N}\right)\left\langle x^{-2\alpha},\Phi(t,\mu^N)\right\rangle \geq 0 \text{ as}.
-%     \end{align*}
-%     Furthermore since $\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle$ is almost surely non-increasing in time and tends to $\dfrac{S_0^{-\alpha}}{N}$ as $t\to \infty$ we have for all $t\geq 0$:
-%     \begin{align*}
-%         \left(\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle\right)^2 \geq \left(\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle - \dfrac{S_0^{-\alpha}}{N}\right)^2 \text{ as},
-%     \end{align*}
-%     and therefore proving also inequality \eqref{eq:proofboundmagic}. 
-
-%     So finally we have the following ODE:
-%     \begin{align*}
-%         \dfrac{\dd}{\dd t} \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle- \dfrac{S_0^{-\alpha}}{N}} \leq -C_\alpha\E{\left(\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle - \dfrac{S_0^{-\alpha}}{N}\right)^2}.
-%     \end{align*}
-%     And by Jensen:
-%    \begin{align*}
-%         \dfrac{\dd}{\dd t} \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle- \dfrac{S_0^{-\alpha}}{N}} \leq -C_\alpha\E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle - \dfrac{S_0^{-\alpha}}{N}}^2.
-%     \end{align*}
-%     After solving a simple ODE we get the desired bound from lemma \ref{lem:inequality_ODE_square}:
-%     \begin{align*}
-%         \E{\left\langle x^{-\alpha},\Phi(t,\mu^N)\right\rangle} \leq \dfrac{S_0^{-\alpha}}{N} + \dfrac{\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}}{1 + C_\alpha \left(\langle x^{-\alpha},\mu^N \rangle - \dfrac{S_0^{-\alpha}}{N}\right)t}.
-%     \end{align*}
-% \end{proof}
 
 
-\section{Proof of the main result}
-% For establishing our mains results we want to compare the stochastic coalescence process and the solution of the Smoluchovski coagulation equation. First some notations. We denote by $\varphi(t,\mu)$, $\Phi(t,\mu)$ respectively the solution of \SCE and the \SCN process started from $\mu$, let $\mu^N$ be an atomic measure.
-% Our main theorems are based on the same relation below:
-% \begin{align}\label{eq:semi-group-relation}
-% \E{F(\Phi(t,\mu^N))} - F(\varphi\left(t,\mu\right)) = \int_0^t \E{\left(\LC^N - \LC\right)F\circ \varphi(s,.)\left(\Phi(t-s,\mu^N)\right)}\dd s.
-% \end{align}
-% We took inspiration from \cite{kolokoltsov2010central} that uses the same identity. We provide a proof of this relation in section \ref{section:semi_groups}.
-% \begin{remark}
-%     Inside the expectancy $F\circ \varphi(s,.)$ is the function defining for a fixed $s \geq 0$ by $\mu \mapsto F\left(\varphi(s,\mu)\right)$. Therefore we read the expression inside the expectancy as the operator $\LC^N - \LC$ applied to function $F\circ \varphi(s,.)$ yielding a function from $\MC(\RR^+) \to \RR $, the latter evaluated in the measure $\Phi(t-s,\mu^N)$.
-% \end{remark}
-
-% \red{A partir de là plus bon.}
-% \subsection{Hypothesis}
-% We have two different kind of hypothesis. We consider the functional norm on $C_b\left(\RR^n:\RR\right)$ :
-% \begin{align*}
-%     \| f\|_{\infty} = \sup\limits_{x \in \RR^n} |f(x)|.
-% \end{align*}
-
-% ($A_1$) A functional $F : \MC_1^+(\RR^+,d)\times \RR^n \to \RR$ is said to be Lipschitz if there exists a constant $C$ such that for all $\mu,\nu$:
-% \begin{align*}
-%     \|F(\mu,.) - F(\nu,.)\|_{\infty} \leq C W_1(\mu,\nu).
-% \end{align*}
-% \red{ Ici, tu regarde $\delta_\mu F \in Lip(\MC^+_1;L^\infty(\mathbb{R}_+^*;\mathbb{R}))$ si c'est bien fait, tu peux écire par exemple
-% \[\llbracket \delta_\mu F\rrbracket_{Lip} \]}
-% If $n = 1$ we simply take the absolute value of the difference.
-
-% ($A_2$) A functional $F : \MC_1^+(\RR^+,d)\times \RR^n \to \RR$ is bounded if it is uniformly bounded for all its variables in other words if:
-% \begin{align*}
-%     \sup\limits_{\mu \in \MC_1^+(\RR^+,d)}\|F(\mu,.) \|_{\infty} < \infty. 
-% \end{align*}
-% In this case we denote this supremum simply by $\|F\|_{\infty}$.
-
+\section{Proof of the main results}
 \subsection{Proof of Theorem \ref{thm:samesame}}
 We start with the technical lemma below.
 \begin{lemma}\label{lem:bounds_diff_gen}
@@ -3959,7 +3437,7 @@ where the constant $C$ is of the form:
     \begin{align*}
         \mu^\theta_N = \mu + \frac{\theta}{N}\left(\delta_{x + y} - \delta_x - \delta_y \right)
     \end{align*}
-    Note that if $\psi$ is non-increasing then $\|\mu^\theta_N\|_{\psi} \leq \|\mu\|_{\psi}$ and therefore we can write all constants appearing in bounds below as functions of $\mu$ and $T$. By hypothesis on $F$, differentiability of $\mu \mapsto \varphi_t(\mu)$, and Lipschitz regualrity of its derivaitve we can apply the chain rule \red{ref prop}. Let $\nu,z \in \MC^+_{\psi_1}(\RRP),\RRP$ we have:
+    Note that if $\psi$ is non-increasing then $\|\mu^\theta_N\|_{\psi} \leq \|\mu\|_{\psi}$ and therefore we can write all constants appearing in bounds below as functions of $\mu$ and $T$. By hypothesis on $F$, differentiability of $\mu \mapsto \varphi_t(\mu)$, and Lipschitz regualrity of its derivaitve we can apply the chain rule \ref{prop:chain-rule}. Let $\nu,z \in \MC^+_{\psi_1}(\RRP),\RRP$ we have:
     \begin{align*}
         \delta_\mu F\circ \varphi_s(\nu;z) = \brac{\delta_\mu F(\varphi_s(\nu);\cdot),\delta_\mu \varphi_s (\nu;z)}.
     \end{align*}
@@ -4212,9 +3690,34 @@ We state and prove an alternative result in a separate technical lemma. It shows
         \E{C(T,\mu^N)} \leq C \|\mu\|_{e^{\psi_2}}^{C_d(1 + T^2)}.
     \end{align*}
 \end{proof}
+Now for the proof of the final theorem.
+\begin{proof}{Proof of theorem \ref{thm:main-result-2}}
+    We apply Theorem \ref{thm:main-result} and have almost surely:
+    \begin{multline*}
+        \left| \mathbb{E}\left[F\left(\Phi_t\left(\mu^N\right)\right)\right] - F\left(\varphi_t(\mu)\right) \right| \\
+        \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A} \left( \frac{C(T,\mu + \mu^N)}{N} + C(T,\mu + \mu^N)\left(W_{\psi_1}\left(\mu,\mu^N\right) + W_{\psi_2}\left(\mu,\mu^N\right) \right)^2\right) \\
+        + \int_{\RRP} \left\langle \delta_\mu F\left(\varphi_t \left(\mu\right);\cdot \right), \delta_\mu \varphi_t\left(\mu;z \right) \right\rangle \left(\mu^N - \mu\right)(\dd z).
+    \end{multline*}
+    Now we can take the expected value, note that the last term vanishes. It remains:
+    \begin{multline*}
+         \left| \mathbb{E}\left[F\left(\Phi_t\left(\mu^N\right)\right)\right] - F\left(\varphi_t(\mu)\right) \right| \\
+        \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A} \left( \frac{\E{C(T,\mu + \mu^N)}}{N} + \E{C(T,\mu + \mu^N)}\left(W_{\psi_1}\left(\mu,\mu^N\right) + W_{\psi_2}\left(\mu,\mu^N\right) \right)^2\right).
+    \end{multline*}
+    The final result follows by the previous Lemma.
+\end{proof}
 
+\section{Conclusion and perspetives}
+We provided a convergence rate for observables of the stochastic coalescence process toward the solution of the Smoluchowski coagulation equation (SCE) for a kernel that has rarely been treated in the literature. In addition, we established various regularity results in the Wasserstein distance for the solution to the $\SCE$ and its derivative under this kernel.
 
+The convergence rate of $1/N$ is very satisfactory. However, the integrability conditions we require—specifically exponential-square integrability—are far from optimal. These constraints primarily stem from the bounding constants currently available. We believe that by introducing a new Wasserstein-type distance—essentially a hybrid between $W_{\psi_1}$ and the classical Wasserstein distance—we could derive significantly improved estimates, potentially even ones that remain bounded as the time horizon $T$ tends to infinity.
 
+The assumptions on the observables $F$ are fairly general, although the use of the distance $d_\alpha$ imposes an artificial constraint at infinity. This limitation could be mitigated by employing the proposed joint distance.
+
+Among the observables admissible under our assumptions are, in particular, functionals of the form:
+\[
+    F(\mu) = g\left(\left\langle f, \mu \right\rangle\right),
+\]
+where $f$ is Lipschitz-dominated with respect to $d_\alpha$, and $g$ is a twice-differentiable function with bounded first and second derivatives.
 
 \appendix
 
