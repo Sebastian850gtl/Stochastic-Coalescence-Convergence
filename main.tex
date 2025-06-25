@@ -103,10 +103,24 @@
 \author{
    Sebastian Baudelet
 } 
-\title{}
+\title{Convergence rates of observables in a stochastic coalescence model toward the Smoluchowski equation using a Wasserstein-type distance.}
 \date{}
 \pagestyle{headings}  
 \begin{document}
+\maketitle
+
+
+\begin{abstract}
+    The Smoluchowski coagulation equation (SCE) describes the macroscopic evolution of particle systems undergoing binary coalescence and arises as a hydrodynamic limit of stochastic coalescence processes. While convergence to the SCE is well understood in many classical settings, obtaining explicit rates of convergence remains a challenging problem—especially for singular kernels.
+    
+    In this work, we study the Marcus–Lushnikov stochastic coalescence process with a singular kernel of the form \( K_\alpha(x, y) = x^{-\alpha} + y^{-\alpha} \) for \( \alpha \geq 0 \), a case not addressed by most existing analyses. We establish an explicit \( \mathcal{O}(1/N) \) convergence rate for the expected value of a broad class of observables, improving upon the classical \( \mathcal{O}(N^{-1/2}) \) pathwise bounds. The proof combines stability and regularity estimates in Wasserstein-type distances tailored to the kernel's singularity. In particular, we introduce a kernel-weighted distance \( d_\alpha \) that captures the dominant behavior near zero. These results further imply propagation of chaos for the stochastic coalescence process.
+    % This analysis leverages and extends tools from probabilistic and PDE approaches to the SCE, including the weak convergence framework of Norris, distance constructions from Cepeda and Fournier, and functional error bounds inspired by recent works on mean-field limits. Our results provide a refined understanding of the link between stochastic coalescence and the deterministic SCE in a singular regime.
+\end{abstract}
+
+    
+
+\tableofcontents
+
 \section{Introduction}
 
 The Smoluchowski coagulation equation (SCE) arises as a macroscopic limit of particle systems undergoing binary coalescence. It describes the evolution of cluster size distributions under pairwise merging and has been the subject of extensive study from both deterministic and probabilistic perspectives. A seminal review of the field is provided by Aldous~\cite{aldousDeterministicStochasticModels1999}, and a recent survey of the fragmentation side of the theory can be found in~\cite{deaconuProbabilisticRepresentationsFragmentation2023}.
@@ -135,9 +149,9 @@ Convergence of the Marcus–Lushnikov process to the SCE in weak topology has be
 
 In this paper, we consider the kernel
 \[
-    K_\alpha(x,y) = x^{-\alpha} + y^{-\alpha}, \quad \alpha \geq 0,
+    K_\alpha(x,y) = x^{-\alpha} + y^{-\alpha}, \quad \alpha > 0,
 \]
-which exhibits a singularity at zero and thus presents analytical challenges not addressed by most existing results. Our primary contributions are as follows:
+which exhibits a singularity at zero and thus presents analytical challenges not addressed by most existing results. The case $\alpha = 0$ is the constant kernel and has already been quite extensively studied. Our primary contributions are as follows:
 
 \begin{itemize}
     \item We establish a convergence rate of order $1/N$ for expectations of observables of the Marcus–Lushnikov process toward the solution $\mu_t$ of the SCE, under appropriate integrability and regularity assumptions.
@@ -155,7 +169,7 @@ The main convergence estimate, stated informally, is:
     where $F$ is an observable compatible with the kernel singularity, and $\mu_t$ is the solution of the SCE with initial law $\mu$.
 \end{theorem}
 
-Our analysis combines ideas from several sources: the distance construction from~\cite{cepedaSmoluchowskisEquationRate2011a}, the existence theory in~\cite{norrisSmoluchowskisCoagulationEquation1999}, the regularity analysis from~\cite{kolokoltsov2010central}, and the convergence methods of~\cite{kyprianouUniversalityClassFragmentationcoalescence2018,martiniKolmogorovEquationsSpaces2023}. The treatment of nonlinear observables also draws from recent advances in controlling errors between functionals of empirical measures, as in~\cite{delarue2025uniform}.
+Our analysis combines ideas from several sources: the distance construction from~\cite{cepedaSmoluchowskisEquationRate2011a}, the existence theory in~\cite{norrisSmoluchowskisCoagulationEquation1999}, the regularity analysis from~\cite{kolokoltsov2010central}, and the convergence methods of~\cite{kyprianouUniversalityClassFragmentationcoalescence2018,martiniKolmogorovEquationsSpaces2023}. The treatment of nonlinear observables also draws from recent advances in controlling errors between functionals of empirical measures, as in~\cite{delarue2025uniform} to show propagation of chaos. Notably even if this is not the main topic of this work we show how our result shows some type of weak propagation of chaos in the stochastic coalescence.
 
 \paragraph{Outline}
 
@@ -496,7 +510,7 @@ We give a formulation of the chain rule.
 \end{proof}
 There exists many formulation of the latter depending on the properties of the considered functions. For instance we could take $x \mapsto \delta_\mu F(\mu;x)$ only dominated and measurable instead of Lipschitz if $\varphi$ was continuous in the strong topology which are conditions also aplicable in our setting, however the conditions suffice for the theorem we provide.
 
-\subsection{The Smoluchovski coagulation equation}
+\subsection{The Smoluchowski coagulation equation}
 The Smoluchowski coagulation equation ($\SCE$) of kernel $K_\alpha$ and intial value $\mu$, is an equation defined on measured value functions defined in its weak form as or all bounded measurable $f$:
 \begin{equation}\tag{\ref{eq:SCE}}
 \begin{aligned}
@@ -509,9 +523,9 @@ With bracket notations the equation can be written:
 \begin{align*}
     \dfrac{d}{dt}\langle f,\mu_t \rangle = \dfrac12\langle Kf , \mu_t \otimes \mu_t\rangle.
 \end{align*}
-where $Kf(x,y) = K_{\alpha}(x,y)\left(f(x+y) - f(x) - f(y) \right)$. Results on the well-posedness of this equation for this kernel are already known, see \cite{norris1999smoluchowski} and for completeness, we recall and reprove these results in Section \ref{section:well-posedness-SCE}. In particular, we show the following:
+where $Kf(x,y) = K_{\alpha}(x,y)\left(f(x+y) - f(x) - f(y) \right)$. Results on the well-posedness of this equation for this kernel are already known, see \cite{norris1999Smoluchowski} and for completeness, we recall and reprove these results in Section \ref{section:well-posedness-SCE}. In particular, we show the following:
 \begin{lemma}\label{lem:well_posedness_smol_eq}
-    Let $p \geq 2$, and $\mu \in \MC_{\psi_p}^+ (\RRP)$ for all $T \geq 0$ there exists a unique solution to the Smoluchovski equation of parameter $K_\alpha$, said solution is a continuous map from $[0,T]$ to $\mu \in \MC_{\psi_p}^+ (\RRP)$.
+    Let $p \geq 2$, and $\mu \in \MC_{\psi_p}^+ (\RRP)$ for all $T \geq 0$ there exists a unique solution to the Smoluchowski equation of parameter $K_\alpha$, said solution is a continuous map from $[0,T]$ to $\mu \in \MC_{\psi_p}^+ (\RRP)$.
 \end{lemma}
 For the final result we need to know how functionals $F : \MC_{\psi_1}(\RRP) \to \RR$ evaluated in $\mu_t$ evolve through time.
 \begin{definition}
@@ -522,7 +536,7 @@ For the final result we need to know how functionals $F : \MC_{\psi_1}(\RRP) \to
 \end{definition}
 The notation $\delta_\mu F$ is the flat derivative of $F$ it is defined in \ref{section:analysis-measures}. The coagulation operator drives this equation through the result of the next proposition.
 \begin{proposition}
-    Let $\mu_t$ be a solution of the Smoluchovski coagulation equation For all $F \in C^1(\MC_{\psi_1}^+\left(\RRP \right):\RR)$ we have:
+    Let $\mu_t$ be a solution of the Smoluchowski coagulation equation For all $F \in C^1(\MC_{\psi_1}^+\left(\RRP \right):\RR)$ we have:
     \begin{align*}
         \dfrac{d}{dt} F( \mu_t) = \LC F(\mu_t).
     \end{align*}
@@ -540,7 +554,26 @@ The notation $\delta_\mu F$ is the flat derivative of $F$ it is defined in \ref{
     \end{align*}
 \end{lemma}
 \subsection{Construction of the stochastic coalescence}
-This process evolves via random binary mergers and is formally defined via a stochastic differential equation driven by a Poisson random measure. This definition was verbatim taken from \cite{fournier2006some,fournierStochasticCoalescenceHomogeneouslike2009}. 
+We start with an informal construction using exponential clocks. The stochastic coalescence process models a system of $N$ particles, each characterized by a positive mass. Each pair of particles with masses $x$ and $y$ coalesces at a rate governed by a symmetric kernel $K(x,y)$. Assume we initially have $N$ particles with masses $x_{1}, \ldots, x_{N}$. Consider the family of $\binom{N}{2}$ independent exponential random variables:
+\begin{align*}
+    \left\lbrace T_{i,j} \sim \mathcal{E}\left(K(x_{i},x_{j})\right), \quad 1 \leq i < j \leq N \right\rbrace.
+\end{align*}
+Each $T_{i,j}$ represents the random waiting time until the pair $(i,j)$ coalesces. The first coalescence occurs at time
+\[
+    T_1 = \min_{1 \leq i < j \leq N} T_{i,j},
+\]
+and, by the properties of exponential random variables, $T_1$ is itself exponentially distributed with parameter
+\[
+    \sum_{1 \leq i < j \leq N} K(x_{i},x_{j}).
+\]
+Let $(i^*, j^*)$ be the pair achieving the minimum. At time $T_1$, these two particles merge into one with mass $x_{i^*} + x_{j^*}$, so that the system now has $N-1$ particles. This procedure is iterated until only a single particle remains, with total mass equal to $\sum_i x_i$.
+
+\medskip
+
+This process evolves via random binary mergers and can be formally described using a stochastic differential equation (SDE) driven by a Poisson random measure. The construction that follows is taken verbatim from~\cite{fournier2006some,fournierStochasticCoalescenceHomogeneouslike2009}.
+
+\medskip
+
 
 First, we denote $D\left([0,T]: \XF\right)$ the sapce of cadlàg functions from $[0,T]$ to $\XF$ where $\XF$ is Polish that we equip it with the $J_1$-Skorohod topology. Let us denote by $\MC_p^+(\RRP)$ the set of finite point measures on $\RRP$ namely:
 \begin{align*}
@@ -555,9 +588,9 @@ First, we denote $D\left([0,T]: \XF\right)$ the sapce of cadlàg functions from 
 \end{definition}
 The kernels considered $K_\alpha$ is finite on $\RRP$. Furthermore the masses in the stochastic coalescence only increase let us call $x_0$ the smallest mass in the initial data $\mu^N$. For all $t \geq 0$ and $i,j$ we have $K_\alpha(X_{i}(s-),X_{j}(s-)) \leq 2x_0^{-\alpha}$. Finally $N_t$ is non-increasing it comes that for all bounded $f$:
 \begin{multline*}
-    \mathbb{E} \left[ \int_0^t \int_0^\infty \int_{1 \leq i <j }  \indic{z \leq K_{\alpha}X_{i}(s-),X_{j}(s-))} \indic{j \leq N_{s-}}\right. \\
+    \mathbb{E} \left[ \int_0^t \int_0^\infty \int_{1 \leq i <j }  \indic{z \leq K_{\alpha}\left(X_{i}(s-),X_{j}(s-)\right)} \indic{j \leq N_{s-}}\right. \\
     \left. \times   \left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right]\mathcal{N}(ds,dz,d(i,j)) \vphantom{\int_0^t \int_0^\infty \int_{i <j } }\right] \\
-    = \int_0^t \mathbb{E} \left[\sum\limits_{1 \leq i< j \leq N_{s-}} K_{\alpha}X_{i}(s-),X_{j}(s-)) \left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right] \vphantom{\int_0^t \int_0^\infty \int_{i <j } } \right] \dd s \\
+    = \int_0^t \mathbb{E} \left[\sum\limits_{1 \leq i< j \leq N_{s-}} K_{\alpha}\left(X_{i}(s-),X_{j}(s-)\right) \left[f\left(X_{i}(s-) + X_{j}(s-)\right) - f\left(X_{i}(s-)\right) - f\left( X_{j}(s-)\right)\right] \vphantom{\int_0^t \int_0^\infty \int_{i <j } } \right] \dd s \\
     \leq t 3\|f\|_{\infty}\dfrac{N(N-1)}{2} \times 2 x_0^{-\alpha} .
 \end{multline*}
 The behavior of functionals evaluated in the stochastic coalescence is described by the generator below.
@@ -604,7 +637,7 @@ In order to compare the stochastic coalescence to the solution of the Smolochows
 \end{proof}
 
 \begin{remark}
-   When the initial masses are integers, this rescaled process corresponds to the Marcus-Lushnikov process \cite{marcus1968stochastic,lushnikov1978coagulation}. It was originally made as a stochastic approximation of the Smoluchovski Coagulation equation.
+   When the initial masses are integers, this rescaled process corresponds to the Marcus-Lushnikov process \cite{marcus1968stochastic,lushnikov1978coagulation}. It was originally made as a stochastic approximation of the Smoluchowski Coagulation equation.
 \end{remark}
 When $F$ is differentiable the infinitesimal generator $\LC_{SC}$ can be expressed in terms of $\delta_\mu F$.
 \begin{proposition}\label{prop:SC_gen_differentiable}
@@ -625,15 +658,15 @@ In this section, we state the main assumptions and results. The first theorem pr
 The second result is a corollary, where the stochastic coalescence is initialized with a random empirical measure distributed according to a law $\mu$, and the Smoluchowski coagulation equation is started from the same law $\mu$. A particularly interesting feature of this result is that, unlike pathwise bounds which typically yield a convergence rate of $N^{-\frac{1}{2}}$ (see \cite{cepedaSmoluchowskisEquationRate2011a}), this result achieves a rate of $N^{-1}$. However, the cost of this sharper bound is the assumption of exponential moments of order $2$, as we need to control terms that depend exponentially on the random empirical measure and ensure that their expected value remains finite. We believe that this requirement is not optimal, and we discuss potential improvements in the conclusion.
 \subsubsection*{Assumptions on $F$}
 
-We say that a function \(F : \MC^+_{\psi_1}(\RRP) \to \RR\) satisfies assumptions \(\A\) if it admits a flat derivative \(\delta_\mu F : \MC^+_{\psi_1}(\RRP) \times \RRP \to \RR\) such that there exists a constant \(C > 0\) for which, for all \(\mu, \tilde{\mu} \in \MC^+_{\psi_1}(\RRP)\) and \(z, z_1, z_2 \in \RRP\), the following hold:
+We say that a function \(F : \MC^+_{\psi_2}(\RRP) \to \RR\) satisfies assumptions \(\A\) if it admits a flat derivative \(\delta_\mu F : \MC^+_{\psi_2}(\RRP) \times \RRP \to \RR\) such that there exists constants \(C_1,C_2 > 0\) and a non increasing function $g$ for which, for all \(\mu, \tilde{\mu} \in \MC^+_{\psi_2}(\RRP)\) and \(z, z_1, z_2 \in \RRP\), the following hold:
 \begin{itemize}
-    \item \(|\delta_\mu F(\mu, z)| \leq C(1 + \psi_1(z))\),
-    \item \(|\delta_\mu F(\mu, z_1) - \delta_\mu F(\mu, z_2)| \leq C d_\alpha(z_1, z_2)\),
-    \item \(|\delta_\mu F(\mu, z) - \delta_\mu F(\tilde{\mu}, z)| \leq C(1 + \psi_1(z)) W_{\psi_1}(\mu, \tilde{\mu})\),
-    \item \(|\delta_\mu F(\mu, z_1) - \delta_\mu F(\tilde{\mu}, z_1) - (\delta_\mu F(\mu, z_2) - \delta_\mu F(\tilde{\mu}, z_2))| \leq C W_{\psi_1}(\mu, \tilde{\mu}) d_\alpha(z_1, z_2)\).
+    \item \(|\delta_\mu F(\mu, z)| \leq C_1 e^{C_2\|\mu\|_{\psi_2}} (1 + \psi_1(z))\),
+    \item \(|\delta_\mu F(\mu, z_1) - \delta_\mu F(\mu, z_2)| \leq C_1 e^{C_2\|\mu\|_{\psi_2}} d_\alpha(z_1, z_2)\),
+    \item \(|\delta_\mu F(\mu, z) - \delta_\mu F(\tilde{\mu}, z)| \leq C_1 e^{C_2\|\mu + \tilde{\mu}\|_{\psi_2}}(1 + \psi_1(z)) W_{\psi_1}(\mu, \tilde{\mu})\),
+    \item \(|\delta_\mu F(\mu, z_1) - \delta_\mu F(\tilde{\mu}, z_1) - (\delta_\mu F(\mu, z_2) - \delta_\mu F(\tilde{\mu}, z_2))| \leq C_1 e^{C_2\|\mu + \tilde{\mu}\|_{\psi_2}} W_{\psi_1}(\mu, \tilde{\mu}) d_\alpha(z_1, z_2)\).
 \end{itemize}
 
-The infimum of all constants \(C > 0\) for which the above inequalities hold is denoted by \(\left\llbracket \delta_\mu F \right\rrbracket_{\A}\). The origin of those assumptions lie in the Lipschitz regularity properties enjoyed by the derivative of the solution to the $\SCE$ see Propositions \ref{prop:wass-derivative} and \ref{prop:wass-final}.
+The infimum of all constants \(C_1 > 0\) for which the above inequalities hold is denoted by \(\left\llbracket \delta_\mu F \right\rrbracket_{\A}\). This set of assumptions are the most basic ones The origin of those assumptions lie in the Lipschitz regularity properties enjoyed by the derivative of the solution to the $\SCE$ see Propositions \ref{prop:wass-derivative} and \ref{prop:wass-final}.
 
 \subsubsection*{Main result}
 
@@ -648,35 +681,29 @@ Let $\mu^N$ be an empirical measure. We denote by \(\Proc{\Phi_t(\mu^N)}\) the r
     \end{multline*}
     where the constant $C$ is of the form:
     \begin{align*}
-        C(T,\mu) = P(T,\|\mu\|_{\psi_1},\|\mu\|_{\psi_2},\|\mu\|_{\psi_3})\, e^{C_1T(1 + T)\|\mu\|_{\psi_2}},
+        C(T,\mu) = P(T,\|\mu\|_{\psi_1},\|\mu\|_{\psi_2},\|\mu\|_{\psi_3})\, e^{C_3 T(1 + T)\|\mu\|_{\psi_2}},
     \end{align*}
     and $P$ is a polynomial.
 \end{theorem}
 
-The main appeal of this result is that it provides nearly optimal conditions on the integrability of $\mu$. In particular, the assumption $\mu \in \MC_{\psi_2}(\RRP)$ is believed to be optimal for the existence and uniqueness of solutions to the Smoluchowski coagulation equation (see \cite{norris1999smoluchowski}). We also believe that the stronger assumption $\mu \in \MC_{\psi_3}(\RRP)$ is optimal for the existence of the derivative, which is necessary to define the generator of the $\SCE$.
+The main appeal of this result is that it provides nearly optimal conditions on the integrability of $\mu$. In particular, the assumption $\mu \in \MC_{\psi_2}(\RRP)$ is believed to be optimal for the existence and uniqueness of solutions to the Smoluchowski coagulation equation (see \cite{norris1999Smoluchowski}). We also believe that the stronger assumption $\mu \in \MC_{\psi_3}(\RRP)$ is optimal for the existence of the derivative, which is necessary to define the generator of the $\SCE$.
 
 To achieve the convergence rate of $1/N$ we are forced to assume stronger integrability conditions on $\mu$. We define the following space:
 \begin{align*}
     \MC^+_{e^{\psi_2}}(\RRP) = \left\lbrace \mu \in \MC^+(\RRP) \,\middle|\, \int_{\RRP} e^{x^{-2\alpha}} \mu(\dd x) < \infty \right\rbrace.
 \end{align*}
-The necessity of this condition appears in the proof of Lemma~\ref{lem:boudning-constant-empirical}, and stems from the form of the constant in the theorem above. Specifically, in order to ensure that $\mathbb{E}[C(T,\mu^N)]$ is finite, this exponential moment condition is required.
+The necessity of this condition appears in the proof of Lemma~\ref{lem:boudning-constant-empirical}, and stems from the form of the constant in the theorem above. Specifically, in order to ensure that $\mathbb{E}[C(T,\mu^N)]$ is finite, this exponential moment condition is required. Nonetheless 
 
 \begin{theorem}\label{thm:main-result-2}
-    Let $\mu \in \MC^+_{e^{\psi_2}}(\RRP)$ be a probability measure. Fix a time horizon $T > 0$. Then there exists an integer $N_T = C_1T(1 + T)$ such that for all $N \geq N_T$ and for any function \(F : \MC^+_{\psi_1}(\RRP) \to \RR\) satisfying assumption \(\A\), and for all \(t \in [0, T]\), we have:
+    Let $\mu \in \MC^+_{e^{\psi_2}}(\RRP)$ be a probability measure. Fix a time horizon $T > 0$. Then there exists an integer $N_T > C_3 T(1 + T)$ such that for all $N \geq N_T$ and for any function \(F : \MC^+_{\psi_1}(\RRP) \to \RR\) satisfying assumption \(\A\), and for all \(t \in [0, T]\), we have:
     \[
-    \left| \mathbb{E}\left[F\left(\Phi_t\left(\mu^N\right)\right)\right] - F\left(\varphi_t(\mu)\right) \right| \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A}  \frac{C\left(T, \mu\right)}{N}.
+    \left| \mathbb{E}\left[F\left(\Phi_t\left(\mu^N\right)\right)\right] - F\left(\varphi_t(\mu)\right) \right| \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A}  \frac{C(T) \|\mu\|_{e^{\psi_2}}^{C_3 (1 + T^2)}}{N}.
     \]
-    The constant $C$ is of the form:
-    \begin{align*}
-        C(T,\mu) = P(T,\|\mu\|_{\psi_1},\|\mu\|_{\psi_2},\|\mu\|_{\psi_3})\, e^{CT(1 + T)\|\mu\|_{\psi_2}} + \|\mu\|_{e^{\psi_2}}^{C(1 + T^2)},
-    \end{align*}
-    where $P$ is a polynomial.
 \end{theorem}
 
 \begin{remark}
-    The constant $C_1$ appearing in the threshold $N_T = C_1T(1 + T)$ is the same as the one appearing in the constant of Theorem~\ref{thm:main-result}.
+    The constant $C_3$ appearing in the threshold $N_T = C_3T(1 + T)$ is equal is the same as the one appearing in the constant of Theorem~\ref{thm:main-result}.
 \end{remark}
-
 
 
 \subsection{Proof outline and strategies}
@@ -1067,14 +1094,14 @@ It is easy to check the triangular inequality. It stills shares the Wasserstein 
 and this distance is therefore well-posed. One could also remark that $W_{1}(\mu,0)$ defines a norm on $\MC_{1}(\XF)$, this is very remniscient of the the flat norm given by Villani in \cite{villani2008optimal}.
 
 
-\section{The Smoluchovski coagulation equation and its derivative}\label{section:well-posedness-SCE}
+\section{The Smoluchowski coagulation equation and its derivative}\label{section:well-posedness-SCE}
 
-The goal of this section is to prove that the Smoluchovski coagulation equation is well-posed as stated in Lemma~\ref{lem:well_posedness_smol_eq}. And that the existence of a flat derivaitve and well-posedness of its equation as in Lemma~\ref{lem:derivative-existence-and-eq}. The difficult part lies in the singulariry in $0$ of the considered kernel. We use classical thechnics, building solutions as the limit of approximations defined on intervals $[\varepsilon,\infty)$ for $\varepsilon > 0$ and then use completeness arguments to show that they convergence. In all this section we use total variation like norms.
+The goal of this section is to prove that the Smoluchowski coagulation equation is well-posed as stated in Lemma~\ref{lem:well_posedness_smol_eq}. And that the existence of a flat derivaitve and well-posedness of its equation as in Lemma~\ref{lem:derivative-existence-and-eq}. The difficult part lies in the singulariry in $0$ of the considered kernel. We use classical thechnics, building solutions as the limit of approximations defined on intervals $[\varepsilon,\infty)$ for $\varepsilon > 0$ and then use completeness arguments to show that they convergence. In all this section we use total variation like norms.
 
-\subsection{Smoluchovski}
+\subsection{Smoluchowski}
 In this section we show well-posedness of Smolochowski coagulation equations as stated in Lemma \ref{lem:well_posedness_smol_eq}. For this purpose we first provide a priori bounds, then we use a fixed point theorem to prove well-posedness of appproximations and finally use a priori bounds and completeness to show the Lemma.
 \subsubsection{Some bounds}
-In this section we assume the well-posedness of both the Smoluchovski coagulation equation in $C([0,T]: \MC_{\psi_2}(\RRP))$. We recall that the solution of the \(\SCE\) is a positive measure. The first lemma give a result of stability of solutions of the \(\SCE\) and hold for all kernels.
+In this section we assume the well-posedness of both the Smoluchowski coagulation equation in $C([0,T]: \MC_{\psi_2}(\RRP))$. We recall that the solution of the \(\SCE\) is a positive measure. The first lemma give a result of stability of solutions of the \(\SCE\) and hold for all kernels.
 \begin{lemma}\label{lem:sub-add-bounf-smol}
     Let $\psi$ be a sub-multiplicative function meaning that for all $\lambda \geq 1$, $\psi(\lambda x) \leq \lambda \psi(x)$; If $\mu_0 \in \MC^+_{\psi}(\RRP)$ and for all $t\in[0,T]$, $\mu_t \in \MC^+_{\psi}(\RRP)$, then for all $t\geq 0$.
 \end{lemma}
@@ -1136,7 +1163,7 @@ Note also that any non-increasing function is sub-multiplicative and positive li
     We use a Gronwall's lemma ending the proof.
 \end{proof}
 
-\subsubsection{Well-posedness of the Smoluchovski coagulation equation}
+\subsubsection{Well-posedness of the Smoluchowski coagulation equation}
 In this section we show that the $\SCE$ is well posed and give some useful bounds on it. Because of the singularity of our kernel we start by considering a cut-off equation where we sever the initial value away from $0$, we take $\mu^\varepsilon = \mu\mathds{1}_{[\varepsilon,\infty)}$. And call $\mu^\varepsilon_t$ the solution to the corresponding equation:
 \begin{equation}\label{eq:cutoff_SCE}
     \brac{f, \mu^\varepsilon_t} = \brac{f,\mu^\varepsilon} + \dfrac12\int_0^t \brac{K_\alpha f,\left(\mu^\varepsilon_s\right)^{\otimes 2}} \dd s.
@@ -1272,7 +1299,7 @@ We can easily extend the definition domain because we have uniform bounds on the
 \end{proof}
 Now it remains to let $\varepsilon$ go to zero to build a a solution to the $\SCE$ \eqref{eq:SCE}. 
 \begin{lemma}[Restated Lemma~\ref{lem:well_posedness_smol_eq}]
-    Let $p \geq 2$, and $\mu \in \MC_{\psi_p}^+ (\RRP)$ for all $T \geq 0$ there exists a unique solution to the Smoluchovski equation of kernel $K_\alpha$, said solution is a continuous map from $[0,T]$ to $\mu \in \MC_{\psi_p}^+ (\RRP)$.
+    Let $p \geq 2$, and $\mu \in \MC_{\psi_p}^+ (\RRP)$ for all $T \geq 0$ there exists a unique solution to the Smoluchowski equation of kernel $K_\alpha$, said solution is a continuous map from $[0,T]$ to $\mu \in \MC_{\psi_p}^+ (\RRP)$.
 \end{lemma}
 Our strategy is to show that we can extract from the family of solutions $\left(\Proc{\mu^\varepsilon}\right)_{\varepsilon > 0}$ a Cauchy sequence. Then we will show that this limit is a solution to the Smoluchowski coagulation equation and finally use a Gronwall's lemma to show uniqueness. 
 \begin{proof}
@@ -1315,7 +1342,7 @@ Our strategy is to show that we can extract from the family of solutions $\left(
 \end{proof}
 
 \subsection{First derivative}
-%In this section we show the well-posedness of the Smoluchovski coagulation equation for $K_\alpha$ we also show Proposition \ref{prop:smol_derivative_equation}. 
+%In this section we show the well-posedness of the Smoluchowski coagulation equation for $K_\alpha$ we also show Proposition \ref{prop:smol_derivative_equation}. 
 In this section we want to differentiate the solution of the \SCE with respect to its initial measure. The solution of \SCE can be seen as mapping of $\MC^+_{\psi_p}\left(\RRP \right)$ into the set of continuous functions $C\left([0,T]:\MC^+_{\psi_p}\left(\RRP \right)\right)$ that we denote by $\mu \mapsto \Proc{\varphi_t(\mu)}$. We would like some insight on the flat derivative of the latter function $\delta_\mu \varphi_t(\mu,z)$. A formal differentiation of the Smoluchowski coagulation equation gives us that $t \mapsto \delta_\mu \varphi_t(\mu,z)$ is solution to the equation in its weak formulation:
 \begin{align*}
     \brac{f,\delta_\mu \varphi_t(\mu,z)} = f(z) + \int_0^t \brac{Kf,\varphi_s(\mu)\otimes \delta_\mu \varphi_s(\mu,z)}\dd s.
@@ -3700,13 +3727,47 @@ Now for the proof of the final theorem.
          \left| \mathbb{E}\left[F\left(\Phi_t\left(\mu^N\right)\right)\right] - F\left(\varphi_t(\mu)\right) \right| \\
         \leq \left\llbracket \delta_\mu F \right\rrbracket_{\A} \left( \frac{\E{C(T,\mu + \mu^N)}}{N} + \E{C(T,\mu + \mu^N)}\left(W_{\psi_1}\left(\mu,\mu^N\right) + W_{\psi_2}\left(\mu,\mu^N\right) \right)^2\right).
     \end{multline*}
-    The final result follows by the previous Lemma.
+    From Corollary of Fournier-Guillin's theorem \ref{cor:fournier_guillin} we have:
+    \begin{align*}
+        \left(W_{\psi_1}\left(\mu,\mu^N\right) + W_{\psi_2}\left(\mu,\mu^N\right) \right)^2 \leq \dfrac{C}{N^2} \|\mu\|_{_psi_5}.
+    \end{align*}
+    The final result follows with the bound of $\E{C(T,\mu + \tilde{\mu})}$ provided by the previous Lemma.
 \end{proof}
 
-\section{Conclusion and perspetives}
+\section{Conclusion and perspectives}
 We provided a convergence rate for observables of the stochastic coalescence process toward the solution of the Smoluchowski coagulation equation (SCE) for a kernel that has rarely been treated in the literature. In addition, we established various regularity results in the Wasserstein distance for the solution to the $\SCE$ and its derivative under this kernel.
 
-The convergence rate of $1/N$ is very satisfactory. However, the integrability conditions we require—specifically exponential-square integrability—are far from optimal. These constraints primarily stem from the bounding constants currently available. We believe that by introducing a new Wasserstein-type distance—essentially a hybrid between $W_{\psi_1}$ and the classical Wasserstein distance—we could derive significantly improved estimates, potentially even ones that remain bounded as the time horizon $T$ tends to infinity.
+The convergence rate of $1/N$ is very satisfactory. Notably take $G(\mu) = F\left(\brac{1,\mu}^{-1} \mu \right)$ where $F$ follows assumptions $\A$ we have for all $t \geq 0$:
+\begin{align*}
+    \left|\E{F\left(\dfrac{1}{N_t} \sum\limits_{i = 1}^{N_t} \delta_{X_{i,t}} \right)} - F\left(\dfrac{1}{\brac{1,\mu_t}} \mu_t \right) \right| \leq \dfrac{C(T) \|\mu\|_{e^{\psi_2}}}{N \brac{1,\mu_T}}.
+\end{align*}
+We can show that $\|\mu_T\| \geq T^{\beta}$ for some $\beta > 0$ but we do not do here as this work is already clamped enough. This intuitevely shows that the empirical measure converges weakly to the probability measure $\dfrac{1}{\brac{1,\mu_t}} \mu_t$. We say intuitevely because the class of $F$ considered mught not be rich enough. However it is rich enough to show propagation of chaos results.
+When looking that the stochastic coalescence at a given time $M_t = \sum\limits_{\delta_{X_{i,t}}}$ our result tells us that the measure:
+\begin{align*}
+    \dfrac{1}{N_t}\sum\limits_{\delta_{X_{i,t}}}
+\end{align*}
+is close to the the probability measure
+\begin{align*}
+    \dfrac{\mu_t}{\brac{1,\mu_t}}.
+\end{align*}
+Indeed take the observables:
+\[
+    F(\mu) = g\left(\left\langle f, \mu^{\otimes k} \right\rangle\right),
+\]
+for some $k \geq 0$ where $f$ is a function Lipschitz-dominated with respect to $d_\alpha$ in each variable.
+Showing also some type of propagation of chaos in the stoachastic coalescence
+
+Among the observables admissible under our assumptions are, in particular, functionals of the form:
+\[
+    F(\mu) = g\left(\left\langle f, \mu \right\rangle\right),
+\]
+where $f$ is Lipschitz-dominated with respect to $d_\alpha$, and $g$ is a twice-differentiable function with bounded first and second derivatives. But with minimal suplementary requirements we can also consider functions of the type:
+
+\[
+F(\mu) = \prod\limits_{i = 1}^n g_i\left(\brac{f_i,\mu} \right)
+\]
+
+The integrability conditions we require—specifically exponential-square integrability—are far from optimal. These constraints primarily stem from the bounding constants currently available. We believe that by introducing a new Wasserstein-type distance—essentially a hybrid between $W_{\psi_1}$ and the classical Wasserstein distance—we could derive significantly improved estimates, potentially even ones that remain bounded as the time horizon $T$ tends to infinity. This would not only provide much better integration conditions on $\mu$ but a way to correlate the long-time behavior of the solution to the $\SCE$, to the early stochastic stages of the stochastic coalescence and offers a very promising perspective. It would also give uniform in time propagation of chaos in the stochastic coalescence. 
 
 The assumptions on the observables $F$ are fairly general, although the use of the distance $d_\alpha$ imposes an artificial constraint at infinity. This limitation could be mitigated by employing the proposed joint distance.
 
@@ -3715,6 +3776,31 @@ Among the observables admissible under our assumptions are, in particular, funct
     F(\mu) = g\left(\left\langle f, \mu \right\rangle\right),
 \]
 where $f$ is Lipschitz-dominated with respect to $d_\alpha$, and $g$ is a twice-differentiable function with bounded first and second derivatives.
+
+The 
+\section{Conclusion}
+\section*{Conclusion}
+
+In this work, we established an explicit convergence rate of \( \mathcal{O}(1/N) \) for expectations of a large class of observables in the Marcus–Lushnikov stochastic coalescence process with a singular kernel \( K_\alpha(x,y) = x^{-\alpha} + y^{-\alpha} \). This convergence toward the solution \( \mu_t \) of the Smoluchowski coagulation equation (SCE) is complemented by new regularity estimates in Wasserstein-type distances tailored to the singularity of the kernel.
+
+Our result implies a quantitative propagation of chaos. Specifically, by considering functionals of the form
+\[
+G(\mu) = F\left(\brac{1,\mu}^{-1} \mu \right),
+\]
+where \( F \) satisfies our regularity assumptions, we obtain the bound
+\[
+\left|\E{F\left(\dfrac{1}{N_t} \sum_{i=1}^{N_t} \delta_{X_{i,t}} \right)} - F\left(\dfrac{1}{\brac{1,\mu_t}} \mu_t \right) \right| \leq \dfrac{C(T) \|\mu\|_{e^{\psi_2}}}{N \brac{1,\mu_T}}.
+\]
+This shows that the empirical measure at time \( t \), renormalized by the total mass, converges in expectation to the normalized deterministic solution of the SCE.
+
+Although our assumptions on observables are relatively general, relying on domination in a kernel-adapted distance \( d_\alpha \), they remain limited at large masses due to technical constraints. Among the admissible functionals are
+\[
+F(\mu) = g\left(\left\langle f, \mu \right\rangle\right), \quad \text{or more generally,} \quad F(\mu) = \prod_{i=1}^n g_i\left(\left\langle f_i, \mu \right\rangle\right),
+\]
+where the \( f_i \) are Lipschitz with respect to \( d_\alpha \), and the \( g_i \) are smooth with bounded derivatives.
+
+The required exponential-square integrability of the initial data is likely non-optimal. We believe this condition can be weakened by introducing a new Wasserstein-type distance combining features of \( W_{\psi_1} \) and classical Wasserstein distances. This refined metric could yield better long-time control, more natural integrability assumptions, and uniform-in-time propagation of chaos—linking the early stochastic regime to the macroscopic dynamics in a precise and robust manner. This offers a promising direction for future research.
+
 
 \appendix
 
@@ -3902,8 +3988,7 @@ We present the following lemma stated and proved in appendix of \cite{kolokoltso
     \begin{align*}
         \left\lvert \int_A \sigma_s \dd(\mu_{t } - \mu_s) \right\rvert\leq \|\mu_t - \mu_s \| \leq |t-s|\sup\limits_{z \in [0,T]} \|\nu_z\|.
     \end{align*}
-    The term on the right hand side has the following bound 
-    \red{l'inegalité ci dessous vient d'une inegalité triangulaire sur les variation totales de mesure ($\forall A \in \Sigma, |\mu + \nu|(A) \leq |\mu|(A) + |\nu|(A))$, à montrer dans un lemme.}
+    The term on the right hand side has the following bound
     \begin{align*}
         \left\lvert \int_A\sigma_{t } \dd \mu_{t} - \int_A \sigma_{s} \dd\mu_{s} \right\rvert = \left\lvert \vphantom{A^{2^2}}|\mu_t|(A) -|\nu_t|(A) \right\rvert \leq \| \mu_{t } - \mu_s \| \leq |t-s|\sup\limits_{z \in [0,T]} \|\nu_z\|
     \end{align*}
@@ -4027,7 +4112,7 @@ Then we have the following relation for all $F \in E$:
 \end{proof}
 \section{Resultats auxiliaires}
 \begin{lemma}
-    Let $\varphi\left(t,\mu\right)$ be the solution of the Smoluchovski coagulation equation for the kernel $K_\alpha$ started from the atomic measure:
+    Let $\varphi\left(t,\mu\right)$ be the solution of the Smoluchowski coagulation equation for the kernel $K_\alpha$ started from the atomic measure:
     \begin{align*}
         \mu^N = \dfrac{1}{N}\sum\limits_{i = 1}^N x_{i,0}.
     \end{align*}
