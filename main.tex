@@ -123,7 +123,7 @@
 
 \section{Introduction}
 
-The Smoluchowski Coagulation Equation (SCE) arises as a macroscopic limit of particle systems undergoing binary coalescence. It describes the evolution of cluster size distributions under pairwise merging and has been the subject of extensive study from both deterministic and probabilistic perspectives. A seminal review of the field is provided by Aldous~\cite{aldousDeterministicStochasticModels1999}, and a recent survey of the fragmentation side of the theory can be found in~\cite{deaconuProbabilisticRepresentationsFragmentation2023}.
+The Smoluchowski Coagulation Equation (SCE) arises as a macroscopic limit of particle systems undergoing binary coalescence. It describes the evolution of cluster size distributions under pairwise merging and has been the subject of extensive study from both deterministic and probabilistic perspectives. A seminal review of the field is provided by Aldous~\cite{aldousDeterministicStochasticModels1999}, while a recent survey of the fragmentation side of the theory can be found in~\cite{deaconuProbabilisticRepresentationsFragmentation2023}.
 
 \paragraph{Context and Related Work}
 
@@ -131,7 +131,7 @@ The stochastic coalescence process models a system of $N$ particles, where each 
 \[
     M_t = \sum_{i=1}^{N_t} \delta_{X_{i,t}},
 \]
-where $X_{i,t}$ denotes the mass of cluster $i$ at time $t$. It is well known that, under suitable conditions, a rescaled version of $M_t$ converges as $N \to \infty$ to a solution $\mu_t$ of the Smoluchowski Coagulation Equation (SCE):
+where $X_{i,t}$ denotes the mass of cluster $i$ at time $t$. It is well known that, under suitable conditions, a rescaled version of $M_t$ converges as $N \to \infty$ to a solution $\mu_t$ of the Smoluchowski Coagulation Equation (SCE), first introduced for modeling aerosols in 1927~\cite{smoluchowski1927drei}:
 \begin{equation}\label{eq:SCE}
     \begin{aligned}
     \int_{\RRP} f(x)\mu_t (\dd x) =& \int_{\RRP} f(x)\mu_0 (\dd x)\\
@@ -139,12 +139,11 @@ where $X_{i,t}$ denotes the mass of cluster $i$ at time $t$. It is well known th
         K(x,y)\left[f(x+y) - f(x) - f(y)\right] \mu_s(\dd x)\mu_s(\dd y) \dd s,
     \end{aligned}
 \end{equation}
-for bounded measurable test functions $f$. The mentioned rescaled process we denote $\Proc{M^N_t} := \Proc{N^{-1}M_{N^{-1}t}}$.
+for bounded measurable test functions $f$. The corresponding rescaled process is denoted by $\Proc{M^N_t} := \Proc{N^{-1}M_{N^{-1}t}}$. This process is sometimes called the Marcus-Lushnikov process in reference to its introduction \cite{marcus1968stochastic,lushnikov1978coagulation} as a stochastic approximation of the solution to the Smoluchowski Coagulation Equation.
 
-Existence and uniqueness for~\eqref{eq:SCE} have been studied extensively, including under general conditions in~\cite{laurencotClassContinuousCoagulationFragmentation2000,lambExistenceUniquenessResults2004}. However, the singular kernel we consider in this work falls outside the scope of most classical treatments. Notably, the work by Norris~\cite{norrisSmoluchowskisCoagulationEquation1999} provides a robust framework that accommodates our kernel, but does not include rates of convergence.
+Existence and uniqueness for the Smoluchowski Coagulation Equation~\eqref{eq:SCE} have been studied extensively, including under general conditions in~\cite{laurencotClassContinuousCoagulationFragmentation2000,lambExistenceUniquenessResults2004,barikMassconservingSolutionsSmoluchowski2020}. A well-studied phenomenon is the appearance of clusters of infinite size for certain kernels known as gelling~\cite{escobedoGelationCoagulationFragmentation2002,fournier2025gelation}. However, the singular kernel considered in this work is non-gelling and falls outside the scope of most classical treatments, with some exceptions. Notably, in~\cite{fournierExistenceSelfSimilarSolutions2005} some solutions to the $\SCE$ are constructed but the stochastic coalescence is not considered. And the work by Norris~\cite{norrisSmoluchowskisCoagulationEquation1999} provides a robust framework that accommodates our kernel, though it does not address convergence rates.
 
-Convergence of the Marcus–Lushnikov process to the SCE in weak topology has been addressed in a series of important works, including~\cite{fournierConvergenceMarcusLushnikov2004,fournierStochasticCoalescenceHomogeneouslike2009,fournierDistanceCoagulation2006}, among others. However, these results typically require different assumptions on the kernel or address convergence in weaker senses. Rates of convergence have been studied under more restrictive settings, such as constant or homogeneous kernels, as in~\cite{cepedaSmoluchowskisEquationRate2011a,kyprianouUniversalityClassFragmentationcoalescence2018}.
-
+Convergence of the Marcus–Lushnikov process to the SCE in the weak topology has been addressed in a series of important works, including~\cite{fournierConvergenceMarcusLushnikov2004,fournierStochasticCoalescenceHomogeneouslike2009,fournierDistanceCoagulation2006}, among others. However, these results typically rely on assumptions that do not cover our kernel and establish convergence with no convergence rates. Pathwise rates of convergence have been studied in~\cite{cepedaSmoluchowskisEquationRate2011a}, though not in the setting involvingour kernel. Other works focus on proving Central Limit Theorem-type results for the stochastic coalescence process, notably~\cite{deaconuPureJumpMarkov2002,kolokoltsov2010central,kyprianouUniversalityClassFragmentationcoalescence2018}.
 \paragraph{Contributions of this Work}
 
 In this paper, we consider the kernel
@@ -169,7 +168,7 @@ The main convergence estimate, stated informally, is:
     where $F$ is an observable compatible with the kernel singularity, and $\mu_t$ is the solution of the SCE with initial law $\mu$.
 \end{theorem}
 
-Our analysis combines ideas from several sources: the distance construction from~\cite{cepedaSmoluchowskisEquationRate2011a}, the existence theory in~\cite{norrisSmoluchowskisCoagulationEquation1999}, the regularity analysis from~\cite{kolokoltsov2010central}, and the convergence methods of~\cite{kyprianouUniversalityClassFragmentationcoalescence2018,martiniKolmogorovEquationsSpaces2023}. The treatment of nonlinear observables also draws from recent advances in controlling errors between functionals of empirical measures, as in~\cite{delarue2025uniform} to show propagation of chaos. Notably even if this is not the main topic of this work we show how our result shows some type of weak propagation of chaos in the stochastic coalescence.
+Our analysis combines ideas from several sources: the distance construction from~\cite{cepedaSmoluchowskisEquationRate2011a}, the existence theory in~\cite{norrisSmoluchowskisCoagulationEquation1999}, the regularity analysis from~\cite{kolokoltsov2010central}, and some methods of~\cite{martiniKolmogorovEquationsSpaces2023}, to treat analysis on spaces of measures. The treatment of nonlinear observables also draws from recent advances in controlling errors between functionals of empirical measures, as in~\cite{delarue2025uniform} to show propagation of chaos. Notably even if this is not the main topic of this work we show how our result shows some type of weak propagation of chaos in the stochastic coalescence.
 
 \paragraph{Outline}
 
@@ -297,7 +296,7 @@ W_{\psi_p}(\mu, \nu) = \sup_{\substack{f \in \text{Lip}_1(d_{p\alpha}) \\ |f| \l
 \]
 \end{definition}
 
-This formulation comes from the Kantorovich–Rubinstein duality for a class of Wasserstein distances on $\MC^+_{\psi_p}(\RRP)$. However, since two measures in this space may not have equal total mass, the link to the classical optimal transport problem is not direct, and is thoroughly discussed in Section~\ref{section:Wasserstein}. This distance metrizes weak convergence along with convergence of negative $p\alpha$-moments, a well-known result (see \cite{villani2008optimal}). As a consequence, we can deduce a corollary from \cite{fournier2015rate} for the convergence of empirical measures with respect to $W_{\psi_p}$. Additionally $W_{\psi_1}$ is equivalent to the distance used in \cite{fournier2015rate} giving a pathwise convergence rate of $N^{-1/2}$ that we mentioned earlier.
+This formulation comes from the Kantorovich–Rubinstein duality for a class of Wasserstein distances on $\MC^+_{\psi_p}(\RRP)$. However, since two measures in this space may not have equal total mass, the link to the classical optimal transport problem is not direct, and is thoroughly discussed in Section~\ref{section:Wasserstein}. This distance metrizes weak convergence along with convergence of negative $p\alpha$-moments, a well-known result (see \cite{villani2008optimal}). As a consequence, we can deduce a corollary from \cite{fournier2015rate} for the convergence of empirical measures with respect to $W_{\psi_p}$. Additionally $W_{\psi_1}$ is equivalent to the distance used in \cite{cepedaSmoluchowskisEquationRate2011a} giving a pathwise convergence rate of $N^{-1/2}$ that we mentioned earlier.
 
 \begin{corollary}\label{cor:fournier_guillin}
     Assume that $\mu$ is a probability measure in $\MC_{\psi_q}$ with $q > 2p$ then there exists a constant $C>0$ such that for all $N \geq 1$ and $\mu^N$ a random empirical measure of law $\mu$:
@@ -526,7 +525,7 @@ With bracket notations the equation can be written:
 \begin{align*}
     \dfrac{d}{dt}\langle f,\mu_t \rangle = \dfrac12\langle K_\alpha f , \mu_t \otimes \mu_t\rangle.
 \end{align*}
-where $K_\alpha f(x,y) = K_{\alpha}(x,y)\left(f(x+y) - f(x) - f(y) \right)$. Results on the well-posedness of this equation for this kernel are already known, see \cite{norris1999Smoluchowski} and for completeness, we recall and reprove these results in Section \ref{section:well-posedness-SCE}. In particular, we show the following:
+where $K_\alpha f(x,y) = K_{\alpha}(x,y)\left(f(x+y) - f(x) - f(y) \right)$. Results on the well-posedness of this equation for this kernel are already known, see \cite{norrisSmoluchowskisCoagulationEquation1999} and for completeness, we recall and reprove these results in Section \ref{section:well-posedness-SCE}. In particular, we show the following:
 \begin{lemma}\label{lem:well_posedness_smol_eq}
     Let $p \geq 2$, and $\mu \in \MC_{\psi_p}^+ (\RRP)$ for all $T \geq 0$ there exists a unique solution to the Smoluchowski Coagulation Equation \eqref{eq:SCE} of parameter $K_\alpha$, said solution is a continuous map from $[0,T]$ to $\MC_{\psi_p}^+ (\RRP)$.
 \end{lemma}
@@ -701,7 +700,7 @@ Let $\mu^N$ be an empirical measure. We denote by \(\Proc{\Phi_t(\mu^N)} := \Pro
     and $P$ is a polynomial.
 \end{theorem}
 
-The main appeal of this result is that it provides nearly optimal conditions on the integrability of $\mu$. In particular, the assumption $\mu \in \MC_{\psi_2}(\RRP)$ is believed to be optimal for the existence and uniqueness of solutions to the Smoluchowski Coagulation Equation (see \cite{norris1999Smoluchowski}). We also believe that the stronger assumption $\mu \in \MC_{\psi_3}(\RRP)$ is optimal for the existence of the derivative, which is necessary to define the generator of the $\SCE$.
+The main appeal of this result is that it provides nearly optimal conditions on the integrability of $\mu$. In particular, the assumption $\mu \in \MC_{\psi_2}(\RRP)$ is believed to be optimal for the existence and uniqueness of solutions to the Smoluchowski Coagulation Equation (see \cite{norrisSmoluchowskisCoagulationEquation1999}). We also believe that the stronger assumption $\mu \in \MC_{\psi_3}(\RRP)$ is optimal for the existence of the derivative, which is necessary to define the generator of the $\SCE$.
 
 To achieve the convergence rate of $1/N$ we are forced to assume stronger integrability conditions on $\mu$. We define the following space:
 \begin{align*}
@@ -1206,7 +1205,7 @@ It is a closed subspace of $\MC_{\psi_p}(\RRP)$ and therefore is complete for th
 \begin{lemma}\label{lem:fixed-point-1}
     Assume that the initial measure $\mu$ is such that, $\| \mu\|_{\psi_p} \leq \frac{M}{2}$, there exists a time $T^{\varepsilon,M} > 0$ such that Equation \eqref{eq:cutoff_SCE} has a unique solution in $C\left([0,T^{\varepsilon,M}];\MC^{+,\varepsilon,M}_{\psi_p}(\RRP)\right)$. 
 \end{lemma}
-Before proving this lemma we give a small thecnical proposition for differentiating a family of functions. This proposition originates from Norris in \cite{norris1999Smoluchowski} and his idea to use it to show that the solutions are positive.
+Before proving this lemma we give a small thecnical proposition for differentiating a family of functions. This proposition originates from Norris in \cite{norrisSmoluchowskisCoagulationEquation1999} and his idea to use it to show that the solutions are positive.
 \begin{proposition}
     Let $T > 0$ be fixed. Let $\left(\mu_t \right)_{t \in [0,T]}$ be a family of finite measures on $\mathbb{R}^d$ such that the map $t \mapsto \mu_t$ is strongly differentiable in the total variation norm, with derivative $\nu_t$, i.e.,
     \[
@@ -1273,7 +1272,7 @@ Before proving this lemma we give a small thecnical proposition for differentiat
     \begin{align*}
         \sup\limits_{t \in [0,T]} \|\Gamma^\varepsilon(m^1)_t - \Gamma^\varepsilon(m^2)_t\|_{\psi_p} \leq 2\varepsilon^{-\alpha} CMT\sup\limits_{t \in [0,T]} \|m_t - \tilde{m}_t\|_{\psi_p} .
     \end{align*}
-    Taking $T = \frac{1}{4\varepsilon^{-\alpha}CM}$ proves the claim. Now let $T^{\varepsilon,M} = \frac{1}{4\varepsilon^{-\alpha}CM}$, the Banach contraction principle gives us existence and uniqueness of a solution to Equation \eqref{eq:cutoff_SCE} defined on the time interval $[0,T^{\varepsilon,M}]$ with values in $\MC^{\varepsilon,M}_{\psi_p}\left(\RRP\right)$. It remains to show that this solution is positive, let us call it $\mu_t^\varepsilon$. We do like Norris in \cite{norris1999Smoluchowski}, consider the function:
+    Taking $T = \frac{1}{4\varepsilon^{-\alpha}CM}$ proves the claim. Now let $T^{\varepsilon,M} = \frac{1}{4\varepsilon^{-\alpha}CM}$, the Banach contraction principle gives us existence and uniqueness of a solution to Equation \eqref{eq:cutoff_SCE} defined on the time interval $[0,T^{\varepsilon,M}]$ with values in $\MC^{\varepsilon,M}_{\psi_p}\left(\RRP\right)$. It remains to show that this solution is positive, let us call it $\mu_t^\varepsilon$. We do like Norris in \cite{norrisSmoluchowskisCoagulationEquation1999}, consider the function:
     \[
     h^\varepsilon_t(x) = \exp\left(\int_0^t\int_{\RRP}K_\alpha (x,y) \mu^\varepsilon_s(\dd y) \dd s\right).
     \]
@@ -2167,7 +2166,7 @@ Finally, we present a key regularization phenomenon: the instantaneous generatio
 \begin{proof}
     By Lemma~\ref{lem:exponential-moments}, we have:
     \begin{align}\label{proof:eq:exponential-moment-prop}
-        \int_{\RRP} \psi(x)\, e^{\int_0^t \int_{\RRP} K_{\alpha}(x,y) \mu_s(\dd y)\dd s}\, \varphi_t(\mu)(\dd x) \leq \brac{\psi,\mu} \, e^{\int_0^t \brac{\psi_1,\mu_s} \dd s}.
+        \int_{\RRP} \psi(x)\, e^{\int_0^t \int_{\RRP} K_{\alpha}(x,y) \varphi(\mu_s)(\dd y)\dd s}\, \varphi_t(\mu)(\dd x) \leq \brac{\psi,\mu} \, e^{\int_0^t \brac{\psi_1,\mu_s} \dd s}.
     \end{align}
     Given kernel $K_\alpha$ shape:
     \begin{align*}
@@ -2198,7 +2197,13 @@ The example below illustrates why the remainder of the section is technically in
     \begin{align*}
         A_tf(x) = \int_{\RRP} K'_\alpha(x,y) \left[f(x+y) - f(x) -f(y) \right]\left(\mu_s + \tilde{\mu}_s\right)(\dd y).
     \end{align*}
-    One can check with the bound stated in Lemma \ref{lem:sub-add-bounf-smol} that this is a Lipschitz function if $\mu,\tilde{\mu} \in \MC_{\psi_2}(\RRP)$. It works with $K'_\alpha$ because for all $x,y$, $K'_\alpha(x,y) \leq x^{-\alpha} \wedge y^{-\alpha}$. This is not true for $K_\alpha$.
+    To show Lipschitz regularity of the solutions to the $\SCE$ for the Wasserstein distance one has to show that $A_tf$ is a Lipschitz-dominated function for $d_{\alpha}$. To do so we can show that for fixed $y$ the function 
+    \[x \mapsto K'_\alpha(x,y) \left[f(x+y) - f(x) -f(y) \right]\]
+    is Lpischitz-dominated for $d_{\alpha}$ with constant below $1 + \psi_1(y)$. Then by the non-increasing character of the solutions to the $\SCE$ it comes that, $A_tf$ is Lipschitz-dominated with constant below $\|\tilde{\mu}_0 + \mu_0 \|_{\psi_1}$ and Gronwall's Lemma allows to conclude.
+     
+    The reason why it works without too much difficulty for $K'_\alpha$ isbecause for all $x,y$, $K'_\alpha(x,y) \leq x^{-\alpha} \wedge y^{-\alpha}$. This is not true for $K_\alpha$. This kernel is of the type treated in \cite{cepedaSmoluchowskisEquationRate2011a,fournierStochasticCoalescenceHomogeneouslike2009}. 
+
+    Our kernel on the other hand does not allow straightforward computations, instead we must use another method described in the following.
 \end{example}
 
 To still recover a bound for our kernel we exploit an idea that we initally used to show that solutions of the $\SCE$ are positive. For $\Proc{\mu_t}$ the solution of the Smoluchowski Coagulation Equation  started from $\mu$ define $h_t$:
