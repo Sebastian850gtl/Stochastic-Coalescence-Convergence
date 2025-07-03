@@ -3768,25 +3768,23 @@ Now for the proof of the final theorem.
 
 In this work, we analyzed the convergence of the stochastic coalescence process toward the Smoluchowski Coagulation Equation (SCE), focusing on a class of kernels, $K_\alpha$ that has received relatively little attention in the literature. To the best of our knowledge, the quantitative analysis of nonlinear observables in the setting of the stochastic coalescence with a singular kernel like $K_\alpha$ is novel. We also provided nearly minimal conditions for the existence and uniqueness of solutions to the SCE, along with several regularity results for the solution and its time derivative in a Wasserstein-type distance.
 
-Our main result is a quantitative convergence estimate with rate $1/N$, which is quite satisfactory from both theoretical and applied perspectives. Consider observables of the form
+Our main result is a quantitative convergence estimate with rate $1/N$, which is quite satisfactory from both theoretical and applied perspectives. We can apply our result to observables of the form
 \[
 G(\mu) = F\left( \frac{\mu}{\brac{1,\mu}} \right),
 \]
-where $F$ satisfies a set of general assumptions $(\A)$. Let the stochastic coalescence process (not time rescaled) be given by
+where $F$ satisfies a set of general assumptions $\A$. Let the stochastic coalescence process (not time rescaled) be given by
 \[
 M_t =  \sum_{i=1}^{N_t} \delta_{X_{i,t}},
 \]
 then for all $t \geq 0$, we establish the estimate
 \[
-\left| \mathbb{E} \left[ F\left( \frac{1}{N_{t/N}} \sum_{i=1}^{N_t} \delta_{X_{i,t/N}} \right) \right] - F\left( \frac{1}{\brac{1,\mu_t}} \mu_t \right) \right| \leq \frac{C(T) \|\mu\|_{e^{\psi_2}}^{C(1 + T^2)}}{N \brac{1,\mu_T}}.
+\left| \mathbb{E} \left[ F\left( \frac{1}{N_{t/N}} \sum_{i=1}^{N_{t/N}} \delta_{X_{i,t/N}} \right) \right] - F\left( \frac{1}{\brac{1,\mu_t}} \mu_t \right) \right| \leq \frac{C(T) \|\mu\|_{e^{\psi_2}}^{C(1 + T^2)}}{N \brac{1,\mu_T}^2}.
 \]
-Furthermore, we show that $\brac{1,\mu_T} \geq C T^{-\beta}$ for some $\beta > 0$, which indicates that the empirical measure converges (in a weak sense) to the normalized solution $\mu_t / \brac{1,\mu_t}$. However, the function class defined by $F$ may not be rich enough to establish full weak convergence. Instead, we derive propagation of chaos results.
-
-In particular, for observables of the form
+This results indicates that the empirical measure converges (in a weak sense) to the normalized solution $\mu_t / \brac{1,\mu_t}$. We can pair this with a propagation of chaos result. In particular, for observables of the form
 \[
-F(\mu) = g\left( \left\langle f, \mu^{\otimes k} \right\rangle \right),
+F(\mu) = g\left(\brac{1,\mu}^{-k} \left\langle f, \mu^{\otimes k} \right\rangle \right),
 \]
-where $k \geq 1$ is an integer, $f$ is a symmetric function on $(\mathbb{R}_+^*)^k$, and $g$ is twice differentiable with bounded first and second derivatives, we obtain a propagation of chaos result with rate of order $1/N$, under suitable assumptions on $f$. This indicates that, as the number of initial particles increases, the particles become asymptotically statistically independent in the time-rescaled process. Consequently a major application of this work is that the law of each individual particle $X_{i,t/N}$ can be approximated by the probability measure $\brac{1,\mu_t}^{-1} \mu_t$.
+where $k \geq 1$ is an integer, $f$ is a symmetric function on $(\mathbb{R}_+^*)^k$, and $g$ is twice differentiable with bounded first and second derivatives, we obtain a propagation of chaos result with rate of order $1/N$, under suitable assumptions on $f$. This indicates that, as the number of initial particles increases, the particles become asymptotically statistically independent in the time-rescaled process. Consequently a major application of this work is that at each time $t \geq 0$ we can approximate the state of the process by $N_t$ $iid$ random variables of law given by the probability measure $\brac{1,\mu_t}^{-1} \mu_t$.
 
 The integrability requirements we impose—specifically exponential-square integrability—are not optimal and arise primarily from limitations in currently available bounding techniques. We believe these conditions could be significantly relaxed by introducing a new Wasserstein-type distance, interpolating between $W_{\psi_1}$ and the classical Wasserstein metric. Such a development may lead to time-uniform estimates, thereby improving the integrability requirements on $\mu$ and clarifying the link between the long-time behavior of the SCE and the early stochastic dynamics of the coalescence process. This would also pave the way for uniform-in-time propagation of chaos results.
 
@@ -3794,7 +3792,7 @@ While our assumptions on observables $F$ are fairly general, the use of the dist
 
 Although the present work is specifically tailored to the kernel $K(x,y) = x^{-\alpha} + y^{-\alpha}$ with $\alpha > 0$, many of our results could extend to homogeneous kernels satisfying certain Lipschitz regularity properties for $d_\alpha$. Furthermore, with minor refinements, we expect to obtain similar convergence rates for $\alpha \in [-1,0)$, corresponding to homogeneous kernels with homogeneity in $(0,1]$.
 
-Overall, our results provide both theoretical insights and practical tools for analyzing stochastic coalescence processes and their deterministic limits. They also open several promising directions for future research, including the development of refined metric frameworks, sharper moment estimates, and applications to more complex coagulation–fragmentation models or numerical approximation schemes.
+Overall, our results provide both theoretical insights and practical tools for analyzing stochastic coalescence processes and their deterministic limits. They also open several promising directions for future research, including the development of refined metric frameworks, sharper moment estimates, and applications to more complex coagulation–fragmentation models.
 
 \appendix
 
