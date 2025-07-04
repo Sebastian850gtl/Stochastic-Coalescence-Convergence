@@ -111,7 +111,7 @@
 
 
 \begin{abstract}
-    The Smoluchowski Coagulation Equation (SCE) describes the macroscopic evolution of particle systems undergoing binary coalescence and arises as a hydrodynamic limit of stochastic coalescence processes. While convergence to the SCE is well understood in many classical settings, obtaining explicit rates of convergence remains a challenging problem—especially for singular kernels.
+    The Smoluchowski Coagulation Equation (SCE) describes the macroscopic evolution of particle systems undergoing binary coalescence and arises as a hydrodynamic limit of stochastic coalescence processes. While convergence to the SCE when the number of initial particles tends to infinity is well understood in many classical settings, obtaining explicit rates of convergence remains a challenging problem—especially for singular kernels.
     
     In this work, we study the Marcus–Lushnikov stochastic coalescence process with a singular kernel of the form \( K_\alpha(x, y) = x^{-\alpha} + y^{-\alpha} \) for \( \alpha \geq 0 \), a case not addressed by most existing analyses. We establish an explicit \( \mathcal{O}(1/N) \) convergence rate for the expected value of a broad class of observables, improving upon the classical \( \mathcal{O}(N^{-1/2}) \) pathwise bounds. The proof combines stability and regularity estimates in Wasserstein-type distances tailored to the kernel's singularity. In particular, we introduce a kernel-weighted distance \( d_\alpha \) that captures the dominant behavior near zero. These results further imply propagation of chaos for the stochastic coalescence process.
     % This analysis leverages and extends tools from probabilistic and PDE approaches to the SCE, including the weak convergence framework of Norris, distance constructions from Cepeda and Fournier, and functional error bounds inspired by recent works on mean-field limits. Our results provide a refined understanding of the link between stochastic coalescence and the deterministic SCE in a singular regime.
@@ -131,7 +131,7 @@ The stochastic coalescence process models a system of $N$ particles, where each 
 \[
     M_t = \sum_{i=1}^{N_t} \delta_{X_{i,t}},
 \]
-where $X_{i,t}$ denotes the mass of cluster $i$ at time $t$. It is well known that, under suitable conditions, a rescaled version of $M_t$ converges as $N \to \infty$ to a solution $\mu_t$ of the Smoluchowski Coagulation Equation (SCE), first introduced for modeling aerosols in 1927~\cite{smoluchowski1927drei}:
+where $X_{i,t}$ denotes the mass of cluster $i$ at time $t$ and $N_t$ is the number of clusters at time $t$. It is well known that, under suitable conditions, a rescaled version of $M_t$ converges as $N \to \infty$ to a solution $\mu_t$ of the Smoluchowski Coagulation Equation (SCE), first introduced for modeling aerosols in 1927~\cite{smoluchowski1927drei}:
 \begin{equation}\label{eq:SCE}
     \begin{aligned}
     \int_{\RRP} f(x)\mu_t (\dd x) =& \int_{\RRP} f(x)\mu_0 (\dd x)\\
@@ -139,11 +139,11 @@ where $X_{i,t}$ denotes the mass of cluster $i$ at time $t$. It is well known th
         K(x,y)\left[f(x+y) - f(x) - f(y)\right] \mu_s(\dd x)\mu_s(\dd y) \dd s,
     \end{aligned}
 \end{equation}
-for bounded measurable test functions $f$. The corresponding rescaled process is denoted by $\Proc{M^N_t} := \Proc{N^{-1}M_{N^{-1}t}}$. This process is sometimes called the Marcus-Lushnikov process in reference to its introduction \cite{marcus1968stochastic,lushnikov1978coagulation} as a stochastic approximation of the solution to the Smoluchowski Coagulation Equation.
+for any bounded measurable test functions $f$. The corresponding rescaled process is denoted by $\Proc{M^N_t} := \Proc{N^{-1}M_{N^{-1}t}}$. This process is sometimes called the Marcus-Lushnikov process in reference to its introduction \cite{marcus1968stochastic,lushnikov1978coagulation} as a stochastic approximation of the solution to the Smoluchowski Coagulation Equation.
 
 Existence and uniqueness for the Smoluchowski Coagulation Equation~\eqref{eq:SCE} have been studied extensively, including under general conditions in~\cite{laurencotClassContinuousCoagulationFragmentation2000,lambExistenceUniquenessResults2004,barikMassconservingSolutionsSmoluchowski2020}. A well-studied phenomenon is the appearance of clusters of infinite size for certain kernels known as gelling~\cite{escobedoGelationCoagulationFragmentation2002,fournier2025gelation}. However, the singular kernel considered in this work is non-gelling and falls outside the scope of most classical treatments, with some exceptions. Notably, in~\cite{fournierExistenceSelfSimilarSolutions2005} some solutions to the $\SCE$ are constructed but the stochastic coalescence is not considered. And the work by Norris~\cite{norrisSmoluchowskisCoagulationEquation1999} provides a robust framework that accommodates our kernel, though it does not address convergence rates.
 
-Convergence of the Marcus–Lushnikov process to the SCE in the weak topology has been addressed in a series of important works, including~\cite{fournierConvergenceMarcusLushnikov2004,fournierStochasticCoalescenceHomogeneouslike2009,fournierDistanceCoagulation2006}, among others. However, these results typically rely on assumptions that do not cover our kernel and establish convergence with no convergence rates. Pathwise rates of convergence have been studied in~\cite{cepedaSmoluchowskisEquationRate2011a}, though not in the setting involvingour kernel. Other works focus on proving Central Limit Theorem-type results for the stochastic coalescence process, notably~\cite{deaconuPureJumpMarkov2002,kolokoltsov2010central,kyprianouUniversalityClassFragmentationcoalescence2018}.
+Convergence of the Marcus–Lushnikov process to the SCE in the weak topology has been addressed in a series of important works, including~\cite{fournierConvergenceMarcusLushnikov2004,fournierStochasticCoalescenceHomogeneouslike2009,fournierDistanceCoagulation2006}, among others. However, these results typically rely on assumptions that do not cover our kernel and establish convergence with no convergence rates. Pathwise rates of convergence have been studied in~\cite{cepedaSmoluchowskisEquationRate2011a}, though not in the setting involving our kernel. Other works focus on proving Central Limit Theorem-type results for the stochastic coalescence process, notably~\cite{deaconuPureJumpMarkov2002,kolokoltsov2010central,kyprianouUniversalityClassFragmentationcoalescence2018}.
 \paragraph{Contributions of this Work}
 
 In this paper, we consider the kernel
@@ -177,7 +177,7 @@ The rest of the paper is organized as follows. In Section~\ref{section-main-resu
 
 
 \section{Definitions, assumptions and main results}\label{section-main-results}
-In this work, we describe the evolution of particle systems using measure-valued stochastic processes, and the Smoluchowski Coagulation Equation is formulated as an equation on measures. Elements of measure theory are given in Section~\ref{section:analysis-measures}. Among them the reader will find the definition of the Total Variation, the Radon-Nikodym derivaitve, the Hahn-Jordan decomposition and the Wasserstein distance and its extension beyond probability measures. If any ambiguity arises regarding the definitions or objects used below, we refer to that section for clarification.
+In this work, we describe the evolution of particle systems using measure-valued stochastic processes, and the Smoluchowski Coagulation Equation is formulated as an equation on measures. Elements of measure theory are given in Section~\ref{section:analysis-measures}. Among them the reader will find the definition of the Total Variation, the Radon-Nikodym derivative, the Hahn-Jordan decomposition and the Wasserstein distance and its extension beyond probability measures. If any ambiguity arises regarding the definitions or objects used below, we refer the reader to that section for clarification.
 
 
 \subsection{Notations}
@@ -185,7 +185,7 @@ The value $\alpha > 0$ appearing in $K_\alpha$ is fixed throughout all this work
 
 The notations $\brac{f,\mu}$, $\int f \dd \mu$, and $\int f(x)\mu(\dd x)$ are used interchangeably, depending on convenience. When all functions involved are integrable, we apply Fubini-Tonelli and Fubini-Lebesgue theorems as needed.
 
-Throughout this work, the term 'mass' may refer either to the value of a measure on Borel sets (in a measure-theoretic sense), or to the individual atom sizes in the context of stochastic coalescence. The meaning will be clear from context or specified if necassary, and both interpretations are fundamental to our analysis.
+Throughout this work, the term 'mass' may refer either to the value of a measure on Borel sets (in a measure-theoretic sense), or to the individual atom sizes in the context of stochastic coalescence. The meaning will be clear from context or specified if necessary, and both interpretations are fundamental to our analysis.
 
 For $E$ and $F$ two topological spaces, we denote by $C(E;F)$ the space of continuous functions from $E$ to $F$, when $F = \RR$ we denote it by $C(E)$. The space $C_b(E)$ is the subspace of $C(E)$ made of bounded continuous functions and $C_c(E)$ of compact support. 
 
@@ -199,7 +199,7 @@ or signed measures $\mu \in  \MC(\RRP)$ such that:
 \begin{align*}
     \int_{\RRP} x^{-\alpha} |\mu|(\dd x) \leq  \infty.
 \end{align*}
-In all generality let $\psi$ be a continuous, positive function. We define:
+In full generality let $\psi$ be a continuous, positive function. We define:
 \[
 \MC_{\psi}(\RRP) = \left\lbrace \mu \in \MC(\RRP) \;\middle|\; \int_{\RRP} \psi(x)\,|\mu|(\dd x) < \infty \right\rbrace,
 \]
@@ -207,7 +207,7 @@ and $\MC^+_{\psi}(\RRP)$ its restriction to positive measures. This set is the s
 \[
 \psi_p(x) = x^{-p\alpha}.
 \]
-These are the spaces of finite signed and positive measures with finite negrative $\alpha p$-moment. Note that if $p \leq q$, then:
+These are the spaces of finite signed and positive measures with finite negative $\alpha p$-moment. Note that if $p \leq q$, then:
 \[
 1 + \psi_p(x) \leq 2(1 + \psi_q(x)),
 \]
@@ -260,7 +260,7 @@ We also have the following characterisation via the supremum on continous functi
 
 
 \subsubsection*{Wasserstein Distance}
-To state the main result, we require a distance that quantifies the convergence rate of sequences of random empirical measures toward their law. Fournier and Guillin in \cite{fournier2015rate} establish convergence rates for various Wasserstein-$p$ distances. We restate the portion of their theorem that we rely on in our main result in Theorem \ref{thm:fournier-guillin}. First we clarify the definition of empirical measure.
+To state the main result, we require a distance that quantifies the convergence rate of sequences of random empirical measures toward their law. Fournier and Guillin in \cite{fournier2015rate} establish convergence rates for various Wasserstein-$p$ distances. We restate the part of their theorem that we rely on in our main result in Theorem \ref{thm:fournier-guillin}. First we clarify the definition of empirical measure.
 \begin{definition}
 We call an \emph{empirical measure} on $\RRP$ a probability measure $\mu^N$ of the form:
 \[
@@ -305,7 +305,7 @@ This formulation comes from the Kantorovich–Rubinstein duality for a class of 
     \end{align*} 
 \end{corollary}
 \begin{proof}
-    This proof relies on the argument that $\left(\RRP,d_{p\alpha}\right)$ is the same as $\left(\RRP,|\cdot|\right)$ through the lense of the isometry $x \mapsto x^{-\frac{1}{p\alpha}}$. Let $\tilde{\mu}$ be the probability measure on $\RRP$ such that for all $f$ be bounded measurable:
+    This proof relies on the argument that $\left(\RRP,d_{p\alpha}\right)$ is the same as $\left(\RRP,|\cdot|\right)$ through the lens of the isometry $x \mapsto x^{-\frac{1}{p\alpha}}$. Let $\tilde{\mu}$ be the probability measure on $\RRP$ such that for all $f$ be bounded measurable:
     \[\brac{f,\tilde{\mu}} = \int_{\RRP} f(x^{-p\alpha}) \mu(\dd x)\]
     In essense if $X \sim \mu$ then $\tilde{\mu}$ is simply the law of $X^{-p\alpha}$. This measure is uniquely defined thanks to the Riesz representation theorem. Define also $\tilde{\mu}^N$ the empirical measure equal to:
     \begin{align*}
@@ -335,7 +335,7 @@ The space $\MC^+_{\psi_p}\left(\RRP \right)$ is not complete for this distance, 
 \begin{align*}
     W_{\psi_p}\left(\delta_{q_1},\delta_{q_2}\right) = d_{p\alpha}\left(q_1,q_2 \right) \leq 2N^{-p\alpha}.
 \end{align*}
-It is a Cauchy sequence but does not converge toward any measure in $\MC^+_{\psi_p}\left(\RRP \right)$, as the limit is the measure $\delta_{\infty}$. The issue comes from the fact that $\left(\RRP,d_\alpha\right)$ is not complete, we need to add a point at infinity as stated in the Proposition below. Algebraic operations with infinity are defined as the classic operations on limit of sequences. 
+It is a Cauchy sequence but does not converge toward any measure in $\MC^+_{\psi_p}\left(\RRP \right)$, as the limit is the measure $\delta_{\infty}$ with a single mass at inifnity. The issue comes from the fact that $\left(\RRP,d_\alpha\right)$ is not complete, we need to add a point at infinity as stated in the Proposition below. Algebraic operations with infinity are defined as the classic operations on limit of sequences. 
 \begin{proposition}
     The space $\left(\RRP \cup \lbrace+\infty\rbrace ,d_\alpha\right)$ is complete. 
 \end{proposition}
@@ -381,9 +381,9 @@ Classical works involving those derivatives are \cite{martiniKolmogorovEquations
 \begin{definition}
     Let $F: \MC^+_{\psi_p}(\RRP) \to \RR$ be a continuous function we say that $F$ has a flat derivative if there exists a function $\delta_{\mu}F :\MC^+_{\psi_p}(\RRP) \times \RRP \to \RR $ continuous in the product topology such that for all $\mu,\nu \in \MC^+_{\psi_p}(\RRP) $:
     \[ F(\mu) - F(\nu) = \int_0^1 \int_{\RRP} \delta_\mu F(\theta \mu + (1-\theta)\nu;x)\left(\mu - \nu\right)(\dd x)\dd \theta.\]
-    And we deonte the space of differentiable functions with a flat derivative $C^1(\MC_{\psi_p}^+(\RRP))$.
+    And we denote the space of differentiable functions with a flat derivative $C^1(\MC_{\psi_p}^+(\RRP))$.
 \end{definition}
-We also define the derivaitve a function with values in $\MC^+_{\psi_p}(\RRP) $.
+We also define the derivative a function with values in $\MC^+_{\psi_p}(\RRP) $.
 \begin{definition}
      Let $\varphi: \MC^+_{\psi}(\RRP) \to \MC^+_{\psi}(\RRP)$ be a continuous function we say that $\varphi$ has a weak flat derivative if there exists, a function $\delta_{\mu}\varphi :\MC^+_{\psi}(\RRP) \times \RRP \to \MC_{\psi}(\RRP)$ continous in the product topology such that for all $\mu,\nu \in \MC^+_{\psi}(\RRP)$ and for all $f$ measurable, $|f| \leq 1 + \psi$:
      \begin{itemize}
@@ -397,12 +397,12 @@ We give a formulation of the chain rule.
 \begin{proposition}\label{prop:chain-rule}
     Let $F : \MC_{\psi_p}^+(\RRP) \to \RR$ and $\varphi : \MC^+_{\psi_p} \to \MC_{\psi_p}^+(\RRP)$ have flat derivatives. Assume that:
     \begin{itemize}
-        \item For all $\mu \in \MC^+_{\psi_p}(\RRP)$, $x \mapsto \delta_u F(\mu,x)$ is Lipschitz-dominated in $d_{p\alpha}$ with a constant bounded by some $u(\|\mu\|_{\psi_p})$ where $u$ is a non-decreasing function on $\RR^+$.
+        \item For all $\mu \in \MC^+_{\psi_p}(\RRP)$, $x \mapsto \delta_u F(\mu,x)$ is Lipschitz-dominated in $d_{p\alpha}$ with a constant bounded by some $u(\|\mu\|_{\psi_p})$ where $u$ is a non-decreasing positive function on $\RR^+$.
         \item For all $\mu,x \in \MC^+_{\psi_p}(\RRP)\times \RRP$, for all $f$ Lipschitz-dominated for $d_{p\alpha}$ with constant $C$, 
         \begin{align*}
             \brac{f, \delta_\mu \varphi(\mu;x)} \leq Cv(\|\mu\|_{\psi_p})(1 + \psi_p(x)), 
         \end{align*}
-        where $v$ is a non-decreasing function on $\RR^+$.
+        where $v$ is a non-decreasing positive function on $\RR^+$.
     \end{itemize}
     Then \(F\circ \varphi : \MC_{\psi_p}^+(\RRP) \to \RR\) has a flat derivative and it is equal to:
     \[
@@ -437,7 +437,7 @@ We give a formulation of the chain rule.
     \end{align*}
     The rest of the proof is devoted to the verifications of the needed hypothesis. First we show that that the expression in bracket is well dominated:
     \begin{multline*}
-        \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, \cdot \right),\delta_\mu \varphi\left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} ,x\right)} \\
+        \left| \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, \cdot \right),\delta_\mu \varphi\left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} ,x\right)} \right| \\
         \leq u\left(\left\|\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1} \right\|_{\psi_p}\right)\times v\left(\left\|\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} \right\|_{\psi_p}\right)\times  ( 1 + \psi_p(x)).
     \end{multline*}
     Note that for positive measures $\left[\mu,\nu \right]^\theta \leq \mu + \nu$, and therefore because $v$ is non-decreasing:
@@ -450,7 +450,7 @@ We give a formulation of the chain rule.
         &= h\int_0^1 \brac{f, \delta_\mu \varphi \left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_3};x \right)} (\mu - \nu)(\dd x) \lambda_3\\
         &\leq h v\left(\left\|\mu + \nu\right\|_{\psi_p}\right) \brac{1 + \psi_p, |\mu - \nu|}.
     \end{align*}
-    Therefore by letting the LHS go to the supremum we have:
+    Therefore by taking the supremum over $f$ on the LHS we have:
     \begin{align*}
         W_{\psi_p}\left(\varphi\left([\mu,\nu]^{\theta + h}\right), \varphi\left([\mu,\nu]^{\theta}\right) \right) \leq h v\left(\left\|\mu + \nu\right\|_{\psi_p}\right) \brac{1 + \psi_p, |\mu - \nu|}.
     \end{align*}
@@ -460,7 +460,7 @@ We give a formulation of the chain rule.
     \end{align*}
     and finally for $h$ small enough:
     \begin{multline*}
-        \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, \cdot \right),\delta_\mu \varphi\left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} ,x\right)} \\
+        \left| \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, \cdot \right),\delta_\mu \varphi\left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} ,x\right)} \right| \\
         \leq u\left(\left\|\varphi\left([\mu,\nu]^{\theta }\right)+ 1\right\|_{\psi_p}\right)\times v\left(\left\|\mu + \nu\right\|_{\psi_p}\right)\times  ( 1 + \psi_p(x)).
     \end{multline*}
     We show that the integrand converges pointwise, we can rewrite it
@@ -483,7 +483,7 @@ We give a formulation of the chain rule.
         \leq u\left(\left\|\varphi\left([\mu,\nu]^{\theta }\right)+ 1\right\|_{\psi_p}\right) W_{\psi_p} \left(\delta_\mu \varphi\left(\left[ [\mu,\nu]^{\theta + h}, [\mu,\nu]^{\theta }\right]^{\lambda_2} ,x\right) , \delta_\mu \varphi\left([\mu,\nu]^{\theta } ,x\right) \right) 
         \xrightarrow[h \to 0]{} 0.
     \end{multline*}
-    Now to the treat the second term we already know that:
+    Now for the second term we already know that:
     \begin{align*}
         W_{\psi_p}\left(\varphi\left([\mu,\nu]^{\theta + h}\right), \varphi\left([\mu,\nu]^{\theta}\right) \right) \xrightarrow[h \to 0]{} 0
     \end{align*}
@@ -491,7 +491,7 @@ We give a formulation of the chain rule.
     \begin{align*}
         z \mapsto \delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, z\right)
     \end{align*}
-    converges pointwise when $h \to 0$ to $x \mapsto \delta_\mu F\left(\varphi\left([\mu,\nu]^{\theta}\right), x\right)$. It is also dominated by an integrable function by hypothesis and therfore by the domianted convergence theorem:
+    converges pointwise when $h \to 0$ to $x \mapsto \delta_\mu F\left(\varphi\left([\mu,\nu]^{\theta}\right), x\right)$. It is also dominated by an integrable function by hypothesis and therefore by the dominated convergence theorem:
     \begin{multline*}
         \brac{\delta_\mu F\left(\left[\varphi\left([\mu,\nu]^{\theta + h}\right),\varphi\left([\mu,\nu]^{\theta}\right)\right]^{\lambda_1}, \cdot \right) ,\delta_\mu \varphi\left([\mu,\nu]^{\theta } ,x\right)} \\
         \xrightarrow[h \to 0]{} \brac{\delta_\mu F\left(\varphi\left([\mu,\nu]^{\theta}\right), \cdot \right) ,\delta_\mu \varphi\left([\mu,\nu]^{\theta } ,x\right)}.
@@ -508,9 +508,9 @@ We give a formulation of the chain rule.
     \begin{align*}
         \lim\limits_{h \to 0} h^{-1}\left(g(\theta + h) - g(\theta)\right) = \int_{\RRP} \brac{\delta_\mu F\left(\varphi\left([\mu,\nu]^{\theta}\right), \cdot \right),\delta_\mu \varphi\left([\mu,\nu]^{\theta } ,x\right)}(\mu -\nu)(\dd x).
     \end{align*}
-    Terefore $g$ is differentiable and we get the desired result.
+    Therefore $g$ is differentiable and we get the desired result.
 \end{proof}
-There exists many formulation of the latter depending on the properties of the considered functions. For instance we could take $x \mapsto \delta_\mu F(\mu;x)$ only dominated and measurable instead of Lipschitz if $\varphi$ was continuous in the strong topology which are conditions also aplicable in our setting, however the conditions suffice for the theorem we provide.
+There exists many formulations of the latter chain rule depending on the properties of the considered functions. For instance we could take $x \mapsto \delta_\mu F(\mu;x)$ only dominated and measurable instead of Lipschitz if $\varphi$ was continuous in the strong topology which are conditions also aplicable in our setting, however the conditions suffice for the theorem we provide.
 
 \subsection{The Smoluchowski Coagulation Equation}
 The Smoluchowski Coagulation Equation ($\SCE$) of kernel $K_\alpha$ and intial value $\mu$, is an equation defined on measured value functions defined in its weak form as for all bounded measurable function $f$:
@@ -548,7 +548,7 @@ The notation $\delta_\mu F$ is the flat derivative of $F$ it is defined in \ref{
     \begin{align*}
         F(\mu_t) - F(\mu_s) = \int_0^1 \int_{\RRP} \delta_\mu F(\left[\mu_t,\mu_s \right]^\theta;z) \left(\mu_t - \mu_s \right)(\dd z) \dd \theta.
     \end{align*}
-    By hypothesis on $F$ the functional part of its derivaitve $\delta_\mu F(\mu,\cdot)$ is dominated by $C(\|\mu\|_{\psi_p})(1 + \psi_p)$ and $C$ is a non-decreasing function. It comes that for all $s \geq 0$:
+    By hypothesis on $F$ the functional part of its derivative $\delta_\mu F(\mu,\cdot)$ is dominated by $C(\|\mu\|_{\psi_p})(1 + \psi_p)$ and $C$ is a non-decreasing function. It comes that for all $s \geq 0$:
     \begin{align*}
         \delta_\mu F(\left[\mu_t,\mu_s \right]^\theta;z) \leq C(\|\mu_t\|_{\psi_p}) (1 + \psi_p(z)). 
     \end{align*}
@@ -663,7 +663,7 @@ When $F$ is differentiable the infinitesimal generator $\LC_{SC}$ can be express
     \end{multline*}
 \end{proposition}
 \begin{proof}
-    Immediate by the definition of the flat derivaitve and because for all $\mu \in \MC_{\psi_1}^+\left(\RRP \right)$ and $x,y \in \RRP$, measures $\mu + \frac{1}{N}\left(\delta_{x + y} - \delta_x - \delta_y\right)$ and $\mu + \frac{1}{N}\left(\delta_{2x} - 2\delta_x \right)$ are in $\MC_{\psi_1}\left(\RRP \right)$.
+    Immediate by the definition of the flat derivative and because for all $\mu \in \MC_{\psi_1}^+\left(\RRP \right)$ and $x,y \in \RRP$, measures $\mu + \frac{1}{N}\left(\delta_{x + y} - \delta_x - \delta_y\right)$ and $\mu + \frac{1}{N}\left(\delta_{2x} - 2\delta_x \right)$ are in $\MC_{\psi_1}\left(\RRP \right)$.
 \end{proof}
 
 \subsection{Main result}
@@ -865,7 +865,7 @@ A common abuse of notation is to write $\nu_{a} = f\mu$. Notice that in all gene
 \begin{align*}
         |\mu| = |f|\nu.
 \end{align*}
-Indeed it is easy to see that $\mu^+ = f^+\nu$ and $\mu^- = f^- \nu$ where $f^+ = \max(0,f),\ f^- = -\min(0,f)$. We can use the Radon Nikodym derivaitve to prove the following.
+Indeed it is easy to see that $\mu^+ = f^+\nu$ and $\mu^- = f^- \nu$ where $f^+ = \max(0,f),\ f^- = -\min(0,f)$. We can use the Radon Nikodym derivative to prove the following.
 
 \begin{proposition}\label{prop:TV-banach}
     The space \(\left(\MC\left(E\right),\| .\|\right) \) is Banach.
@@ -1117,7 +1117,7 @@ and this distance is therefore well-posed. One could also remark that $W_{1}(\mu
 
 \section{The Smoluchowski Coagulation Equation and its derivative}\label{section:well-posedness-SCE}
 
-The goal of this section is to prove that the Smoluchowski Coagulation Equation is well-posed as stated in Lemma~\ref{lem:well_posedness_smol_eq}. And that the existence of a flat derivaitve and well-posedness of its equation as in Lemma~\ref{lem:derivative-existence-and-eq}. The difficult part lies in the singulariry in $0$ of the considered kernel. We use classical thechnics, building solutions as the limit of approximations defined on intervals $[\varepsilon,\infty)$ for $\varepsilon > 0$ and then use completeness arguments to show their convergence. In all this section we use total variation like norms.
+The goal of this section is to prove that the Smoluchowski Coagulation Equation is well-posed as stated in Lemma~\ref{lem:well_posedness_smol_eq}. And that the existence of a flat derivative and well-posedness of its equation as in Lemma~\ref{lem:derivative-existence-and-eq}. The difficult part lies in the singulariry in $0$ of the considered kernel. We use classical thechnics, building solutions as the limit of approximations defined on intervals $[\varepsilon,\infty)$ for $\varepsilon > 0$ and then use completeness arguments to show their convergence. In all this section we use total variation like norms.
 
 \subsection{Smoluchowski}
 In this section we show well-posedness of Smolochowski coagulation equations as stated in Lemma \ref{lem:well_posedness_smol_eq}. For this purpose we first provide a priori bounds, then we use a fixed point theorem to prove well-posedness of appproximations and finally use a priori bounds and completeness to show the Lemma.
@@ -1466,7 +1466,7 @@ Now let us give a bound for two distinct initial values in Equation \eqref{eq:de
 \end{proof}
 
 \subsubsection{Well posedness of the linearized derivative's equation}
-The goal of the following is to show that the equation followed by the derivaitve of the $\SCE$ solutions is well-posed.
+The goal of the following is to show that the equation followed by the derivative of the $\SCE$ solutions is well-posed.
 \begin{lemma}\label{lem:well_posedness_derivative_eq}
     Let $p \geq 2$ and denote by $\Proc{\mu_t}$ the solution of the Smoluchowski Coagulation equation started from $\mu \in \MC^+_{\psi_{p + 1}}\left(\RRP\right)$. Equation \eqref{eq:derivative-initial-general} defined for all $f \in C_b(\RR^+_*)$ by:
     \begin{align*}
@@ -3491,7 +3491,7 @@ where the constant $C$ is of the form:
     \begin{align*}
         \mu^\theta_N = \mu + \frac{\theta}{N}\left(\delta_{x + y} - \delta_x - \delta_y \right)
     \end{align*}
-    Note that if $\psi$ is non-increasing then $\|\mu^\theta_N\|_{\psi} \leq \|\mu\|_{\psi}$ and therefore we can write all constants appearing in bounds below as functions of $\mu$ and $T$. By hypothesis on $F$, differentiability of $\mu \mapsto \varphi_t(\mu)$, and Lipschitz regualrity of its derivaitve we can apply the chain rule Lemma \ref{prop:chain-rule}. Let $\nu,z \in \MC^+_{\psi_1}(\RRP),\RRP$ we have:
+    Note that if $\psi$ is non-increasing then $\|\mu^\theta_N\|_{\psi} \leq \|\mu\|_{\psi}$ and therefore we can write all constants appearing in bounds below as functions of $\mu$ and $T$. By hypothesis on $F$, differentiability of $\mu \mapsto \varphi_t(\mu)$, and Lipschitz regualrity of its derivative we can apply the chain rule Lemma \ref{prop:chain-rule}. Let $\nu,z \in \MC^+_{\psi_1}(\RRP),\RRP$ we have:
     \begin{align*}
         \delta_\mu F\circ \varphi_s(\nu;z) = \brac{\delta_\mu F(\varphi_s(\nu);\cdot),\delta_\mu \varphi_s (\nu;z)}.
     \end{align*}
