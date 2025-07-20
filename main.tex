@@ -273,7 +273,7 @@ where $x_1, \dots, x_N$ are elements of $\RRP$. Let $\mu$ be a probability measu
 where $X_1, \dots, X_N$ are i.i.d. random variables with law $\mu$.
 \end{definition}
 
-\begin{theorem}[Wasserstein Convergence Rate {\cite{fournier2015rate}}]\label{thm:fournier-guillin}
+\begin{theorem}[Wasserstein Convergence Rate, adapted from {\cite{fournier2015rate}}]\label{thm:fournier-guillin}
 Let $W_1$ be the Wasserstein-1 distance (see Definition~\ref{def:Wasserstein}). Assume that $\mu$ has a finite moment of order $q > 2$, i.e., $\brac{x^q,\mu} < \infty$, and denote by $\mu^N$ a random empirical measure of law $\mu$. There exists a constant $C > 0$ such that for all $N \geq 1$:
 \[
 W_1\left(\mu^N, \mu\right) \leq \brac{x^q,\mu}^{\frac{1}{q}} \dfrac{C}{\sqrt{N}} \quad \text{a.s.}
@@ -284,11 +284,11 @@ This motivates the use of a Wasserstein-type distance on the spaces $\MC_{\psi_p
 \[
 d_{p\alpha}(x, y) = |x^{-p\alpha} - y^{-p\alpha}|.
 \]
-We denote the space of Lipschitz functions for $d_{p\alpha}$ with Lipschitz semi-norm equal to $1$ be:
+The distance $d_{\alpha}$ was originally proposed in \cite{fournierDistanceCoagulation2006} for homogeneous kernels but not ours. We denote the space of Lipschitz functions for $d_{p\alpha}$ with Lipschitz semi-norm equal to $1$ be:
 \[
 \text{Lip}_1(d_{p\alpha}) = \left\lbrace f: \RRP \to \RR \middle| \sup_{x \neq y \in \RRP} \dfrac{|f(x) - f(y)|}{d_{p\alpha}(x, y)} \leq 1 \right\rbrace.
 \]
-We say that a function in $Lip_C(d_{p\alpha})$ and dominated by $C(1 + \psi_p)$ is \textbf{Lipschitz-dominated} for $d_{p\alpha}$ with constant $C$.
+We say that a function in $\text{Lip}_C(d_{p\alpha})$ and dominated by $C(1 + \psi_p)$ is \textbf{Lipschitz-dominated} for $d_{p\alpha}$ with constant $C$.
 \begin{definition}
 We define the $\psi_p$-Wasserstein distance on $\MC^+_{\psi_p}\left(\RRP \right)$ by:
 \[
@@ -296,7 +296,7 @@ W_{\psi_p}(\mu, \nu) = \sup_{\substack{f \in \text{Lip}_1(d_{p\alpha}) \\ |f| \l
 \]
 \end{definition}
 
-This formulation comes from the Kantorovich–Rubinstein duality for a class of Wasserstein distances on $\MC^+_{\psi_p}(\RRP)$. However, since two measures in this space may not have equal total mass, the link to the classical optimal transport problem is not direct, and is thoroughly discussed in Section~\ref{section:Wasserstein}. This distance metrizes weak convergence along with convergence of negative $p\alpha$-moments, a well-known result (see \cite{villani2008optimal}). As a consequence, we can deduce a corollary from \cite{fournier2015rate} for the convergence of empirical measures with respect to $W_{\psi_p}$. Additionally $W_{\psi_1}$ is equivalent to the distance used in \cite{cepedaSmoluchowskisEquationRate2011a} giving a pathwise convergence rate of $N^{-1/2}$ that we mentioned earlier.
+This formulation comes from the Kantorovich–Rubinstein duality for a class of Wasserstein distances on $\MC^+_{\psi_p}(\RRP)$. However, since two measures in this space may not have equal total mass, the link to the classical optimal transport problem is not direct, and is thoroughly discussed in Section~\ref{section:Wasserstein}. This distance metrizes weak convergence along with convergence of negative $p\alpha$-moments, a well-known result (see \cite{villani2008optimal}). As a consequence, we can deduce a corollary from \cite{fournier2015rate} for the convergence of empirical measures with respect to $W_{\psi_p}$. Additionally $W_{\psi_1}$ is equivalent to the distance used by Cepeda and Fournier in \cite{cepedaSmoluchowskisEquationRate2011a} giving a pathwise convergence rate of $N^{-1/2}$ that we mentioned earlier.
 
 \begin{corollary}\label{cor:fournier_guillin}
     Assume that $\mu$ is a probability measure in $\MC_{\psi_q}$ with $q > 2p$ then there exists a constant $C>0$ such that for all $N \geq 1$ and $\mu^N$ a random empirical measure of law $\mu$:
@@ -321,7 +321,7 @@ This formulation comes from the Kantorovich–Rubinstein duality for a class of 
     \end{align*}
     Indeed we have the equivalence:
     \begin{align*}
-        f \in Lip_1(|\cdot|) \leftrightarrow f\circ(x \mapsto x^{-p\alpha}) \in Lip_1(d_{p\alpha}).
+        f \in \text{Lip}_1(|\cdot|) \leftrightarrow f\circ(x \mapsto x^{-p\alpha}) \in \text{Lip}_1(d_{p\alpha}).
     \end{align*}
     By Theorem \ref{thm:fournier-guillin} there exists $C > 0$ such that:
     \begin{align*}
@@ -335,7 +335,7 @@ The space $\MC^+_{\psi_p}\left(\RRP \right)$ is not complete for this distance, 
 \begin{align*}
     W_{\psi_p}\left(\delta_{q_1},\delta_{q_2}\right) = d_{p\alpha}\left(q_1,q_2 \right) \leq 2N^{-p\alpha}.
 \end{align*}
-It is a Cauchy sequence but does not converge toward any measure in $\MC^+_{\psi_p}\left(\RRP \right)$, as the limit is the measure $\delta_{\infty}$ with a single mass at inifnity. The issue comes from the fact that $\left(\RRP,d_\alpha\right)$ is not complete, we need to add a point at infinity as stated in the Proposition below. Algebraic operations with infinity are defined as the classic operations on limit of sequences. 
+It is a Cauchy sequence but does not converge toward any measure in $\MC^+_{\psi_p}\left(\RRP \right)$, as the limit is the measure $\delta_{\infty}$ with a single mass at inifnity. The issue comes from the fact that $\left(\RRP,d_\alpha\right)$ is not complete, we need to add a point at infinity as stated in the Proposition below. Algebraic operations with infinity are defined as the classic operations on limit of sequences. We also extend the definition of the distance as so $d_{\alpha}(x,\infty) = x^{-\alpha}$ for all $x \in \RRP$.
 \begin{proposition}
     The space $\left(\RRP \cup \lbrace+\infty\rbrace ,d_\alpha\right)$ is complete. 
 \end{proposition}
@@ -356,18 +356,22 @@ It is a Cauchy sequence but does not converge toward any measure in $\MC^+_{\psi
         \end{aligned}
         \right. .
     \end{equation*}
-    Our space therefore inherits completeness.
+    The targeted space therefore inherits completeness.
 \end{proof}
 
 \begin{proposition}
     The space $\left( \MC^+_{\psi_p}\left(\RRP \cup \lbrace+\infty\rbrace\right),W_{\psi_p}\right) $ is complete.
 \end{proposition}
 \begin{proof}
-    Notice that for all $\mu,\nu \in \MC^+_{\psi_p}\left(\RRP \cup \lbrace+\infty\rbrace\right)$:
+    Note that for all $f \in \text{Lip}_1(d_{p\alpha})$:
     \begin{align*}
-        W_{\psi_p}(\mu,\nu) = \sup_{\substack{f \in Lip_1(d_{p\alpha}) \\ |f(+\infty)| \leq 1 }} \brac{f, \mu - \nu}.
+        |f(+\infty)| \leq 1 \Leftrightarrow |f| \leq 1 + \psi_p.
     \end{align*}
-    Because of Proposition \ref{prop:equivalent-notation} this is exactly the distance defined in Definition \ref{def:Wasserstein-general} with $x_0 = \infty$, since the space $\left(\RRP \cup \lbrace+\infty\rbrace ,d_\alpha\right)$ is complete the result follows by Proposition \ref{prop:completness-wasserstein}.
+    Consequently for all $\mu,\nu \in \MC^+_{\psi_p}\left(\RRP \cup \lbrace+\infty\rbrace\right)$:
+    \begin{align*}
+        W_{\psi_p}(\mu,\nu) = \sup_{\substack{f \in \text{Lip}_1(d_{p\alpha}) \\ |f(+\infty)| \leq 1 }} \brac{f, \mu - \nu}.
+    \end{align*}
+    The space $\left(\RRP \cup \lbrace+\infty\rbrace ,d_\alpha\right)$ being complete the result follows by Proposition \ref{prop:completness-wasserstein}.
 \end{proof}
 This distance can also be extended to the set of finite signed measures $\MC_{\psi_p}(\RRP)$ however even adding a point at infinity does not make it complete, as in general signed spaces of measures are not complete for the Wasserstein distance see \cite{piccoli2016properties}.
 
@@ -1371,13 +1375,13 @@ Our strategy is to show that we can extract from the family of solutions $\left(
 
 \subsection{First derivative}
 %In this section we show the well-posedness of the Smoluchowski Coagulation Equation for $K_\alpha$ we also show Proposition \ref{prop:smol_derivative_equation}. 
-In this section we want to differentiate the solution of the $\SCE$ with respect to its initial measure. The solution of $\SCE$ can be seen as mapping of $\MC^+_{\psi_p}\left(\RRP \right)$ into the set of continuous functions $C\left([0,T];\MC^+_{\psi_p}\left(\RRP \right)\right)$ that we denote by $\mu \mapsto \Proc{\varphi_t(\mu)}$. We would like some insight on the flat derivative of the latter function $\delta_\mu \varphi_t(\mu,z)$. A formal differentiation of the Smoluchowski Coagulation Equation gives us that $t \mapsto \delta_\mu \varphi_t(\mu,z)$ is solution to the equation given in its weak formulationby :
+In this section we want to differentiate the solution of the $\SCE$ with respect to its initial measure. The solution of $\SCE$ can be seen as mapping of $\MC^+_{\psi_p}\left(\RRP \right)$ into the set of continuous functions $C\left([0,T];\MC^+_{\psi_p}\left(\RRP \right)\right)$ that we denote by $\mu \mapsto \Proc{\varphi_t(\mu)}$. We would like some insight on the flat derivative of the latter function $\delta_\mu \varphi_t(\mu,z)$. A formal differentiation of the Smoluchowski Coagulation Equation gives us that $t \mapsto \delta_\mu \varphi_t(\mu,z)$ is solution to the equation given in its weak formulation by :
 \begin{align*}
-    \brac{f,\delta_\mu \varphi_t(\mu,z)} = f(z) + \int_0^t \brac{Kf,\varphi_s(\mu)\otimes \delta_\mu \varphi_s(\mu,z)}\dd s.
+    \brac{f,\delta_\mu \varphi_t(\mu,z)} = f(z) + \int_0^t \brac{K_\alpha f,\varphi_s(\mu)\otimes \delta_\mu \varphi_s(\mu,z)}\dd s.
 \end{align*}
 The first part of this section is devoted to show that $\mu \mapsto \Proc{\varphi_t(\mu)}$ is differentiable and its derivative follows the latter equation. This equation is particular case of the following: 
 \begin{equation}\label{eq:derivative-initial-general}
-    \brac{f,m_t} = \brac{f,m} + \brac{Kf,\varphi_s(\mu)\otimes m_s}\dd s
+    \brac{f,m_t} = \brac{f,m} + \brac{K_\alpha f,\varphi_s(\mu)\otimes m_s}\dd s
 \end{equation}
 In the second and third part part we give relevant bounds on Equation \eqref{eq:derivative-initial-general} In the third part we show that all involved equations are well posed.
 
@@ -2187,7 +2191,7 @@ The example below illustrates why the remainder of the section is technically in
     \begin{align*}
         K'_\alpha(x,y) = (x+y)^{-\alpha} .
     \end{align*}
-    This kernel as opposed to $K_\alpha$ is only singular in $(0,0)$. Let us try to bound the Wasserstein distance at a given time with the initial one. Let $f \in Lip_1(d_\alpha)$ we have :
+    This kernel as opposed to $K_\alpha$ is only singular in $(0,0)$. Let us try to bound the Wasserstein distance at a given time with the initial one. Let $f \in \text{Lip}_1(d_\alpha)$ we have :
     \begin{multline*}
         \brac{f,\mu_t - \tilde{\mu}_t} = \brac{f,\mu - \tilde{\mu}} \\
         + \int_0^t \int_{\RRP}\int_{\RRP} K'_\alpha(x,y) \left[f(x+y) - f(x) -f(y) \right]\left(\mu_s + \tilde{\mu}_s\right)(\dd x) \left( \mu_s - \tilde{\mu}_s\right)(\dd y)\dd s.
@@ -2224,7 +2228,7 @@ Finally we recall some elements that will be used below. As mentioned we call $\
 We need to check two points:
 \begin{itemize}
     \item The function $|f| \leq C(1 + \psi_1)$, this is called the \textbf{domination} hypothesis.
-    \item The function $f \in Lip_C(d_\alpha)$, this is the \textbf{Lipschitz regularity} hypothesis.
+    \item The function $f \in \text{Lip}_C(d_\alpha)$, this is the \textbf{Lipschitz regularity} hypothesis.
 \end{itemize}
 A function satisfying both is said to be \textbf{Lipschitz-dominated for} $d_\alpha$.
 
@@ -2422,7 +2426,7 @@ We can prove using the same techniques that for all non-increasing $\psi$ the de
 \subsection{Technical lemma and control of rescaled solutions}\label{section:wass-technical}
 In all our proofs we use the equivalence between:
 \begin{align*}
-    f \in Lip_1(d_\alpha) \leftrightarrow f \text{ differentiable a.e and } |f'(x)| \leq \alpha x^{-1-\alpha} \text{a.e}.
+    f \in \text{Lip}_1(d_\alpha) \leftrightarrow f \text{ differentiable a.e and } |f'(x)| \leq \alpha x^{-1-\alpha} \text{a.e}.
 \end{align*}
 see proof in \ref{prop:characterisation-lip-1}. Let $\Proc{\mu_t}, \Proc{\tilde{\mu}_t}$ be two solutions of the Smoluchowski Coagulation Equation of kernel $K_\alpha$ with initial states respectively $\mu,\tilde{\mu}$. Recall $h_t$ defined by:
 \begin{align*}
@@ -2608,7 +2612,7 @@ and $\tilde{G}_t$ defined similarly. To be able to use Wasserstein bounds we nee
     \begin{align*}
         g(z) = K_\alpha(x+y,z) - K_\alpha(x,z) -K_\alpha(y,z) = (x+y)^{-\alpha} -x^{-\alpha} - y^{-\alpha} - z^{-\alpha}.
     \end{align*}
-    The function $g$ is in $Lip_1(d_\alpha)$ and it is bounded by: 
+    The function $g$ is in $\text{Lip}_1(d_\alpha)$ and it is bounded by: 
     \begin{align*}
         |g(z)| \leq z^{-\alpha} + 2x^{-\alpha} + y^{-\alpha} \leq C(1 + z^{-\alpha})(1 + x^{-\alpha} + y^{-\alpha})
     \end{align*}
@@ -2678,7 +2682,7 @@ and $\tilde{G}_t$ defined similarly. To be able to use Wasserstein bounds we nee
 \end{proof}
 We give a lemma controlling the rescaled derivative of the $\SCE$.
 \begin{lemma}\label{lem:wass-rescaled-derivative}
-    Let $f \in Lip_1(d_\alpha)$ and $|f| \leq 1 + \psi_1$. Let $T > 0$ be a fixed horizon of time for all $t \in [0,T]$ the following assertions hold.
+    Let $f \in \text{Lip}_1(d_\alpha)$ and $|f| \leq 1 + \psi_1$. Let $T > 0$ be a fixed horizon of time for all $t \in [0,T]$ the following assertions hold.
     \begin{enumerate}[label=(\roman*)]
         \item Assume that $\mu \in \MC_{\psi_3}(\RRP)$ for all $z \in \RRP$:
         \begin{align*}
@@ -2863,7 +2867,7 @@ This lemma can be interpreted as follows: The first point shows that the solutio
         \tilde{H}_tf(x,y) &= K_\alpha(x,y) f(x+y) \tilde{h}_t(x+y)\left(\tilde{h}_t(x)\tilde{h}_t(y)\right)^{-1}\\
         &= f(x+y) \tilde{G}_t(x,y).
     \end{align*}
-    Let $f$ be in $Lip_1(d_{\alpha p})$ and $|f| \leq \psi_p$ we have for all $t \geq 0$:
+    Let $f$ be in $\text{Lip}_1(d_{\alpha p})$ and $|f| \leq \psi_p$ we have for all $t \geq 0$:
     \begin{align*}
         \brac{f,h_t\mu_t - \tilde{h}_t \tilde{\mu}_t} = \brac{f,\mu - \tilde{\mu}} + \int_0^t \brac{H_sf,\left(h_s\mu_s\right)^{ \otimes 2}} - \brac{\tilde{H}_sf,\left(\tilde{h}_s\tilde{\mu}_s\right)^{\otimes 2}} \dd s.
     \end{align*}
@@ -2925,7 +2929,7 @@ This lemma can be interpreted as follows: The first point shows that the solutio
         \brac{H_tf,\left(h_t\mu_t\vphantom{\tilde{\mu}}\right)^{\otimes 2}} - \brac{\tilde{H}_tf,\left(\tilde{h}_t\tilde{\mu}_t\right)^{\otimes 2}}\\
         \leq C(T,\mu + \tilde{\mu}) W_{\psi_1}(\mu,\tilde{\mu}) + C\left(\|\mu\|_{\psi_{p}}+ \|\tilde{\mu}\|_{\psi_{p}} \right)W_{\psi_1}(h_t\mu_t, \tilde{h}_t \tilde{\mu}_t) .
     \end{multline*}
-    And finally for $f \in Lip_1(d_{\alpha p})$:
+    And finally for $f \in \text{Lip}_1(d_{\alpha p})$:
     \begin{multline*}
         \brac{f, h_t\mu_t - \tilde{h}_t\tilde{\mu}_t} \leq W_{\psi_p}(\mu,\tilde{\mu}) +  C(T,\mu + \tilde{\mu}) W_{\psi_1}(\mu,\tilde{\mu})\\
          + C\left(\|\mu\|_{\psi_{p}}+ \|\tilde{\mu}\|_{\psi_{p}} \right)\int_0^t W_{\psi_1}(h_s\mu_s, \tilde{h}_s \tilde{\mu}_s) \dd s.
@@ -2977,7 +2981,7 @@ This lemma can be interpreted as follows: The first point shows that the solutio
     \begin{align*}
         W_{\psi_1}\left(m_t\right) \leq \tilde{W}\left(h_tm_t\right).
     \end{align*}
-    Let $f$ in $Lip_1(d_\alpha)$ and for all $x \in \RRP$, $|f| \leq 1 + \psi_1$. Notice that $h_t$ is positive, a quick computations yields:
+    Let $f$ in $\text{Lip}_1(d_\alpha)$ and for all $x \in \RRP$, $|f| \leq 1 + \psi_1$. Notice that $h_t$ is positive, a quick computations yields:
     \begin{align*}
         \brac{f,m_t} &= \brac{f(h_t)^{-1},h_tm_t}.
     \end{align*}
@@ -3209,7 +3213,7 @@ This lemma can be interpreted as follows: The first point shows that the solutio
         I_tf(x,y) 
         &= K_\alpha(x,y)f(x)\left(h_t(y)\right)^{-1}.
     \end{align*}
-    We similarly define $\tilde{H}_tf$ and $\tilde{I}_tf$. One gets for $f$ such that $f \in Lip_1(d_{\alpha})$ such that $|f| \leq 1 + \psi_1$:
+    We similarly define $\tilde{H}_tf$ and $\tilde{I}_tf$. One gets for $f$ such that $f \in \text{Lip}_1(d_{\alpha})$ such that $|f| \leq 1 + \psi_1$:
     \begin{subequations}
     \begin{align}
         \brac{f, h_tm_t - \tilde{h}_t\tilde{m}_t} =& \int_0^t \brac{H_sf- I_sf ,h_s\mu_s \otimes \left(h_sm_s - \tilde{h}_s\tilde{m}_s \right) } \dd s\label{proof:eq:wass-finale-step-2-1}\\ 
@@ -3524,14 +3528,14 @@ where the constant $C$ is of the form:
     \end{align*}
     Finally,
     \begin{align*}
-        W_{\psi_1}\left(\mu^\theta_N,\mu\right) &= \dfrac{\theta}{N} \sup\limits_{\substack{f \in Lip_1(d_\alpha) \\ |f| \leq 1 + \psi_1}} f(x+y) - f(x) - f(y) \\
+        W_{\psi_1}\left(\mu^\theta_N,\mu\right) &= \dfrac{\theta}{N} \sup\limits_{\substack{f \in \text{Lip}_1(d_\alpha) \\ |f| \leq 1 + \psi_1}} f(x+y) - f(x) - f(y) \\
         &\leq \dfrac{\theta}{N} C(1 + \psi_1(x) + \psi_1(y))
     \end{align*}
     and we get:
     \begin{align*}
         \brac{\delta_\mu F\left(\varphi_s\left(\mu^\theta_N\right),\cdot\right) - \delta_\mu F(\varphi_s(\mu);\cdot),\delta_\mu \varphi_s (\mu;z)} \leq \dfrac{C(T,\mu)}{N}(1 + \psi_1(z) + \psi_1(x) + \psi_1(y)).
     \end{align*}
-    For the term \eqref{proof:eq:samesame-part2}, since $z \mapsto \delta_\mu F\left(\varphi_s\left(\mu^\theta_N\right);z\right)$ lies in $Lip_1(d_\alpha)$, we have by point $1$ of Proposition \ref{prop:wass-final}:
+    For the term \eqref{proof:eq:samesame-part2}, since $z \mapsto \delta_\mu F\left(\varphi_s\left(\mu^\theta_N\right);z\right)$ lies in $\text{Lip}_1(d_\alpha)$, we have by point $1$ of Proposition \ref{prop:wass-final}:
     \begin{multline*}
         \brac{\delta_\mu F\left(\varphi_s\left(\mu^\theta_N\right);\cdot\right),\delta_\mu \varphi_s \left(\mu^\theta_N;z\right) - \delta_\mu \varphi_s (\mu;z)}\\
          \leq C(T,\mu) \left(W_{\psi_1}\left(\mu^\theta_N, \mu\right) + W_{\psi_2}\left(\mu^\theta_N, \mu\right) \right)(1 + \psi_1{z} + \psi_2(z)).
@@ -4128,6 +4132,6 @@ Then we have the following relation for all $F \in E$:
 %     where $C_\gamma = 2 - 2^{\gamma}$.
 % \end{lemma}
 
-\bibliographystyle{plain}
+\bibliographystyle{unsrt}
 \bibliography{mybib}
 \end{document}
